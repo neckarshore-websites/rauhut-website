@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Core palette — Schwarz / Weiss / Grau */
+  --color-text: #0A0A0A;
+  --color-text-muted: #525252;
+  --color-text-subtle: #737373;
+  --color-border: #E5E5E5;
+  --color-border-strong: #D4D4D4;
+  --color-bg: #FFFFFF;
+  --color-bg-muted: #FAFAFA;
+
+  /* Signalfarbe — Pastell Blau-Grau (Stuttgart morning sky) */
+  --color-accent: #8DA5C4;
+  --color-accent-hover: #6B89AD;
+
+  /* Typography */
+  --font-sans: var(--font-inter);
+
+  /* Spacing (8px grid) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-24: 96px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Focus state — pastel accent ring */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Links — subtle, Material-minimal */
+a {
+  color: var(--color-accent-hover);
+  text-decoration: none;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* Hairline divider between sections */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}
+
+/* Tables — minimal, no cell-borders, only row-rules */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+th,
+td {
+  padding: 0.875rem 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+th {
+  font-weight: 500;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 0;
+}
+
+td + td,
+th + th {
+  padding-left: 1.5rem;
+}
+
+/* Details / Summary — custom marker */
+details {
+  padding: 1.5rem 0;
+}
+
+details summary {
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::before {
+  content: "+";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-accent);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+details[open] summary::before {
+  content: "−";
+}
+
+details summary:hover {
+  color: var(--color-text);
+}
+
+details[open] summary {
+  margin-bottom: 1.5rem;
+}
+
+/* Headings tight tracking */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
