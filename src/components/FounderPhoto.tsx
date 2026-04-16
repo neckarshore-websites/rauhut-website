@@ -29,9 +29,9 @@ export default function FounderPhoto() {
         src={photo.src}
         alt={photo.alt}
         width={180}
-        height={180}
+        height={240}
         sizes="(min-width: 640px) 180px, 140px"
-        className="h-[140px] w-[140px] rounded-2xl object-cover sm:h-[180px] sm:w-[180px]"
+        className="h-[186px] w-[140px] rounded-2xl object-cover sm:h-[240px] sm:w-[180px]"
         priority
       />
     </button>

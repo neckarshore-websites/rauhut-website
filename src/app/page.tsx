@@ -1,5 +1,5 @@
 import FounderPhoto from "@/components/FounderPhoto";
-import NeckarshoreBanner from "@/components/NeckarshoreBanner";
+import ProjectTiles from "@/components/ProjectTiles";
 
 export default function HomePage() {
   return (
@@ -22,9 +22,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Neckarshore AI Banner */}
+      {/* Project Tiles — Neckarshore + Obsidian Vault Autopilot */}
       <div className="mb-16 sm:mb-20">
-        <NeckarshoreBanner />
+        <ProjectTiles />
       </div>
 
       <hr />
@@ -225,12 +225,9 @@ export default function HomePage() {
 
           <div className="space-y-6 text-[0.9375rem] leading-relaxed text-text-muted">
             <p>
-              Vor Mercedes-Benz: 15 Jahre Consulting, Softwareentwicklung und
+              Vor Mercedes-Benz: 22 Jahre Consulting, Softwareentwicklung und
               operative Führungsrollen in Deutschland, Schweiz und Thailand.
-              Einstieg in Bangkok (1993–2000), Aufbau und Leitung von
-              Softwareentwicklung (SoftControl Co., Ltd) über 4 Jahre, davor
-              operative Führungsrollen (Factory / Procurement / Production
-              Manager).
+              Einstieg 1993 in Bangkok.
             </p>
 
             <table>
@@ -299,6 +296,27 @@ export default function HomePage() {
                   <td>10/2000 – 01/2001</td>
                   <td>Softwareentwickler</td>
                   <td>EDM Müller + Partner — Reporting-System</td>
+                </tr>
+                <tr>
+                  <td>07/1996 – 06/2000</td>
+                  <td>Manager Software Development</td>
+                  <td>
+                    SoftControl Co., Ltd, Bangkok — Business Software &amp;
+                    Internetprogrammierung, Aufbau und Leitung der Entwicklung
+                  </td>
+                </tr>
+                <tr>
+                  <td>08/1994 – 12/1994</td>
+                  <td>IT Consultant</td>
+                  <td>
+                    SoftControl Co., Ltd, Bangkok — Business
+                    Softwareentwicklung
+                  </td>
+                </tr>
+                <tr>
+                  <td>03/1993 – 06/1996</td>
+                  <td>Factory / Procurement / Production Manager</td>
+                  <td>Operative Führungsrollen in Thailand</td>
                 </tr>
               </tbody>
             </table>
