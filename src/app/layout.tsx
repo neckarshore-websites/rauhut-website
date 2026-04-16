@@ -30,6 +30,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://rauhut.com/",
+    languages: {
+      "de-DE": "https://rauhut.com/",
+      "en-US": "https://rauhut.com/en",
+      "x-default": "https://rauhut.com/",
+    },
   },
 };
 

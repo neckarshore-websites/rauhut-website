@@ -10,6 +10,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 1.0,
+      alternates: {
+        languages: {
+          de: `${base}/`,
+          en: `${base}/en`,
+        },
+      },
+    },
+    {
+      url: `${base}/en`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+      alternates: {
+        languages: {
+          de: `${base}/`,
+          en: `${base}/en`,
+        },
+      },
     },
     {
       url: `${base}/impressum`,

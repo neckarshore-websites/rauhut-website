@@ -1,14 +1,42 @@
+import type { Metadata } from "next";
 import FounderPhoto from "@/components/FounderPhoto";
 import ProjectTiles from "@/components/ProjectTiles";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
 
-export default function HomePage() {
+export const metadata: Metadata = {
+  title: "German Rauhut — Technical Product Owner & AI Product Builder",
+  description:
+    "Technical Product Owner and AI Product Builder based in Stuttgart, Germany. 10+ years at Mercedes-Benz, now freelance and building AI products (Neckarshore AI, OMNIXIS Documenter, Obsidian Vault Autopilot).",
+  openGraph: {
+    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    description:
+      "Bridge-builder between business and technology. Mercedes-Benz alum, now AI Product Builder at Neckarshore AI.",
+    url: "https://rauhut.com/en",
+    siteName: "rauhut.com",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: { index: true, follow: true },
+  alternates: {
+    canonical: "https://rauhut.com/en",
+    languages: {
+      "de-DE": "https://rauhut.com/",
+      "en-US": "https://rauhut.com/en",
+      "x-default": "https://rauhut.com/",
+    },
+  },
+};
+
+export default function HomePageEN() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+    // lang="en" on <main> signals English subtree to screen readers
+    // without needing to refactor into [locale]/layout.tsx. Root <html>
+    // keeps lang="de" as site default.
+    <main lang="en" className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
       {/* Top bar — language toggle + theme toggle */}
       <div className="mb-10 flex items-center justify-between">
-        <LangToggle current="de" />
+        <LangToggle current="en" />
         <ThemeToggle />
       </div>
 
@@ -23,7 +51,8 @@ export default function HomePage() {
               Technical Product Owner &amp; AI Product Builder
             </p>
             <p className="mt-1 text-sm text-text-subtle">
-              Diplom-Betriebswirt (BA Stuttgart, Fachrichtung Datenverarbeitung)
+              Diplom-Betriebswirt · Business Information Systems, DHBW
+              Stuttgart
             </p>
           </div>
           <FounderPhoto />
@@ -37,73 +66,79 @@ export default function HomePage() {
 
       <hr />
 
-      {/* Zusammenfassung */}
-      <section className="py-16 sm:py-20" aria-labelledby="zusammenfassung">
+      {/* About */}
+      <section className="py-16 sm:py-20" aria-labelledby="about">
         <h2
-          id="zusammenfassung"
+          id="about"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
-          Zusammenfassung
+          About
         </h2>
         <p className="text-lg leading-relaxed">
-          Brückenbauer zwischen Business und Technologie — mit 10+ Jahren
-          Erfahrung in internationalen Automotive-Projekten (Mercedes-Benz) und
-          einer zweiten Karriere als AI-Produktentwickler. Heute verbinde ich
-          Anforderungs- und Testmanagement aus der Konzernwelt mit hands-on AI
-          Engineering: eigene Produkte, Multi-Agent-Entwicklungsprozesse,
-          Full-Stack-Umsetzung.
+          Bridge-builder between business and technology — with 10+ years
+          of experience in international automotive projects
+          (Mercedes-Benz) and a second career as an AI product builder.
+          Today I combine requirements and test management from the
+          corporate world with hands-on AI engineering: own products,
+          multi-agent development processes, full-stack delivery.
         </p>
       </section>
 
       <hr />
 
-      {/* Kernkompetenzen */}
-      <section className="py-16 sm:py-20" aria-labelledby="kernkompetenzen">
+      {/* Core Competencies */}
+      <section className="py-16 sm:py-20" aria-labelledby="competencies">
         <h2
-          id="kernkompetenzen"
+          id="competencies"
           className="mb-8 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
-          Kernkompetenzen
+          Core Competencies
         </h2>
         <table>
           <thead>
             <tr>
               <th scope="col" className="w-1/2">
-                Heute
+                Today
               </th>
               <th scope="col" className="w-1/2">
-                Fundament
+                Foundation
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                AI Product Development — Multi-Agent-Architekturen,
-                LLM-Integration, Prompt Engineering
+                AI Product Development — multi-agent architectures, LLM
+                integration, prompt engineering
               </td>
               <td>
-                Anforderungsmanagement — Grobkonzept bis technische Story
-              </td>
-            </tr>
-            <tr>
-              <td>Technical Product Ownership — Vision, Backlog, Delivery</td>
-              <td>
-                Projektmanagement — klassisch &amp; agil, internationale Teams
+                Requirements Management — from rough concept to technical
+                story
               </td>
             </tr>
             <tr>
               <td>
-                Full-Stack Engineering — NestJS, TypeScript, PostgreSQL, Redis,
-                Docker
+                Technical Product Ownership — vision, backlog, delivery
               </td>
               <td>
-                Testmanagement — E2E, API, Automatisierung, Teststrategie
+                Project Management — classic &amp; agile, international
+                teams
               </td>
             </tr>
             <tr>
-              <td>DevOps &amp; CI/CD — GitHub Actions, Vercel, Monitoring</td>
-              <td>Enterprise-Beratung — ITSM, Release Mgmt, Change Mgmt</td>
+              <td>
+                Full-Stack Engineering — NestJS, TypeScript, PostgreSQL,
+                Redis, Docker
+              </td>
+              <td>
+                Test Management — E2E, API, automation, test strategy
+              </td>
+            </tr>
+            <tr>
+              <td>DevOps &amp; CI/CD — GitHub Actions, Vercel, monitoring</td>
+              <td>
+                Enterprise Consulting — ITSM, Release Mgmt, Change Mgmt
+              </td>
             </tr>
           </tbody>
         </table>
@@ -111,73 +146,75 @@ export default function HomePage() {
 
       <hr />
 
-      {/* Projekte */}
-      <section className="py-16 sm:py-20" aria-labelledby="projekte">
+      {/* Projects */}
+      <section className="py-16 sm:py-20" aria-labelledby="projects">
         <h2
-          id="projekte"
+          id="projects"
           className="mb-10 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
-          Projekte
+          Projects
         </h2>
 
         <article className="mb-14">
           <header className="mb-4">
             <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-              Seit 10/2025 · Freelance
+              Since 10/2025 · Freelance
             </p>
             <h3 className="mt-1 text-xl font-semibold tracking-tight">
-              Neckarshore AI — Technical Product Owner &amp; AI Product Builder
+              Neckarshore AI — Technical Product Owner &amp; AI Product
+              Builder
             </h3>
           </header>
           <p className="mb-5 leading-relaxed text-text-muted">
-            Aufbau eigener AI-Produkte und Open-Source-Tools. Hands-on
-            Engineering kombiniert mit Product Ownership.
+            Building my own AI products and open-source tools. Hands-on
+            engineering combined with product ownership.
           </p>
           <ul className="space-y-3 text-[0.9375rem] leading-relaxed">
             <li>
-              <strong className="font-semibold">OMNIXIS Documenter</strong> —
-              AI-gestützte Dokumentations-Engine. Generierung von Compliance-,
-              Technik- und Release-Dokumentation aus Git, Jira und Confluence.
-              466 Tests, 95 API-Endpoints, RBAC, Monitoring-Stack.
+              <strong className="font-semibold">OMNIXIS Documenter</strong>{" "}
+              — AI-powered documentation engine. Generates compliance,
+              technical, and release documentation from Git, Jira, and
+              Confluence. 466 tests, 95 API endpoints, RBAC, monitoring
+              stack.
             </li>
             <li>
               <strong className="font-semibold">
                 Obsidian Vault Autopilot
               </strong>{" "}
-              — Open-Source-Plugin für automatisiertes Wissensmanagement
-              (Markdown, YAML Frontmatter, Obsidian API). Kurz vor Public Launch
-              auf GitHub.
+              — Open-source plugin for automated knowledge management
+              (Markdown, YAML frontmatter, Obsidian API). Nearing public
+              launch on GitHub.
             </li>
             <li>
               <strong className="font-semibold">
-                KI-gestützter Multi-Agent-Entwicklungsprozess
+                AI-powered multi-agent development process
               </strong>{" "}
-              — 12+ spezialisierte AI-Agenten (Architektur, Implementation,
-              Security, Refactoring, Marketing) mit strukturiertem
-              Handoff-Protokoll, paralleler Ausführung und automatisierter
-              Qualitätssicherung.
+              — 12+ specialized AI agents (architecture, implementation,
+              security, refactoring, marketing) with structured handoff
+              protocol, parallel execution, and automated quality
+              assurance.
             </li>
           </ul>
           <p className="mt-5 text-sm text-text-subtle">
-            Stack: NestJS, TypeScript, PostgreSQL, Redis/BullMQ, Next.js, Claude
-            Code (Opus), Docker, GitHub Actions, Vercel
+            Stack: NestJS, TypeScript, PostgreSQL, Redis/BullMQ, Next.js,
+            Claude Code (Opus), Docker, GitHub Actions, Vercel
           </p>
         </article>
 
         <article className="mb-14">
           <header className="mb-4">
             <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-              07/2015 – 10/2025 · Angestellt &amp; extern
+              07/2015 – 10/2025 · Employed &amp; external
             </p>
             <h3 className="mt-1 text-xl font-semibold tracking-tight">
-              Mercedes-Benz AG &amp; Umfeld
+              Mercedes-Benz AG &amp; ecosystem
             </h3>
           </header>
           <p className="mb-5 leading-relaxed text-text-muted">
-            10 Jahre im Mercedes-Benz-Ökosystem — vom Tester über den Business
-            IT Consultant zum Technical Product Owner. Durchgehend in agilen,
-            internationalen Projekten mit wachsender Verantwortung für Produkt,
-            Architektur und Prozess.
+            10 years in the Mercedes-Benz ecosystem — from tester to
+            Business IT Consultant to Technical Product Owner.
+            Throughout: agile, international projects with growing
+            responsibility for product, architecture, and process.
           </p>
           <ul className="space-y-4 text-[0.9375rem] leading-relaxed">
             <li>
@@ -188,10 +225,11 @@ export default function HomePage() {
                 <strong className="font-semibold">
                   Technical Product Owner
                 </strong>{" "}
-                — PLUS.Classic &amp; PLUS.NextGen. Product Owner für ein
-                Stammdaten-Produkt (ACL) im PLUS NextGen Programm. Agile
-                Entwicklung mit Team in Südafrika, KI-Prototyping,
-                ITSM-Beratung, Plant Relationship Manager Sindelfingen.
+                — PLUS.Classic &amp; PLUS.NextGen. Product Owner for a
+                master-data product (ACL) within the PLUS NextGen
+                program. Agile development with a team in South Africa,
+                AI prototyping, ITSM consulting, Plant Relationship
+                Manager Sindelfingen.
               </p>
             </li>
             <li>
@@ -202,10 +240,11 @@ export default function HomePage() {
                 <strong className="font-semibold">
                   Senior Business IT Consultant
                 </strong>{" "}
-                — SFMd, konzernweite Digitalisierung des Shopfloormanagements.
-                Anforderungsanalyse, Automatisierung der Konfiguration (&gt;
-                50.000 KPI), Aufbau Testautomation (Katalon/Selenium),
-                Release-Steuerung im 2-Wochen-Rhythmus.
+                — SFMd, group-wide digitalization of shop-floor
+                management. Requirements analysis, automation of
+                configuration (&gt; 50,000 KPI), test automation setup
+                (Katalon/Selenium), release management on a 2-week
+                cadence.
               </p>
             </li>
             <li>
@@ -216,35 +255,36 @@ export default function HomePage() {
                 <strong className="font-semibold">
                   Senior Business Analyst &amp; Tester
                 </strong>{" "}
-                — TestGilde GmbH, Endkunde Daimler AG. Internationale Webseite
-                für ein Automobilprodukt. Anforderungsanalyse,
-                Regressions-/Progressionstests, Release Management.
+                — TestGilde GmbH, end-customer Daimler AG. International
+                website for an automotive product. Requirements analysis,
+                regression/progression testing, release management.
               </p>
             </li>
           </ul>
           <p className="mt-5 text-sm text-text-subtle">
-            Übergreifend: SCRUM, JIRA, Confluence, REST-APIs, Postman, JSON,
+            Overall: SCRUM, JIRA, Confluence, REST APIs, Postman, JSON,
             ServiceNow, Katalon (Selenium), MS SQL Server, Adobe AEM
           </p>
         </article>
 
         <details>
-          <summary>Frühere Stationen (1993 – 2015)</summary>
+          <summary>Earlier roles (1992 – 2015)</summary>
 
           <div className="space-y-6 text-[0.9375rem] leading-relaxed text-text-muted">
             <p>
-              Vor Mercedes-Benz: 23 Jahre Laufbahn — Wehrdienst bei der Luftwaffe 1992,
-              dann Consulting, Softwareentwicklung und operative Führungsrollen in
-              Deutschland, Schweiz und Thailand. Einstieg ins Zivilberufsleben 1993
-              in Bangkok.
+              Before Mercedes-Benz: 23 years of career — mandatory
+              military service with the German Air Force in 1992, then
+              consulting, software development, and operational
+              leadership roles in Germany, Switzerland, and Thailand.
+              Entry into civilian professional life in 1993 in Bangkok.
             </p>
 
             <table>
               <thead>
                 <tr>
-                  <th scope="col">Zeitraum</th>
-                  <th scope="col">Rolle</th>
-                  <th scope="col">Kontext</th>
+                  <th scope="col">Period</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -252,91 +292,107 @@ export default function HomePage() {
                   <td>07/2014 – 06/2015</td>
                   <td>Senior PM Compliance</td>
                   <td>
-                    Cellent Finance Solutions, Stuttgart — spezialisierte
-                    AML-Anwendung
+                    Cellent Finance Solutions, Stuttgart — specialized
+                    AML application
                   </td>
                 </tr>
                 <tr>
                   <td>10/2011 – 06/2014</td>
                   <td>Business IT Consultant</td>
-                  <td>Contargo AG, Basel — Speditionssoftware 4ward</td>
+                  <td>
+                    Contargo AG, Basel — freight forwarding software
+                    4ward
+                  </td>
                 </tr>
                 <tr>
                   <td>10/2013 – 12/2013</td>
                   <td>Business IT Consultant</td>
                   <td>
-                    Deutsche Bank, Frankfurt — Embargo-Filtering-Prozesse
+                    Deutsche Bank, Frankfurt — embargo filtering
+                    processes
                   </td>
                 </tr>
                 <tr>
                   <td>06/2010 – 07/2013</td>
-                  <td>Teilprojektleiter</td>
-                  <td>Allianz AMOS — AML Softwareimplementierung</td>
+                  <td>Subproject Lead</td>
+                  <td>Allianz AMOS — AML software implementation</td>
                 </tr>
                 <tr>
                   <td>04/2007 – 03/2010</td>
                   <td>Business IT Consultant</td>
                   <td>
                     Regional Container Lines (RCL), Bangkok — ERP
-                    Implementierung
+                    implementation
                   </td>
                 </tr>
                 <tr>
                   <td>03/2007</td>
                   <td>Business IT Consultant</td>
-                  <td>Contargo, Ludwigshafen — CRM-Auswahl</td>
+                  <td>Contargo, Ludwigshafen — CRM selection</td>
                 </tr>
                 <tr>
                   <td>08/2006 – 01/2007</td>
                   <td>Business IT Consultant</td>
-                  <td>BMT AG, Basel — Standardsoftware M+R</td>
+                  <td>BMT AG, Basel — M+R standard software</td>
                 </tr>
                 <tr>
                   <td>03/2004 – 06/2006</td>
                   <td>Senior eBusiness Consultant</td>
-                  <td>Rhenus AG — ERP &amp; Terminal Management System</td>
+                  <td>
+                    Rhenus AG — ERP &amp; Terminal Management System
+                  </td>
                 </tr>
                 <tr>
                   <td>02/2001 – 02/2004</td>
                   <td>Senior Consultant</td>
-                  <td>plenum Systems — CRM Banken &amp; Versicherung</td>
+                  <td>
+                    plenum Systems — CRM for banking &amp; insurance
+                  </td>
                 </tr>
                 <tr>
                   <td>10/2000 – 01/2001</td>
-                  <td>Softwareentwickler</td>
-                  <td>EDM Müller + Partner — Reporting-System</td>
+                  <td>Software Developer</td>
+                  <td>EDM Müller + Partner — reporting system</td>
                 </tr>
                 <tr>
                   <td>07/1996 – 06/2000</td>
                   <td>Manager Software Development</td>
                   <td>
-                    SoftControl Co., Ltd, Bangkok — Business Software &amp;
-                    Internetprogrammierung, Aufbau und Leitung der Entwicklung
+                    SoftControl Co., Ltd, Bangkok — business software
+                    &amp; internet programming, founded and led the
+                    development unit
                   </td>
                 </tr>
                 <tr>
                   <td>08/1994 – 12/1994</td>
                   <td>IT Consultant</td>
                   <td>
-                    SoftControl Co., Ltd, Bangkok — Business
-                    Softwareentwicklung
+                    SoftControl Co., Ltd, Bangkok — business software
+                    development
                   </td>
                 </tr>
                 <tr>
                   <td>03/1993 – 06/1996</td>
-                  <td>Factory / Procurement / Production Manager</td>
-                  <td>Operative Führungsrollen in Thailand</td>
+                  <td>
+                    Factory / Procurement / Production Manager
+                  </td>
+                  <td>
+                    Operational leadership roles in Thailand
+                  </td>
                 </tr>
                 <tr>
                   <td>1992</td>
-                  <td>Wehrdienst, Luftwaffe</td>
                   <td>
-                    Programmierzentrum der Luftwaffe für fliegende Waffensysteme
-                    (ProgrZLwflgWS) —{" "}
+                    Mandatory Military Service, German Air Force
+                  </td>
+                  <td>
+                    Programmierzentrum der Luftwaffe für fliegende
+                    Waffensysteme (ProgrZLwflgWS) —{" "}
                     <a
                       href="https://de.wikipedia.org/wiki/Welfen-Kaserne_(Landsberg_am_Lech)"
                       target="_blank"
                       rel="noopener noreferrer"
+                      lang="de"
                     >
                       Welfen-Kaserne, Landsberg am Lech
                     </a>
@@ -350,17 +406,17 @@ export default function HomePage() {
 
       <hr />
 
-      {/* Kontakt */}
-      <section className="py-16 sm:py-20" aria-labelledby="kontakt">
+      {/* Contact */}
+      <section className="py-16 sm:py-20" aria-labelledby="contact">
         <h2
-          id="kontakt"
+          id="contact"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
-          Kontakt
+          Contact
         </h2>
         <ul className="space-y-3 text-lg">
           <li>
-            <span className="text-text-subtle">E-Mail</span>{" "}
+            <span className="text-text-subtle">Email</span>{" "}
             <a href="mailto:german@rauhut.com">german@rauhut.com</a>
           </li>
           <li>
@@ -392,7 +448,9 @@ export default function HomePage() {
       <footer className="pt-10 pb-4 text-sm text-text-subtle">
         <p>
           © {new Date().getFullYear()} German Rauhut ·{" "}
-          <a href="/impressum">Impressum</a>
+          <a href="/impressum" lang="de">
+            Imprint (German)
+          </a>
         </p>
       </footer>
     </main>

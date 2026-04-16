@@ -29,13 +29,15 @@ Port **3001** (statt Standard 3000), um Kollision mit `neckarshore-website` zu v
 
 | Pfad | Zweck |
 |------|-------|
-| `src/app/page.tsx` | Startseite: Header, Zusammenfassung, Kernkompetenzen, Projekte, Kontakt |
-| `src/app/impressum/page.tsx` | Impressum (§5 TMG), `noindex` |
+| `src/app/page.tsx` | Startseite DE: Header, Zusammenfassung, Kernkompetenzen, Projekte, Kontakt |
+| `src/app/en/page.tsx` | Startseite EN (volle Uebersetzung, `<main lang="en">`) |
+| `src/app/impressum/page.tsx` | Impressum (§5 TMG), `noindex`, DE-only |
 | `src/app/icon.svg` + `favicon.ico` + `apple-icon.png` | Favicon (SVG primary, ICO legacy, 180x180 fuer iOS) |
-| `src/app/sitemap.ts` | Sitemap fuer `/` + `/impressum` |
+| `src/app/sitemap.ts` | Sitemap fuer `/`, `/en`, `/impressum` mit hreflang-alternates |
 | `src/components/FounderPhoto.tsx` | Portrait-Wechsel (Client Component) |
 | `src/components/ProjectTiles.tsx` | Neckarshore + Obsidian Vault Autopilot Tiles |
 | `src/components/ThemeToggle.tsx` | Dark/Light Toggle (CSS-driven, DOM-only) |
+| `src/components/LangToggle.tsx` | DE/EN Sprach-Nav (SSR-friendly, current = span, other = Link) |
 | `src/fonts/Inter-Variable.woff2` | self-hosted Inter Variable (DSGVO) |
 | `public/theme-init.js` | Anti-Flash Script, laeuft vor Paint |
 
@@ -65,8 +67,8 @@ Lighthouse Baseline:
 
 - Keine Analytics, kein Tracking, kein Cookie-Banner
 - Self-hosted Font (DSGVO)
-- `robots: index` auf `/`, `robots: noindex` auf `/impressum`
-- English Version: geplant (`/en` Route)
+- `robots: index` auf `/` und `/en`, `robots: noindex` auf `/impressum`
+- i18n: DE (default) + EN (`/en`), hreflang-alternates in Metadata + Sitemap. Impressum bleibt DE-only (rechtlich erforderlich).
 
 ## Ownership
 

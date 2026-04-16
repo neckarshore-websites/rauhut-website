@@ -29,7 +29,7 @@ export default function ProjectTiles() {
 
       {/* Obsidian Vault Autopilot — GitHub */}
       <a
-        href="https://github.com/GmanFooFoo"
+        href="https://github.com/neckarshore-ai/obsidian-vault-autopilot"
         target="_blank"
         rel="noopener noreferrer"
         className="group flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#2E1065] to-[#1E0D47] p-6 text-[#F5F3FF] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:ring-[#A78BFA]/30 hover:shadow-[0_10px_40px_-15px_rgba(167,139,250,0.25)]"
