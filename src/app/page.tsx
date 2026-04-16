@@ -1,18 +1,31 @@
+import FounderPhoto from "@/components/FounderPhoto";
+import NeckarshoreBanner from "@/components/NeckarshoreBanner";
+
 export default function HomePage() {
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
       {/* Header */}
-      <header className="mb-16 sm:mb-24">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-          German Rauhut
-        </h1>
-        <p className="mt-3 text-lg text-text-muted sm:text-xl">
-          Technical Product Owner &amp; AI Product Builder
-        </p>
-        <p className="mt-1 text-sm text-text-subtle">
-          Diplom-Betriebswirt (BA Stuttgart, Fachrichtung Datenverarbeitung)
-        </p>
+      <header className="mb-12 sm:mb-16">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+          <div>
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+              German Rauhut
+            </h1>
+            <p className="mt-3 text-lg text-text-muted sm:text-xl">
+              Technical Product Owner &amp; AI Product Builder
+            </p>
+            <p className="mt-1 text-sm text-text-subtle">
+              Diplom-Betriebswirt (BA Stuttgart, Fachrichtung Datenverarbeitung)
+            </p>
+          </div>
+          <FounderPhoto />
+        </div>
       </header>
+
+      {/* Neckarshore AI Banner */}
+      <div className="mb-16 sm:mb-20">
+        <NeckarshoreBanner />
+      </div>
 
       <hr />
 
