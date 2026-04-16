@@ -10,9 +10,11 @@
   --color-bg: #FFFFFF;
   --color-bg-muted: #FAFAFA;
 
-  /* Signalfarbe — Pastell Blau-Grau (Stuttgart morning sky) */
+  /* Signalfarbe — Pastell Blau-Grau (Stuttgart morning sky).
+     accent = heller Ton fuer Focus-Ring / Selection (dekorativ).
+     accent-hover = dunklerer Ton fuer Text-Links (AAA Kontrast 6.8:1 auf weiss). */
   --color-accent: #8DA5C4;
-  --color-accent-hover: #6B89AD;
+  --color-accent-hover: #3F5C85;
 
   /* Typography */
   --font-sans: var(--font-inter);
@@ -59,18 +61,23 @@ body {
   }
 }
 
-/* Links — subtle, Material-minimal */
-a {
-  color: var(--color-accent-hover);
-  text-decoration: none;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
-}
+/* Links — subtle, Material-minimal.
+   In @layer base so Tailwind utilities (which live in @layer utilities)
+   always win. Prevents underline-leak into ProjectTiles etc. */
+@layer base {
+  a {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
 
-a:hover {
-  color: var(--color-text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
+  a:hover {
+    color: var(--color-text);
+    text-decoration-color: currentColor;
+  }
 }
 
 /* Hairline divider between sections */

@@ -8,7 +8,7 @@ export default function HomePage() {
       <header className="mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h1 className="text-[1.8rem] font-semibold tracking-tight text-[#0E7490] sm:text-[2.4rem]">
               German Rauhut
             </h1>
             <p className="mt-3 text-lg text-text-muted sm:text-xl">
@@ -33,7 +33,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="zusammenfassung">
         <h2
           id="zusammenfassung"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-text-muted"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-[#B45309]"
         >
           Zusammenfassung
         </h2>
@@ -53,7 +53,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="kernkompetenzen">
         <h2
           id="kernkompetenzen"
-          className="mb-8 text-xs font-medium uppercase tracking-widest text-text-muted"
+          className="mb-8 text-xs font-medium uppercase tracking-widest text-[#B45309]"
         >
           Kernkompetenzen
         </h2>
@@ -107,7 +107,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="projekte">
         <h2
           id="projekte"
-          className="mb-10 text-xs font-medium uppercase tracking-widest text-text-muted"
+          className="mb-10 text-xs font-medium uppercase tracking-widest text-[#B45309]"
         >
           Projekte
         </h2>
@@ -225,9 +225,10 @@ export default function HomePage() {
 
           <div className="space-y-6 text-[0.9375rem] leading-relaxed text-text-muted">
             <p>
-              Vor Mercedes-Benz: 22 Jahre Consulting, Softwareentwicklung und
-              operative Führungsrollen in Deutschland, Schweiz und Thailand.
-              Einstieg 1993 in Bangkok.
+              Vor Mercedes-Benz: 23 Jahre Laufbahn — Wehrdienst bei der Luftwaffe 1992,
+              dann Consulting, Softwareentwicklung und operative Führungsrollen in
+              Deutschland, Schweiz und Thailand. Einstieg ins Zivilberufsleben 1993
+              in Bangkok.
             </p>
 
             <table>
@@ -318,6 +319,21 @@ export default function HomePage() {
                   <td>Factory / Procurement / Production Manager</td>
                   <td>Operative Führungsrollen in Thailand</td>
                 </tr>
+                <tr>
+                  <td>1992</td>
+                  <td>Wehrdienst, Luftwaffe</td>
+                  <td>
+                    Programmierzentrum der Luftwaffe für fliegende Waffensysteme
+                    (ProgrZLwflgWS) —{" "}
+                    <a
+                      href="https://de.wikipedia.org/wiki/Welfen-Kaserne_(Landsberg_am_Lech)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Welfen-Kaserne, Landsberg am Lech
+                    </a>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -330,7 +346,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="kontakt">
         <h2
           id="kontakt"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-text-muted"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-[#B45309]"
         >
           Kontakt
         </h2>
