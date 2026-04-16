@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = localFont({
@@ -38,7 +39,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={inter.variable}>
+    // suppressHydrationWarning because the theme-init script mutates
+    // data-theme before React hydrates; this is expected.
+    <html
+      lang="de"
+      className={inter.variable}
+      data-theme="dark"
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Anti-flash: runs before first paint. Trusted static asset
+            from /public — no user input, no XSS vector. */}
+        <Script
+          src="/theme-init.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

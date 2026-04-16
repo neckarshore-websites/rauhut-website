@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Impressum — rauhut.com",
@@ -11,10 +12,18 @@ export const metadata: Metadata = {
 export default function ImpressumPage() {
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+      {/* Top bar — back link + theme toggle */}
+      <div className="mb-10 flex items-center justify-between">
+        <p className="text-sm">
+          <Link href="/">← Zur Startseite</Link>
+        </p>
+        <ThemeToggle />
+      </div>
+
       <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
         Rechtliches
       </p>
-      <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+      <h1 className="mt-3 text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
         Impressum
       </h1>
       <p className="mt-4 text-sm text-text-subtle">
@@ -25,7 +34,7 @@ export default function ImpressumPage() {
 
       <section className="space-y-10 text-[0.9375rem] leading-relaxed">
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
             Betreiber
           </h2>
           <p>
@@ -41,7 +50,7 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
             Kontakt
           </h2>
           <p>
@@ -51,14 +60,14 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
             Verantwortlich für den Inhalt
           </h2>
           <p>German Rauhut, Anschrift wie oben.</p>
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
             Haftung für Inhalte
           </h2>
           <p className="text-text-muted">
@@ -71,7 +80,7 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
             Haftung für Links
           </h2>
           <p className="text-text-muted">
@@ -85,7 +94,7 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
             Datenschutz
           </h2>
           <p className="text-text-muted">
@@ -98,10 +107,11 @@ export default function ImpressumPage() {
         </div>
       </section>
 
-      <hr className="my-12" />
+      <hr className="mt-16 mb-10" />
 
-      <p className="text-sm">
-        <Link href="/">← Zur Startseite</Link>
+      {/* Back-link bottom — Name-as-linktext */}
+      <p className="mb-4 text-sm">
+        <Link href="/">← German Rauhut</Link>
       </p>
     </main>
   );

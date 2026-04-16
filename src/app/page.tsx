@@ -1,14 +1,20 @@
 import FounderPhoto from "@/components/FounderPhoto";
 import ProjectTiles from "@/components/ProjectTiles";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function HomePage() {
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+      {/* Top bar — theme toggle */}
+      <div className="mb-10 flex justify-end">
+        <ThemeToggle />
+      </div>
+
       {/* Header */}
       <header className="mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
-            <h1 className="text-[1.8rem] font-semibold tracking-tight text-[#0E7490] sm:text-[2.4rem]">
+            <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
               German Rauhut
             </h1>
             <p className="mt-3 text-lg text-text-muted sm:text-xl">
@@ -33,7 +39,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="zusammenfassung">
         <h2
           id="zusammenfassung"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-[#B45309]"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
           Zusammenfassung
         </h2>
@@ -53,7 +59,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="kernkompetenzen">
         <h2
           id="kernkompetenzen"
-          className="mb-8 text-xs font-medium uppercase tracking-widest text-[#B45309]"
+          className="mb-8 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
           Kernkompetenzen
         </h2>
@@ -107,7 +113,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="projekte">
         <h2
           id="projekte"
-          className="mb-10 text-xs font-medium uppercase tracking-widest text-[#B45309]"
+          className="mb-10 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
           Projekte
         </h2>
@@ -346,7 +352,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20" aria-labelledby="kontakt">
         <h2
           id="kontakt"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-[#B45309]"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
         >
           Kontakt
         </h2>
