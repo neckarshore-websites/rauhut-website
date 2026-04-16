@@ -61,7 +61,7 @@ export default function HomePageEN() {
 
       {/* Project Tiles — Neckarshore + Obsidian Vault Autopilot */}
       <div className="mb-16 sm:mb-20">
-        <ProjectTiles />
+        <ProjectTiles lang="en" />
       </div>
 
       <hr />

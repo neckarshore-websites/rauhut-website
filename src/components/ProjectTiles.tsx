@@ -1,4 +1,31 @@
-export default function ProjectTiles() {
+type Lang = "de" | "en";
+
+const COPY: Record<Lang, {
+  passion: string;
+  neckarshoreDesc: string;
+  openSource: string;
+  obsidianDesc: string;
+}> = {
+  de: {
+    passion: "My passion",
+    neckarshoreDesc:
+      "KI-beschleunigte Softwareentwicklung — inkl. OMNIXIS Documentor",
+    openSource: "Open Source",
+    obsidianDesc:
+      "Plugin fuer automatisiertes Wissensmanagement — GitHub",
+  },
+  en: {
+    passion: "My passion",
+    neckarshoreDesc:
+      "AI-accelerated software development — incl. OMNIXIS Documenter",
+    openSource: "Open Source",
+    obsidianDesc:
+      "Plugin for automated knowledge management — GitHub",
+  },
+};
+
+export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
+  const copy = COPY[lang];
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
       {/* Neckarshore AI — enthaelt OMNIXIS Documentor */}
@@ -10,13 +37,13 @@ export default function ProjectTiles() {
       >
         <div>
           <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE]">
-            Meine Firma
+            {copy.passion}
           </p>
           <p className="mt-2 text-xl font-semibold tracking-tight">
             neckarshore<span className="text-[#22D3EE]">.ai</span>
           </p>
           <p className="mt-1.5 text-sm text-[#CBD5E1]">
-            KI-beschleunigte Softwareentwicklung — inkl. OMNIXIS Documentor
+            {copy.neckarshoreDesc}
           </p>
         </div>
         <span
@@ -36,13 +63,13 @@ export default function ProjectTiles() {
       >
         <div>
           <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-[#A78BFA]">
-            Open Source
+            {copy.openSource}
           </p>
           <p className="mt-2 text-xl font-semibold tracking-tight">
             Obsidian Vault Autopilot
           </p>
           <p className="mt-1.5 text-sm text-[#C4B5FD]">
-            Plugin fuer automatisiertes Wissensmanagement — GitHub
+            {copy.obsidianDesc}
           </p>
         </div>
         <span
