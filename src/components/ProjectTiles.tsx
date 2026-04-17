@@ -5,6 +5,8 @@ const COPY: Record<Lang, {
   neckarshoreDesc: string;
   openSource: string;
   obsidianDesc: string;
+  openCta: string;
+  githubCta: string;
 }> = {
   de: {
     passion: "My passion",
@@ -13,6 +15,8 @@ const COPY: Record<Lang, {
     openSource: "Open Source",
     obsidianDesc:
       "Plugin fuer automatisiertes Wissensmanagement — GitHub",
+    openCta: "Öffnen",
+    githubCta: "Auf GitHub",
   },
   en: {
     passion: "My passion",
@@ -21,6 +25,8 @@ const COPY: Record<Lang, {
     openSource: "Open Source",
     obsidianDesc:
       "Plugin for automated knowledge management — GitHub",
+    openCta: "Open",
+    githubCta: "On GitHub",
   },
 };
 
@@ -33,8 +39,15 @@ export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
         href="https://neckarshore.ai"
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A2540] to-[#0F172A] p-6 text-[#F1F5F9] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:text-[#F1F5F9] hover:no-underline hover:ring-[#22D3EE]/30 hover:shadow-[0_10px_40px_-15px_rgba(34,211,238,0.25)]"
+        className="group relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A2540] to-[#0F172A] p-6 text-[#F1F5F9] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:text-[#F1F5F9] hover:no-underline hover:ring-[#22D3EE]/30 hover:shadow-[0_10px_40px_-15px_rgba(34,211,238,0.25)]"
       >
+        {/* Hover CTA — fades in top-right, absolute so no layout shift */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+        >
+          {copy.openCta} ↗
+        </span>
         <div>
           <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE]">
             {copy.passion}
@@ -59,8 +72,15 @@ export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
         href="https://github.com/neckarshore-ai/obsidian-vault-autopilot"
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#2E1065] to-[#1E0D47] p-6 text-[#F5F3FF] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:ring-[#A78BFA]/30 hover:shadow-[0_10px_40px_-15px_rgba(167,139,250,0.25)]"
+        className="group relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#2E1065] to-[#1E0D47] p-6 text-[#F5F3FF] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:ring-[#A78BFA]/30 hover:shadow-[0_10px_40px_-15px_rgba(167,139,250,0.25)]"
       >
+        {/* Hover CTA — fades in top-right, absolute so no layout shift */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#A78BFA] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+        >
+          {copy.githubCta} ↗
+        </span>
         <div>
           <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-[#A78BFA]">
             {copy.openSource}
