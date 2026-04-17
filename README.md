@@ -2,7 +2,7 @@
 
 Persoenliche Web-Praesenz fuer [rauhut.com](https://rauhut.com) — German Rauhut, Technical Product Owner & AI Product Builder.
 
-One-Pager mit Impressum. Minimal Material Design. Dark Mode default, Light Mode toggelbar. Keine Analytics, keine Cookies.
+One-Pager mit Impressum. Minimal Material Design. Dark Mode default, Light Mode toggelbar. Vercel Web Analytics (cookieless, DSGVO-konform), keine Third-Party-Tracker.
 
 ## Stack
 
@@ -65,7 +65,8 @@ Lighthouse Baseline:
 
 ## Scope
 
-- Keine Analytics, kein Tracking, kein Cookie-Banner
+- Vercel Web Analytics (cookieless, DSGVO-konform) — kein Cookie-Banner
+- Keine Third-Party-Tracker (kein GA, kein Plausible, kein Sentry)
 - Self-hosted Font (DSGVO)
 - `robots: index` auf `/` und `/en`, `robots: noindex` auf `/impressum`
 - i18n: DE (default) + EN (`/en`), hreflang-alternates in Metadata + Sitemap. Impressum bleibt DE-only (rechtlich erforderlich).

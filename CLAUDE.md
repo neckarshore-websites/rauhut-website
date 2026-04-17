@@ -24,7 +24,7 @@ Same quality bar as `neckarshore-website`:
 - Mobile-first responsive design
 - Lighthouse 95+ target on all metrics
 - No JS frameworks beyond React/Next.js
-- No CMS, no analytics, no tracking (v1)
+- No CMS. Analytics: Vercel Web Analytics only (cookieless, DSGVO-friendly, no banner)
 - Self-hosted fonts (DSGVO)
 - Commit after each section / logical block
 - Do NOT push to production (`rauhut.com` live) until user approves
@@ -55,5 +55,6 @@ Aktualisierungen am Projektprofil → erst Vault-Datei aktualisieren, dann Seite
 - DNS-Umzug IONOS → Vercel
 - E-Mail MX (bleibt bei IONOS, nicht anfassen)
 - Dark Mode
-- Analytics, Tracking
+- Third-party Analytics (GA, Plausible, etc.) — nur Vercel Web Analytics
+- Cookie-Banner
 - Playwright E2E, Lighthouse CI

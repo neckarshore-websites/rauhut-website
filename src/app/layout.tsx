@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = localFont({
@@ -67,7 +68,13 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Vercel Web Analytics — cookieless, DSGVO-compliant.
+            Inject once, at the end of body. No tracking, no cookies,
+            no cross-site IDs. Data stays inside Vercel. */}
+        <Analytics />
+      </body>
     </html>
   );
 }
