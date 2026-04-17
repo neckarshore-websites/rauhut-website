@@ -5,6 +5,7 @@ import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
+import Timeline from "@/components/Timeline";
 
 export default function HomePage() {
   return (
@@ -57,6 +58,14 @@ export default function HomePage() {
           Full-Stack-Umsetzung.
         </p>
         <StatsRow lang="de" />
+        <div className="mt-10 sm:mt-12">
+          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+            Tätig bei / für
+          </p>
+          <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
+            Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
+          </p>
+        </div>
       </Reveal>
 
       <hr />
@@ -177,56 +186,14 @@ export default function HomePage() {
               Mercedes-Benz AG &amp; Umfeld
             </h3>
           </header>
-          <p className="mb-5 leading-relaxed text-text-muted">
+          <p className="mb-6 leading-relaxed text-text-muted">
             10 Jahre im Mercedes-Benz-Ökosystem — vom Tester über den Business
             IT Consultant zum Technical Product Owner. Durchgehend in agilen,
             internationalen Projekten mit wachsender Verantwortung für Produkt,
             Architektur und Prozess.
           </p>
-          <ul className="space-y-4 text-[0.9375rem] leading-relaxed">
-            <li>
-              <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-                10/2021 – 10/2025
-              </p>
-              <p className="mt-0.5">
-                <strong className="font-semibold">
-                  Technical Product Owner
-                </strong>{" "}
-                — PLUS.Classic &amp; PLUS.NextGen. Product Owner für ein
-                Stammdaten-Produkt (ACL) im PLUS NextGen Programm. Agile
-                Entwicklung mit Team in Südafrika, KI-Prototyping,
-                ITSM-Beratung, Plant Relationship Manager Sindelfingen.
-              </p>
-            </li>
-            <li>
-              <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-                09/2017 – 09/2021
-              </p>
-              <p className="mt-0.5">
-                <strong className="font-semibold">
-                  Senior Business IT Consultant
-                </strong>{" "}
-                — SFMd, konzernweite Digitalisierung des Shopfloormanagements.
-                Anforderungsanalyse, Automatisierung der Konfiguration (&gt;
-                50.000 KPI), Aufbau Testautomation (Katalon/Selenium),
-                Release-Steuerung im 2-Wochen-Rhythmus.
-              </p>
-            </li>
-            <li>
-              <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-                07/2015 – 08/2017
-              </p>
-              <p className="mt-0.5">
-                <strong className="font-semibold">
-                  Senior Business Analyst &amp; Tester
-                </strong>{" "}
-                — TestGilde GmbH, Endkunde Daimler AG. Internationale Webseite
-                für ein Automobilprodukt. Anforderungsanalyse,
-                Regressions-/Progressionstests, Release Management.
-              </p>
-            </li>
-          </ul>
-          <p className="mt-5 text-sm text-text-subtle">
+          <Timeline lang="de" />
+          <p className="mt-6 text-sm text-text-subtle">
             Übergreifend: SCRUM, JIRA, Confluence, REST-APIs, Postman, JSON,
             ServiceNow, Katalon (Selenium), MS SQL Server, Adobe AEM
           </p>
@@ -239,8 +206,8 @@ export default function HomePage() {
             <p>
               Vor Mercedes-Benz: 23 Jahre Laufbahn — Wehrdienst bei der Luftwaffe 1992,
               dann Consulting, Softwareentwicklung und operative Führungsrollen in
-              Deutschland, Schweiz und Thailand. Einstieg ins Zivilberufsleben 1993
-              in Bangkok.
+              Deutschland, Schweiz und Thailand. Zum Start des Berufslebens 1993
+              gleich nach Bangkok.
             </p>
 
             <table>
@@ -256,8 +223,8 @@ export default function HomePage() {
                   <td>07/2014 – 06/2015</td>
                   <td>Senior PM Compliance</td>
                   <td>
-                    Cellent Finance Solutions, Stuttgart — spezialisierte
-                    AML-Anwendung
+                    Targens (ehemals Cellent Finance Solutions), Stuttgart —
+                    spezialisierte AML-Anwendung
                   </td>
                 </tr>
                 <tr>

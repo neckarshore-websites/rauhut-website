@@ -6,6 +6,7 @@ import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
+import Timeline from "@/components/Timeline";
 
 export const metadata: Metadata = {
   title: "German Rauhut — Technical Product Owner & AI Product Builder",
@@ -86,6 +87,14 @@ export default function HomePageEN() {
           multi-agent development processes, full-stack delivery.
         </p>
         <StatsRow lang="en" />
+        <div className="mt-10 sm:mt-12">
+          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+            Worked for
+          </p>
+          <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
+            Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
+          </p>
+        </div>
       </Reveal>
 
       <hr />
@@ -214,58 +223,14 @@ export default function HomePageEN() {
               Mercedes-Benz AG &amp; ecosystem
             </h3>
           </header>
-          <p className="mb-5 leading-relaxed text-text-muted">
+          <p className="mb-6 leading-relaxed text-text-muted">
             10 years in the Mercedes-Benz ecosystem — from tester to
             Business IT Consultant to Technical Product Owner.
             Throughout: agile, international projects with growing
             responsibility for product, architecture, and process.
           </p>
-          <ul className="space-y-4 text-[0.9375rem] leading-relaxed">
-            <li>
-              <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-                10/2021 – 10/2025
-              </p>
-              <p className="mt-0.5">
-                <strong className="font-semibold">
-                  Technical Product Owner
-                </strong>{" "}
-                — PLUS.Classic &amp; PLUS.NextGen. Product Owner for a
-                master-data product (ACL) within the PLUS NextGen
-                program. Agile development with a team in South Africa,
-                AI prototyping, ITSM consulting, Plant Relationship
-                Manager Sindelfingen.
-              </p>
-            </li>
-            <li>
-              <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-                09/2017 – 09/2021
-              </p>
-              <p className="mt-0.5">
-                <strong className="font-semibold">
-                  Senior Business IT Consultant
-                </strong>{" "}
-                — SFMd, group-wide digitalization of shop-floor
-                management. Requirements analysis, automation of
-                configuration (&gt; 50,000 KPI), test automation setup
-                (Katalon/Selenium), release management on a 2-week
-                cadence.
-              </p>
-            </li>
-            <li>
-              <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-                07/2015 – 08/2017
-              </p>
-              <p className="mt-0.5">
-                <strong className="font-semibold">
-                  Senior Business Analyst &amp; Tester
-                </strong>{" "}
-                — TestGilde GmbH, end-customer Daimler AG. International
-                website for an automotive product. Requirements analysis,
-                regression/progression testing, release management.
-              </p>
-            </li>
-          </ul>
-          <p className="mt-5 text-sm text-text-subtle">
+          <Timeline lang="en" />
+          <p className="mt-6 text-sm text-text-subtle">
             Overall: SCRUM, JIRA, Confluence, REST APIs, Postman, JSON,
             ServiceNow, Katalon (Selenium), MS SQL Server, Adobe AEM
           </p>
@@ -280,7 +245,7 @@ export default function HomePageEN() {
               military service with the German Air Force in 1992, then
               consulting, software development, and operational
               leadership roles in Germany, Switzerland, and Thailand.
-              Entry into civilian professional life in 1993 in Bangkok.
+              Professional life started in 1993 — straight to Bangkok.
             </p>
 
             <table>
@@ -296,8 +261,8 @@ export default function HomePageEN() {
                   <td>07/2014 – 06/2015</td>
                   <td>Senior PM Compliance</td>
                   <td>
-                    Cellent Finance Solutions, Stuttgart — specialized
-                    AML application
+                    Targens (formerly Cellent Finance Solutions), Stuttgart —
+                    specialized AML application
                   </td>
                 </tr>
                 <tr>
