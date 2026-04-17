@@ -41,10 +41,10 @@ export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
         rel="noopener noreferrer"
         className="group relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A2540] to-[#0F172A] p-6 text-[#F1F5F9] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:text-[#F1F5F9] hover:no-underline hover:ring-[#22D3EE]/30 hover:shadow-[0_10px_40px_-15px_rgba(34,211,238,0.25)]"
       >
-        {/* Hover CTA — fades in top-right, absolute so no layout shift */}
+        {/* CTA — always visible, top-right corner, absolute so no layout shift */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE]"
         >
           {copy.openCta} ↗
         </span>
@@ -74,10 +74,10 @@ export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
         rel="noopener noreferrer"
         className="group relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#2E1065] to-[#1E0D47] p-6 text-[#F5F3FF] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:no-underline hover:ring-[#A78BFA]/30 hover:shadow-[0_10px_40px_-15px_rgba(167,139,250,0.25)]"
       >
-        {/* Hover CTA — fades in top-right, absolute so no layout shift */}
+        {/* CTA — always visible, top-right corner, absolute so no layout shift */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#A78BFA] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#A78BFA]"
         >
           {copy.githubCta} ↗
         </span>
