@@ -7,6 +7,7 @@ import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
 import Timeline from "@/components/Timeline";
+import PersonJsonLd from "@/components/PersonJsonLd";
 
 export const metadata: Metadata = {
   title: "German Rauhut — Technical Product Owner & AI Product Builder",
@@ -20,6 +21,12 @@ export const metadata: Metadata = {
     siteName: "rauhut.com",
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    description:
+      "Bridge-builder between business and technology. Mercedes-Benz alum, now AI Product Builder at Neckarshore AI.",
   },
   robots: { index: true, follow: true },
   alternates: {
@@ -38,6 +45,10 @@ export default function HomePageEN() {
     // without needing to refactor into [locale]/layout.tsx. Root <html>
     // keeps lang="de" as site default.
     <main lang="en" className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+      {/* Schema.org Person — emitted as raw JSON-LD in the HTML source
+          (native <script> tag, not next/script — see AD-19). */}
+      <PersonJsonLd lang="en" />
+
       {/* Top bar — language toggle + theme toggle */}
       <div className="mb-10 flex items-center justify-between">
         <LangToggle current="en" />

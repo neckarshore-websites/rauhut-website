@@ -28,6 +28,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    description:
+      "Brueckenbauer zwischen Business und Technologie. Mercedes-Benz Alumni, heute AI Product Builder bei Neckarshore AI.",
+    // twitter:image is emitted automatically from twitter-image.tsx
+  },
   alternates: {
     canonical: "https://rauhut.com/",
     languages: {
