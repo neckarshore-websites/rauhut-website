@@ -2,6 +2,8 @@ import FounderPhoto from "@/components/FounderPhoto";
 import ProjectTiles from "@/components/ProjectTiles";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
+import StatsRow from "@/components/StatsRow";
+import Reveal from "@/components/Reveal";
 
 export default function HomePage() {
   return (
@@ -13,7 +15,7 @@ export default function HomePage() {
       </div>
 
       {/* Header */}
-      <header className="mb-12 sm:mb-16">
+      <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
             <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
@@ -38,7 +40,7 @@ export default function HomePage() {
       <hr />
 
       {/* Zusammenfassung */}
-      <section className="py-16 sm:py-20" aria-labelledby="zusammenfassung">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="zusammenfassung">
         <h2
           id="zusammenfassung"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -53,12 +55,13 @@ export default function HomePage() {
           Engineering: eigene Produkte, Multi-Agent-Entwicklungsprozesse,
           Full-Stack-Umsetzung.
         </p>
-      </section>
+        <StatsRow lang="de" />
+      </Reveal>
 
       <hr />
 
       {/* Kernkompetenzen */}
-      <section className="py-16 sm:py-20" aria-labelledby="kernkompetenzen">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="kernkompetenzen">
         <h2
           id="kernkompetenzen"
           className="mb-8 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -107,12 +110,12 @@ export default function HomePage() {
             </tr>
           </tbody>
         </table>
-      </section>
+      </Reveal>
 
       <hr />
 
       {/* Projekte */}
-      <section className="py-16 sm:py-20" aria-labelledby="projekte">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="projekte">
         <h2
           id="projekte"
           className="mb-10 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -346,12 +349,12 @@ export default function HomePage() {
             </table>
           </div>
         </details>
-      </section>
+      </Reveal>
 
       <hr />
 
       {/* Kontakt */}
-      <section className="py-16 sm:py-20" aria-labelledby="kontakt">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="kontakt">
         <h2
           id="kontakt"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -384,7 +387,7 @@ export default function HomePage() {
             </a>
           </li>
         </ul>
-      </section>
+      </Reveal>
 
       <hr />
 

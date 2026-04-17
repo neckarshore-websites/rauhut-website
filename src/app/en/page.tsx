@@ -3,6 +3,8 @@ import FounderPhoto from "@/components/FounderPhoto";
 import ProjectTiles from "@/components/ProjectTiles";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
+import StatsRow from "@/components/StatsRow";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "German Rauhut — Technical Product Owner & AI Product Builder",
@@ -41,7 +43,7 @@ export default function HomePageEN() {
       </div>
 
       {/* Header */}
-      <header className="mb-12 sm:mb-16">
+      <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
             <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
@@ -67,7 +69,7 @@ export default function HomePageEN() {
       <hr />
 
       {/* About */}
-      <section className="py-16 sm:py-20" aria-labelledby="about">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="about">
         <h2
           id="about"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -82,12 +84,13 @@ export default function HomePageEN() {
           corporate world with hands-on AI engineering: own products,
           multi-agent development processes, full-stack delivery.
         </p>
-      </section>
+        <StatsRow lang="en" />
+      </Reveal>
 
       <hr />
 
       {/* Core Competencies */}
-      <section className="py-16 sm:py-20" aria-labelledby="competencies">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="competencies">
         <h2
           id="competencies"
           className="mb-8 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -142,12 +145,12 @@ export default function HomePageEN() {
             </tr>
           </tbody>
         </table>
-      </section>
+      </Reveal>
 
       <hr />
 
       {/* Projects */}
-      <section className="py-16 sm:py-20" aria-labelledby="projects">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="projects">
         <h2
           id="projects"
           className="mb-10 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -402,12 +405,12 @@ export default function HomePageEN() {
             </table>
           </div>
         </details>
-      </section>
+      </Reveal>
 
       <hr />
 
       {/* Contact */}
-      <section className="py-16 sm:py-20" aria-labelledby="contact">
+      <Reveal className="py-16 sm:py-20" aria-labelledby="contact">
         <h2
           id="contact"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -440,7 +443,7 @@ export default function HomePageEN() {
             </a>
           </li>
         </ul>
-      </section>
+      </Reveal>
 
       <hr />
 

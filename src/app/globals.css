@@ -206,6 +206,42 @@ h3 {
   color: var(--color-bg);
 }
 
+/* Hero-Glow — subtle radial gradient behind the H1 in Dark Mode only.
+   Layered via ::before pseudo-element so it doesn't affect layout, does
+   not compete with content for tab/focus order, and is invisible to SR.
+   Light Mode stays flat — the white page is already calm. */
+.hero-glow {
+  position: relative;
+  isolation: isolate; /* keep the glow confined to this stacking context */
+}
+
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 480px;
+  height: 480px;
+  max-width: 80%;
+  transform: translateY(-50%);
+  background: radial-gradient(
+    closest-side,
+    rgba(34, 211, 238, 0.09) 0%,
+    rgba(34, 211, 238, 0.04) 45%,
+    transparent 75%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Only render in Dark Mode */
+:root[data-theme="dark"] .hero-glow::before {
+  opacity: 1;
+}
+
 /* ThemeToggle icon visibility — driven by :root[data-theme] only,
    so no React state needed and SSR is stable. */
 .theme-icon {
