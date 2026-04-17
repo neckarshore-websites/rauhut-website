@@ -8,9 +8,9 @@ Visuelle Polish-Ideen fuer die naechste Session. Einzeln durchzugehen, **User en
 
 | # | Item | Prio | Effort | Wer | Blocker? | Status | Impact |
 |---|------|------|--------|-----|----------|--------|--------|
-| 1 | Dark-Hero-Glow (radial gradient hinter H1) | P2 | XS | Linus | — | 🔲 Offen | Header-Section bekommt Tiefe, kein Fremdkoerper-Chrome |
-| 2 | Scroll-Enter-Animation fuer Sections | P2 | S | Linus | — | 🔲 Offen | Moderner Produkt-Feel, premium ohne Jank |
-| 3 | Stat-Row unter About (3-4 grosse Zahlen) | P2 | S | Linus | Content-Signoff (Zahlen) | 🔲 Offen | Scroll-Preview wirkt substantiell |
+| 1 | ~~Dark-Hero-Glow (radial gradient hinter H1)~~ | P2 | XS | Linus | — | ✅ Done (2026-04-17, `b95e8e2`) | Header-Section bekommt Tiefe, kein Fremdkoerper-Chrome |
+| 2 | ~~Scroll-Enter-Animation fuer Sections~~ | P2 | S | Linus | — | ✅ Done (2026-04-17, `b95e8e2`) | Moderner Produkt-Feel, premium ohne Jank |
+| 3 | ~~Stat-Row unter About (3-4 grosse Zahlen)~~ | P2 | S | Linus | Content-Signoff (Zahlen) | ✅ Done (2026-04-17, `b95e8e2`) | Scroll-Preview wirkt substantiell |
 | 4 | Logos-Strip "Taetig bei / fuer" | P3 | M | Linus | Legal-Check Markenrechte | 🔲 Offen | Credibility-Boost fuer Recruiter |
 | 5 | Mini-Timeline Mercedes-Benz-Aera | P3 | M | Linus | — | 🔲 Offen | Karriere-Progression graphisch klarer als Bullet-List |
 | 6 | Kontakt als 3 gleiche Cards | P3 | S | Linus | — | 🔲 Offen | Mehr visuelles Gewicht fuer CTA-Section |
