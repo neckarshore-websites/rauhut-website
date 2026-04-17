@@ -5,6 +5,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
+import ContactCards from "@/components/ContactCards";
 
 export const metadata: Metadata = {
   title: "German Rauhut — Technical Product Owner & AI Product Builder",
@@ -417,32 +418,7 @@ export default function HomePageEN() {
         >
           Contact
         </h2>
-        <ul className="space-y-3 text-lg">
-          <li>
-            <span className="text-text-subtle">Email</span>{" "}
-            <a href="mailto:german@rauhut.com">german@rauhut.com</a>
-          </li>
-          <li>
-            <span className="text-text-subtle">LinkedIn</span>{" "}
-            <a
-              href="https://www.linkedin.com/in/german-rauhut/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              linkedin.com/in/german-rauhut
-            </a>
-          </li>
-          <li>
-            <span className="text-text-subtle">GitHub</span>{" "}
-            <a
-              href="https://github.com/GmanFooFoo"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              github.com/GmanFooFoo
-            </a>
-          </li>
-        </ul>
+        <ContactCards lang="en" />
       </Reveal>
 
       <hr />
