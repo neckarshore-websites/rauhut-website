@@ -16,6 +16,36 @@ Visuelle Polish-Ideen fuer die naechste Session. Einzeln durchzugehen, **User en
 | 6 | ~~Kontakt als 3 gleiche Cards~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `c71298d`) | Mehr visuelles Gewicht fuer CTA-Section |
 | 7 | ~~Impressum optisch differenzieren~~ | P3 | XS | Linus | — | ✅ Done (2026-04-17, `fd75ef5`) | "Legal-Mode"-Signalisierung, subtil |
 | 8 | ~~Project-Tiles CTA-Label (top-right, always visible)~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `143c7b5` + `7e79643`) | Clickable-Feel staerker |
+| 9 | GSC Domain-Property fuer `rauhut.com` | P3 | S | Linus | IONOS Domain-Connect blockiert manuelle TXT-Eingabe | 🔲 Geparkt | Deckt alle Subdomains + HTTP in einer Property ab; heute via URL-Prefix-Property geloest |
+
+---
+
+## 9. GSC Domain-Property (geparkt)
+
+**Was:** In Google Search Console eine Domain-Property fuer `rauhut.com` anlegen — deckt automatisch alle Subdomains (www, en, etc.) + HTTP+HTTPS in einer Property ab. Einziger offizieller Weg: TXT-Record `google-site-verification=...` in der DNS-Zone.
+
+**Warum geparkt (2026-04-17):**
+- IONOS bietet bei DNS-Verifikation primaer Domain-Connect-Flow an
+- Domain-Connect wuerde in einem Schritt den ganzen DNS-Satz ueberschreiben, inklusive **Deaktivierung der Mail-Records** — das ist die Katastrophe die wir beim initialen DNS-Cutover sauber vermieden haben
+- GSC-UI versteckt die manuelle TXT-Eingabe hinter dem Domain-Connect-Button
+- Heute ausreichend: existierende URL-Prefix-Property `https://rauhut.com/` + Sitemap eingereicht
+
+**Moegliche Wege wenn wir es brauchen:**
+1. **DevTools-Extraktion:** GSC-Setup-Seite, Inspect, suche nach `google-site-verification` im HTML, Wert rausziehen, dann manuell als TXT in IONOS anlegen.
+2. **DNS-Provider wechseln:** Cloudflare oder Hostinger als DNS-Host setzen (Nameserver-Wechsel), dort saubere manuelle Zone-Verwaltung. Aber: ganzer Mail-Relay zu ueberpruefen.
+3. **Warten:** IONOS ueberarbeitet die Domain-Connect-Integration (unbestimmt).
+
+**Heutiger Ersatz reicht fuer Google Indexing:** `https://rauhut.com/` URL-Prefix-Property + Sitemap → Google crawlt und indexiert. Spalten-Einschraenkung: keine separate Metrik pro Subdomain-Satz, aber wir haben aktuell keine.
+
+**Affected files:**
+- Keine Code-Aenderungen. Rein DNS + GSC-Konfiguration.
+
+**Prereq:** Entscheidung ob DevTools-Move oder DNS-Provider-Wechsel.
+
+**Acceptance Criteria:**
+- GSC zeigt Domain-Property `rauhut.com` als "Verified"
+- Alle vier Sitemap-URLs werden unter Domain-Property erkannt
+- Keine Mail-Regression (MX, SPF, DKIM, DMARC unveraendert)
 
 ---
 
