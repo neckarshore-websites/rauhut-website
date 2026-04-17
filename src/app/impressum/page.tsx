@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+    <main className="mx-auto max-w-2xl px-6 py-12 sm:py-16">
       {/* Top bar — back link + theme toggle */}
       <div className="mb-10 flex items-center justify-between">
         <p className="text-sm">
@@ -23,7 +23,7 @@ export default function ImpressumPage() {
       <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
         Rechtliches
       </p>
-      <h1 className="mt-3 text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
+      <h1 className="mt-3 text-[1.6rem] font-semibold tracking-tight text-text sm:text-[2rem]">
         Impressum
       </h1>
       <p className="mt-4 text-sm text-text-subtle">
@@ -34,7 +34,7 @@ export default function ImpressumPage() {
 
       <section className="space-y-10 text-[0.9375rem] leading-relaxed">
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Betreiber
           </h2>
           <p>
@@ -50,7 +50,7 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Kontakt
           </h2>
           <p>
@@ -60,14 +60,14 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Verantwortlich für den Inhalt
           </h2>
           <p>German Rauhut, Anschrift wie oben.</p>
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Haftung für Inhalte
           </h2>
           <p className="text-text-muted">
@@ -80,7 +80,7 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Haftung für Links
           </h2>
           <p className="text-text-muted">
@@ -94,7 +94,7 @@ export default function ImpressumPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-brand-amber">
+          <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Datenschutz
           </h2>
           <p className="text-text-muted">
