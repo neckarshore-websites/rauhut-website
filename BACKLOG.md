@@ -11,8 +11,8 @@ Visuelle Polish-Ideen fuer die naechste Session. Einzeln durchzugehen, **User en
 | 1 | ~~Dark-Hero-Glow (radial gradient hinter H1)~~ | P2 | XS | Linus | — | ✅ Done (2026-04-17, `b95e8e2`) | Header-Section bekommt Tiefe, kein Fremdkoerper-Chrome |
 | 2 | ~~Scroll-Enter-Animation fuer Sections~~ | P2 | S | Linus | — | ✅ Done (2026-04-17, `b95e8e2`) | Moderner Produkt-Feel, premium ohne Jank |
 | 3 | ~~Stat-Row unter About (3-4 grosse Zahlen)~~ | P2 | S | Linus | Content-Signoff (Zahlen) | ✅ Done (2026-04-17, `b95e8e2`) | Scroll-Preview wirkt substantiell |
-| 4 | Logos-Strip "Taetig bei / fuer" | P3 | M | Linus | Legal-Check Markenrechte | 🔲 Offen | Credibility-Boost fuer Recruiter |
-| 5 | Mini-Timeline Mercedes-Benz-Aera | P3 | M | Linus | — | 🔲 Offen | Karriere-Progression graphisch klarer als Bullet-List |
+| 4 | ~~Logos-Strip "Taetig bei / fuer"~~ | P3 | M | Linus | Legal-Check Markenrechte | ✅ Done (2026-04-17, `74dba6d`) — **Text-Fallback gewaehlt** | Credibility-Boost fuer Recruiter |
+| 5 | ~~Mini-Timeline Mercedes-Benz-Aera~~ | P3 | M | Linus | — | ✅ Done (2026-04-17, `74dba6d`) | Karriere-Progression graphisch klarer als Bullet-List |
 | 6 | ~~Kontakt als 3 gleiche Cards~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `c71298d`) | Mehr visuelles Gewicht fuer CTA-Section |
 | 7 | ~~Impressum optisch differenzieren~~ | P3 | XS | Linus | — | ✅ Done (2026-04-17, `fd75ef5`) | "Legal-Mode"-Signalisierung, subtil |
 | 8 | ~~Project-Tiles CTA-Label (top-right, always visible)~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `143c7b5` + `7e79643`) | Clickable-Feel staerker |
@@ -95,7 +95,17 @@ Grosse Zahl: `text-[2.4rem]` weight 600, darunter Label `text-xs uppercase track
 
 ---
 
-## 4. Logos-Strip "Taetig bei / fuer"
+## 4. Logos-Strip "Taetig bei / fuer" — ✅ Done als Text-Fallback
+
+**Entscheidung (2026-04-17):** Text-Fallback gewaehlt, Logo-Variante verworfen. Commit `74dba6d` — 11 Firmennamen in Typo-Zeile unter der Zusammenfassung. Gruende:
+- Markenrechts-Risiko real (Mercedes-Benz-Rechtsabteilung aktiv), Upside mager fuer Einzelperson-Site
+- User ist Freelancer, kein Consulting-Shop der mit Logos wirbt
+- Text ist schon substanziell (11 Namen), scannt zwar langsamer als Logos, aber Recruiter die den Text ignorieren, ignorieren auch grayscale-Logos
+- Konsistenz mit restlicher typographischer Minimal-Aesthetik
+
+---
+
+### Urspruengliche Spec (zur Historie)
 
 **Was:** Horizontale Logo-Reihe unter About oder in Frueheren Stationen: Mercedes-Benz, Allianz, Deutsche Bank, Contargo, Rhenus, TestGilde. Standard-Device: alle Logos grayscale/desaturated by default, bei Hover Original-Farben oder leicht erhoelltes Opacity.
 
