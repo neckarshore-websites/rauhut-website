@@ -47,34 +47,47 @@ export default async function Image() {
           color: "#F5F5F5",
         }}
       >
-        {/* Top: name + title */}
+        {/* Top: eyebrow (employer) + name + title */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 120,
+              fontSize: 26,
+              fontWeight: 500,
+              textTransform: "uppercase",
+              letterSpacing: "0.22em",
+              color: "#22D3EE",
+            }}
+          >
+            Neckarshore AI
+          </div>
+          <div
+            style={{
+              marginTop: 20,
+              fontSize: 112,
               fontWeight: 600,
               letterSpacing: "-0.035em",
               lineHeight: 1,
-              color: "#22D3EE",
+              color: "#F5F5F5",
             }}
           >
             German Rauhut
           </div>
           <div
             style={{
-              marginTop: 28,
-              fontSize: 44,
+              marginTop: 24,
+              fontSize: 42,
               fontWeight: 400,
               lineHeight: 1.2,
               color: "#A3A3A3",
-              maxWidth: 900,
+              maxWidth: 1000,
             }}
           >
             Technical Product Owner &amp; AI Product Builder
           </div>
         </div>
 
-        {/* Bottom: domain + location, on same baseline */}
+        {/* Bottom: both domains + location, on same baseline.
+            rauhut.com = personal brand, neckarshore.ai = company. */}
         <div
           style={{
             display: "flex",
@@ -85,7 +98,11 @@ export default async function Image() {
             letterSpacing: "-0.01em",
           }}
         >
-          <span style={{ color: "#22D3EE" }}>rauhut.com</span>
+          <div style={{ display: "flex", gap: 16, color: "#22D3EE" }}>
+            <span>rauhut.com</span>
+            <span style={{ color: "#525252" }}>·</span>
+            <span>neckarshore.ai</span>
+          </div>
           <span
             style={{
               color: "#9CA3AF",
