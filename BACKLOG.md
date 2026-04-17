@@ -13,9 +13,9 @@ Visuelle Polish-Ideen fuer die naechste Session. Einzeln durchzugehen, **User en
 | 3 | ~~Stat-Row unter About (3-4 grosse Zahlen)~~ | P2 | S | Linus | Content-Signoff (Zahlen) | ✅ Done (2026-04-17, `b95e8e2`) | Scroll-Preview wirkt substantiell |
 | 4 | Logos-Strip "Taetig bei / fuer" | P3 | M | Linus | Legal-Check Markenrechte | 🔲 Offen | Credibility-Boost fuer Recruiter |
 | 5 | Mini-Timeline Mercedes-Benz-Aera | P3 | M | Linus | — | 🔲 Offen | Karriere-Progression graphisch klarer als Bullet-List |
-| 6 | Kontakt als 3 gleiche Cards | P3 | S | Linus | — | 🔲 Offen | Mehr visuelles Gewicht fuer CTA-Section |
-| 7 | Impressum optisch differenzieren | P3 | XS | Linus | — | 🔲 Offen | "Legal-Mode"-Signalisierung, subtil |
-| 8 | Project-Tiles Hover-Second-State | P3 | S | Linus | — | 🔲 Offen | Clickable-Feel staerker |
+| 6 | ~~Kontakt als 3 gleiche Cards~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `c71298d`) | Mehr visuelles Gewicht fuer CTA-Section |
+| 7 | ~~Impressum optisch differenzieren~~ | P3 | XS | Linus | — | ✅ Done (2026-04-17, `fd75ef5`) | "Legal-Mode"-Signalisierung, subtil |
+| 8 | ~~Project-Tiles CTA-Label (top-right, always visible)~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `143c7b5` + `7e79643`) | Clickable-Feel staerker |
 
 ---
 
