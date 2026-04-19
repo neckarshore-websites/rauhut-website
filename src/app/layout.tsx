@@ -14,7 +14,7 @@ const inter = localFont({
 export const metadata: Metadata = {
   title: "German Rauhut — Technical Product Owner & AI Product Builder",
   description:
-    "Technical Product Owner & AI Product Builder aus Stuttgart. 10+ Jahre Mercedes-Benz, heute Freelance und Aufbau eigener AI-Produkte (Neckarshore AI, Omnopsis Documentor, Obsidian Vault Autopilot).",
+    "Technical Product Owner & AI Product Builder aus Stuttgart. 10+ Jahre Mercedes-Benz, heute Freelance und Aufbau eigener AI-Produkte (Neckarshore AI, OMNOPSIS Documentor, Obsidian Vault Autopilot).",
   metadataBase: new URL("https://rauhut.com"),
   openGraph: {
     title: "German Rauhut — Technical Product Owner & AI Product Builder",

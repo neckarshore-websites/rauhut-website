@@ -11,7 +11,7 @@ const COPY: Record<Lang, {
   de: {
     passion: "My passion",
     neckarshoreDesc:
-      "KI-beschleunigte Softwareentwicklung — inkl. Omnopsis Documentor",
+      "KI-beschleunigte Softwareentwicklung — inkl. OMNOPSIS Documentor",
     openSource: "Open Source",
     obsidianDesc:
       "Plugin fuer automatisiertes Wissensmanagement — GitHub",
@@ -21,7 +21,7 @@ const COPY: Record<Lang, {
   en: {
     passion: "My passion",
     neckarshoreDesc:
-      "AI-accelerated software development — incl. Omnopsis Documentor",
+      "AI-accelerated software development — incl. OMNOPSIS Documentor",
     openSource: "Open Source",
     obsidianDesc:
       "Plugin for automated knowledge management — GitHub",

@@ -153,7 +153,7 @@ export default function HomePage() {
           </p>
           <ul className="space-y-3 text-[0.9375rem] leading-relaxed">
             <li>
-              <strong className="font-semibold">Omnopsis Documentor</strong> —
+              <strong className="font-semibold">OMNOPSIS Documentor</strong> —
               AI-gestützte Dokumentations-Engine. Generierung von Compliance-,
               Technik- und Release-Dokumentation aus Git, Jira und Confluence.
               466 Tests, 95 API-Endpoints, RBAC, Monitoring-Stack.
