@@ -20,8 +20,8 @@
 type Lang = "de" | "en";
 
 const DESCRIPTIONS: Record<Lang, string> = {
-  de: "Brückenbauer zwischen Business und Technologie. 10+ Jahre Mercedes-Benz, heute Freelance AI Product Builder bei Neckarshore AI. Eigene Produkte (OMNIXIS Documenter, Obsidian Vault Autopilot) und Multi-Agent-Entwicklungsprozesse.",
-  en: "Bridge-builder between business and technology. 10+ years at Mercedes-Benz, now freelance AI product builder at Neckarshore AI. Own products (OMNIXIS Documenter, Obsidian Vault Autopilot) and multi-agent development processes.",
+  de: "Brückenbauer zwischen Business und Technologie. 10+ Jahre Mercedes-Benz, heute Freelance AI Product Builder bei Neckarshore AI. Eigene Produkte (Omnopsis Documentor, Obsidian Vault Autopilot) und Multi-Agent-Entwicklungsprozesse.",
+  en: "Bridge-builder between business and technology. 10+ years at Mercedes-Benz, now freelance AI product builder at Neckarshore AI. Own products (Omnopsis Documentor, Obsidian Vault Autopilot) and multi-agent development processes.",
 };
 
 export default function PersonJsonLd({ lang = "de" }: { lang?: Lang }) {

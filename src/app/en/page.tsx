@@ -12,7 +12,7 @@ import PersonJsonLd from "@/components/PersonJsonLd";
 export const metadata: Metadata = {
   title: "German Rauhut — Technical Product Owner & AI Product Builder",
   description:
-    "Technical Product Owner and AI Product Builder based in Stuttgart, Germany. 10+ years at Mercedes-Benz, now freelance and building AI products (Neckarshore AI, OMNIXIS Documenter, Obsidian Vault Autopilot).",
+    "Technical Product Owner and AI Product Builder based in Stuttgart, Germany. 10+ years at Mercedes-Benz, now freelance and building AI products (Neckarshore AI, Omnopsis Documentor, Obsidian Vault Autopilot).",
   openGraph: {
     title: "German Rauhut — Technical Product Owner & AI Product Builder",
     description:
@@ -195,7 +195,7 @@ export default function HomePageEN() {
           </p>
           <ul className="space-y-3 text-[0.9375rem] leading-relaxed">
             <li>
-              <strong className="font-semibold">OMNIXIS Documenter</strong>{" "}
+              <strong className="font-semibold">Omnopsis Documentor</strong>{" "}
               — AI-powered documentation engine. Generates compliance,
               technical, and release documentation from Git, Jira, and
               Confluence. 466 tests, 95 API endpoints, RBAC, monitoring
