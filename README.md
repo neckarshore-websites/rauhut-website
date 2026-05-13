@@ -10,8 +10,8 @@ One-Pager mit Impressum. Minimal Material Design. Dark Mode default, Light Mode 
 - React 19
 - Tailwind CSS v4 (PostCSS-only, `@theme` tokens)
 - TypeScript (strict)
-- Deploy: Vercel (geplant)
-- Domain: IONOS → Vercel (DNS-Cutover steht noch aus)
+- Deploy: Vercel (live)
+- Domain: `rauhut.com` live auf Vercel (DNS-Cutover IONOS → Vercel done 2026-04-17; MX bleibt IONOS)
 
 ## Dev
 
