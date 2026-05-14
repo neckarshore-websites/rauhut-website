@@ -10,21 +10,16 @@
      X profile picture displays as a circle inscribed in the 400x400 square,
      so the face must sit well inside the circle's safe zone.
 
-     object-position computation:
-       cover-mode on 0.753 aspect source in a 1:1 box → image is rendered
-       as 400 wide × 531 tall, with 131px vertical overflow.
-       Eyes at y=420 in source → y_in_render = 420 × (531/1168) = 191px.
-       For eyes at 40% of output (160px from top), offset the rendered
-       image up by 191-160 = 31px → object-position vertical = 31/131 = 24%.
-
-     We use 22% to bias slightly upward — the actual X circle clips
-     bottom corners more than top, so a slightly higher face placement
-     reads better in the final circular display. */
+     v1 (22%): hair touched top edge, shoulders visible at bottom.
+     v2 (38%): shifts the visible source range DOWN — adds ~12px gap above
+     hair, clips chest/shoulders out at bottom. Higher object-position-y
+     means content slides down in the container; less of the source's top
+     is anchored at output-top, less of the source's bottom is shown. */
   .avatar {
     width: 400px;
     height: 400px;
     object-fit: cover;
-    object-position: center 22%;
+    object-position: center 38%;
     display: block;
   }
 </style>
