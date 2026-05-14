@@ -66,25 +66,40 @@
     display: inline-block;
   }
 
-  /* Hero statement (left column) */
+  /* Hero statement (left column) — three-line cascade:
+     count (white) → orchestrator (muted) → accountability (teal). */
   .hero {
     grid-column: 1;
     grid-row: 2;
     align-self: center;
-    /* Anchored slightly above center so the H1 sits comfortably above the
-       avatar-overlay safe zone. */
-    margin-top: -4px;
-    margin-bottom: 28px;
+    margin-top: -8px;
+    margin-bottom: 24px;
   }
   .hero h1 {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 104px;
-    line-height: 0.98;
+    font-size: 78px;
+    line-height: 1.0;
     letter-spacing: -0.028em;
     color: var(--text);
+    margin: 0;
   }
-  .hero h1 .accent {
+  .hero .l2 {
+    margin-top: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 78px;
+    line-height: 1.0;
+    letter-spacing: -0.028em;
+    color: var(--text-muted);
+  }
+  .hero .l3 {
+    margin-top: 6px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 78px;
+    line-height: 1.0;
+    letter-spacing: -0.028em;
     color: var(--teal);
   }
 
@@ -156,11 +171,13 @@
     </div>
 
     <div class="hero">
-      <h1>Eleven personas.<br><span class="accent">One protocol.</span></h1>
+      <h1>Eleven personas.</h1>
+      <div class="l2">One chief of staff.</div>
+      <div class="l3">One human.</div>
     </div>
 
     <div class="roll">
-      <div class="label">The Roster — 11 Active</div>
+      <div class="label">The Roster</div>
       <ol>
         <li>MASCHIN</li>
         <li>Linus FE</li>
@@ -169,8 +186,6 @@
         <li>Obi</li>
         <li>Gary</li>
         <li>James</li>
-        <li>Hans CEE</li>
-        <li>Lorne CEE</li>
         <li>Sensei</li>
         <li>Jack</li>
       </ol>
