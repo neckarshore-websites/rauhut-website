@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>X Avatar — @germanrauhut</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 400px; height: 400px; overflow: hidden; background: #0A0A0A; }
+  /* Source: /images/german-rauhut-founder-bw.png (880x1168, B/W portrait).
+     X profile picture displays as a circle inscribed in the 400x400 square,
+     so the face must sit well inside the circle's safe zone.
+
+     object-position computation:
+       cover-mode on 0.753 aspect source in a 1:1 box → image is rendered
+       as 400 wide × 531 tall, with 131px vertical overflow.
+       Eyes at y=420 in source → y_in_render = 420 × (531/1168) = 191px.
+       For eyes at 40% of output (160px from top), offset the rendered
+       image up by 191-160 = 31px → object-position vertical = 31/131 = 24%.
+
+     We use 22% to bias slightly upward — the actual X circle clips
+     bottom corners more than top, so a slightly higher face placement
+     reads better in the final circular display. */
+  .avatar {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    object-position: center 22%;
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <img class="avatar"
+       src="file:///Users/germanrauhut.com/Developer/projects/neckarshore-ai/rauhut-website/public/images/german-rauhut-founder-bw.png"
+       alt="German Rauhut — B/W portrait">
+</body>
+</html>
