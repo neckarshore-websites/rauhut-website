@@ -5,10 +5,10 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = localFont({
-  src: "../fonts/Inter-Variable.woff2",
+  src: "../fonts/Inter-Variable-subset.woff2",
   variable: "--font-inter",
   display: "swap",
-  weight: "100 900",
+  weight: "400 700",
 });
 
 export const metadata: Metadata = {
