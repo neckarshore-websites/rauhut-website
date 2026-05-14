@@ -10,16 +10,22 @@
      X profile picture displays as a circle inscribed in the 400x400 square,
      so the face must sit well inside the circle's safe zone.
 
-     v1 (22%): hair touched top edge, shoulders visible at bottom.
-     v2 (38%): shifts the visible source range DOWN — adds ~12px gap above
-     hair, clips chest/shoulders out at bottom. Higher object-position-y
-     means content slides down in the container; less of the source's top
-     is anchored at output-top, less of the source's bottom is shown. */
+     Iteration history (object-position-y):
+     - v1 22%: hair tip at output top edge, full chest visible
+     - v2 38%: WRONG DIRECTION — shifted image up (showed source LOWER
+       portion), pushed face into circle worse
+     - v3 10%: shifts image DOWN in container — shows source TOP MORE
+       (= dark studio background above hair = gap), AND clips source
+       bottom (= chest/shoulders removed). Both goals in one move.
+
+     Lower object-position-y = image anchored to top of container =
+     image-top y in container approaches 0 = source-top dark area
+     visible at output-top. */
   .avatar {
     width: 400px;
     height: 400px;
     object-fit: cover;
-    object-position: center 38%;
+    object-position: center 10%;
     display: block;
   }
 </style>
