@@ -257,3 +257,9 @@ h3 {
 :root[data-theme="light"] .theme-icon-moon {
   display: block;
 }
+
+/* ── ShuffleTour progress bar animation ── */
+@keyframes progress-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
