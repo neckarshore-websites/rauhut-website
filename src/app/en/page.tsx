@@ -405,7 +405,9 @@ export default function HomePageEN() {
           © {new Date().getFullYear()} German Rauhut ·{" "}
           <a href="/impressum" lang="de">
             Imprint (German)
-          </a>
+          </a>{" "}
+          ·{" "}
+          <a href="/designs">Designs</a>
         </p>
       </footer>
     </main>

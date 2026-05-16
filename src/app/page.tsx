@@ -343,7 +343,8 @@ export default function HomePage() {
       <footer className="pt-10 pb-4 text-sm text-text-subtle">
         <p>
           © {new Date().getFullYear()} German Rauhut ·{" "}
-          <a href="/impressum">Impressum</a>
+          <a href="/impressum">Impressum</a> ·{" "}
+          <a href="/designs">Designs</a>
         </p>
       </footer>
     </main>
