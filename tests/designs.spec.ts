@@ -28,7 +28,9 @@ test("/designs loads without console errors and no failed network requests", asy
   });
 
   await page.goto("/designs");
-  await page.waitForLoadState("networkidle");
+  // "load" instead of "networkidle": Next.js dev HMR keeps a WebSocket open,
+  // which prevents networkidle from ever settling in dev mode.
+  await page.waitForLoadState("load");
 
   expect(consoleErrors, `Console errors: ${consoleErrors.join(", ")}`).toHaveLength(0);
   expect(
