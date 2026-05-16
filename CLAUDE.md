@@ -59,6 +59,10 @@ Aktualisierungen am Projektprofil → erst Vault-Datei aktualisieren, dann Seite
 | 3 | 2026-05-13 b | **L-RH1 — IONOS Hosting-Vertrag behalten, nicht kündigen** | Sehr alter Vertrag (~18 EUR/Monat für 3 Domains + unbegrenzte Mails). Legacy-pricing-Win schlägt operative Sauberkeit. WordPress-Installation bleibt idle auf IONOS, kostet keine Extra-Gebühr |
 | 4 | 2026-05-13 b | **L4 — WordPress-Decommission IONOS won't-do** (superseded by Decision 3) | Mit Vertrag-Keep gibt es nichts zu decommissionieren. DNS zeigt auf Vercel, WordPress ist nicht mehr erreichbar — die idle Installation darf bleiben |
 | 5 | 2026-05-16 | L-RH3 GSC Domain-Property bleibt geparkt | IONOS Domain-Connect würde DNS-Zone überschreiben inkl. MX → Mail-Risiko. URL-Prefix-Property + Sitemap reicht für Google-Indexing |
+| 6 | 2026-05-16 | **D6 — Playwright added to rauhut-website** | Task override of "Out of Scope" entry; closes retro Playwright-gap on websites |
+| 7 | 2026-05-16 | **D7 — SpaceX hero interval 150ms → 2000ms** | Per user request: images were cycling too fast to read |
+| 8 | 2026-05-16 | **D8 — rauhut-luxury.html excluded** | File intentionally deleted before integration; 28 cards shown |
+| 9 | 2026-05-16 | **D9 — Gallery page uses max-w-7xl** | Full-width card grid; main site uses max-w-2xl (single CV column) |
 
 ## Out of Scope (post-v1)
 
