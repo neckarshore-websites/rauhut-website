@@ -17,6 +17,7 @@ Visuelle Polish-Ideen fuer die naechste Session. Einzeln durchzugehen, **User en
 | 7 | ~~Impressum optisch differenzieren~~ | P3 | XS | Linus | — | ✅ Done (2026-04-17, `fd75ef5`) | "Legal-Mode"-Signalisierung, subtil |
 | 8 | ~~Project-Tiles CTA-Label (top-right, always visible)~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `143c7b5` + `7e79643`) | Clickable-Feel staerker |
 | 9 | GSC Domain-Property fuer `rauhut.com` | P3 | S | Linus | IONOS Domain-Connect blockiert manuelle TXT-Eingabe | 🔲 Geparkt | Deckt alle Subdomains + HTTP in einer Property ab; heute via URL-Prefix-Property geloest |
+| 10 | ~~WordPress-Decommission IONOS (L4)~~ | — | — | — | superseded | ❌ Won't-Do (2026-05-13 b) | IONOS-Vertrag bleibt (Decision 3, CLAUDE.md). WordPress-Installation idle, kostet nichts extra, DNS zeigt auf Vercel. Nichts zu decommissionieren |
 
 ---
 
