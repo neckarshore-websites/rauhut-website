@@ -60,9 +60,9 @@ export default function DesignCard({ design }: DesignCardProps) {
 
             {/* Swatches */}
             <div className="mt-auto flex flex-wrap gap-1.5">
-              {design.swatches.map((s, i) => (
+              {design.swatches.map((s) => (
                 <span
-                  key={i}
+                  key={s}
                   className="h-5 w-5 flex-shrink-0"
                   style={{ background: s }}
                   aria-hidden="true"
