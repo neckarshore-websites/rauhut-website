@@ -20,8 +20,9 @@ export default function DesignsGallery({ designs }: DesignsGalleryProps) {
       ? designs
       : designs.filter((d) => d.tags.includes(activeTag));
 
-  // Update --pscale on each card-wrapper whenever the filtered set or
-  // viewport size changes. Mirrors the original vanilla JS setScales().
+  // Update --pscale on each card-wrapper whenever the active filter or
+  // viewport size changes. Use activeTag (primitive) not filtered (derived
+  // array) to avoid a new reference triggering a stale effect every render.
   useEffect(() => {
     const setScales = () => {
       if (!gridRef.current) return;
@@ -37,7 +38,7 @@ export default function DesignsGallery({ designs }: DesignsGalleryProps) {
     setScales();
     window.addEventListener("resize", setScales);
     return () => window.removeEventListener("resize", setScales);
-  }, [filtered]);
+  }, [activeTag]);
 
   return (
     <div className="min-h-screen bg-bg text-text">
