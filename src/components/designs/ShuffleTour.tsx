@@ -27,8 +27,10 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
   // progressKey increments to reset the CSS progress-bar animation
   const [progressKey, setProgressKey] = useState(0);
 
+  const dialogRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const previousFocusRef = useRef<Element | null>(null);
 
   const current = queue[currentIdx];
 
@@ -74,8 +76,55 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
     };
   }, []);
 
+  // ── Focus trap ───────────────────────────────────────────────────
+  // Save caller's focus, move into dialog on open, restore on close.
+  useEffect(() => {
+    previousFocusRef.current = document.activeElement;
+    const el = dialogRef.current;
+    if (el) {
+      const first = el.querySelector<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      first?.focus();
+    }
+    return () => {
+      (previousFocusRef.current as HTMLElement | null)?.focus();
+    };
+  }, []);
+
+  // ── Tab cycle inside dialog ───────────────────────────────────────
+  useEffect(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    const trap = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = Array.from(
+        el.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    el.addEventListener("keydown", trap);
+    return () => el.removeEventListener("keydown", trap);
+  }, []);
+
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Design shuffle tour"
@@ -177,7 +226,8 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
       </div>
 
       {/* ── Dot navigation ───────────────────────────────────────── */}
-      <div className="flex flex-wrap justify-center gap-1 px-4 pb-3">
+      {/* Each button is 24×24 px (WCAG 2.5.8 minimum) with a small visual dot */}
+      <div className="flex flex-wrap justify-center px-4 pb-3">
         {queue.map((d, i) => (
           <button
             key={d.slug}
@@ -186,10 +236,14 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
               setProgressKey((k) => k + 1);
             }}
             aria-label={`Jump to ${d.name}`}
-            className={`h-1.5 w-1.5 rounded-full transition-colors ${
-              i === currentIdx ? "bg-white" : "bg-white/20 hover:bg-white/40"
-            }`}
-          />
+            className="flex h-6 w-6 items-center justify-center"
+          >
+            <span
+              className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                i === currentIdx ? "bg-white" : "bg-white/20 hover:bg-white/40"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>
