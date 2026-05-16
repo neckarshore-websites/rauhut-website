@@ -4,18 +4,20 @@
 
 - **Owner:** Linus (Frontend Artist)
 - **GitHub home:** `GmanFooFoo/rauhut-website` (User's personal GitHub — NOT the `neckarshore-ai` Org)
-- **Domain:** `rauhut.com` — registered at IONOS, planned Vercel deployment. DNS cutover not done yet.
+- **Domain:** `rauhut.com` — registered at IONOS, live on Vercel. DNS-Cutover IONOS → Vercel done 2026-04-17. MX bleibt IONOS (Mail-Empfang separat geregelt).
 - **Brand:** The person, not the firm. `neckarshore.ai` is the company (warm, Bordeaux); `rauhut.com` is the person (clean, minimal Material, Schwarz/Weiss/Grau + Pastell-Akzent `#8DA5C4`).
 
 ## Working Directory Rule
 
-This repo lives at `~/Developer/projects/rauhut-website/`. Every Bash command must start with:
+This repo lives at `~/Developer/projects/neckarshore-ai/rauhut-website/`. Every Bash command must start with:
 
 ```bash
-cd ~/Developer/projects/rauhut-website && ...
+cd ~/Developer/projects/neckarshore-ai/rauhut-website && ...
 ```
 
 The Claude Code harness resets `cwd` after every Bash call. Unscoped commands risk writing to the wrong repo. Same discipline as `neckarshore-website`.
+
+> **Path-note:** The repo's GitHub home is `GmanFooFoo/rauhut-website` (personal), but the local checkout lives inside the `neckarshore-ai` folder for ecosystem-grouping convenience. Local path ≠ GitHub org. Captured as Path-Drift Klasse B in `omnopsis-planning/docs/process/session-state.md` (2026-05-12 c).
 
 ## Rules
 
@@ -27,7 +29,7 @@ Same quality bar as `neckarshore-website`:
 - No CMS. Analytics: Vercel Web Analytics only (cookieless, DSGVO-friendly, no banner)
 - Self-hosted fonts (DSGVO)
 - Commit after each section / logical block
-- Do NOT push to production (`rauhut.com` live) until user approves
+- **Deploy-Flow:** Branch → PR → User-merge → Vercel Auto-Deploy via OAuth (verified end-to-end 2026-05-13 b PR #1). Preview-Deploys laufen auf jeder Branch-Push automatisch. Kein manueller `vercel --prod` nötig. Push direkt auf `main` is technisch erlaubt — wird aber per Konvention vermieden (PR-Flow).
 
 ## Definition of Done
 
@@ -48,13 +50,22 @@ Projektprofil (Content fuer die Seite): `~/vaults/nexus/001_Inbox - Temporary ho
 
 Aktualisierungen am Projektprofil → erst Vault-Datei aktualisieren, dann Seite nachziehen.
 
-## Out of Scope (v1)
+## Decisions
 
-- GitHub-Repo auf `GmanFooFoo/rauhut-website` (User macht via `gh repo create`)
-- Vercel-Projekt + Deploy
-- DNS-Umzug IONOS → Vercel
-- E-Mail MX (bleibt bei IONOS, nicht anfassen)
-- Dark Mode
-- Third-party Analytics (GA, Plausible, etc.) — nur Vercel Web Analytics
-- Cookie-Banner
-- Playwright E2E, Lighthouse CI
+| # | Date | Decision | Rationale |
+|---|------|----------|-----------|
+| 1 | 2026-04-17 | DNS-Cutover IONOS → Vercel | Vercel-Hosting für Compute, IONOS behält DNS-Zone + MX |
+| 2 | 2026-04-17 | Theme-Default = Dark, mit Light-Toggle | Persoenliche Site, schwarzer Hintergrund als Default-Ton; User-Toggle persistiert in `localStorage` |
+| 3 | 2026-05-13 b | **L-RH1 — IONOS Hosting-Vertrag behalten, nicht kündigen** | Sehr alter Vertrag (~18 EUR/Monat für 3 Domains + unbegrenzte Mails). Legacy-pricing-Win schlägt operative Sauberkeit. WordPress-Installation bleibt idle auf IONOS, kostet keine Extra-Gebühr |
+| 4 | 2026-05-13 b | **L4 — WordPress-Decommission IONOS won't-do** (superseded by Decision 3) | Mit Vertrag-Keep gibt es nichts zu decommissionieren. DNS zeigt auf Vercel, WordPress ist nicht mehr erreichbar — die idle Installation darf bleiben |
+| 5 | 2026-05-16 | L-RH3 GSC Domain-Property bleibt geparkt | IONOS Domain-Connect würde DNS-Zone überschreiben inkl. MX → Mail-Risiko. URL-Prefix-Property + Sitemap reicht für Google-Indexing |
+
+## Out of Scope (post-v1)
+
+- Dark/Light-Mode-Erweiterungen über die zwei Default-Themes hinaus
+- Third-party Analytics (GA, Plausible, Sentry) — nur Vercel Web Analytics
+- Cookie-Banner (nicht nötig, da cookieless)
+- Playwright E2E (klein genug, manuelle Smoke-Tests reichen)
+- Lighthouse CI (Baseline manuell, nicht automatisiert)
+- Blog / CMS / Content-Pipeline
+- E-Mail MX-Aenderungen — Mail bleibt bei IONOS, nicht anfassen
