@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="golden-kingdom">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>German Rauhut — Portfolio</title>
+  <script>
+    (function() {
+      var k = 'rauhut-egypt-theme';
+      var s = localStorage.getItem(k);
+      if (s) document.documentElement.setAttribute('data-theme', s);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 19.2px;
+      scroll-behavior: smooth;
+    }
+
+    html.switching * {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+    }
+
+    /* ===== THEMES ===== */
+    html[data-theme="golden-kingdom"] {
+      --bg: #F0E4C0;
+      --fg: #1A1008;
+      --accent: #C89010;
+      --punch: #C84830;
+      --muted: #9A8050;
+      --surface: #E8D8A0;
+      --line: #C89010;
+    }
+    html[data-theme="lapis-court"] {
+      --bg: #EEF2F8;
+      --fg: #0A1020;
+      --accent: #1A3A8B;
+      --punch: #C89010;
+      --muted: #5A6888;
+      --surface: #E4EAF8;
+      --line: #C89010;
+    }
+    html[data-theme="night-of-osiris"] {
+      --bg: #060408;
+      --fg: #F0E4C0;
+      --accent: #C89010;
+      --punch: #C84830;
+      --muted: #806850;
+      --surface: #0C0A0C;
+      --line: #3A2810;
+    }
+    html[data-theme="turquoise-pharaoh"] {
+      --bg: #EEF8F6;
+      --fg: #081814;
+      --accent: #1A7A6A;
+      --punch: #C89010;
+      --muted: #5A8878;
+      --surface: #E0F4F0;
+      --line: #C89010;
+    }
+
+    /* ===== BODY ===== */
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ===== PAPYRUS TEXTURE LAYER ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ===== CONTENT WRAPPER ===== */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+
+    /* ===== THEME SWITCHER ===== */
+    .theme-switcher {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.2rem;
+      display: flex;
+      gap: 0.4rem;
+      z-index: 200;
+      background: var(--surface);
+      padding: 0.4rem;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    }
+
+    .theme-btn {
+      width: 25px;
+      height: 25px;
+      border-radius: 2px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-btn:hover { transform: scale(1.15); }
+    .theme-btn.active { border: 2px solid var(--fg); }
+
+    .theme-btn[data-theme="golden-kingdom"]   { background: linear-gradient(135deg, #F0E4C0 50%, #C89010 50%); }
+    .theme-btn[data-theme="lapis-court"]      { background: linear-gradient(135deg, #EEF2F8 50%, #1A3A8B 50%); }
+    .theme-btn[data-theme="night-of-osiris"]  { background: linear-gradient(135deg, #060408 50%, #C89010 50%); }
+    .theme-btn[data-theme="turquoise-pharaoh"]{ background: linear-gradient(135deg, #EEF8F6 50%, #1A7A6A 50%); }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: #1A3A6B;
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    html[data-theme="lapis-court"] .hero     { background: #1A3A8B; }
+    html[data-theme="night-of-osiris"] .hero { background: #0A0812; border-bottom: 3px solid #C89010; }
+    html[data-theme="turquoise-pharaoh"] .hero { background: #0A3A30; }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 18px,
+        rgba(212,160,16,0.06) 18px,
+        rgba(212,160,16,0.06) 19px
+      );
+      pointer-events: none;
+    }
+
+    /* Eye of Ra SVG above name */
+    .eye-of-ra {
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Cartouche frame */
+    .cartouche-wrap {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .cartouche-svg {
+      display: block;
+    }
+
+    .hero-name-text {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      font-weight: 700;
+      fill: #D4A010;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #D4A010;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      opacity: 0.9;
+    }
+
+    .hero-location {
+      font-size: 0.72rem;
+      color: #A08040;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ===== LOTUS BAND DIVIDERS ===== */
+    .lotus-band {
+      width: 100%;
+      height: 20px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--line) 0px,
+        var(--line) 1px,
+        transparent 1px,
+        transparent 8px,
+        var(--surface) 8px,
+        var(--surface) 16px,
+        transparent 16px,
+        transparent 24px
+      );
+      opacity: 0.5;
+      margin: 0;
+    }
+
+    .divider-band {
+      border: none;
+      height: 4px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--line) 10%,
+        var(--accent) 50%,
+        var(--line) 90%,
+        transparent 100%
+      );
+      margin: 1.8rem 0;
+      opacity: 0.6;
+    }
+
+    /* ===== HIEROGLYPH BORDER ===== */
+    .hieroglyph-strip {
+      text-align: center;
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      padding: 0.5rem 0;
+      opacity: 0.7;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    /* ===== SECTION HEADING ===== */
+    .section-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding-top: 0.5rem;
+      position: relative;
+    }
+
+    .section-heading::before,
+    .section-heading::after {
+      content: '𓏏';
+      margin: 0 0.6rem;
+      opacity: 0.6;
+      font-size: 0.9em;
+    }
+
+    /* ===== MAIN CONTENT AREA ===== */
+    .content-area {
+      padding: 2rem 0;
+      position: relative;
+    }
+
+    /* Column border effect on sides */
+    .content-area::before,
+    .content-area::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background: repeating-linear-gradient(
+        180deg,
+        var(--surface) 0px,
+        var(--surface) 14px,
+        var(--bg) 14px,
+        var(--bg) 28px
+      );
+      opacity: 0.6;
+    }
+    .content-area::before { left: -16px; }
+    .content-area::after  { right: -16px; }
+
+    /* ===== BIO ===== */
+    .bio-text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--fg);
+    }
+
+    /* ===== STATS — OFFERING TABLETS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      margin: 0.5rem 0;
+    }
+
+    .stat-tablet {
+      padding: 1rem 0.5rem;
+      text-align: center;
+      background: var(--surface);
+      border: 2px solid var(--line);
+      box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 5px var(--line);
+      transition: transform 0.3s;
+      position: relative;
+    }
+
+    .stat-tablet:hover {
+      transform: rotate(1deg) scale(1.04);
+    }
+
+    .stat-glyph {
+      font-size: 1.7rem;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+      opacity: 0.7;
+    }
+
+    .stat-number {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--punch);
+      display: block;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+      display: block;
+      line-height: 1.3;
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .skills-group-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.65rem;
+      border: 1px solid var(--line);
+      color: var(--fg);
+      background: var(--surface);
+      letter-spacing: 0.04em;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ===== PROJECTS ===== */
+    .project-card {
+      border: 1px solid var(--line);
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 0.9rem;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid var(--line);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .project-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--punch);
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.06em;
+    }
+
+    .project-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .project-status {
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+    }
+
+    /* ===== CAREER ===== */
+    .career-entry {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1.1rem;
+      padding-bottom: 1.1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .career-entry:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .career-period {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+      min-width: 85px;
+      letter-spacing: 0.04em;
+    }
+
+    .career-role {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--fg);
+      letter-spacing: 0.03em;
+    }
+
+    .career-org {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ===== EDUCATION ===== */
+    .edu-entry {
+      text-align: center;
+      padding: 1.1rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      position: relative;
+    }
+
+    .edu-entry::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid var(--line);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .edu-degree {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--fg);
+      letter-spacing: 0.05em;
+    }
+
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.2rem;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.4rem;
+      padding: 0.8rem 0;
+    }
+
+    .contact-link {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.1rem;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--punch); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #1A3A6B;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      color: #A08040;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0;
+    }
+
+    html[data-theme="lapis-court"] footer      { background: #1A3A8B; }
+    html[data-theme="night-of-osiris"] footer  { background: #0A0812; border-top: 2px solid #C89010; }
+    html[data-theme="turquoise-pharaoh"] footer{ background: #0A3A30; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      html { font-size: 16px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .theme-switcher { top: 0.7rem; right: 0.7rem; }
+      .career-period { min-width: 65px; font-size: 0.75rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      .content-area::before,
+      .content-area::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- THEME SWITCHER -->
+  <nav class="theme-switcher" aria-label="Theme switcher">
+    <button class="theme-btn active" data-theme="golden-kingdom"    title="Golden Kingdom" aria-label="Theme Golden Kingdom"></button>
+    <button class="theme-btn"        data-theme="lapis-court"       title="Lapis Court" aria-label="Theme Lapis Court"></button>
+    <button class="theme-btn"        data-theme="night-of-osiris"   title="Night of Osiris (dark)" aria-label="Theme Night of Osiris"></button>
+    <button class="theme-btn"        data-theme="turquoise-pharaoh" title="Turquoise Pharaoh" aria-label="Theme Turquoise Pharaoh"></button>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" aria-label="Hero">
+
+    <!-- Eye of Ra -->
+    <svg class="eye-of-ra" width="100" height="60" viewBox="0 0 100 60" aria-label="Eye of Ra" role="img">
+      <!-- Almond eye shape -->
+      <path d="M 10,30 C 25,10 75,10 90,30 C 75,50 25,50 10,30 Z"
+            fill="#1A3A6B" stroke="#D4A010" stroke-width="1.5"/>
+      <!-- Iris -->
+      <circle cx="50" cy="30" r="13" fill="#0A2040" stroke="#D4A010" stroke-width="1"/>
+      <!-- Pupil -->
+      <circle cx="50" cy="30" r="6" fill="#D4A010" opacity="0.9"/>
+      <!-- Inner pupil -->
+      <circle cx="50" cy="30" r="2.5" fill="#1A3A6B"/>
+      <!-- Lower cosmetic line (kohl) — left -->
+      <path d="M 10,30 C 5,38 0,48 8,54" fill="none" stroke="#D4A010" stroke-width="1.5"/>
+      <!-- Lower cosmetic curl left -->
+      <path d="M 8,54 C 12,56 16,52 14,48" fill="none" stroke="#D4A010" stroke-width="1"/>
+      <!-- Lower cosmetic line right -->
+      <path d="M 90,30 C 94,35 92,44 88,48" fill="none" stroke="#D4A010" stroke-width="1.2"/>
+      <!-- Upper lid highlight -->
+      <path d="M 15,28 C 35,20 65,20 85,28" fill="none" stroke="#D4A010" stroke-width="0.8" opacity="0.5"/>
+      <!-- Teardrop below -->
+      <path d="M 50,43 C 48,50 52,50 50,43 Z" fill="#D4A010" opacity="0.7"/>
+    </svg>
+
+    <!-- Cartouche with name -->
+    <div class="cartouche-wrap">
+      <svg class="cartouche-svg" viewBox="0 0 460 90" width="460" height="90" aria-label="German Rauhut">
+        <!-- Cartouche outer oval -->
+        <rect x="8" y="5" width="400" height="68" rx="34" ry="34"
+              fill="none" stroke="#D4A010" stroke-width="3"/>
+        <!-- Cartouche inner oval (decorative double border) -->
+        <rect x="13" y="10" width="390" height="58" rx="30" ry="30"
+              fill="rgba(0,0,0,0.25)" stroke="#C89010" stroke-width="1"/>
+        <!-- Base bar (the flat end of a cartouche) -->
+        <rect x="408" y="5" width="30" height="68" rx="4"
+              fill="none" stroke="#D4A010" stroke-width="3"/>
+        <!-- Base bar inner fill -->
+        <rect x="412" y="10" width="22" height="58" rx="3"
+              fill="rgba(212,160,16,0.15)" stroke="#C89010" stroke-width="1"/>
+        <!-- Decorative dots on bar -->
+        <circle cx="423" cy="25" r="2" fill="#D4A010" opacity="0.7"/>
+        <circle cx="423" cy="38" r="2" fill="#D4A010" opacity="0.7"/>
+        <circle cx="423" cy="51" r="2" fill="#D4A010" opacity="0.7"/>
+        <circle cx="423" cy="64" r="2" fill="#D4A010" opacity="0.7"/>
+        <!-- Name text -->
+        <text x="210" y="46" text-anchor="middle" class="hero-name-text"
+              font-family="Cinzel, serif" font-size="26" font-weight="700"
+              letter-spacing="8" fill="#D4A010">GERMAN RAUHUT</text>
+      </svg>
+    </div>
+
+    <p class="hero-title">Technical Product Owner &amp; AI Product Builder</p>
+    <p class="hero-location">Stuttgart, Deutschland</p>
+
+    <!-- Scarab ornament below -->
+    <svg width="60" height="44" viewBox="0 0 60 44" style="display:block;margin:1.5rem auto 0;opacity:0.7;" aria-hidden="true">
+      <!-- Body oval -->
+      <ellipse cx="30" cy="26" rx="14" ry="16" fill="none" stroke="#D4A010" stroke-width="1.5"/>
+      <!-- Wing left -->
+      <path d="M 16,22 C 8,16 4,10 8,6 C 14,2 22,8 20,16"
+            fill="none" stroke="#D4A010" stroke-width="1.5"/>
+      <!-- Wing right -->
+      <path d="M 44,22 C 52,16 56,10 52,6 C 46,2 38,8 40,16"
+            fill="none" stroke="#D4A010" stroke-width="1.5"/>
+      <!-- Head -->
+      <circle cx="30" cy="10" r="6" fill="none" stroke="#D4A010" stroke-width="1.5"/>
+      <!-- Legs left -->
+      <path d="M 18,28 C 10,26 6,30 4,36" stroke="#D4A010" stroke-width="1" fill="none"/>
+      <path d="M 17,32 C 8,32 5,36 4,42" stroke="#D4A010" stroke-width="1" fill="none"/>
+      <!-- Legs right -->
+      <path d="M 42,28 C 50,26 54,30 56,36" stroke="#D4A010" stroke-width="1" fill="none"/>
+      <path d="M 43,32 C 52,32 55,36 56,42" stroke="#D4A010" stroke-width="1" fill="none"/>
+      <!-- Center body line -->
+      <line x1="30" y1="10" x2="30" y2="42" stroke="#D4A010" stroke-width="0.8" opacity="0.5"/>
+      <!-- Body segments -->
+      <ellipse cx="30" cy="20" rx="8" ry="4" fill="none" stroke="#D4A010" stroke-width="0.8" opacity="0.5"/>
+      <ellipse cx="30" cy="30" rx="11" ry="4" fill="none" stroke="#D4A010" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+  </header>
+
+  <!-- LOTUS BAND TOP -->
+  <div class="lotus-band" aria-hidden="true"></div>
+
+  <!-- HIEROGLYPH STRIP -->
+  <div class="hieroglyph-strip" aria-hidden="true">
+    𓂀 &nbsp; 𓃭 &nbsp; 𓆣 &nbsp; 𓇋 &nbsp; 𓈖 &nbsp; 𓉐 &nbsp; 𓊪 &nbsp; 𓋴 &nbsp; 𓌀 &nbsp; 𓍝 &nbsp; 𓎡 &nbsp; 𓏏 &nbsp; 𓐍 &nbsp; 𓂀 &nbsp; 𓃭 &nbsp; 𓆣 &nbsp; 𓇋
+  </div>
+
+  <!-- LOTUS BAND BOTTOM -->
+  <div class="lotus-band" aria-hidden="true"></div>
+
+  <div class="page-wrapper">
+    <div class="content-area">
+
+      <!-- ===== BIO ===== -->
+      <section aria-labelledby="bio-heading" style="padding-bottom:1.5rem;">
+        <h2 class="section-heading" id="bio-heading">Profil</h2>
+        <p class="bio-text">
+          Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+          Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei
+          Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+          Software und Management in Deutschland, der Schweiz und Thailand.
+        </p>
+      </section>
+
+      <hr class="divider-band" aria-hidden="true">
+
+      <!-- ===== STATS ===== -->
+      <section aria-labelledby="stats-heading">
+        <h2 class="section-heading" id="stats-heading">Kennzahlen</h2>
+        <div class="stats-grid">
+          <div class="stat-tablet">
+            <span class="stat-glyph">𓇋</span>
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Jahre Corporate</span>
+          </div>
+          <div class="stat-tablet">
+            <span class="stat-glyph">𓏏</span>
+            <span class="stat-number">466</span>
+            <span class="stat-label">Tests Shipped</span>
+          </div>
+          <div class="stat-tablet">
+            <span class="stat-glyph">𓆣</span>
+            <span class="stat-number">12+</span>
+            <span class="stat-label">KI-Agenten gebaut</span>
+          </div>
+          <div class="stat-tablet">
+            <span class="stat-glyph">𓂀</span>
+            <span class="stat-number">95</span>
+            <span class="stat-label">API Endpoints</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider-band" aria-hidden="true">
+
+      <!-- ===== SKILLS ===== -->
+      <section aria-labelledby="skills-heading">
+        <h2 class="section-heading" id="skills-heading">Kompetenzen</h2>
+        <div class="skills-group">
+          <div class="skills-group-title">Technologie &amp; KI</div>
+          <div class="skills-list">
+            <span class="skill-tag">AI Product Development</span>
+            <span class="skill-tag">Multi-Agent Architectures</span>
+            <span class="skill-tag">LLM Integration</span>
+            <span class="skill-tag">Full-Stack Engineering</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <div class="skills-group-title">Management &amp; Prozesse</div>
+          <div class="skills-list">
+            <span class="skill-tag">Technical Product Ownership</span>
+            <span class="skill-tag">Requirements Management</span>
+            <span class="skill-tag">Project Management</span>
+            <span class="skill-tag">Test Automation</span>
+            <span class="skill-tag">DevOps</span>
+            <span class="skill-tag">Enterprise Consulting</span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider-band" aria-hidden="true">
+
+      <!-- ===== PROJECTS ===== -->
+      <section aria-labelledby="projects-heading">
+        <h2 class="section-heading" id="projects-heading">Projekte</h2>
+        <div class="project-card">
+          <div class="project-name">neckarshore.ai</div>
+          <div class="project-desc">KI-beschleunigte Softwareentwicklung</div>
+          <div class="project-status">Aktiv</div>
+        </div>
+        <div class="project-card">
+          <div class="project-name">Obsidian Vault Autopilot</div>
+          <div class="project-desc">Open Source Plugin</div>
+          <div class="project-status">Open Source</div>
+        </div>
+      </section>
+
+      <hr class="divider-band" aria-hidden="true">
+
+      <!-- ===== CAREER ===== -->
+      <section aria-labelledby="career-heading">
+        <h2 class="section-heading" id="career-heading">Karriere</h2>
+        <div class="career-entry">
+          <div class="career-period">2025 —</div>
+          <div>
+            <div class="career-role">Freelance TPO &amp; AI Builder</div>
+            <div class="career-org">Neckarshore AI</div>
+          </div>
+        </div>
+        <div class="career-entry">
+          <div class="career-period">2015 – 2025</div>
+          <div>
+            <div class="career-role">Tester · Consultant · Technical Product Owner</div>
+            <div class="career-org">Mercedes-Benz AG</div>
+          </div>
+        </div>
+        <div class="career-entry">
+          <div class="career-period">1993 – 2015</div>
+          <div>
+            <div class="career-role">Consulting, Software &amp; Management</div>
+            <div class="career-org">Deutschland · Schweiz · Thailand</div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider-band" aria-hidden="true">
+
+      <!-- ===== EDUCATION ===== -->
+      <section aria-labelledby="edu-heading">
+        <h2 class="section-heading" id="edu-heading">Bildung</h2>
+        <div class="edu-entry">
+          <div class="edu-degree">Diplom-Betriebswirt · Datenverarbeitung</div>
+          <div class="edu-school">BA Stuttgart</div>
+        </div>
+      </section>
+
+      <hr class="divider-band" aria-hidden="true">
+
+      <!-- ===== CONTACT ===== -->
+      <section aria-labelledby="contact-heading">
+        <h2 class="section-heading" id="contact-heading">Kontakt</h2>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:german@rauhut.com">german@rauhut.com</a>
+          <a class="contact-link" href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="contact-link" href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </section>
+
+    </div><!-- end content-area -->
+  </div><!-- end page-wrapper -->
+
+  <!-- LOTUS BAND FOOTER TOP -->
+  <div class="lotus-band" aria-hidden="true"></div>
+
+  <!-- HIEROGLYPH STRIP -->
+  <div class="hieroglyph-strip" aria-hidden="true" style="background:var(--surface);">
+    𓐍 &nbsp; 𓎡 &nbsp; 𓍝 &nbsp; 𓌀 &nbsp; 𓋴 &nbsp; 𓊪 &nbsp; 𓉐 &nbsp; 𓈖 &nbsp; 𓇋 &nbsp; 𓆣 &nbsp; 𓃭 &nbsp; 𓂀 &nbsp; 𓏏 &nbsp; 𓐍 &nbsp; 𓎡 &nbsp; 𓍝 &nbsp; 𓌀
+  </div>
+
+  <footer>
+    <svg width="200" height="20" viewBox="0 0 200 20" style="display:block;margin:0 auto 0.8rem;" aria-hidden="true">
+      <line x1="0" y1="10" x2="80" y2="10" stroke="#D4A010" stroke-width="0.8" opacity="0.6"/>
+      <path d="M 100,2 L 108,10 L 100,18 L 92,10 Z" fill="none" stroke="#D4A010" stroke-width="1.2" opacity="0.7"/>
+      <circle cx="100" cy="10" r="2" fill="#D4A010" opacity="0.8"/>
+      <line x1="120" y1="10" x2="200" y2="10" stroke="#D4A010" stroke-width="0.8" opacity="0.6"/>
+    </svg>
+    German Rauhut &mdash; Stuttgart &mdash; 2025
+  </footer>
+
+  <script>
+    (function() {
+      var STORAGE_KEY = 'rauhut-egypt-theme';
+      var current = localStorage.getItem(STORAGE_KEY) || 'golden-kingdom';
+
+      function applyTheme(name) {
+        document.documentElement.classList.add('switching');
+        document.documentElement.setAttribute('data-theme', name);
+        localStorage.setItem(STORAGE_KEY, name);
+        current = name;
+        document.querySelectorAll('.theme-btn').forEach(function(btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-theme') === name);
+        });
+        setTimeout(function() {
+          document.documentElement.classList.remove('switching');
+        }, 300);
+      }
+
+      document.querySelectorAll('.theme-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-theme') === current);
+        btn.addEventListener('click', function() {
+          applyTheme(btn.getAttribute('data-theme'));
+        });
+      });
+
+      if (current !== document.documentElement.getAttribute('data-theme')) {
+        document.documentElement.setAttribute('data-theme', current);
+      }
+    })();
+  </script>
+</body>
+</html>

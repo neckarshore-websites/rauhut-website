@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="oxford-dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
+<script>
+(function() {
+  var saved = localStorage.getItem('rauhut-gothic-theme');
+  var valid = ['oxford-dark','parchment','midnight-library'];
+  if (saved && valid.indexOf(saved) !== -1) {
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+})();
+</script>
+
+<style>
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+html[data-theme="oxford-dark"] {
+  --bg: #0C0A08; --fg: #E8E0C8; --accent: #C89030; --punch: #8A1A1A;
+  --muted: #686050; --surface: #161410; --line: #3A3020;
+}
+html[data-theme="parchment"] {
+  --bg: #F4EDD8; --fg: #1A1008; --accent: #8A5A10; --punch: #8A1A1A;
+  --muted: #9A8A68; --surface: #EEE4C8; --line: #C8A860;
+}
+html[data-theme="midnight-library"] {
+  --bg: #060810; --fg: #C8D0E8; --accent: #4A5A9A; --punch: #8A3A6A;
+  --muted: #505870; --surface: #0C1018; --line: #202840;
+}
+
+/* ============================================================
+   TRANSITION HELPER
+   ============================================================ */
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Crimson Pro', 'IM Fell English', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================================
+   STONE TEXTURE (SVG feTurbulence via inline SVG)
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='stone'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23stone)'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+}
+
+/* ============================================================
+   CANDLELIGHT VIGNETTE OVERLAY
+   ============================================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
+}
+
+/* ============================================================
+   THEME SWITCHER
+   ============================================================ */
+.theme-switcher {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 9999;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.6rem;
+  border-radius: 1px;
+}
+
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  border: 1.5px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border: 2px solid var(--fg); }
+
+.theme-btn[data-t="oxford-dark"]      { background: linear-gradient(135deg, #0C0A08 50%, #C89030 50%); }
+.theme-btn[data-t="parchment"]        { background: linear-gradient(135deg, #F4EDD8 50%, #8A5A10 50%); }
+.theme-btn[data-t="midnight-library"] { background: linear-gradient(135deg, #060810 50%, #4A5A9A 50%); }
+
+
+/* ============================================================
+   PAGE WRAPPER
+   ============================================================ */
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   GOTHIC BORDER PATTERNS (used on panels)
+   ============================================================ */
+.gothic-border {
+  border: 1px solid var(--line);
+  position: relative;
+}
+.gothic-border::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--line);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 5rem 2rem 3.5rem;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+/* Gargoyle geometric SVG element */
+.gargoyle {
+  display: block;
+  margin: 0 auto 1.2rem;
+  opacity: 0.6;
+}
+
+.gold-rule {
+  border: none;
+  border-top: 1px solid var(--accent);
+  margin: 1rem auto;
+  width: 300px;
+  position: relative;
+}
+.gold-rule::before {
+  content: '◆';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.68rem;
+  color: var(--accent);
+  background: var(--bg);
+  padding: 0 0.4rem;
+}
+
+.hero-name {
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', 'MedievalSharp', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: var(--fg);
+  text-shadow: 0 0 40px rgba(200, 160, 60, 0.3);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin: 0.5rem 0;
+}
+
+.hero-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  margin-top: 0.6rem;
+}
+
+.hero-location {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SECTION HEADING
+   ============================================================ */
+.section-head {
+  text-align: center;
+  margin: 3rem 0 1.8rem;
+}
+
+.section-ornament {
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.5em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.section-title {
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', serif;
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: 400;
+  text-shadow: 0 0 20px rgba(200, 160, 60, 0.2);
+  line-height: 1;
+}
+
+.section-rule {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0.6rem auto 0;
+  width: 200px;
+}
+
+/* ============================================================
+   GOTHIC ARCH WRAPPER (pointed arch via clip-path)
+   ============================================================ */
+.arch-frame {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 2rem 2rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+/* Pointed arch top */
+.arch-frame::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 14px solid var(--surface);
+  filter: drop-shadow(0 -1px 0 var(--line));
+}
+.arch-frame::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid var(--line);
+  z-index: -1;
+}
+
+/* ============================================================
+   DROP CAPS
+   ============================================================ */
+.drop-cap::first-letter {
+  font-size: 3.5rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.06em;
+  color: var(--accent);
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', serif;
+  font-weight: 400;
+}
+
+/* ============================================================
+   BIO
+   ============================================================ */
+.bio-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--fg);
+  opacity: 0.9;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   STONE TABLET STATS
+   ============================================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+.stone-tablet {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.4rem 0.8rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Repeating-gradient Gothic tracery border effect */
+.stone-tablet::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 18px,
+    var(--line) 18px,
+    var(--line) 19px
+  );
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* Stone noise texture overlay on tablet */
+.stone-tablet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23s)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.tablet-number {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(200,160,60,0.25);
+  position: relative;
+  z-index: 1;
+}
+
+.tablet-label {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.skill-column {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.4rem 1.6rem;
+}
+
+.skill-col-head {
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', serif;
+  font-size: 1.1rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+
+.skill-item {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.88rem;
+  color: var(--fg);
+  line-height: 2;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.skill-item::before {
+  content: '✦';
+  font-size: 0.68rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gothic tracery border on projects */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 28px,
+    var(--line) 28px,
+    var(--line) 29px
+  );
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.project-ornament {
+  font-size: 0.75rem;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.3em;
+}
+
+.project-name {
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', serif;
+  font-size: 1.2rem;
+  color: var(--fg);
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+}
+
+.project-desc {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.82rem;
+  color: var(--fg);
+  opacity: 0.8;
+  line-height: 1.65;
+  margin-bottom: 0.8rem;
+}
+
+.project-status {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+}
+
+/* ============================================================
+   CAREER CHRONICLE
+   ============================================================ */
+.chronicle {
+  list-style: none;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.chronicle-entry {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.chronicle-entry:last-child { border-bottom: none; }
+
+.chronicle-year {
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', serif;
+  font-size: 1.1rem;
+  color: var(--accent);
+  text-align: right;
+  line-height: 1.2;
+  text-shadow: 0 0 15px rgba(200,160,60,0.2);
+}
+
+.chronicle-year-label {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  text-align: right;
+  margin-top: 0.2rem;
+}
+
+.chronicle-content {}
+
+.chronicle-role {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 0.2rem;
+}
+
+.chronicle-org {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.chronicle-note {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.78rem;
+  color: var(--fg);
+  opacity: 0.65;
+  margin-top: 0.35rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   EDUCATION
+   ============================================================ */
+.edu-arch {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 2rem 2.5rem 1.8rem;
+  position: relative;
+}
+
+.edu-crest {
+  font-size: 1.2rem;
+  color: var(--accent);
+  letter-spacing: 0.4em;
+  margin-bottom: 0.8rem;
+}
+
+.edu-degree {
+  font-family: 'UnifrakturMaguntia', 'IM Fell English', serif;
+  font-size: 1.4rem;
+  color: var(--fg);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.edu-school {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.edu-field {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--accent);
+  margin-top: 0.25rem;
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.contact-ornament {
+  color: var(--accent);
+  font-size: 0.72rem;
+}
+
+.contact-link {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.88rem;
+  color: var(--fg);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.contact-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  margin-top: 3rem;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-ornament {
+  font-size: 0.9rem;
+  letter-spacing: 0.6em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.footer-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  html { font-size: 17px; }
+
+  .page { padding: 0 1.2rem 2rem; }
+
+  .hero-name { font-size: 2.8rem; }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .skills-columns { grid-template-columns: 1fr; }
+
+  .projects-grid { grid-template-columns: 1fr; }
+
+  .chronicle-entry {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  .chronicle-year { text-align: left; }
+  .chronicle-year-label { text-align: left; }
+
+  .theme-switcher { top: 0.8rem; right: 0.8rem; }
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'Crimson Pro', serif;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+
+<body>
+
+<!-- Theme Switcher -->
+<div class="theme-switcher" role="navigation" aria-label="Theme">
+  <button class="theme-btn" data-t="oxford-dark"      title="Oxford Dark"      aria-label="Oxford Dark theme"></button>
+  <button class="theme-btn" data-t="parchment"        title="Parchment"        aria-label="Parchment theme"></button>
+  <button class="theme-btn" data-t="midnight-library" title="Midnight Library" aria-label="Midnight Library theme"></button>
+
+</div>
+
+<div class="page">
+
+  <!-- ===================================================
+       HERO
+       =================================================== -->
+  <header class="hero">
+    <!-- Gargoyle geometric SVG -->
+    <svg class="gargoyle" width="60" height="52" viewBox="0 0 60 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Wings -->
+      <path d="M30 30 L4 14 L10 28 L18 24 L30 38 Z" fill="currentColor" opacity="0.7" style="color:var(--accent)"/>
+      <path d="M30 30 L56 14 L50 28 L42 24 L30 38 Z" fill="currentColor" opacity="0.7" style="color:var(--accent)"/>
+      <!-- Body -->
+      <ellipse cx="30" cy="32" rx="7" ry="10" fill="currentColor" style="color:var(--accent)"/>
+      <!-- Head -->
+      <polygon points="30,10 24,22 36,22" fill="currentColor" style="color:var(--accent)"/>
+      <!-- Horns -->
+      <line x1="26" y1="10" x2="22" y2="4" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
+      <line x1="34" y1="10" x2="38" y2="4" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
+      <!-- Eyes -->
+      <circle cx="27" cy="17" r="1.5" fill="var(--bg)"/>
+      <circle cx="33" cy="17" r="1.5" fill="var(--bg)"/>
+      <!-- Claws/feet -->
+      <line x1="24" y1="42" x2="20" y2="50" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
+      <line x1="30" y1="44" x2="30" y2="52" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
+      <line x1="36" y1="42" x2="40" y2="50" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)"/>
+    </svg>
+
+    <hr class="gold-rule">
+
+    <h1 class="hero-name">German Rauhut</h1>
+
+    <hr class="gold-rule">
+
+    <p class="hero-title">Technical Product Owner &amp; AI Product Builder</p>
+    <p class="hero-location">✦ Stuttgart · Deutschland ✦</p>
+  </header>
+
+  <!-- ===================================================
+       PROFIL
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">❧ ◆ ❦</span>
+      <h2 class="section-title">Profil</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="arch-frame">
+      <p class="bio-text drop-cap">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung.
+        Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration.
+        Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester,
+        Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+        Software und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       STATISTIKEN (Stone Tablets)
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">☽ ◆ ☽</span>
+      <h2 class="section-title">Statistiken</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="stats-grid">
+      <div class="stone-tablet">
+        <div class="tablet-number">10+</div>
+        <div class="tablet-label">Jahre Corporate</div>
+      </div>
+      <div class="stone-tablet">
+        <div class="tablet-number">466</div>
+        <div class="tablet-label">Tests Shipped</div>
+      </div>
+      <div class="stone-tablet">
+        <div class="tablet-number">12+</div>
+        <div class="tablet-label">KI-Agenten gebaut</div>
+      </div>
+      <div class="stone-tablet">
+        <div class="tablet-number">95</div>
+        <div class="tablet-label">API Endpoints</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       KOMPETENZEN
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">✝ ◆ ✝</span>
+      <h2 class="section-title">Kompetenzen</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="skills-columns">
+      <div class="skill-column">
+        <div class="skill-col-head">
+          <span style="font-size: 0.72rem; color:var(--accent);">◆</span>
+          <span>Produkt &amp; KI</span>
+        </div>
+        <div class="skill-item">AI Product Development</div>
+        <div class="skill-item">Multi-Agent Architectures</div>
+        <div class="skill-item">LLM Integration</div>
+        <div class="skill-item">Technical Product Ownership</div>
+        <div class="skill-item">Full-Stack Engineering</div>
+      </div>
+      <div class="skill-column">
+        <div class="skill-col-head">
+          <span style="font-size: 0.72rem; color:var(--accent);">◆</span>
+          <span>Management &amp; Delivery</span>
+        </div>
+        <div class="skill-item">Requirements Management</div>
+        <div class="skill-item">Project Management</div>
+        <div class="skill-item">Test Automation</div>
+        <div class="skill-item">DevOps</div>
+        <div class="skill-item">Enterprise Consulting</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       PROJEKTE
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">❦ ◆ ❧</span>
+      <h2 class="section-title">Projekte</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-ornament">✦ ✦ ✦</span>
+        <div class="project-name">neckarshore.ai</div>
+        <p class="project-desc drop-cap">KI-beschleunigte Softwareentwicklung. Spezialisiert auf Multi-Agent-Pipelines, LLM-Integration und technisches Product Ownership.</p>
+        <span class="project-status">Aktiv</span>
+      </div>
+      <div class="project-card">
+        <span class="project-ornament">✦ ✦ ✦</span>
+        <div class="project-name">Obsidian Vault Autopilot</div>
+        <p class="project-desc drop-cap">Open Source Plugin für automatisierte Wissensorganisation in Obsidian. Intelligente Dateinamen, Tag-Management und Inbox-Triage.</p>
+        <span class="project-status">Open Source</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       KARRIERE — Ancient Chronicle
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">☽ ✦ ☽</span>
+      <h2 class="section-title">Chronik</h2>
+      <hr class="section-rule">
+    </div>
+    <ul class="chronicle">
+      <li class="chronicle-entry">
+        <div>
+          <div class="chronicle-year">MMXXV</div>
+          <span class="chronicle-year-label">Anno Domini</span>
+        </div>
+        <div class="chronicle-content">
+          <div class="chronicle-role">Freelance TPO &amp; AI Builder</div>
+          <div class="chronicle-org">Neckarshore AI · Stuttgart</div>
+          <p class="chronicle-note">
+            Gegründet im Oktober MMXXV. KI-beschleunigte Produktentwicklung,
+            Multi-Agent-Architekturen und LLM-Integration für mittelständische Kunden.
+          </p>
+        </div>
+      </li>
+      <li class="chronicle-entry">
+        <div>
+          <div class="chronicle-year">MMX–<br>MMXXV</div>
+          <span class="chronicle-year-label">Quindecim anni</span>
+        </div>
+        <div class="chronicle-content">
+          <div class="chronicle-role">Tester → Consultant → Technical Product Owner</div>
+          <div class="chronicle-org">Mercedes-Benz AG</div>
+          <p class="chronicle-note">
+            Zehn Jahre im Dienste des Hauses Stern. Aufstieg vom Tester über
+            Consultant zum Technical Product Owner in der digitalen Produktentwicklung.
+          </p>
+        </div>
+      </li>
+      <li class="chronicle-entry">
+        <div>
+          <div class="chronicle-year">MCMXCIII–<br>MMX</div>
+          <span class="chronicle-year-label">Septemdecim anni</span>
+        </div>
+        <div class="chronicle-content">
+          <div class="chronicle-role">Consulting, Software &amp; Management</div>
+          <div class="chronicle-org">Deutschland · Schweiz · Thailand</div>
+          <p class="chronicle-note">
+            Drei Jahrzehnte in Consulting, Softwareentwicklung und Management
+            auf drei Kontinenten. Fundament in Enterprise IT und Projektleitung.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================================================
+       AUSBILDUNG
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">◆ ✦ ◆</span>
+      <h2 class="section-title">Ausbildung</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="edu-arch">
+      <div class="edu-crest">✦ ◆ ✦</div>
+      <div class="edu-degree">Diplom-Betriebswirt</div>
+      <div class="edu-school">BA Stuttgart</div>
+      <div class="edu-field">Datenverarbeitung</div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       KONTAKT
+       =================================================== -->
+  <section>
+    <div class="section-head">
+      <span class="section-ornament">❧ ◆ ❦</span>
+      <h2 class="section-title">Kontakt</h2>
+      <hr class="section-rule">
+    </div>
+    <ul class="contact-list">
+      <li>
+        <span class="contact-ornament">✦</span>
+        <a class="contact-link" href="mailto:german@rauhut.com">german@rauhut.com</a>
+      </li>
+      <li>
+        <span class="contact-ornament">✦</span>
+        <a class="contact-link" href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+      </li>
+      <li>
+        <span class="contact-ornament">✦</span>
+        <a class="contact-link" href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+      </li>
+    </ul>
+  </section>
+
+</div><!-- /page -->
+
+<!-- ===================================================
+     FOOTER
+     =================================================== -->
+<footer>
+  <span class="footer-ornament">✦ ◆ ✦</span>
+  <div class="footer-text">German Rauhut · Stuttgart · Deutschland · MMXXVI</div>
+</footer>
+
+<script>
+(function() {
+  var THEMES = ['oxford-dark', 'parchment', 'midnight-library'];
+  var KEY    = 'rauhut-gothic-theme';
+  var html   = document.documentElement;
+
+  function setTheme(t) {
+    html.classList.add('switching');
+    html.setAttribute('data-theme', t);
+    localStorage.setItem(KEY, t);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.t === t);
+    });
+    setTimeout(function() {
+      html.classList.remove('switching');
+    }, 300);
+  }
+
+  // Mark initial active button
+  var current = html.getAttribute('data-theme');
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.t === current);
+    btn.addEventListener('click', function() {
+      setTheme(btn.dataset.t);
+    });
+  });
+})();
+</script>
+</body>
+</html>

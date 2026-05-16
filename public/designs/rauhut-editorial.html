@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="modern-mag">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Profil & Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
+<script>
+  (function() {
+    var stored = localStorage.getItem('rauhut-editorial-theme');
+    var theme = stored || 'modern-mag';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<style>
+  html { font-size: 19.2px; scroll-behavior: smooth; }
+
+  html.switching * {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+  }
+
+  /* ─── THEMES ─────────────────────────────────────────────────── */
+    [data-theme="modern-mag"] {
+    --bg: #F8F8F8; --fg: #111111; --surface: #EEEEEE;
+    --accent: #E8000A; --punch: #0022BB;
+    --muted: #888888; --line: rgba(0,0,0,0.10);
+  }
+  [data-theme="letterpress"] {
+    --bg: #EEE8D8; --fg: #180808; --surface: #E0D8C0;
+    --accent: #8B2020; --punch: #405830;
+    --muted: #786858; --line: rgba(24,8,8,0.15);
+  }
+  [data-theme="noir-edition"] {
+    --bg: #0C0C08; --fg: #E8E4D4; --surface: #161610;
+    --accent: #E0C040; --punch: #CC3820;
+    --muted: #666050; --line: rgba(232,228,212,0.10);
+  }
+
+  /* ─── RESET & BASE ───────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── NAV / MASTHEAD ─────────────────────────────────────────── */
+  .masthead-top {
+    border-top: 3px solid var(--fg);
+    border-bottom: 1px solid var(--line);
+    padding: 0.45rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .masthead-date {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .theme-switcher span {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 0.3rem;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .theme-btn {
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-width 0.15s;
+  }
+
+  .theme-btn.active {
+    border: 2px solid var(--fg);
+  }
+
+  .masthead-title {
+    text-align: center;
+    padding: 1.6rem 0 0.5rem;
+    border-bottom: 1px solid var(--fg);
+  }
+
+  .masthead-pub {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .masthead-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 8vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    display: block;
+  }
+
+  .masthead-rule-bottom {
+    border: none;
+    border-top: 3px solid var(--fg);
+    margin-top: 0.55rem;
+  }
+
+  /* ─── HERO ───────────────────────────────────────────────────── */
+  .hero {
+    padding: 2.2rem 0 0;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2.4rem;
+  }
+
+  .hero-kicker {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-deck {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 0.5rem;
+    line-height: 1.45;
+  }
+
+  .hero-title-line {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--fg);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ─── STATS CALLOUTS ─────────────────────────────────────────── */
+  .stats-band {
+    border-top: 1px solid var(--fg);
+    border-bottom: 1px solid var(--fg);
+    padding: 1.4rem 0;
+    margin-bottom: 2.6rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0 1rem;
+    border-right: 1px solid var(--line);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+
+  /* ─── SECTION RUBRICS ────────────────────────────────────────── */
+  .rubric {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    border-top: 1px solid var(--fg);
+    padding-top: 0.5rem;
+    margin-bottom: 1.4rem;
+    display: block;
+  }
+
+  /* ─── BIO SECTION ────────────────────────────────────────────── */
+  .bio-section {
+    margin-bottom: 3rem;
+  }
+
+  .dateline {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 0.4em;
+  }
+
+  .bio-columns {
+    column-count: 3;
+    column-gap: 2rem;
+    column-rule: 1px solid var(--line);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .bio-columns p {
+    break-inside: avoid;
+    margin-bottom: 0.9rem;
+  }
+
+  .bio-columns p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 5.2em;
+    font-weight: 700;
+    float: left;
+    line-height: 0.82;
+    margin-right: 0.1em;
+    margin-top: 0.06em;
+    color: var(--fg);
+  }
+
+  /* ─── PULL QUOTE ─────────────────────────────────────────────── */
+  .pull-quote {
+    margin: 2.4rem 0;
+    padding: 1.2rem 2.4rem;
+    border-top: 2px solid var(--fg);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .pull-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2.8vw, 1.75rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--fg);
+  }
+
+  .pull-quote cite {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-style: normal;
+    margin-top: 0.7rem;
+  }
+
+  /* ─── SKILLS SECTION ─────────────────────────────────────────── */
+  .skills-section {
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .skills-group h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: baseline;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.84rem;
+    line-height: 1.7;
+    color: var(--fg);
+  }
+
+  .skill-item::before {
+    content: "—";
+    margin-right: 0.5em;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ─── PROJECTS SECTION ───────────────────────────────────────── */
+  .projects-section {
+    margin-bottom: 3rem;
+  }
+
+  .project-item {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.2rem;
+    align-items: start;
+  }
+
+  .project-item:first-of-type {
+    border-top: 1px solid var(--line);
+  }
+
+  .project-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: 400;
+  }
+
+  .project-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--fg);
+  }
+
+  .project-body p {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .project-status {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--punch);
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  /* ─── CAREER TIMELINE ────────────────────────────────────────── */
+  .career-section {
+    margin-bottom: 3rem;
+  }
+
+  .timeline {
+    list-style: none;
+    position: relative;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.72rem;
+    font-style: italic;
+    color: var(--muted);
+    padding-top: 0.08rem;
+    line-height: 1.5;
+  }
+
+  .timeline-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    color: var(--fg);
+  }
+
+  .timeline-content p {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ─── EDUCATION ──────────────────────────────────────────────── */
+  .education-section {
+    margin-bottom: 3rem;
+  }
+
+  .edu-item {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .edu-institution {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ─── CONTACT ────────────────────────────────────────────────── */
+  .contact-section {
+    margin-bottom: 3rem;
+    padding: 1.6rem;
+    background: var(--surface);
+    border-top: 3px solid var(--fg);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .contact-item {
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .contact-item .contact-type {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-item a, .contact-item span {
+    font-size: 0.82rem;
+    color: var(--fg);
+    word-break: break-all;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────── */
+  footer {
+    border-top: 3px solid var(--fg);
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  footer p {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--accent); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .container { padding: 0 1rem; }
+
+    .masthead-date { display: none; }
+
+    .stats-band {
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item:nth-child(3) { border-right: 1px solid var(--line); border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 0.5rem; }
+    .stat-item:nth-child(4) { border-right: none; border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 0.5rem; }
+
+    .bio-columns {
+      column-count: 1;
+    }
+
+    .skills-section {
+      grid-template-columns: 1fr;
+    }
+
+    .project-item {
+      grid-template-columns: auto 1fr;
+    }
+    .project-status { display: none; }
+
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    footer {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+  }
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header>
+  <div class="container">
+    <div class="masthead-top">
+      <span class="masthead-date">Stuttgart, 16. Mai 2026 &mdash; Vol. I, No. 1</span>
+
+      <div class="theme-switcher">
+        <span>Edition</span>
+        <button class="theme-btn" data-theme="broadsheet" title="Broadsheet"
+          style="background: linear-gradient(135deg, #FAF6EC 50%, #C41020 50%)"></button>
+        <button class="theme-btn" data-theme="modern-mag" title="Modern Mag"
+          style="background: linear-gradient(135deg, #F8F8F8 50%, #E8000A 50%)"></button>
+        <button class="theme-btn" data-theme="letterpress" title="Letterpress"
+          style="background: linear-gradient(135deg, #EEE8D8 50%, #8B2020 50%)"></button>
+        <button class="theme-btn" data-theme="noir-edition" title="Noir Edition"
+          style="background: linear-gradient(135deg, #0C0C08 50%, #E0C040 50%)"></button>
+      </div>
+    </div>
+
+    <div class="masthead-title">
+      <span class="masthead-pub">Profil &nbsp;&bull;&nbsp; Portfolio &nbsp;&bull;&nbsp; Curriculum</span>
+      <span class="masthead-name">German Rauhut</span>
+    </div>
+    <hr class="masthead-rule-bottom">
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="container">
+  <section class="hero">
+    <span class="hero-kicker">Profil / Portfolio</span>
+    <p class="hero-deck">&ldquo;Brückenbauer zwischen Business und Technologie&rdquo;</p>
+    <p class="hero-title-line">Technical Product Owner &amp; AI Product Builder</p>
+  </section>
+
+  <!-- STATS -->
+  <section aria-label="Kennzahlen">
+    <div class="stats-band">
+      <div class="stat-item">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Jahre Corporate<br>Erfahrung</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">466</span>
+        <span class="stat-label">Tests<br>Shipped</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">12+</span>
+        <span class="stat-label">KI-Agenten<br>Gebaut</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">95</span>
+        <span class="stat-label">API<br>Endpoints</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIO -->
+  <section class="bio-section">
+    <span class="rubric">Über die Person</span>
+    <div class="bio-columns">
+      <p>
+        <span class="dateline">Stuttgart, 2026 &mdash;</span>
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration — von der Anforderung bis zum produktiven System. Freelance seit Oktober 2025.
+      </p>
+      <p>
+        Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Softwareentwicklung und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+      <p>
+        Der Fokus liegt heute auf der Schnittstelle zwischen betriebswirtschaftlichem Denken und technischer Umsetzbarkeit — ein Bereich, der selten von einem einzelnen Menschen abgedeckt wird, aber den Unterschied zwischen Konzept und produktivem System ausmacht.
+      </p>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <blockquote>
+      Von der Anforderung bis zum produktiven System &mdash; end-to-end.
+    </blockquote>
+    <cite>&mdash; German Rauhut</cite>
+  </div>
+
+  <!-- SKILLS -->
+  <section class="skills-section" aria-label="Kompetenzen">
+    <div class="skills-group">
+      <span class="rubric">Schwerpunkt</span>
+      <div class="skill-item">AI Product Development</div>
+      <div class="skill-item">Multi-Agent Architectures</div>
+      <div class="skill-item">LLM Integration</div>
+      <div class="skill-item">Technical Product Ownership</div>
+      <div class="skill-item">Full-Stack Engineering</div>
+    </div>
+    <div class="skills-group">
+      <span class="rubric">Fundament</span>
+      <div class="skill-item">Requirements Management</div>
+      <div class="skill-item">Project Management</div>
+      <div class="skill-item">Test Automation</div>
+      <div class="skill-item">DevOps</div>
+      <div class="skill-item">Enterprise Consulting</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects-section">
+    <span class="rubric">Projekte</span>
+
+    <div class="project-item">
+      <span class="project-label">Aktiv</span>
+      <div class="project-body">
+        <h3>neckarshore.ai</h3>
+        <p>KI-beschleunigte Softwareentwicklung. Multi-Agent-Architekturen für effiziente Produktentwicklung im Freelance-Umfeld.</p>
+      </div>
+      <span class="project-status">Aktiv</span>
+    </div>
+
+    <div class="project-item">
+      <span class="project-label">Open Source</span>
+      <div class="project-body">
+        <h3>Obsidian Vault Autopilot</h3>
+        <p>Open-Source-Plugin für automatisiertes Wissensmanagement in Obsidian. KI-gestützte Einordnung und Verknüpfung von Notizen.</p>
+      </div>
+      <span class="project-status">Open Source</span>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section class="career-section">
+    <span class="rubric">Werdegang</span>
+    <ul class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-date">Oktober 2025 &mdash;</div>
+        <div class="timeline-content">
+          <h3>Freelance</h3>
+          <p>Technical Product Ownership &amp; AI Engineering. Aufbau von neckarshore.ai. Multi-Agent-Systeme, LLM-Integration, Full-Stack-Entwicklung für Kundenprojekte.</p>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">2015 &mdash; 2025</div>
+        <div class="timeline-content">
+          <h3>Mercedes-Benz</h3>
+          <p>10 Jahre im Automotive-Umfeld. Tester &rarr; Consultant &rarr; Technical Product Owner. Aufbau und Führung von cross-funktionalen Teams, Verantwortung für komplexe IT-Systeme in der Fahrzeugentwicklung.</p>
+        </div>
+      </li>
+      <li class="timeline-item">
+        <div class="timeline-date">1993 &mdash; 2015</div>
+        <div class="timeline-content">
+          <h3>Frühe Karriere</h3>
+          <p>23 Jahre in Consulting, Softwareentwicklung und Management. Deutschland, Schweiz und Thailand. Breite Branchen- und Kulturerfahrung als Fundament für heutige Arbeit.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="education-section">
+    <span class="rubric">Ausbildung</span>
+    <div class="edu-item">
+      <span class="edu-degree">Diplom-Betriebswirt</span>
+      <span class="edu-institution">Berufsakademie Stuttgart &mdash; Datenverarbeitung</span>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <span class="rubric">Kontakt</span>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="contact-type">E-Mail</span>
+        <a href="mailto:german@rauhut.com">german@rauhut.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-type">LinkedIn</span>
+        <a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-type">GitHub</span>
+        <a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 German Rauhut</p>
+    <p><a href="#impressum">Impressum</a></p>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    var buttons = document.querySelectorAll('.theme-btn');
+    var current = document.documentElement.getAttribute('data-theme');
+
+    function setActive(theme) {
+      buttons.forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+      });
+    }
+
+    setActive(current);
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var theme = btn.getAttribute('data-theme');
+        document.documentElement.classList.add('switching');
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('rauhut-editorial-theme', theme);
+        setActive(theme);
+        setTimeout(function() {
+          document.documentElement.classList.remove('switching');
+        }, 300);
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="classic">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Technisches Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+/* === THEME DEFINITIONS === */
+html[data-theme="classic"] {
+  --bg: #C0C0C0;
+  --fg: #000000;
+  --accent: #000080;
+  --punch: #C0C0C0;
+  --muted: #808080;
+  --surface: #FFFFFF;
+  --line: #808080;
+  --titlebar-start: #000080;
+  --titlebar-end: #1084D0;
+  --desktop: #008080;
+  --raised-tl: #FFFFFF;
+  --raised-br: #404040;
+  --raised-mid: #808080;
+  --button-face: #C0C0C0;
+}
+html[data-theme="night-mode"] {
+  --bg: #1A1A2E;
+  --fg: #C8D8F0;
+  --accent: #4A6FD8;
+  --punch: #8AA8FF;
+  --muted: #5A6A8A;
+  --surface: #16213E;
+  --line: #2A3A5A;
+  --titlebar-start: #1A2A5A;
+  --titlebar-end: #4A6FD8;
+  --desktop: #0D1B2A;
+  --raised-tl: #3A4A6A;
+  --raised-br: #080E1A;
+  --raised-mid: #2A3A5A;
+  --button-face: #1A1A2E;
+}
+html[data-theme="hot-dog-stand"] {
+  --bg: #FF0000;
+  --fg: #FFFF00;
+  --accent: #000000;
+  --punch: #FFFF00;
+  --muted: #CC0000;
+  --surface: #FF0000;
+  --line: #FFFF00;
+  --titlebar-start: #000000;
+  --titlebar-end: #333300;
+  --desktop: #FF6600;
+  --raised-tl: #FFFF00;
+  --raised-br: #880000;
+  --raised-mid: #CC0000;
+  --button-face: #FF0000;
+}
+html[data-theme="stardust"] {
+  --bg: #D4C8B8;
+  --fg: #181018;
+  --accent: #5A2878;
+  --punch: #C84888;
+  --muted: #706860;
+  --surface: #C8BCA8;
+  --line: #181018;
+  --titlebar-start: #3A1860;
+  --titlebar-end: #C84888;
+  --desktop: #705060;
+  --raised-tl: #EAE0D0;
+  --raised-br: #181018;
+  --raised-mid: #706860;
+  --button-face: #D4C8B8;
+}
+
+/* === BASE === */
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--desktop);
+  font-family: 'Segoe UI', 'MS Sans Serif', Arial, sans-serif;
+  font-size: 0.75rem;
+  min-height: 100vh;
+  padding: 1rem 1rem 3.5rem;
+  color: var(--fg);
+}
+
+/* === WIN95 BORDERS === */
+.raised {
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset;
+}
+.sunken {
+  border: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+}
+
+/* === MAIN WINDOW === */
+.win-window {
+  background: var(--bg);
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* === TITLE BAR === */
+.win-titlebar {
+  background: linear-gradient(90deg, var(--titlebar-start), var(--titlebar-end));
+  color: #FFFFFF;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+.win-titlebar-icon {
+  width: 14px;
+  height: 14px;
+  background: var(--punch);
+  display: inline-block;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.win-titlebar-text {
+  flex: 1;
+  font-weight: bold;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.win-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  font-size: 0.68rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  flex-shrink: 0;
+}
+.win-titlebar-btn:active {
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+}
+
+/* === WINDOW CONTENT === */
+.win-content {
+  padding: 6px;
+}
+
+/* === MENU BAR === */
+.win-menubar {
+  display: flex;
+  gap: 0;
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--raised-mid);
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.win-menu-item {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: var(--fg);
+}
+.win-menu-item:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+.win-menu-item u {
+  text-decoration: underline;
+}
+
+/* === TAB ROW === */
+.win-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 0 6px;
+  border-bottom: 2px solid var(--raised-mid);
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.win-tab {
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--fg);
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-mid) transparent var(--raised-tl);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  bottom: -2px;
+  font-weight: normal;
+}
+.win-tab:hover { background: var(--surface); }
+.win-tab.active {
+  background: var(--bg);
+  font-weight: bold;
+  z-index: 2;
+  padding-top: 5px;
+}
+.win-tab-panel {
+  display: none;
+  padding: 10px;
+  border: 2px solid;
+  border-color: var(--raised-mid) var(--raised-tl) var(--raised-tl) var(--raised-mid);
+  background: var(--bg);
+  margin: 0 0 8px;
+}
+.win-tab-panel.active { display: block; }
+
+/* === DESKTOP ICONS === */
+.desktop-icons {
+  display: flex;
+  gap: 1.5rem;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  width: 64px;
+}
+.desktop-icon:hover .icon-label {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+.icon-img {
+  width: 32px;
+  height: 32px;
+  position: relative;
+}
+/* Folder icon */
+.icon-folder .icon-img::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 32px; height: 22px;
+  background: #F0C040;
+  border: 1px solid #806000;
+  border-radius: 0 2px 2px 2px;
+}
+.icon-folder .icon-img::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 0;
+  width: 14px; height: 8px;
+  background: #F0C040;
+  border: 1px solid #806000;
+  border-radius: 2px 2px 0 0;
+}
+/* EXE icon */
+.icon-exe .icon-img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #C0C0E0;
+  border: 1px solid #404060;
+  clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 100%, 0 100%);
+}
+.icon-exe .icon-img::after {
+  content: 'EXE';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6px;
+  font-weight: bold;
+  color: #000080;
+  font-family: 'VT323', monospace;
+}
+/* DLL icon */
+.icon-dll .icon-img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #E0D0C0;
+  border: 1px solid #604020;
+  clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 100%, 0 100%);
+}
+.icon-dll .icon-img::after {
+  content: 'DLL';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6px;
+  font-weight: bold;
+  color: #804020;
+  font-family: 'VT323', monospace;
+}
+.icon-label {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 0 #000;
+  line-height: 1.3;
+  padding: 1px 2px;
+  word-break: break-word;
+}
+
+/* === DIALOG BOX === */
+.dialog-box {
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset;
+  margin: 8px 0;
+  background: var(--bg);
+}
+.dialog-titlebar {
+  background: linear-gradient(90deg, var(--titlebar-start), var(--titlebar-end));
+  color: #FFFFFF;
+  padding: 2px 4px 2px 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.dialog-titlebar-icon {
+  width: 12px; height: 12px;
+  background: rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.5);
+  flex-shrink: 0;
+}
+.dialog-content {
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--fg);
+}
+.dialog-footer {
+  padding: 4px 6px 6px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.win-btn {
+  background: var(--bg);
+  color: var(--fg);
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset;
+  padding: 3px 14px;
+  font-size: 0.75rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  cursor: pointer;
+  min-width: 60px;
+}
+.win-btn:active {
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  padding: 4px 13px 2px 15px;
+}
+.win-btn.default-btn {
+  border: 3px solid;
+  border-color: var(--fg);
+  padding: 2px 12px;
+}
+
+/* === MESSAGE BOX === */
+.msgbox-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 200;
+}
+.msgbox {
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset, 3px 3px 0 rgba(0,0,0,0.3);
+  width: 320px;
+  pointer-events: all;
+  display: none;
+}
+.msgbox.visible { display: block; }
+.msgbox .dialog-titlebar { font-size: 0.75rem; }
+.msgbox-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 14px 8px;
+}
+.msgbox-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.msgbox-text {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+.msgbox-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px 10px;
+}
+
+/* === PROGRESS BAR === */
+.progress-track {
+  background: var(--surface);
+  border: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  height: 18px;
+  margin: 4px 0;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 8px,
+    rgba(255,255,255,0.15) 8px,
+    rgba(255,255,255,0.15) 10px
+  );
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+}
+.progress-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.progress-name {
+  font-size: 0.75rem;
+  color: var(--fg);
+  font-weight: bold;
+}
+.progress-value {
+  font-family: 'VT323', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+/* === SECTION PANEL === */
+.win-panel {
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset;
+  margin: 8px 0;
+}
+.win-panel-header {
+  background: var(--bg);
+  padding: 4px 8px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  border-bottom: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.win-panel-header::before {
+  content: '';
+  display: inline-block;
+  width: 12px; height: 12px;
+  background: var(--accent);
+  border: 1px solid var(--raised-br);
+  flex-shrink: 0;
+}
+.win-panel-body {
+  padding: 8px 10px;
+}
+
+/* === LISTVIEW === */
+.win-listview {
+  border: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  background: var(--surface);
+  width: 100%;
+  border-collapse: collapse;
+}
+.win-listview th {
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  text-align: left;
+  font-weight: bold;
+  cursor: pointer;
+}
+.win-listview tr:nth-child(even) td { background: #E8E8F8; }
+html[data-theme="night-mode"] .win-listview tr:nth-child(even) td { background: #1A2040; }
+html[data-theme="hot-dog-stand"] .win-listview tr:nth-child(even) td { background: #DD0000; }
+html[data-theme="stardust"] .win-listview tr:nth-child(even) td { background: #C0B4A0; }
+.win-listview td {
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  color: var(--fg);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.win-listview tr:hover td {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+/* === SKILL BADGES WIN95 === */
+.skill-chip {
+  display: inline-block;
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  margin: 2px;
+  background: var(--bg);
+  cursor: default;
+}
+.skill-chip:hover {
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+}
+
+/* === THEME SWITCHER === */
+.theme-switcher-panel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  margin: 4px 6px;
+  flex-wrap: wrap;
+}
+.theme-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.theme-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid var(--raised-br);
+  flex-shrink: 0;
+}
+.theme-btn[data-theme="classic"] {
+  background: linear-gradient(135deg, #C0C0C0 50%, #000080 50%);
+}
+.theme-btn[data-theme="night-mode"] {
+  background: linear-gradient(135deg, #1A1A2E 50%, #4A6FD8 50%);
+}
+.theme-btn[data-theme="hot-dog-stand"] {
+  background: linear-gradient(135deg, #FF0000 50%, #000000 50%);
+}
+.theme-btn[data-theme="stardust"] {
+  background: linear-gradient(135deg, #D4C8B8 50%, #5A2878 50%);
+}
+.theme-btn.active {
+  border: 2px solid var(--fg);
+}
+
+/* === TASKBAR === */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 36px;
+  background: var(--bg);
+  border-top: 2px solid;
+  border-color: var(--raised-tl) transparent transparent var(--raised-tl);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  gap: 6px;
+  z-index: 500;
+}
+.start-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-tl) var(--raised-br) var(--raised-br) var(--raised-tl);
+  box-shadow: 1px 1px 0 var(--raised-tl) inset, -1px -1px 0 var(--raised-br) inset;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  height: 24px;
+}
+.start-btn:active {
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+}
+.win-logo {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  flex-wrap: wrap;
+  gap: 1px;
+  flex-shrink: 0;
+}
+.win-logo-q {
+  width: 6px; height: 6px;
+}
+.win-logo-q:nth-child(1) { background: #FF0000; }
+.win-logo-q:nth-child(2) { background: #00AA00; }
+.win-logo-q:nth-child(3) { background: #0000BB; }
+.win-logo-q:nth-child(4) { background: #FFAA00; }
+.taskbar-separator {
+  width: 2px;
+  height: 24px;
+  border-left: 1px solid var(--raised-br);
+  border-right: 1px solid var(--raised-tl);
+}
+.taskbar-window-btn {
+  flex: 1;
+  max-width: 200px;
+  height: 24px;
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-weight: bold;
+}
+.taskbar-clock {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  background: var(--bg);
+  border: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  white-space: nowrap;
+  color: var(--fg);
+  min-width: 64px;
+  text-align: center;
+  cursor: default;
+}
+
+/* === STATUS BAR === */
+.win-statusbar {
+  border-top: 2px solid;
+  border-color: var(--raised-br) var(--raised-tl) var(--raised-tl) var(--raised-br);
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  gap: 1rem;
+}
+.win-statusbar span + span { border-left: 1px solid var(--raised-mid); padding-left: 1rem; }
+
+/* === VT323 ACCENT === */
+.vt { font-family: 'VT323', monospace; }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  body { padding: 0.4rem 0.4rem 3.5rem; }
+  .win-tabs { gap: 1px; }
+  .win-tab { padding: 3px 6px; font-size: 0.75rem; }
+  .desktop-icons { gap: 1rem; }
+  .taskbar-window-btn { display: none; }
+}
+
+/* ── BSOD overlay ── */
+#bsod {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #0000AA;
+  color: #FFFFFF;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  padding: 60px 80px;
+  line-height: 1.6;
+  cursor: default;
+  user-select: none;
+}
+#bsod .bsod-header {
+  background: #AAAAAA;
+  color: #0000AA;
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 24px;
+  font-size: 18px;
+  font-weight: bold;
+}
+#bsod .bsod-body {
+  max-width: 680px;
+}
+</style>
+</head>
+<body>
+<!-- BSOD overlay -->
+<div id="bsod" role="alert" aria-live="assertive">
+  <div class="bsod-header">Windows</div>
+  <div class="bsod-body">
+    <p>A problem has been detected and windows has been shut down to prevent damage<br>
+    to your computer.</p>
+    <br>
+    <p>The problem seems to be caused by the following file: SPCMDCON.SYS</p>
+    <br>
+    <p>PAGE_FAULT_IN_NONPAGED_AREA</p>
+    <br>
+    <p>If this is the first time you've seen this Stop error screen, restart<br>
+    your computer. If this screen appears again, follow these steps:</p>
+    <br>
+    <p>Check to make sure any new hardware or software is properly installed.<br>
+    If this is a new installation, ask your hardware or software manufacturer<br>
+    for any windows updates you might need.</p>
+    <br>
+    <p>If problems continue, disable or remove any newly installed hardware or<br>
+    software. Disable BIOS memory options such as caching or shadowing. If you<br>
+    need to use Safe Mode to remove or disable components, restart your computer,<br>
+    press F8 to select Advanced Startup Options, and then select Safe Mode.</p>
+    <br>
+    <p>Technical information:</p>
+    <br>
+    <p>*** STOP: 0x00000050 (0xFD3094C2,0x00000001,0xFBFE7617,0x00000000)</p>
+    <br>
+    <p>*** SPCMDCON.SYS - Address FBFE7617 base at FBFE5000, DateStamp 3d6dd67c</p>
+  </div>
+</div>
+
+
+<!-- MSG BOX (initially hidden, shown after delay) -->
+<div class="msgbox-overlay" id="msgbox-overlay" aria-live="polite">
+  <div class="msgbox" id="welcome-msgbox" role="dialog" aria-labelledby="msgbox-title" aria-modal="true">
+    <div class="dialog-titlebar">
+      <div class="dialog-titlebar-icon" aria-hidden="true"></div>
+      <span id="msgbox-title">Portfolio geladen</span>
+    </div>
+    <div class="msgbox-body">
+      <span class="msgbox-icon" aria-hidden="true">ℹ️</span>
+      <span class="msgbox-text">German Rauhut Portfolio v1.0 wurde erfolgreich geladen.<br><br>Freelance TPO &amp; AI Builder — Stuttgart 2026.</span>
+    </div>
+    <div class="msgbox-buttons">
+      <button class="win-btn default-btn" onclick="document.getElementById('welcome-msgbox').classList.remove('visible')">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN WINDOW -->
+<div class="win-window raised" role="main">
+
+  <!-- TITLE BAR -->
+  <div class="win-titlebar" role="banner">
+    <div class="win-titlebar-icon" aria-hidden="true"></div>
+    <span class="win-titlebar-text">German Rauhut — Technisches Portfolio</span>
+    <button class="win-titlebar-btn" title="Minimieren" aria-label="Minimieren">_</button>
+    <button class="win-titlebar-btn" title="Maximieren" aria-label="Maximieren">□</button>
+    <button class="win-titlebar-btn" title="Schliessen" aria-label="Schliessen" onclick="window.close()">✕</button>
+  </div>
+
+  <!-- MENU BAR -->
+  <nav class="win-menubar" aria-label="Menüleiste">
+    <div class="win-menu-item" tabindex="0"><u>D</u>atei</div>
+    <div class="win-menu-item" tabindex="0"><u>B</u>earbeiten</div>
+    <div class="win-menu-item" tabindex="0"><u>A</u>nsicht</div>
+    <div class="win-menu-item" tabindex="0"><u>K</u>ontakt</div>
+    <div class="win-menu-item" tabindex="0"><u>H</u>ilfe</div>
+  </nav>
+
+  <!-- THEME SWITCHER -->
+  <div class="theme-switcher-panel" role="group" aria-label="Design auswählen">
+    <span class="theme-label">Design:</span>
+    <button class="theme-btn active" data-theme="classic" title="Classic" aria-label="Classic Theme"></button>
+    <button class="theme-btn" data-theme="night-mode" title="Night Mode" aria-label="Night Mode Theme"></button>
+    <button class="theme-btn" data-theme="hot-dog-stand" title="Hot Dog Stand" aria-label="Hot Dog Stand Theme"></button>
+    <button class="theme-btn" data-theme="stardust" title="Stardust" aria-label="Stardust Theme"></button>
+  </div>
+
+  <div class="win-content">
+
+    <!-- DESKTOP ICONS + HERO -->
+    <div class="win-panel">
+      <div class="win-panel-header">Desktop</div>
+      <div class="win-panel-body">
+        <div class="desktop-icons" role="list" aria-label="Desktop Icons">
+          <div class="desktop-icon icon-folder" role="listitem" tabindex="0">
+            <div class="icon-img" aria-hidden="true"></div>
+            <span class="icon-label">Mein Portfolio</span>
+          </div>
+          <div class="desktop-icon icon-exe" role="listitem" tabindex="0">
+            <div class="icon-img" aria-hidden="true"></div>
+            <span class="icon-label">Karriere.exe</span>
+          </div>
+          <div class="desktop-icon icon-dll" role="listitem" tabindex="0">
+            <div class="icon-img" aria-hidden="true"></div>
+            <span class="icon-label">Skills.dll</span>
+          </div>
+          <div class="desktop-icon icon-folder" role="listitem" tabindex="0">
+            <div class="icon-img" aria-hidden="true"></div>
+            <span class="icon-label">Projekte</span>
+          </div>
+        </div>
+
+        <!-- BIO DIALOG -->
+        <div class="dialog-box" role="region" aria-label="Über mich">
+          <div class="dialog-titlebar">
+            <div class="dialog-titlebar-icon" aria-hidden="true"></div>
+            <span>German Rauhut — Profil</span>
+          </div>
+          <div class="dialog-content">
+            <strong>Technical Product Owner &amp; AI Product Builder</strong><br>
+            Stuttgart, Deutschland<br><br>
+            Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+            Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei
+            Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+            Software und Management in Deutschland, der Schweiz und Thailand.
+          </div>
+          <div class="dialog-footer">
+            <a href="mailto:german@rauhut.com" style="text-decoration:none">
+              <button class="win-btn">E-Mail</button>
+            </a>
+            <a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener" style="text-decoration:none">
+              <button class="win-btn">LinkedIn</button>
+            </a>
+            <a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener" style="text-decoration:none">
+              <button class="win-btn default-btn">GitHub</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div aria-label="Portfolio Bereiche">
+      <div class="win-tabs" role="tablist">
+        <button class="win-tab active" role="tab" aria-selected="true" aria-controls="tab-stats" id="tab-btn-stats">Kennzahlen</button>
+        <button class="win-tab" role="tab" aria-selected="false" aria-controls="tab-skills" id="tab-btn-skills">Skills.dll</button>
+        <button class="win-tab" role="tab" aria-selected="false" aria-controls="tab-career" id="tab-btn-career">Karriere.exe</button>
+        <button class="win-tab" role="tab" aria-selected="false" aria-controls="tab-projects" id="tab-btn-projects">Projekte</button>
+        <button class="win-tab" role="tab" aria-selected="false" aria-controls="tab-edu" id="tab-btn-edu">Ausbildung</button>
+      </div>
+
+      <!-- TAB: STATS -->
+      <div class="win-tab-panel active" id="tab-stats" role="tabpanel" aria-labelledby="tab-btn-stats">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <div class="progress-label-row">
+              <span class="progress-name">Jahre Corporate-Erfahrung</span>
+              <span class="progress-value vt">10+</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuenow="83" aria-valuemin="0" aria-valuemax="100" aria-label="Jahre Corporate-Erfahrung">
+              <div class="progress-fill" style="width:83%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="progress-label-row">
+              <span class="progress-name">Tests Shipped</span>
+              <span class="progress-value vt">466</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100" aria-label="Tests Shipped">
+              <div class="progress-fill" style="width:93%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="progress-label-row">
+              <span class="progress-name">KI-Agenten gebaut</span>
+              <span class="progress-value vt">12+</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="KI-Agenten gebaut">
+              <div class="progress-fill" style="width:70%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="progress-label-row">
+              <span class="progress-name">API Endpoints</span>
+              <span class="progress-value vt">95</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100" aria-label="API Endpoints">
+              <div class="progress-fill" style="width:79%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: SKILLS -->
+      <div class="win-tab-panel" id="tab-skills" role="tabpanel" aria-labelledby="tab-btn-skills">
+        <div style="margin-bottom:8px; font-size: 0.75rem; color:var(--muted);">Installierte Komponenten — Skills.dll v2026.1</div>
+        <div style="margin-bottom:6px;">
+          <div style="font-weight:bold; font-size: 0.75rem; margin-bottom:4px; color:var(--fg);">Kern-Kompetenzen</div>
+          <span class="skill-chip">AI Product Development</span>
+          <span class="skill-chip">Multi-Agent Architectures</span>
+          <span class="skill-chip">LLM Integration</span>
+          <span class="skill-chip">Technical Product Ownership</span>
+          <span class="skill-chip">Full-Stack Engineering</span>
+        </div>
+        <div>
+          <div style="font-weight:bold; font-size: 0.75rem; margin-bottom:4px; color:var(--fg);">Weitere Kompetenzen</div>
+          <span class="skill-chip">Requirements Management</span>
+          <span class="skill-chip">Project Management</span>
+          <span class="skill-chip">Test Automation</span>
+          <span class="skill-chip">DevOps</span>
+          <span class="skill-chip">Enterprise Consulting</span>
+        </div>
+      </div>
+
+      <!-- TAB: CAREER -->
+      <div class="win-tab-panel" id="tab-career" role="tabpanel" aria-labelledby="tab-btn-career">
+        <table class="win-listview" aria-label="Karriere">
+          <thead>
+            <tr>
+              <th scope="col">Zeitraum</th>
+              <th scope="col">Position</th>
+              <th scope="col">Unternehmen</th>
+              <th scope="col">Ort</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025 —</td>
+              <td>Freelance TPO &amp; AI Builder</td>
+              <td>neckarshore.ai</td>
+              <td>Stuttgart</td>
+            </tr>
+            <tr>
+              <td>2015–2025</td>
+              <td>Tester → Consultant → TPO</td>
+              <td>Mercedes-Benz AG</td>
+              <td>Stuttgart</td>
+            </tr>
+            <tr>
+              <td>1993–2015</td>
+              <td>Consulting, Software &amp; Management</td>
+              <td>Verschiedene</td>
+              <td>DE / CH / TH</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: PROJECTS -->
+      <div class="win-tab-panel" id="tab-projects" role="tabpanel" aria-labelledby="tab-btn-projects">
+        <table class="win-listview" aria-label="Projekte">
+          <thead>
+            <tr>
+              <th scope="col">Projekt</th>
+              <th scope="col">Beschreibung</th>
+              <th scope="col">Status</th>
+              <th scope="col">Typ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>neckarshore.ai</strong></td>
+              <td>KI-beschleunigte Softwareentwicklung</td>
+              <td>Aktiv</td>
+              <td>Produkt</td>
+            </tr>
+            <tr>
+              <td><strong>Obsidian Vault Autopilot</strong></td>
+              <td>Open Source Plugin — automatisches Vault-Management</td>
+              <td>Open Source</td>
+              <td>Plugin</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB: EDUCATION -->
+      <div class="win-tab-panel" id="tab-edu" role="tabpanel" aria-labelledby="tab-btn-edu">
+        <div class="dialog-box">
+          <div class="dialog-titlebar">
+            <div class="dialog-titlebar-icon" aria-hidden="true"></div>
+            <span>Ausbildung — Zertifikat</span>
+          </div>
+          <div class="dialog-content">
+            <strong>Diplom-Betriebswirt</strong><br>
+            BA Stuttgart — Datenverarbeitung<br><br>
+            <span class="vt" style="font-size: 0.9rem; color:var(--accent);">
+              &gt; Abschluss: Diplom-Betriebswirt<br>
+              &gt; Institution: BA Stuttgart<br>
+              &gt; Fachrichtung: Datenverarbeitung<br>
+              &gt; Status: ABGESCHLOSSEN
+            </span>
+          </div>
+          <div class="dialog-footer">
+            <button class="win-btn default-btn">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="win-statusbar" role="status" aria-live="polite">
+      <span>Bereit</span>
+      <span>Stuttgart, Deutschland</span>
+      <span><a href="mailto:german@rauhut.com" style="color:var(--accent); text-decoration:none;">german@rauhut.com</a></span>
+    </div>
+
+  </div><!-- /win-content -->
+</div><!-- /win-window -->
+
+<!-- TASKBAR -->
+<div class="taskbar" role="toolbar" aria-label="Taskleiste">
+  <button class="start-btn" title="Start" aria-label="Start">
+    <span class="win-logo" aria-hidden="true">
+      <span class="win-logo-q"></span>
+      <span class="win-logo-q"></span>
+      <span class="win-logo-q"></span>
+      <span class="win-logo-q"></span>
+    </span>
+    Start
+  </button>
+  <div class="taskbar-separator" aria-hidden="true"></div>
+  <button class="taskbar-window-btn" aria-label="German Rauhut — Technisches Portfolio">
+    German Rauhut — Technisches Portfolio
+  </button>
+  <div style="flex:1"></div>
+  <div class="taskbar-clock vt" aria-label="Uhrzeit">
+    <span id="clock">1995</span>
+  </div>
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-win95-theme';
+  var THEMES = ['classic', 'night-mode', 'hot-dog-stand', 'stardust'];
+
+  // === THEME SWITCHER ===
+  function setTheme(theme, save) {
+    if (!THEMES.includes(theme)) theme = 'classic';
+    var html = document.documentElement;
+    html.classList.add('switching');
+    html.setAttribute('data-theme', theme);
+    if (save) localStorage.setItem(STORAGE_KEY, theme);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+    setTimeout(function() { html.classList.remove('switching'); }, 300);
+  }
+
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && THEMES.includes(saved)) setTheme(saved, false);
+
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { setTheme(btn.dataset.theme, true); });
+  });
+
+  // === TABS ===
+  var tabs = document.querySelectorAll('.win-tab');
+  var panels = document.querySelectorAll('.win-tab-panel');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      var panelId = tab.getAttribute('aria-controls');
+      var panel = document.getElementById(panelId);
+      if (panel) panel.classList.add('active');
+    });
+    // Keyboard accessibility
+    tab.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tab.click(); }
+    });
+  });
+
+  // === CLOCK ===
+  function updateClock() {
+    var now = new Date();
+    var h = now.getHours().toString().padStart(2,'0');
+    var m = now.getMinutes().toString().padStart(2,'0');
+    var el = document.getElementById('clock');
+    if (el) el.textContent = h + ':' + m;
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // === WELCOME MSGBOX ===
+  setTimeout(function() {
+    var box = document.getElementById('welcome-msgbox');
+    if (box) box.classList.add('visible');
+  }, 1200);
+
+})();
+</script>
+
+<script>
+(function() {
+  var bsod = document.getElementById('bsod');
+  function showBSOD() {
+    bsod.style.display = 'block';
+    setTimeout(function() {
+      bsod.style.display = 'none';
+    }, 1800);
+  }
+  // Show after 1s on load, then every 8s
+  setTimeout(function() {
+    showBSOD();
+    setInterval(showBSOD, 8000);
+  }, 1000);
+  bsod.addEventListener('click', function() { bsod.style.display = 'none'; });
+  document.addEventListener('keydown', function() { bsod.style.display = 'none'; });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="digital-void">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Vaporwave Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 19.2px; scroll-behavior: smooth; }
+html.switching * { transition: background-color 0.3s, color 0.3s, border-color 0.3s !important; }
+
+/* ── THEMES ───────────────────────────────────────────────── */
+[data-theme="miami-vice"] {
+  --bg: #FFE0F0; --fg: #1A0828; --surface: #F8D0E8;
+  --accent: #FF2090; --punch: #00C0FF;
+  --muted: #887080; --line: rgba(26,8,40,0.12);
+}
+[data-theme="pastel-dream"] {
+  --bg: #E8E0F8; --fg: #180820; --surface: #DDD8F0;
+  --accent: #A020C0; --punch: #00B8E0;
+  --muted: #706880; --line: rgba(24,8,32,0.12);
+}
+[data-theme="sunset-grid"] {
+  --bg: #FFF0E0; --fg: #200810; --surface: #F8E0D0;
+  --accent: #FF4060; --punch: #A000FF;
+  --muted: #806070; --line: rgba(32,8,16,0.12);
+}
+[data-theme="digital-void"] {
+  --bg: #0A0014; --fg: #E0D0FF; --surface: #100020;
+  --accent: #FF00C0; --punch: #00FFFF;
+  --muted: #604878; --line: rgba(224,208,255,0.10);
+}
+
+/* ── BASE ─────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Share Tech Mono', monospace;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── PERSPECTIVE GRID BACKGROUND ─────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50vh;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  transform: perspective(600px) rotateX(60deg);
+  transform-origin: bottom center;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── GRADIENT MESH BG ─────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,32,144,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(0,192,255,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(160,32,192,0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(var(--bg-rgb, 255,224,240), 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--accent);
+  box-shadow: 0 0 20px rgba(255,32,144,0.2), 0 2px 40px rgba(0,0,0,0.1);
+  padding: 0.6rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+[data-theme="digital-void"] nav { background: rgba(10,0,20,0.85); }
+[data-theme="pastel-dream"] nav { background: rgba(232,224,248,0.75); }
+[data-theme="sunset-grid"] nav { background: rgba(255,240,224,0.75); }
+
+.nav-logo {
+  font-family: 'Righteous', cursive;
+  font-size: 1.05rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.4rem;
+  list-style: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.nav-links a {
+  color: var(--fg);
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.2s, color 0.2s;
+}
+.nav-links a:hover { opacity: 1; color: var(--accent); text-shadow: 0 0 6px var(--accent); }
+
+.theme-switcher {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.theme-btn {
+  width: 26px;
+  height: 26px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border: 2px solid var(--fg); }
+
+#btn-miami-vice   { background: linear-gradient(135deg, #FFE0F0 50%, #FF2090 50%); }
+#btn-pastel-dream { background: linear-gradient(135deg, #E8E0F8 50%, #A020C0 50%); }
+#btn-sunset-grid  { background: linear-gradient(135deg, #FFF0E0 50%, #FF4060 50%); }
+#btn-digital-void { background: linear-gradient(135deg, #0A0014 50%, #FF00C0 50%); }
+
+/* ── MAIN WRAPPER ─────────────────────────────────────────── */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* ── SECTION BREAK BAND ───────────────────────────────────── */
+.band {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--punch), var(--accent));
+  margin: 2.5rem 0;
+  border-radius: 2px;
+  box-shadow: 0 0 12px var(--accent), 0 0 30px rgba(0,192,255,0.3);
+}
+
+/* ── FLOATING PANEL ───────────────────────────────────────── */
+.panel {
+  background: rgba(248,208,232,0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  padding: 1.5rem 1.8rem;
+  box-shadow: 0 0 10px var(--accent), 0 0 30px rgba(255,32,144,0.15), 0 8px 32px rgba(0,0,0,0.08);
+}
+[data-theme="digital-void"] .panel { background: rgba(16,0,32,0.7); }
+[data-theme="pastel-dream"] .panel { background: rgba(220,216,240,0.5); }
+[data-theme="sunset-grid"] .panel { background: rgba(248,224,208,0.5); }
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  padding: 4rem 0 2rem;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--punch);
+  text-shadow: 0 0 8px var(--punch);
+  margin-bottom: 1rem;
+}
+
+.hero-name {
+  font-family: 'Righteous', cursive;
+  font-size: 4.5rem;
+  line-height: 1.05;
+  color: var(--fg);
+  text-shadow: -3px 0 var(--accent), 3px 0 var(--punch);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-title {
+  font-family: 'Righteous', cursive;
+  font-size: 1.15rem;
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+
+.hero-quote {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* ── STATS GRID ───────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.stat-panel {
+  background: rgba(248,208,232,0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  box-shadow: 0 0 8px var(--accent), 0 0 20px rgba(255,32,144,0.12);
+}
+[data-theme="digital-void"] .stat-panel { background: rgba(16,0,32,0.65); }
+[data-theme="pastel-dream"] .stat-panel { background: rgba(216,210,238,0.45); }
+[data-theme="sunset-grid"] .stat-panel { background: rgba(248,220,200,0.45); }
+
+.stat-value {
+  font-family: 'Righteous', cursive;
+  font-size: 1.8rem;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+  display: block;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+/* ── SECTION HEADING ──────────────────────────────────────── */
+.section-heading {
+  font-family: 'Righteous', cursive;
+  font-size: 1.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-heading::before {
+  content: '▶ ';
+  color: var(--punch);
+  text-shadow: 0 0 8px var(--punch);
+  font-size: 0.9em;
+}
+
+/* ── BIO ──────────────────────────────────────────────────── */
+.bio-text {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--fg);
+  opacity: 0.88;
+}
+
+/* ── SKILLS ───────────────────────────────────────────────── */
+.skills-section { margin-top: 1.5rem; }
+
+.skills-category {
+  margin-bottom: 1.2rem;
+}
+
+.skills-category-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--punch);
+  text-shadow: 0 0 6px var(--punch);
+  margin-bottom: 0.5rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  font-size: 0.72rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  color: var(--fg);
+  background: rgba(255,32,144,0.08);
+  box-shadow: 0 0 6px rgba(255,32,144,0.2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.skill-tag.focus {
+  background: rgba(255,32,144,0.15);
+  box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(255,32,144,0.2);
+  color: var(--accent);
+}
+
+/* ── PROJECTS ─────────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.project-card {
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 1.4rem;
+  background: rgba(248,208,232,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 8px var(--accent), 0 4px 20px rgba(0,0,0,0.06);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme="digital-void"] .project-card { background: rgba(16,0,32,0.6); }
+[data-theme="pastel-dream"] .project-card { background: rgba(210,205,235,0.4); }
+[data-theme="sunset-grid"] .project-card { background: rgba(245,215,195,0.4); }
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--punch));
+}
+
+.project-name {
+  font-family: 'Righteous', cursive;
+  font-size: 1rem;
+  color: var(--punch);
+  text-shadow: 0 0 8px var(--punch);
+  margin-bottom: 0.4rem;
+}
+
+.project-desc {
+  font-size: 0.72rem;
+  color: var(--fg);
+  opacity: 0.82;
+  line-height: 1.65;
+}
+
+.project-status {
+  display: inline-block;
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px var(--accent);
+}
+
+/* ── CAREER TIMELINE ──────────────────────────────────────── */
+.timeline {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--punch), var(--accent));
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.4rem;
+  padding-left: 1rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.62rem;
+  top: 0.4rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(255,32,144,0.4);
+}
+
+.timeline-period {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--punch);
+  text-shadow: 0 0 5px var(--punch);
+}
+
+.timeline-role {
+  font-family: 'Righteous', cursive;
+  font-size: 0.9rem;
+  color: var(--fg);
+  margin-top: 0.2rem;
+}
+
+.timeline-company {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+/* ── CONTACT ──────────────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.contact-item {
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255,32,144,0.05);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.contact-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--punch);
+  text-shadow: 0 0 5px var(--punch);
+  margin-bottom: 0.35rem;
+}
+
+.contact-value {
+  font-size: 0.72rem;
+  color: var(--fg);
+  word-break: break-all;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .hero-name { font-size: 2.8rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  nav { padding: 0.6rem 1rem; }
+  main { padding: 0 1rem 3rem; }
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GERMAN RAUHUT</div>
+  <ul class="nav-links">
+    <li><a href="#about">PROFIL</a></li>
+    <li><a href="#skills">SKILLS</a></li>
+    <li><a href="#projects">PROJEKTE</a></li>
+    <li><a href="#career">KARRIERE</a></li>
+    <li><a href="#contact">KONTAKT</a></li>
+  </ul>
+  <div class="theme-switcher">
+    <button class="theme-btn active" id="btn-digital-void" title="Digital Void" onclick="setTheme('digital-void')"></button>
+    <button class="theme-btn"        id="btn-miami-vice"   title="Miami Vice"   onclick="setTheme('miami-vice')"></button>
+    <button class="theme-btn"        id="btn-pastel-dream" title="Pastel Dream" onclick="setTheme('pastel-dream')"></button>
+    <button class="theme-btn"        id="btn-sunset-grid"  title="Sunset Grid"  onclick="setTheme('sunset-grid')"></button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="hero-eyebrow">// PORTFOLIO_v2026.05 — LOADING SEQUENCE COMPLETE //</div>
+    <h1 class="hero-name">German Rauhut</h1>
+    <div class="hero-title">Technical Product Owner &amp; AI Product Builder</div>
+    <div class="hero-quote">"Brückenbauer zwischen Business und Technologie"</div>
+
+    <div class="stats-grid">
+      <div class="stat-panel">
+        <span class="stat-value">10+</span>
+        <span class="stat-label">Jahre Corporate</span>
+      </div>
+      <div class="stat-panel">
+        <span class="stat-value">466</span>
+        <span class="stat-label">Tests Shipped</span>
+      </div>
+      <div class="stat-panel">
+        <span class="stat-value">12+</span>
+        <span class="stat-label">KI-Agenten</span>
+      </div>
+      <div class="stat-panel">
+        <span class="stat-value">95</span>
+        <span class="stat-label">API Endpoints</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="band"></div>
+
+  <!-- BIO -->
+  <section>
+    <div class="panel">
+      <h2 class="section-heading">PROFIL</h2>
+      <p class="bio-text">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+        Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei
+        Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+        Software und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+      <p class="bio-text" style="margin-top:0.8rem; font-size: 0.72rem; color:var(--muted);">
+        Diplom-Betriebswirt — BA Stuttgart — Datenverarbeitung
+      </p>
+    </div>
+  </section>
+
+  <div class="band"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2 class="section-heading">SKILL MATRIX</h2>
+    <div class="skills-section">
+      <div class="skills-category">
+        <div class="skills-category-label">// Core Focus</div>
+        <div class="skill-tags">
+          <span class="skill-tag focus">AI Product Development</span>
+          <span class="skill-tag focus">Multi-Agent Architectures</span>
+          <span class="skill-tag focus">LLM Integration</span>
+          <span class="skill-tag focus">Technical Product Ownership</span>
+          <span class="skill-tag focus">Full-Stack Engineering</span>
+        </div>
+      </div>
+      <div class="skills-category">
+        <div class="skills-category-label">// Foundation</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Requirements Management</span>
+          <span class="skill-tag">Project Management</span>
+          <span class="skill-tag">Test Automation</span>
+          <span class="skill-tag">DevOps</span>
+          <span class="skill-tag">Enterprise Consulting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-heading">PROJEKTE</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-name">neckarshore.ai</div>
+        <p class="project-desc">
+          KI-beschleunigte Softwareentwicklung. Baut AI-First-Produkte für kleine und mittlere Unternehmen
+          mit Multi-Agent-Architekturen und modernen LLM-Stacks.
+        </p>
+        <span class="project-status">AKTIV</span>
+      </div>
+      <div class="project-card">
+        <div class="project-name">Obsidian Vault Autopilot</div>
+        <p class="project-desc">
+          Open Source Plugin für Obsidian. Automatisiert Vault-Management, Note-Organisation und
+          AI-gestützte Wissensarbeit direkt im Editor.
+        </p>
+        <span class="project-status">OPEN SOURCE</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="band"></div>
+
+  <!-- CAREER -->
+  <section id="career">
+    <h2 class="section-heading">KARRIERE</h2>
+    <div class="panel">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-period">2025 — HEUTE</div>
+          <div class="timeline-role">Freelance AI Product Builder &amp; Technical Consultant</div>
+          <div class="timeline-company">neckarshore.ai — Remote</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">2015 — 2025</div>
+          <div class="timeline-role">Tester → Consultant → Technical Product Owner</div>
+          <div class="timeline-company">Mercedes-Benz AG — Stuttgart</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-period">1993 — 2015</div>
+          <div class="timeline-role">Consulting, Software &amp; Management</div>
+          <div class="timeline-company">Deutschland · Schweiz · Thailand</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-heading">CONNECT</h2>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-label">E-Mail</div>
+        <div class="contact-value">german@rauhut.com</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">in/german-rauhut</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">GitHub</div>
+        <div class="contact-value">GmanFooFoo</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2026 German Rauhut &nbsp;|&nbsp; <a href="#">Impressum</a>
+</footer>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-vaporwave-theme';
+  var THEMES = ['miami-vice', 'pastel-dream', 'sunset-grid', 'digital-void'];
+
+  function setTheme(theme) {
+    var html = document.documentElement;
+    html.classList.add('switching');
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    THEMES.forEach(function(t) {
+      var btn = document.getElementById('btn-' + t);
+      if (btn) btn.classList.toggle('active', t === theme);
+    });
+    setTimeout(function() { html.classList.remove('switching'); }, 300);
+  }
+
+  // expose globally for onclick handlers
+  window.setTheme = setTheme;
+
+  // init from storage
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && THEMES.indexOf(saved) !== -1) {
+    setTheme(saved);
+  } else {
+    setTheme('digital-void');
+  }
+})();
+</script>
+</body>
+</html>

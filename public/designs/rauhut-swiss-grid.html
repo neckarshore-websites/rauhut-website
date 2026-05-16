@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="black-grid">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — 001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script>
+  (function() {
+    var stored = localStorage.getItem('rauhut-swiss-theme');
+    var theme = stored || 'black-grid';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<style>
+  html { font-size: 19.2px; scroll-behavior: smooth; }
+
+  html.switching * {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+  }
+
+  /* ─── THEMES ─────────────────────────────────────────────────── */
+  [data-theme="neue"] {
+    --bg: #FFFFFF; --fg: #141414; --surface: #F2F2F2;
+    --accent: #CC0000; --punch: #141414;
+    --muted: #909090; --line: rgba(0,0,0,0.12);
+  }
+    [data-theme="blue-grid"] {
+    --bg: #F0F4F8; --fg: #0C1828; --surface: #E4EAF0;
+    --accent: #0040C0; --punch: #0C1828;
+    --muted: #607080; --line: rgba(12,24,40,0.12);
+  }
+  [data-theme="black-grid"] {
+    --bg: #080808; --fg: #F0F0F0; --surface: #141414;
+    --accent: #FF2800; --punch: #F0F0F0;
+    --muted: #606060; --line: rgba(240,240,240,0.08);
+  }
+
+  /* ─── RESET & BASE ───────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'IBM Plex Sans', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  a { color: var(--fg); text-decoration: none; }
+  a:hover { color: var(--accent); }
+
+  /* 8px baseline grid — all spacing in multiples of 8px */
+  /* 8px = 0.4167rem at 19.2px base */
+  /* common multiples: 8=.417, 16=.833, 24=1.25, 32=1.667, 40=2.083, 48=2.5 */
+
+  /* ─── GRID STRUCTURE ─────────────────────────────────────────── */
+  .page-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    max-width: 1120px;
+    margin: 0 auto;
+    min-height: 100vh;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+
+  .col-index {
+    border-right: 1px solid var(--line);
+    position: relative;
+    padding: 0;
+  }
+
+  .col-main {
+    padding: 0;
+  }
+
+  /* ─── NAV ────────────────────────────────────────────────────── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.833rem 1.667rem;
+    border-bottom: 1px solid var(--line);
+    grid-column: 1 / -1;
+  }
+
+  .nav-inner {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .nav-ref {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    padding-right: 1.667rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1.667rem;
+  }
+
+  .nav-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.729rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  .theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.333rem;
+  }
+
+  .theme-switcher-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 0.25rem;
+  }
+
+  .theme-btn {
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .theme-btn.active {
+    border: 2px solid var(--fg);
+  }
+
+  /* ─── SECTION WRAPPER ────────────────────────────────────────── */
+  .section-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-index {
+    border-right: 1px solid var(--line);
+    padding: 1.667rem 0.833rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    user-select: none;
+  }
+
+  .section-content {
+    padding: 1.667rem 2.083rem;
+  }
+
+  /* ─── HERO ───────────────────────────────────────────────────── */
+  .hero-section {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-index {
+    border-right: 1px solid var(--line);
+    padding: 2.5rem 0.833rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .hero-index .section-number {
+    color: var(--accent);
+  }
+
+  .hero-content {
+    padding: 2.5rem 2.083rem 2.083rem;
+  }
+
+  .hero-name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: clamp(3.8rem, 10vw, 9rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--fg);
+    display: block;
+    text-align: left;
+  }
+
+  .hero-rule {
+    border: none;
+    border-top: 1px solid var(--fg);
+    margin: 1.25rem 0 0.833rem;
+  }
+
+  .hero-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.729rem;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+
+  /* ─── STATS ──────────────────────────────────────────────────── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-cell {
+    padding: 1.25rem 1.25rem 1.25rem 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell:not(:first-child) { padding-left: 1.25rem; }
+
+  .stat-number {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 2.917rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--fg);
+    display: block;
+    text-align: left;
+  }
+
+  .stat-number.accent { color: var(--accent); }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.417rem;
+    line-height: 1.4;
+  }
+
+  /* ─── BIO ────────────────────────────────────────────────────── */
+  .bio-text {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.667;
+    color: var(--fg);
+    max-width: 68ch;
+  }
+
+  .bio-text p + p {
+    margin-top: 0.833rem;
+  }
+
+  /* ─── SKILLS ─────────────────────────────────────────────────── */
+  .skills-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.833rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.417rem;
+  }
+
+  .skills-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2.083rem;
+  }
+
+  .skill-row {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.792rem;
+    font-weight: 400;
+    line-height: 2;
+    color: var(--fg);
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    text-align: left;
+  }
+
+  .skill-row.focus-skill { font-weight: 500; }
+
+  /* ─── PROJECTS ───────────────────────────────────────────────── */
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .projects-table td {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 0.833rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+  }
+
+  .projects-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 80px;
+    padding-right: 1.25rem;
+    vertical-align: top;
+    padding-top: 0.917rem;
+  }
+
+  .project-name {
+    font-weight: 700;
+    font-size: 0.833rem;
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--fg);
+  }
+
+  .project-desc {
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.5;
+    font-size: 0.75rem;
+  }
+
+  .project-status-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  /* ─── CAREER ─────────────────────────────────────────────────── */
+  .career-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .career-table tr {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .career-table tr:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  .career-table td {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    padding: 0.833rem 0;
+    vertical-align: top;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  .career-table .col-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--muted);
+    width: 120px;
+    padding-right: 1.667rem;
+    letter-spacing: 0.04em;
+    padding-top: 0.875rem;
+  }
+
+  .career-table .col-org {
+    font-weight: 500;
+    width: 200px;
+    padding-right: 1.667rem;
+    color: var(--fg);
+  }
+
+  .career-table .col-role {
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  /* ACCENT on first row only */
+  .career-table tr:first-child .col-org {
+    color: var(--accent);
+  }
+
+  /* ─── EDUCATION ──────────────────────────────────────────────── */
+  .edu-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.667rem;
+    border-top: 1px solid var(--line);
+    padding: 0.833rem 0;
+    align-items: baseline;
+  }
+
+  .edu-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .edu-degree {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.792rem;
+    font-weight: 400;
+    color: var(--fg);
+  }
+
+  .edu-institution {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 0.167rem;
+    display: block;
+  }
+
+  /* ─── CONTACT ────────────────────────────────────────────────── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .contact-cell {
+    padding: 0.833rem 1.25rem 0.833rem 0;
+    border-right: 1px solid var(--line);
+  }
+  .contact-cell:last-child { border-right: none; }
+  .contact-cell:not(:first-child) { padding-left: 1.25rem; }
+
+  .contact-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.333rem;
+  }
+
+  .contact-value {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--fg);
+    word-break: break-all;
+    line-height: 1.4;
+    display: block;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────────── */
+  .footer-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-top: 1px solid var(--fg);
+  }
+
+  .footer-index {
+    border-right: 1px solid var(--line);
+    padding: 0.833rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-content {
+    padding: 0.833rem 2.083rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer-text a { color: var(--muted); }
+  .footer-text a:hover { color: var(--accent); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .page-grid {
+      grid-template-columns: 32px 1fr;
+      border-left: none;
+      border-right: none;
+    }
+
+    .nav-inner {
+      grid-template-columns: 32px 1fr;
+    }
+
+    .nav-ref {
+      font-size: 0.68rem;
+      padding-right: 0.5rem;
+    }
+
+    .nav-right { padding-left: 0.5rem; }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 12vw, 5rem);
+    }
+
+    .section-row {
+      grid-template-columns: 32px 1fr;
+    }
+
+    .section-index {
+      padding: 1rem 0.25rem;
+    }
+
+    .hero-index {
+      padding: 1.5rem 0.25rem;
+    }
+
+    .section-content {
+      padding: 1.25rem 1rem;
+    }
+
+    .hero-content {
+      padding: 1.5rem 1rem 1.25rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-cell:nth-child(2) { border-right: none; }
+    .stat-cell:nth-child(3) {
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .stat-cell:nth-child(4) {
+      border-right: none;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+
+    .skills-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .career-table .col-org {
+      display: none;
+    }
+
+    .career-table .col-year {
+      width: 80px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 0.667rem 0;
+    }
+
+    .footer-row {
+      grid-template-columns: 32px 1fr;
+    }
+
+    .footer-content {
+      padding: 0.833rem 1rem;
+      flex-direction: column;
+      gap: 0.25rem;
+      align-items: flex-start;
+    }
+  }
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav style="border-bottom: 1px solid var(--line); padding: 0.833rem 0; background: var(--bg);">
+  <div class="nav-inner" style="max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 80px 1fr;">
+    <div class="nav-ref" style="border-right: 1px solid var(--line); padding: 0 0.833rem; display: flex; align-items: center;">001</div>
+    <div class="nav-right" style="display: flex; align-items: center; justify-content: space-between; padding: 0 2.083rem;">
+      <span class="nav-name">German Rauhut</span>
+      <div class="theme-switcher">
+        <span class="theme-switcher-label">Grid</span>
+        <button class="theme-btn active" data-theme="black-grid" title="Black Grid"
+          style="background: linear-gradient(135deg, #080808 50%, #FF2800 50%)"></button>
+        <button class="theme-btn" data-theme="neue" title="Neue"
+          style="background: linear-gradient(135deg, #FFFFFF 50%, #CC0000 50%)"></button>
+        <button class="theme-btn" data-theme="blue-grid" title="Blue Grid"
+          style="background: linear-gradient(135deg, #F0F4F8 50%, #0040C0 50%)"></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-grid">
+
+  <!-- ── 00 HERO ──────────────────────────────────────────────── -->
+  <div class="hero-index">
+    <span class="section-number">00</span>
+  </div>
+  <div class="hero-content">
+    <span class="hero-name">German<br>Rauhut</span>
+    <hr class="hero-rule">
+    <p class="hero-title">Technical Product Owner &amp; AI Product Builder</p>
+  </div>
+
+  <!-- ── 01 KENNZAHLEN ────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">01</span>
+  </div>
+  <div class="section-content" style="padding-top: 1.25rem; padding-bottom: 1.25rem;">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Jahre Corporate<br>Erfahrung</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number accent">466</span>
+        <span class="stat-label">Tests<br>Shipped</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number">12+</span>
+        <span class="stat-label">KI-Agenten<br>Gebaut</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number">95</span>
+        <span class="stat-label">API<br>Endpoints</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 02 PROFIL ─────────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">02</span>
+  </div>
+  <div class="section-content">
+    <div class="bio-text">
+      <p>
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration — von der Anforderung bis zum produktiven System.
+      </p>
+      <p>
+        Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Softwareentwicklung und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── 03 KOMPETENZEN ────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">03</span>
+  </div>
+  <div class="section-content">
+    <span class="skills-label">Schwerpunkt</span>
+    <div class="skills-columns" style="margin-bottom: 1.667rem;">
+      <div class="skill-row focus-skill">AI Product Development</div>
+      <div class="skill-row focus-skill">Multi-Agent Architectures</div>
+      <div class="skill-row focus-skill">LLM Integration</div>
+      <div class="skill-row focus-skill">Technical Product Ownership</div>
+      <div class="skill-row focus-skill">Full-Stack Engineering</div>
+    </div>
+    <span class="skills-label">Fundament</span>
+    <div class="skills-columns">
+      <div class="skill-row">Requirements Management</div>
+      <div class="skill-row">Project Management</div>
+      <div class="skill-row">Test Automation</div>
+      <div class="skill-row">DevOps</div>
+      <div class="skill-row">Enterprise Consulting</div>
+    </div>
+  </div>
+
+  <!-- ── 04 PROJEKTE ───────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">04</span>
+  </div>
+  <div class="section-content">
+    <table class="projects-table">
+      <tbody>
+        <tr>
+          <td>P-01</td>
+          <td>
+            <span class="project-name">neckarshore.ai</span>
+            <span class="project-desc">KI-beschleunigte Softwareentwicklung. Multi-Agent-Architekturen für effiziente Produktentwicklung im Freelance-Umfeld.</span>
+            <span class="project-status-tag">Aktiv</span>
+          </td>
+        </tr>
+        <tr>
+          <td>P-02</td>
+          <td>
+            <span class="project-name">Obsidian Vault Autopilot</span>
+            <span class="project-desc">Open-Source-Plugin für automatisiertes Wissensmanagement in Obsidian. KI-gestützte Einordnung und Verknüpfung von Notizen.</span>
+            <span class="project-status-tag" style="color: var(--muted);">Open Source</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 05 WERDEGANG ──────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">05</span>
+  </div>
+  <div class="section-content">
+    <table class="career-table">
+      <tbody>
+        <tr>
+          <td class="col-year">2025 —</td>
+          <td class="col-org">Freelance</td>
+          <td class="col-role">Technical Product Ownership &amp; AI Engineering</td>
+        </tr>
+        <tr>
+          <td class="col-year">2015 — 2025</td>
+          <td class="col-org">Mercedes-Benz</td>
+          <td class="col-role">Tester &rarr; Consultant &rarr; Technical Product Owner</td>
+        </tr>
+        <tr>
+          <td class="col-year">1993 — 2015</td>
+          <td class="col-org">Frühe Karriere</td>
+          <td class="col-role">Consulting, Software, Management — DE / CH / Thailand</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 06 AUSBILDUNG ─────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">06</span>
+  </div>
+  <div class="section-content">
+    <div class="edu-row">
+      <span class="edu-year">Stuttgart</span>
+      <div>
+        <span class="edu-degree">Diplom-Betriebswirt</span>
+        <span class="edu-institution">Berufsakademie Stuttgart &mdash; Datenverarbeitung</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 07 KONTAKT ────────────────────────────────────────────── -->
+  <div class="section-index">
+    <span class="section-number">07</span>
+  </div>
+  <div class="section-content" style="padding-top: 1.25rem; padding-bottom: 1.25rem;">
+    <div class="contact-grid">
+      <div class="contact-cell">
+        <span class="contact-type">E-Mail</span>
+        <a href="mailto:german@rauhut.com" class="contact-value">german@rauhut.com</a>
+      </div>
+      <div class="contact-cell">
+        <span class="contact-type">LinkedIn</span>
+        <a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener" class="contact-value">linkedin.com/in/german-rauhut</a>
+      </div>
+      <div class="contact-cell">
+        <span class="contact-type">GitHub</span>
+        <a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener" class="contact-value">github.com/GmanFooFoo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────── -->
+  <div class="footer-row" style="grid-column: 1 / -1;">
+    <div class="footer-index" style="border-right: 1px solid var(--line);">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em;">END</span>
+    </div>
+    <div class="footer-content">
+      <span class="footer-text">&copy; 2026 German Rauhut</span>
+      <span class="footer-text"><a href="#impressum">Impressum</a></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    var buttons = document.querySelectorAll('.theme-btn');
+    var current = document.documentElement.getAttribute('data-theme');
+
+    function setActive(theme) {
+      buttons.forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+      });
+    }
+
+    setActive(current);
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var theme = btn.getAttribute('data-theme');
+        document.documentElement.classList.add('switching');
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('rauhut-swiss-theme', theme);
+        setActive(theme);
+        setTimeout(function() {
+          document.documentElement.classList.remove('switching');
+        }, 300);
+      });
+    });
+  })();
+</script>
+</body>
+</html>

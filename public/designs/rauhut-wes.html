@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="venice-beach">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+<script>
+(function() {
+  var saved = localStorage.getItem('rauhut-wes-theme');
+  var valid = ['venice-beach','asteroid-city','bottega'];
+  if (saved && valid.indexOf(saved) !== -1) {
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+})();
+</script>
+
+<style>
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+/* Venice Beach — coral pink houses + mint VW bus + sandy street */
+html[data-theme="venice-beach"] {
+  --bg: #FAEAE4; --fg: #2A1008; --accent: #E57268; --punch: #68C4B4;
+  --muted: #B09080; --surface: #F2DDD4; --line: #D4AFA0;
+}
+/* Asteroid City — teal desert sky + warm sand + red telephone booth */
+html[data-theme="asteroid-city"] {
+  --bg: #E8D4A4; --fg: #180C04; --accent: #3A9CA8; --punch: #C83428;
+  --muted: #8A7048; --surface: #DEC894; --line: #C0A468;
+}
+/* Bottega — dusty rose vending machine + sage green + corduroy brown */
+html[data-theme="bottega"] {
+  --bg: #DDB8B0; --fg: #180C08; --accent: #7A9E88; --punch: #8A6438;
+  --muted: #A07868; --surface: #D4ACAA; --line: #C09888;
+}
+
+/* ============================================================
+   TRANSITION HELPER
+   ============================================================ */
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Playfair Display', 'Libre Baskerville', Georgia, serif;
+  min-height: 100vh;
+  text-align: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   FILM GRAIN OVERLAY
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ============================================================
+   STRIPED BACKGROUND ACCENT
+   ============================================================ */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9997;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--accent) 0 6px,
+    var(--bg) 6px 12px
+  );
+  opacity: 0.35;
+}
+
+/* ============================================================
+   THEME SWITCHER
+   ============================================================ */
+.theme-switcher {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 9999;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.6rem;
+  border-radius: 2px;
+}
+
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  border: 1.5px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: transform 0.15s;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border: 2px solid var(--fg); }
+
+.theme-btn[data-t="venice-beach"]  { background: linear-gradient(135deg, #FAEAE4 50%, #E57268 50%); }
+.theme-btn[data-t="asteroid-city"] { background: linear-gradient(135deg, #E8D4A4 50%, #3A9CA8 50%); }
+.theme-btn[data-t="bottega"]       { background: linear-gradient(135deg, #DDB8B0 50%, #7A9E88 50%); }
+
+/* ============================================================
+   PAGE WRAPPER
+   ============================================================ */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+
+/* ============================================================
+   HORIZONTAL RULE UTILITY
+   ============================================================ */
+.rule {
+  border: none;
+  border-top: 1.5px solid var(--line);
+  margin: 0.9rem auto;
+  width: 120px;
+}
+.rule-wide {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0.6rem auto;
+  width: 280px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 3.5rem 1rem 3rem;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Striped top band on hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 8px,
+    var(--surface) 8px 16px
+  );
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 8px,
+    var(--surface) 8px 16px
+  );
+}
+
+.hotel-motif {
+  font-size: 0.95rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.bell-icon {
+  display: inline-block;
+  line-height: 1;
+}
+
+.name-stack {
+  margin: 1.2rem 0;
+}
+
+.name-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin: 0.25rem 0;
+}
+
+.name-line span.dashes {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.name-line span.name-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.4rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  line-height: 1;
+}
+
+.title-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 1rem 0 0.4rem;
+}
+
+.hero-subtitle {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+  opacity: 0.75;
+}
+
+.hero-location {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+/* ============================================================
+   SECTION LABEL FRAME
+   ============================================================ */
+.section-label {
+  display: inline-block;
+  border: 1.5px solid var(--line);
+  padding: 0.35rem 1.4rem;
+  margin: 0 auto 1.6rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  position: relative;
+}
+.section-label::before,
+.section-label::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.68rem;
+  color: var(--accent);
+}
+.section-label::before { left: -1.2rem; }
+.section-label::after  { right: -1.2rem; }
+
+section {
+  margin-bottom: 3rem;
+}
+
+/* ============================================================
+   BIO
+   ============================================================ */
+.bio-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: var(--fg);
+  max-width: 620px;
+  margin: 0 auto;
+  opacity: 0.88;
+}
+
+/* ============================================================
+   LUGGAGE TAG STATS
+   ============================================================ */
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.luggage-tag {
+  clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  padding: 0.8rem 1.4rem 0.8rem 1.6rem;
+  min-width: 160px;
+  text-align: center;
+  position: relative;
+}
+
+.luggage-tag:nth-child(1) { background: #FAEAE4; }
+.luggage-tag:nth-child(2) { background: #E8D4A4; }
+.luggage-tag:nth-child(3) { background: #DDB8B0; }
+.luggage-tag:nth-child(4) { background: #F2DDD4; }
+
+html[data-theme="asteroid-city"] .luggage-tag,
+html[data-theme="bottega"] .luggage-tag {
+  background: var(--surface);
+}
+
+.tag-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.tag-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.skill-column {
+  flex: 1;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.2rem;
+}
+
+.skill-col-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.skill-item {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.82rem;
+  color: var(--fg);
+  line-height: 1.9;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.project-card {
+  flex: 1;
+  min-width: 250px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  padding: 1.6rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 5px,
+    var(--surface) 5px 10px
+  );
+}
+
+.project-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.project-desc {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.82rem;
+  color: var(--fg);
+  opacity: 0.8;
+  line-height: 1.65;
+  margin-bottom: 0.8rem;
+}
+
+.project-badge {
+  display: inline-block;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--surface);
+  background: var(--accent);
+  padding: 0.2rem 0.6rem;
+}
+
+/* ============================================================
+   CAREER TIMELINE
+   ============================================================ */
+.career-list {
+  max-width: 600px;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.career-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  justify-content: center;
+}
+
+.career-item:last-child {
+  border-bottom: none;
+}
+
+.career-stamp {
+  flex-shrink: 0;
+  width: 72px;
+  height: 52px;
+  border: 1.5px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: var(--surface);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.career-content {
+  flex: 1;
+}
+
+.career-role {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.3;
+}
+
+.career-org {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+
+/* ============================================================
+   EDUCATION
+   ============================================================ */
+.edu-box {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  padding: 1.4rem 2rem;
+  position: relative;
+}
+
+.edu-degree {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.edu-school {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+.edu-field {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--accent);
+  margin-top: 0.2rem;
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.contact-item:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  margin-top: 3rem;
+  padding: 1.8rem 1rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 6px,
+    var(--surface) 6px 12px
+  );
+}
+
+.footer-text {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  html { font-size: 17px; }
+
+  .page { padding: 3.5rem 1.2rem 1.5rem; }
+
+  .name-line span.name-word { font-size: 2.2rem; }
+
+  .stats-grid { gap: 0.8rem; }
+  .luggage-tag { min-width: 130px; }
+
+  .skills-columns { flex-direction: column; gap: 1rem; }
+  .skill-column { min-width: unset; }
+
+  .projects-grid { flex-direction: column; }
+  .project-card { min-width: unset; }
+
+  .career-item { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .career-content { text-align: center; }
+
+  .theme-switcher { top: 0.8rem; right: 0.8rem; }
+
+  body::after { width: 8px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Theme Switcher -->
+<div class="theme-switcher" role="navigation" aria-label="Theme">
+  <button class="theme-btn" data-t="venice-beach"  title="Venice Beach"  aria-label="Venice Beach theme"></button>
+  <button class="theme-btn" data-t="asteroid-city" title="Asteroid City" aria-label="Asteroid City theme"></button>
+  <button class="theme-btn" data-t="bottega"        title="Bottega"       aria-label="Bottega theme"></button>
+</div>
+
+<div class="page">
+
+  <!-- ===================================================
+       HERO
+       =================================================== -->
+  <header class="hero">
+    <div class="hotel-motif">
+      <span>✦</span>
+      <span class="bell-icon">▲</span>
+      <span style="letter-spacing:0.4em; font-size: 0.68rem; font-family:'Courier Prime',monospace;">PORTFOLIO · MMXXVI</span>
+      <span class="bell-icon">▲</span>
+      <span>✦</span>
+    </div>
+
+    <hr class="rule">
+
+    <div class="name-stack">
+      <div class="name-line">
+        <span class="dashes">——————</span>
+        <span class="name-word">German</span>
+        <span class="dashes">——————</span>
+      </div>
+      <div class="name-line">
+        <span class="dashes">——————</span>
+        <span class="name-word">Rauhut</span>
+        <span class="dashes">——————</span>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="title-label">T I T L E</div>
+    <div class="hero-subtitle">Technical Product Owner &amp; AI Product Builder</div>
+    <div class="hero-location">◎— Stuttgart · Deutschland —◎</div>
+
+    <div style="margin-top:1.2rem; display:flex; justify-content:center; gap:1rem; align-items:center;">
+      <span style="font-family:'Courier Prime',monospace; font-size: 0.68rem; letter-spacing:0.2em; color:var(--muted);">KEY ◎—</span>
+      <span style="color:var(--accent); font-size: 0.9rem;">✦</span>
+      <span style="font-family:'Courier Prime',monospace; font-size: 0.68rem; letter-spacing:0.2em; color:var(--muted);">—◎ KEY</span>
+    </div>
+  </header>
+
+  <!-- ===================================================
+       PROFIL
+       =================================================== -->
+  <section>
+    <div class="section-label">P R O F I L</div>
+    <p class="bio-text">
+      Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung.
+      Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration.
+      Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester,
+      Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+      Software und Management in Deutschland, der Schweiz und Thailand.
+    </p>
+  </section>
+
+  <!-- ===================================================
+       STATISTIKEN (Luggage Tags)
+       =================================================== -->
+  <section>
+    <div class="section-label">S T A T I S T I K E N</div>
+    <div class="stats-grid">
+      <div class="luggage-tag">
+        <div class="tag-number">10+</div>
+        <div class="tag-label">Jahre Corporate</div>
+      </div>
+      <div class="luggage-tag">
+        <div class="tag-number">466</div>
+        <div class="tag-label">Tests Shipped</div>
+      </div>
+      <div class="luggage-tag">
+        <div class="tag-number">12+</div>
+        <div class="tag-label">KI-Agenten gebaut</div>
+      </div>
+      <div class="luggage-tag">
+        <div class="tag-number">95</div>
+        <div class="tag-label">API Endpoints</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       KOMPETENZEN
+       =================================================== -->
+  <section>
+    <div class="section-label">K O M P E T E N Z E N</div>
+    <div class="skills-columns">
+      <div class="skill-column">
+        <span class="skill-col-label">A · Produkt &amp; KI</span>
+        <div class="skill-item">AI Product Development</div>
+        <div class="skill-item">Multi-Agent Architectures</div>
+        <div class="skill-item">LLM Integration</div>
+        <div class="skill-item">Technical Product Ownership</div>
+        <div class="skill-item">Full-Stack Engineering</div>
+      </div>
+      <div class="skill-column">
+        <span class="skill-col-label">B · Management &amp; Delivery</span>
+        <div class="skill-item">Requirements Management</div>
+        <div class="skill-item">Project Management</div>
+        <div class="skill-item">Test Automation</div>
+        <div class="skill-item">DevOps</div>
+        <div class="skill-item">Enterprise Consulting</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       PROJEKTE
+       =================================================== -->
+  <section>
+    <div class="section-label">P R O J E K T E</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-name">neckarshore.ai</div>
+        <p class="project-desc">KI-beschleunigte Softwareentwicklung. Spezialisiert auf Multi-Agent-Pipelines, LLM-Integration und technisches Product Ownership.</p>
+        <span class="project-badge">Aktiv</span>
+      </div>
+      <div class="project-card">
+        <div class="project-name">Obsidian Vault Autopilot</div>
+        <p class="project-desc">Open Source Plugin für automatisierte Wissensorganisation in Obsidian. Intelligente Dateinamen, Tag-Management und Inbox-Triage.</p>
+        <span class="project-badge">Open Source</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       KARRIERE
+       =================================================== -->
+  <section>
+    <div class="section-label">K A R R I E R E</div>
+    <ul class="career-list">
+      <li class="career-item">
+        <div class="career-stamp">2025<br>——</div>
+        <div class="career-content">
+          <div class="career-role">Freelance TPO &amp; AI Builder</div>
+          <div class="career-org">Neckarshore AI · Stuttgart</div>
+        </div>
+      </li>
+      <li class="career-item">
+        <div class="career-stamp">2015<br>–<br>2025</div>
+        <div class="career-content">
+          <div class="career-role">Tester → Consultant → Technical Product Owner</div>
+          <div class="career-org">Mercedes-Benz AG</div>
+        </div>
+      </li>
+      <li class="career-item">
+        <div class="career-stamp">1993<br>–<br>2015</div>
+        <div class="career-content">
+          <div class="career-role">Consulting, Software &amp; Management</div>
+          <div class="career-org">Deutschland · Schweiz · Thailand</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================================================
+       AUSBILDUNG
+       =================================================== -->
+  <section>
+    <div class="section-label">A U S B I L D U N G</div>
+    <div class="edu-box">
+      <div class="edu-degree">Diplom-Betriebswirt</div>
+      <div class="edu-school">B A &nbsp; S T U T T G A R T</div>
+      <div class="edu-field">Datenverarbeitung</div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       KONTAKT
+       =================================================== -->
+  <section>
+    <div class="section-label">K O N T A K T</div>
+    <div class="contact-row">
+      <a class="contact-item" href="mailto:german@rauhut.com">german@rauhut.com</a>
+      <a class="contact-item" href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+      <a class="contact-item" href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+<!-- ===================================================
+     FOOTER
+     =================================================== -->
+<footer>
+  <div class="footer-text">M. Rauhut · Stuttgart · Deutschland · MMXXVI</div>
+</footer>
+
+<script>
+(function() {
+  var THEMES = ['venice-beach', 'asteroid-city', 'bottega'];
+  var KEY    = 'rauhut-wes-theme';
+  var html   = document.documentElement;
+
+  function setTheme(t) {
+    html.classList.add('switching');
+    html.setAttribute('data-theme', t);
+    localStorage.setItem(KEY, t);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.t === t);
+    });
+    setTimeout(function() {
+      html.classList.remove('switching');
+    }, 300);
+  }
+
+  // Mark initial active button
+  var current = html.getAttribute('data-theme');
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.t === current);
+    btn.addEventListener('click', function() {
+      setTheme(btn.dataset.t);
+    });
+  });
+})();
+</script>
+</body>
+</html>

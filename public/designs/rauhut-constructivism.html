@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="konstrukt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Konstruktivistisches Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* === THEME DEFINITIONS === */
+html[data-theme="konstrukt"] {
+  --bg: #F5F0E8;
+  --fg: #0A0808;
+  --accent: #CC1A00;
+  --punch: #0A0808;
+  --muted: #6A5850;
+  --surface: #EAE4DC;
+  --line: #0A0808;
+}
+html[data-theme="nacht"] {
+  --bg: #080808;
+  --fg: #F0EAE0;
+  --accent: #FF2000;
+  --punch: #F0EAE0;
+  --muted: #504840;
+  --surface: #141010;
+  --line: #F0EAE0;
+}
+html[data-theme="blaue-periode"] {
+  --bg: #F0F4F8;
+  --fg: #08101A;
+  --accent: #0A2A8B;
+  --punch: #CC1A00;
+  --muted: #5A6A80;
+  --surface: #E4ECF4;
+  --line: #08101A;
+}
+
+/* === BASE === */
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Oswald', sans-serif;
+  overflow-x: hidden;
+}
+
+/* === THEME SWITCHER === */
+.theme-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  gap: 6px;
+  background: var(--surface);
+  padding: 8px;
+  border: 2px solid var(--line);
+}
+.theme-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.theme-btn[data-theme="konstrukt"] {
+  background: linear-gradient(135deg, #F5F0E8 50%, #CC1A00 50%);
+}
+.theme-btn[data-theme="nacht"] {
+  background: linear-gradient(135deg, #080808 50%, #FF2000 50%);
+}
+.theme-btn[data-theme="blaue-periode"] {
+  background: linear-gradient(135deg, #F0F4F8 50%, #0A2A8B 50%);
+}
+.theme-btn.active {
+  border: 2px solid var(--fg);
+}
+
+/* === STAR === */
+.star {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background: var(--accent);
+  display: inline-block;
+}
+.star-lg { width: 80px; height: 80px; }
+.star-md { width: 48px; height: 48px; }
+.star-sm { width: 28px; height: 28px; }
+.star-xs { width: 18px; height: 18px; }
+
+/* === HERO === */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 4rem 2rem 2rem;
+}
+
+/* Diagonal red band */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 55%;
+  height: 130%;
+  background: var(--accent);
+  transform: skewX(-12deg);
+  z-index: 0;
+}
+
+/* Large red circle (Rodchenko) */
+.hero-circle {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: var(--accent);
+  top: 50%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.18;
+}
+
+/* Grid lines */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-grid::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 3px; height: 100%;
+  background: var(--line);
+  opacity: 0.08;
+}
+.hero-grid::after {
+  content: '';
+  position: absolute;
+  top: 30%; left: 0;
+  width: 100%; height: 3px;
+  background: var(--line);
+  opacity: 0.08;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-name-block {
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--punch);
+  display: inline-block;
+  padding: 3px 10px;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name-line1,
+.hero-name-line2 {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+}
+.hero-name-line1 {
+  font-size: clamp(3.5rem, 8vw, 6.2rem);
+  color: var(--bg);
+  text-shadow: 4px 4px 0 var(--accent);
+}
+.hero-name-line2 {
+  font-size: clamp(3.5rem, 8vw, 6.2rem);
+  color: var(--accent);
+  -webkit-text-stroke: 2px var(--punch);
+}
+
+.hero-title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  border-left: 4px solid var(--accent);
+  padding-left: 0.6rem;
+}
+
+.hero-location {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+
+.star-group {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hero-contact-block {
+  background: var(--punch);
+  color: var(--bg);
+  padding: 1rem 1.2rem;
+  transform: rotate(-2deg);
+}
+.hero-contact-block a {
+  display: block;
+  color: var(--bg);
+  text-decoration: none;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.hero-contact-block a:hover {
+  text-decoration: underline;
+}
+.hero-contact-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.4rem;
+  opacity: 0.7;
+}
+
+/* === SECTION DIVIDER === */
+.section-divider {
+  position: relative;
+  height: 28px;
+  margin: 2rem 0;
+  overflow: visible;
+}
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--line);
+  transform: translateY(-50%);
+}
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 60px;
+  width: 100px;
+  height: 28px;
+  background: var(--accent);
+  transform: skewX(-25deg);
+}
+
+/* === SECTION LABEL (agitprop stamp) === */
+.section-label {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--bg);
+  background: var(--punch);
+  padding: 4px 14px;
+  border: 2px solid var(--punch);
+  margin-bottom: 1rem;
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+/* === MAIN LAYOUT === */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+/* === BIO === */
+.bio-section {
+  margin: 3rem 0;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.bio-text {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--muted);
+  border-left: 5px solid var(--accent);
+  padding-left: 1.2rem;
+}
+.bio-decoration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.geo-triangle {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 70px solid var(--accent);
+}
+.geo-rect {
+  width: 60px;
+  height: 30px;
+  background: var(--punch);
+  transform: rotate(12deg);
+}
+
+/* === STATS === */
+.stats-section {
+  margin: 3rem 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+.stat-item {
+  position: relative;
+  overflow: hidden;
+}
+.stat-item:nth-child(odd) {
+  background: var(--punch);
+  color: var(--bg);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.stat-item:nth-child(even) {
+  background: transparent;
+  color: var(--accent);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  position: relative;
+}
+.stat-item:nth-child(even)::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  z-index: -1;
+}
+.stat-number {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: block;
+  margin-top: 0.4rem;
+}
+
+/* === SKILLS === */
+.skills-section {
+  margin: 3rem 0;
+}
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.skill-badge {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.9rem;
+  display: inline-block;
+}
+.skill-badge:nth-child(odd) {
+  background: var(--accent);
+  color: var(--bg);
+}
+.skill-badge:nth-child(even) {
+  background: transparent;
+  color: var(--fg);
+  border: 2px solid var(--punch);
+}
+.skill-badge:nth-child(3n) {
+  transform: rotate(-1.5deg);
+}
+.skill-badge:nth-child(4n) {
+  transform: rotate(1deg);
+}
+
+/* === PROJECTS === */
+.projects-section {
+  margin: 3rem 0;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.project-card {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 6px; height: 100%;
+  background: var(--accent);
+}
+.project-card::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 60px; height: 60px;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  transform: rotate(30deg);
+}
+.project-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+  display: block;
+  padding-left: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.project-desc {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+  padding-left: 0.8rem;
+  line-height: 1.6;
+}
+.project-status {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 2px 8px;
+  margin-top: 0.5rem;
+  margin-left: 0.8rem;
+}
+
+/* === EDUCATION === */
+.edu-section {
+  margin: 3rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.edu-block {
+  background: var(--surface);
+  border: 3px solid var(--punch);
+  padding: 1.5rem;
+  position: relative;
+  transform: rotate(-0.5deg);
+}
+.edu-degree {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--fg);
+  display: block;
+}
+.edu-school {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 0.3rem;
+  display: block;
+}
+.edu-decoration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* === CAREER TIMELINE === */
+.career-section {
+  margin: 3rem 0;
+}
+.timeline-wrapper {
+  position: relative;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+}
+.timeline-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 600px;
+  position: relative;
+  padding: 3rem 0 0;
+}
+.timeline-track::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 6px;
+  background: var(--accent);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+.timeline-item {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+.timeline-diamond {
+  width: 22px;
+  height: 22px;
+  background: var(--punch);
+  transform: rotate(45deg);
+  border: 3px solid var(--bg);
+  margin: 0.5rem 0;
+}
+.timeline-year {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+.timeline-desc {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+  max-width: 120px;
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+/* === FOOTER === */
+.footer {
+  background: var(--punch);
+  color: var(--bg);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 6px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 30%;
+  width: 40%; height: 100%;
+  background: var(--accent);
+  opacity: 0.15;
+  transform: skewX(-20deg);
+}
+.footer-text {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 900;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  position: relative;
+  z-index: 1;
+}
+.footer-stars {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+  .hero-right {
+    align-items: flex-start;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bio-section {
+    grid-template-columns: 1fr;
+  }
+  .bio-decoration {
+    flex-direction: row;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .edu-section {
+    grid-template-columns: 1fr;
+  }
+  .theme-switcher {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- THEME SWITCHER -->
+<div class="theme-switcher" role="group" aria-label="Theme auswählen">
+  <button class="theme-btn active" data-theme="konstrukt" title="Konstrukt" aria-label="Konstrukt Theme"></button>
+  <button class="theme-btn" data-theme="nacht" title="Nacht" aria-label="Nacht Theme"></button>
+  <button class="theme-btn" data-theme="blaue-periode" title="Blaue Periode" aria-label="Blaue Periode Theme"></button>
+  
+</div>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-circle" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-name-block">
+        <span class="hero-eyebrow">Portfolio — 2026</span>
+        <span class="hero-name-line1">GERMAN</span>
+        <span class="hero-name-line2">RAUHUT</span>
+      </div>
+      <div class="hero-title">Technical Product Owner &amp; AI Product Builder</div>
+      <div class="hero-location">Stuttgart, Deutschland</div>
+    </div>
+    <div class="hero-right">
+      <div class="star-group" aria-hidden="true">
+        <div class="star star-lg"></div>
+        <div class="star star-md"></div>
+        <div class="star star-sm"></div>
+      </div>
+      <div class="hero-contact-block">
+        <div class="hero-contact-label">Kontakt</div>
+        <a href="mailto:german@rauhut.com">german@rauhut.com</a>
+        <a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+        <a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- BIO -->
+  <section aria-labelledby="bio-label" class="bio-section">
+    <div>
+      <span class="section-label" id="bio-label">// ÜBER MICH</span>
+      <div class="section-divider" aria-hidden="true"></div>
+      <p class="bio-text">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+        Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei
+        Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+        Software und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+    </div>
+    <div class="bio-decoration" aria-hidden="true">
+      <div class="star star-md"></div>
+      <div class="geo-triangle"></div>
+      <div class="geo-rect"></div>
+      <div class="star star-xs"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section aria-labelledby="stats-label" class="stats-section">
+    <span class="section-label" id="stats-label">// ZAHLEN SPRECHEN</span>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Jahre Corporate</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">466</span>
+        <span class="stat-label">Tests Shipped</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">12+</span>
+        <span class="stat-label">KI-Agenten gebaut</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">95</span>
+        <span class="stat-label">API Endpoints</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section aria-labelledby="skills-label" class="skills-section">
+    <span class="section-label" id="skills-label">// KOMPETENZEN</span>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="skills-grid">
+      <span class="skill-badge">AI Product Development</span>
+      <span class="skill-badge">Multi-Agent Architectures</span>
+      <span class="skill-badge">LLM Integration</span>
+      <span class="skill-badge">Technical Product Ownership</span>
+      <span class="skill-badge">Full-Stack Engineering</span>
+      <span class="skill-badge">Requirements Management</span>
+      <span class="skill-badge">Project Management</span>
+      <span class="skill-badge">Test Automation</span>
+      <span class="skill-badge">DevOps</span>
+      <span class="skill-badge">Enterprise Consulting</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section aria-labelledby="projects-label" class="projects-section">
+    <span class="section-label" id="projects-label">// PROJEKTE</span>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-name">neckarshore.ai</span>
+        <span class="project-desc">KI-beschleunigte Softwareentwicklung. Multi-Agent-Architektur für autonome Produktentwicklung.</span>
+        <span class="project-status">Aktiv</span>
+      </div>
+      <div class="project-card">
+        <span class="project-name">Obsidian Vault Autopilot</span>
+        <span class="project-desc">Open Source Plugin für automatisches Vault-Management und KI-gestützte Notizorganisation.</span>
+        <span class="project-status">Open Source</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section aria-labelledby="edu-label" class="edu-section">
+    <div>
+      <span class="section-label" id="edu-label">// AUSBILDUNG</span>
+      <div class="section-divider" aria-hidden="true"></div>
+      <div class="edu-block">
+        <span class="edu-degree">Diplom-Betriebswirt</span>
+        <span class="edu-school">BA Stuttgart — Datenverarbeitung</span>
+      </div>
+    </div>
+    <div class="edu-decoration" aria-hidden="true">
+      <div class="star star-lg"></div>
+      <div class="star star-sm"></div>
+    </div>
+  </section>
+
+  <!-- CAREER TIMELINE -->
+  <section aria-labelledby="career-label" class="career-section">
+    <span class="section-label" id="career-label">// KARRIERE</span>
+    <div class="section-divider" aria-hidden="true"></div>
+    <div class="timeline-wrapper">
+      <div class="timeline-track">
+        <div class="timeline-item">
+          <div class="timeline-year">1993</div>
+          <div class="timeline-diamond" aria-hidden="true"></div>
+          <div class="timeline-desc">Consulting, Software &amp; Management<br>DE / CH / TH</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2015</div>
+          <div class="timeline-diamond" aria-hidden="true"></div>
+          <div class="timeline-desc">Mercedes-Benz AG<br>Tester &rarr; Consultant &rarr; TPO</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025</div>
+          <div class="timeline-diamond" aria-hidden="true"></div>
+          <div class="timeline-desc">Freelance TPO &amp; AI Builder<br>neckarshore.ai</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">JETZT</div>
+          <div class="timeline-diamond" aria-hidden="true"></div>
+          <div class="timeline-desc">KI-Produkte &amp; Multi-Agent Systeme</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-stars" aria-hidden="true">
+    <div class="star star-sm" style="background:var(--bg)"></div>
+    <div class="star star-xs" style="background:var(--bg)"></div>
+    <div class="star star-sm" style="background:var(--bg)"></div>
+  </div>
+  <div class="footer-text">ЗА КАЧЕСТВО / FÜR QUALITÄT / FOR QUALITY — RAUHUT 2026</div>
+</footer>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'rauhut-constructivism-theme';
+  const THEMES = ['konstrukt', 'nacht', 'blaue-periode'];
+
+  function setTheme(theme, save) {
+    if (!THEMES.includes(theme)) theme = 'konstrukt';
+    const html = document.documentElement;
+    html.classList.add('switching');
+    html.setAttribute('data-theme', theme);
+    if (save) localStorage.setItem(STORAGE_KEY, theme);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+    setTimeout(function() {
+      html.classList.remove('switching');
+    }, 300);
+  }
+
+  // Restore from localStorage
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && THEMES.includes(saved)) {
+    setTheme(saved, false);
+  }
+
+  // Wire up buttons
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setTheme(btn.dataset.theme, true);
+    });
+  });
+})();
+</script>
+</body>
+</html>

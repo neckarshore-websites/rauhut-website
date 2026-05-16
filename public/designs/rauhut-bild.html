@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="klassisch">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAUHUT.COM — German Rauhut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+html { font-size: 19.2px; scroll-behavior: smooth; }
+
+html[data-theme="klassisch"] {
+  --bg: #FFFFFF;
+  --fg: #1A1A1A;
+  --accent: #E2001A;
+  --punch: #FFD700;
+  --muted: #666;
+  --surface: #F5F5F5;
+  --line: #E0E0E0;
+}
+html[data-theme="nacht"] {
+  --bg: #0A0A0A;
+  --fg: #F0F0F0;
+  --accent: #FF1A1A;
+  --punch: #FFD700;
+  --muted: #888;
+  --surface: #161616;
+  --line: #2A2A2A;
+}
+
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ===== MASTHEAD ===== */
+.masthead {
+  background: var(--accent);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 3px 0 var(--fg);
+}
+.masthead-inner {
+  display: flex;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.bild-logo {
+  background: var(--accent);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  border-right: 3px solid rgba(255,255,255,0.3);
+}
+.bild-logo span {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #FFFFFF;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.masthead-tagline {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.masthead-tagline span {
+  color: #FFFFFF;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(0,0,0,0.2);
+}
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+}
+.theme-btn[data-theme="klassisch"] { background: linear-gradient(135deg, #FFFFFF 50%, #E2001A 50%); }
+.theme-btn[data-theme="nacht"] { background: linear-gradient(135deg, #0A0A0A 50%, #FF1A1A 50%); }
+.theme-btn.active { border: 2px solid var(--fg) !important; }
+
+/* ===== BREAKING NEWS TICKER ===== */
+.ticker-wrapper {
+  background: var(--fg);
+  color: var(--bg);
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 3px solid var(--accent);
+}
+.ticker-label {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  text-transform: uppercase;
+  margin-right: 0;
+  vertical-align: middle;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker 30s linear infinite;
+  padding: 6px 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== MAIN LAYOUT ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== RED DIVIDER ===== */
+.red-rule {
+  border: none;
+  border-top: 4px solid var(--accent);
+  margin: 0;
+}
+.red-rule-thin {
+  border: none;
+  border-top: 2px solid var(--accent);
+  margin: 24px 0;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--surface);
+  border-bottom: 4px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+  padding: 48px 0 40px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 40%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(226,0,26,0.04) 10px,
+    rgba(226,0,26,0.04) 20px
+  );
+  pointer-events: none;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+.hero-date {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  border-top: 2px solid var(--accent);
+  padding-top: 8px;
+  display: inline-block;
+}
+.exklusiv-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  transform: rotate(-2deg);
+  margin-bottom: 16px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+}
+.hero-headline {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 5rem;
+  line-height: 0.9;
+  color: var(--fg);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.hero-headline .highlight {
+  color: var(--accent);
+}
+.hero-subhead {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--fg);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+  border-left: 5px solid var(--accent);
+  padding-left: 16px;
+}
+.hero-dek {
+  font-size: 1rem;
+  color: var(--fg);
+  line-height: 1.6;
+  max-width: 600px;
+}
+.hero-dek strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+.hero-dek mark {
+  background: var(--punch);
+  color: var(--fg);
+  padding: 0 3px;
+  font-weight: 700;
+}
+.hero-sidebar {
+  min-width: 220px;
+  max-width: 240px;
+}
+.sidebar-id-card {
+  background: var(--bg);
+  border: 3px solid var(--fg);
+  padding: 20px;
+  position: relative;
+}
+.sidebar-id-card::before {
+  content: 'PERSONALAKTE';
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #fff;
+  background: var(--fg);
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  padding: 4px 10px;
+  text-align: center;
+}
+.sidebar-id-card .id-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-top: 28px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.sidebar-id-card .id-title {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.sidebar-id-card .id-location {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 10px;
+  font-weight: 600;
+}
+.sidebar-stamp {
+  margin-top: 14px;
+  border: 3px solid var(--accent);
+  padding: 8px;
+  text-align: center;
+  transform: rotate(2deg);
+}
+.sidebar-stamp span {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-top: 36px;
+}
+.breaking-badge {
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+}
+
+/* ===== STATS SECTION ===== */
+.stats-intro {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 8px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  margin-bottom: 32px;
+}
+.stat-box {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+}
+.stat-box::before {
+  content: attr(data-label);
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.stat-num {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--accent);
+}
+.stat-unit {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--fg);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.stat-box-accent {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.stat-box-accent::before { color: rgba(255,255,255,0.8); }
+.stat-box-accent .stat-num { color: #fff; }
+.stat-box-accent .stat-unit { color: rgba(255,255,255,0.9); }
+
+/* ===== MEINUNG BOX ===== */
+.meinung-box {
+  background: var(--surface);
+  border-left: 6px solid var(--accent);
+  padding: 24px 28px;
+  margin: 32px 0;
+  position: relative;
+}
+.meinung-box::before {
+  content: 'MEINUNG';
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.meinung-box blockquote {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg);
+}
+.meinung-box cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: normal;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+/* ===== SKILLS BOX ===== */
+.skills-outer {
+  border: 3px solid var(--fg);
+  background: var(--surface);
+  margin-bottom: 32px;
+}
+.skills-header-bar {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.skills-header-bar span {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.skills-inner {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.skill-col h4 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.skill-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  color: var(--fg);
+  font-weight: 600;
+}
+.skill-item::before {
+  content: '▶';
+  color: var(--accent);
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* ===== KARRIERE TIMELINE ===== */
+.karriere-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3px;
+  margin-bottom: 32px;
+}
+.karriere-item {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 20px;
+  position: relative;
+  border-top: 4px solid var(--accent);
+}
+.karriere-item.current {
+  border-top-color: var(--punch);
+  background: var(--bg);
+}
+.karriere-years {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.karriere-item.current .karriere-years { color: var(--punch); filter: brightness(0.7); }
+.karriere-company {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--fg);
+  letter-spacing: 0.03em;
+}
+.karriere-role {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.aktuell-stamp {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--punch);
+  color: var(--fg);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 3px 6px;
+}
+
+/* ===== PROJEKTE ===== */
+.projekte-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin-bottom: 32px;
+}
+.projekt-card {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 24px;
+  position: relative;
+}
+.projekt-card::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: var(--accent);
+  position: absolute;
+  top: 0; left: 0; right: 0;
+}
+.projekt-status {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #fff;
+  background: var(--accent);
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.projekt-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--fg);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.projekt-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== BILDUNG ===== */
+.bildung-box {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.bildung-icon {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.bildung-text h3 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.bildung-text p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ===== KONTAKT SECTION ===== */
+.kontakt-bar {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 32px 0;
+  margin-top: 32px;
+}
+.kontakt-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.kontakt-cta-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.kontakt-cta-label span {
+  color: var(--accent);
+}
+.kontakt-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.kontakt-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: opacity 0.2s;
+}
+.kontakt-link:hover { opacity: 0.85; }
+.kontakt-link.ghost {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.4);
+  color: var(--bg);
+}
+.kontakt-link.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ===== FOOTER TICKER ===== */
+.footer-ticker {
+  background: var(--accent);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 8px 0;
+}
+.footer-ticker-track {
+  display: inline-block;
+  animation: ticker 40s linear infinite;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* ===== MAIN SECTIONS SPACING ===== */
+.main-content {
+  padding: 0 0 0;
+}
+.section-block {
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+}
+.section-block:last-child { border-bottom: none; }
+
+/* ===== NEU BADGE ===== */
+.neu-badge {
+  display: inline-block;
+  background: var(--punch);
+  color: var(--fg);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  vertical-align: middle;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-sidebar { min-width: unset; max-width: 100%; }
+  .hero-headline { font-size: 3rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .skills-inner { grid-template-columns: 1fr; }
+  .karriere-grid { grid-template-columns: 1fr; }
+  .projekte-grid { grid-template-columns: 1fr; }
+  .masthead-inner { flex-wrap: wrap; }
+  .masthead-tagline { display: none; }
+  .kontakt-bar .container { flex-direction: column; align-items: flex-start; }
+  .bildung-box { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="bild-logo">
+      <span>RAUHUT.COM</span>
+    </div>
+    <div class="masthead-tagline">
+      <span>Das Portfolio des Jahres &bull; Stuttgart, Deutschland &bull; Freelance TPO & AI Builder</span>
+    </div>
+    <div class="theme-switcher" role="group" aria-label="Farbschema wählen">
+      <button class="theme-btn active" data-theme="klassisch" title="Klassisch" aria-label="Theme Klassisch"></button>
+      <button class="theme-btn" data-theme="nacht" title="Nacht" aria-label="Theme Nacht"></button>
+    </div>
+  </div>
+</header>
+
+<!-- BREAKING NEWS TICKER -->
+<div class="ticker-wrapper" aria-live="polite">
+  <span class="ticker-label">BREAKING</span>
+  <span class="ticker-track">
+    &nbsp;&nbsp;&nbsp;EXKLUSIV: Rauhut baut KI-Agenten ++ Mercedes-Veteran wird Freelancer ++ 466 Tests in Production ++ 12 KI-Agenten am Start ++ Vom Tester zum AI Product Builder ++ Stuttgart trifft Silicon Valley ++ Freelance seit Oktober 2025 ++ 95 API-Endpoints gebaut ++ 10 Jahre Erfahrung bei einem deutschen Weltkonzern ++ Multi-Agent-Architekturen: die Zukunft ist HEUTE ++&nbsp;&nbsp;&nbsp;EXKLUSIV: Rauhut baut KI-Agenten ++ Mercedes-Veteran wird Freelancer ++ 466 Tests in Production ++ 12 KI-Agenten am Start ++ Vom Tester zum AI Product Builder ++ Stuttgart trifft Silicon Valley ++ Freelance seit Oktober 2025 ++ 95 API-Endpoints gebaut ++ 10 Jahre Erfahrung bei einem deutschen Weltkonzern ++ Multi-Agent-Architekturen: die Zukunft ist HEUTE ++
+  </span>
+</div>
+<hr class="red-rule">
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-date">Stuttgart — 16. Mai 2026 &bull; Ausgabe Nr. 1</div>
+        <div class="exklusiv-badge">EXKLUSIV!</div>
+        <h1 class="hero-headline">ER <span class="highlight">MACHT</span><br>ES MÖGLICH!</h1>
+        <h2 class="hero-subhead">Der Stuttgarter, der KI-Agenten baut, während andere noch reden</h2>
+        <p class="hero-dek">
+          <strong>GERMAN RAUHUT</strong> — kein gewöhnlicher Freelancer. Nach <mark>10 Jahren bei Mercedes-Benz</mark>, vom Tester bis zum Technical Product Owner, wagt er den Sprung. Seine Waffe? <strong>KI-Agenten, Multi-Agent-Architekturen und LLM-Integration.</strong> Die Industrie zittert. Die Kunden applaudieren. Das Portfolio spricht für sich.
+        </p>
+      </div>
+      <aside class="hero-sidebar">
+        <div class="sidebar-id-card">
+          <div class="id-name">German Rauhut</div>
+          <div class="id-title">Technical Product Owner &amp; AI Product Builder</div>
+          <div class="id-location">📍 Stuttgart, Deutschland</div>
+        </div>
+        <div class="sidebar-stamp">
+          <span>FREELANCE<br>SEIT 2025</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<hr class="red-rule">
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="container">
+
+    <!-- STATS SECTION -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="breaking-badge">SCHOCKIEREND</span>
+        <h2 class="section-title">Zahlen, die alles sagen!</h2>
+      </div>
+      <p class="stats-intro">Die Fakten — unzensiert, ungeschönt, unfassbar</p>
+      <div class="stats-grid">
+        <div class="stat-box" data-label="Jahre Corporate-Erfahrung">
+          <div class="stat-num">10+</div>
+          <div class="stat-unit">Jahre</div>
+        </div>
+        <div class="stat-box stat-box-accent" data-label="Tests in Production">
+          <div class="stat-num">466</div>
+          <div class="stat-unit">Tests</div>
+        </div>
+        <div class="stat-box" data-label="KI-Agenten gebaut">
+          <div class="stat-num">12+</div>
+          <div class="stat-unit">Agenten</div>
+        </div>
+        <div class="stat-box" data-label="API-Endpoints">
+          <div class="stat-num">95</div>
+          <div class="stat-unit">Endpoints</div>
+        </div>
+      </div>
+
+      <div class="meinung-box">
+        <blockquote>"KI-Produkte bauen heißt nicht, ChatGPT anzuklicken. Es heißt, Architekturen zu entwerfen, die wirklich liefern — zuverlässig, skalierbar, im echten Einsatz."</blockquote>
+        <cite>— German Rauhut, Technical Product Owner & AI Builder, Stuttgart</cite>
+      </div>
+    </div>
+    <hr class="red-rule-thin">
+
+    <!-- SKILLS -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="breaking-badge">NEU</span>
+        <h2 class="section-title">Das kann er WIRKLICH</h2>
+      </div>
+      <div class="skills-outer">
+        <div class="skills-header-bar">
+          <span>Vollständige Skill-Akte — Geheimhaltungsgrad: ÖFFENTLICH</span>
+        </div>
+        <div class="skills-inner">
+          <div class="skill-col">
+            <h4>KI &amp; Produkt</h4>
+            <div class="skill-item">AI Product Development</div>
+            <div class="skill-item">Multi-Agent Architectures</div>
+            <div class="skill-item">LLM Integration</div>
+            <div class="skill-item">Technical Product Ownership</div>
+            <div class="skill-item">Full-Stack Engineering</div>
+          </div>
+          <div class="skill-col">
+            <h4>Management &amp; Methodik</h4>
+            <div class="skill-item">Requirements Management</div>
+            <div class="skill-item">Project Management</div>
+            <div class="skill-item">Test Automation</div>
+            <div class="skill-item">DevOps</div>
+            <div class="skill-item">Enterprise Consulting</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="red-rule-thin">
+
+    <!-- KARRIERE -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="breaking-badge">EXKLUSIV</span>
+        <h2 class="section-title">Die Karriere — Schritt für Schritt nach oben</h2>
+      </div>
+      <div class="karriere-grid">
+        <div class="karriere-item current">
+          <span class="aktuell-stamp">AKTUELL</span>
+          <div class="karriere-years">2025—</div>
+          <div class="karriere-company">Freelance TPO &amp; AI Builder</div>
+          <div class="karriere-role">KI-Agentur Neckarshore AI. Baut KI-beschleunigte Softwaresysteme. Multi-Agent-Architekturen. LLM-Integration. Der neue Weg.</div>
+        </div>
+        <div class="karriere-item">
+          <div class="karriere-years">2015–2025</div>
+          <div class="karriere-company">Mercedes-Benz AG</div>
+          <div class="karriere-role">10 Jahre. Tester → Consultant → Technical Product Owner. Vom Prüfstand in die Chefetage der Produktentwicklung. Stuttgarts Automobilwelt hautnah.</div>
+        </div>
+        <div class="karriere-item">
+          <div class="karriere-years">1993–2015</div>
+          <div class="karriere-company">Consulting, Software &amp; Management</div>
+          <div class="karriere-role">23 Jahre. Deutschland. Schweiz. Thailand. Consulting, Software, Management — drei Länder, eine Laufbahn. Internationale Erfahrung pur.</div>
+        </div>
+      </div>
+    </div>
+    <hr class="red-rule-thin">
+
+    <!-- PROJEKTE -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="breaking-badge">LIVE</span>
+        <h2 class="section-title">Seine Projekte — in der Welt draußen</h2>
+      </div>
+      <div class="projekte-grid">
+        <div class="projekt-card">
+          <span class="projekt-status">Aktiv &bull; In Betrieb</span>
+          <div class="projekt-name">neckarshore.ai</div>
+          <div class="projekt-desc">KI-beschleunigte Softwareentwicklung für Unternehmen. Von der Idee bis zur Produktion. Schneller. Besser. Mit echten Agenten.</div>
+        </div>
+        <div class="projekt-card">
+          <span class="projekt-status">Open Source &bull; GitHub</span>
+          <div class="projekt-name">Obsidian Vault Autopilot</div>
+          <div class="projekt-desc">Open-Source-Plugin für Obsidian. Automatisiert Vault-Workflows mit KI. Für alle, die ihr Wissensmanagement ernstnehmen.</div>
+        </div>
+      </div>
+    </div>
+    <hr class="red-rule-thin">
+
+    <!-- BILDUNG -->
+    <div class="section-block">
+      <div class="section-header">
+        <span class="breaking-badge">FAKT</span>
+        <h2 class="section-title">Ausbildung — solide Grundlage</h2>
+      </div>
+      <div class="bildung-box">
+        <div class="bildung-icon">🎓</div>
+        <div class="bildung-text">
+          <h3>Diplom-Betriebswirt &bull; BA Stuttgart</h3>
+          <p>Studienrichtung Datenverarbeitung — damals schon der Blick auf die Schnittstelle von Business und Technologie. Keine Überraschung, wo der Weg hingeführt hat.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</main>
+
+<!-- KONTAKT BAR -->
+<section class="kontakt-bar" aria-label="Kontakt">
+  <div class="container">
+    <div class="kontakt-cta-label">JETZT <span>KONTAKT</span> AUFNEHMEN!</div>
+    <div class="kontakt-links">
+      <a href="mailto:german@rauhut.com" class="kontakt-link">german@rauhut.com</a>
+      <a href="https://linkedin.com/in/german-rauhut" class="kontakt-link ghost" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/GmanFooFoo" class="kontakt-link ghost" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER TICKER -->
+<div class="footer-ticker" aria-hidden="true">
+  <span class="footer-ticker-track">
+    &nbsp;&bull;&nbsp;RAUHUT.COM&nbsp;&bull;&nbsp;TECHNICAL PRODUCT OWNER &amp; AI PRODUCT BUILDER&nbsp;&bull;&nbsp;STUTTGART, DEUTSCHLAND&nbsp;&bull;&nbsp;FREELANCE SEIT OKTOBER 2025&nbsp;&bull;&nbsp;10+ JAHRE CORPORATE&nbsp;&bull;&nbsp;466 TESTS&nbsp;&bull;&nbsp;12+ KI-AGENTEN&nbsp;&bull;&nbsp;95 API-ENDPOINTS&nbsp;&bull;&nbsp;NECKARSHORE.AI&nbsp;&bull;&nbsp;OBSIDIAN VAULT AUTOPILOT&nbsp;&bull;&nbsp;RAUHUT.COM&nbsp;&bull;&nbsp;TECHNICAL PRODUCT OWNER &amp; AI PRODUCT BUILDER&nbsp;&bull;&nbsp;STUTTGART, DEUTSCHLAND&nbsp;&bull;&nbsp;FREELANCE SEIT OKTOBER 2025&nbsp;&bull;&nbsp;10+ JAHRE CORPORATE&nbsp;&bull;&nbsp;466 TESTS&nbsp;&bull;&nbsp;12+ KI-AGENTEN&nbsp;&bull;&nbsp;95 API-ENDPOINTS&nbsp;&bull;&nbsp;NECKARSHORE.AI&nbsp;&bull;&nbsp;OBSIDIAN VAULT AUTOPILOT&nbsp;&bull;&nbsp;
+  </span>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'rauhut-bild-theme';
+  const DEFAULT_THEME = 'klassisch';
+
+  function applyTheme(theme, animate) {
+    const html = document.documentElement;
+    if (animate) {
+      html.classList.add('switching');
+      setTimeout(() => html.classList.remove('switching'), 300);
+    }
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+  }
+
+  // Restore saved theme (FOUC already prevented by data-theme on <html>)
+  const saved = localStorage.getItem(STORAGE_KEY) || DEFAULT_THEME;
+  applyTheme(saved, false);
+
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.theme, true));
+  });
+})();
+</script>
+</body>
+</html>

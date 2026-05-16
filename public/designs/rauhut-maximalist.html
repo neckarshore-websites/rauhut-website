@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="carnival">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GERMAN RAUHUT — MAXIMALIST</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ══════════════════════════════════════════
+       THEMES
+       ══════════════════════════════════════════ */
+
+    /* CARNIVAL — volles Farbspektrum, warmes Papier */
+    :root,
+    [data-theme="carnival"] {
+      --bg:    #F5F0E0;
+      --fg:    #0A0A08;
+      --c1:    #FF2D00;   /* rot */
+      --c2:    #FFE100;   /* gelb */
+      --c3:    #0050FF;   /* blau */
+      --c4:    #00B850;   /* grün */
+      --c5:    #FF00A0;   /* pink */
+      --ink:   #0A0A08;
+      --paper: #F5F0E0;
+    }
+
+    /* TOKYO NIGHT — Neon auf tiefem Schwarz, elektrisch + kalt */
+    [data-theme="tokyo"] {
+      --bg:    #07080F;
+      --fg:    #D8E4F8;
+      --c1:    #FF1458;   /* hot pink */
+      --c2:    #00E8FF;   /* electric cyan */
+      --c3:    #FFDD00;   /* neon gelb */
+      --c4:    #FF6020;   /* neon orange */
+      --c5:    #8820FF;   /* electric violet */
+      --ink:   #D8E4F8;
+      --paper: #07080F;
+    }
+
+    /* KONSTRUKT — Bauhaus: Rot + Schwarz + Gold, limitierte Palette */
+    [data-theme="konstrukt"] {
+      --bg:    #EDE8D0;
+      --fg:    #180A08;
+      --c1:    #C81808;   /* konstruktivistisches Rot */
+      --c2:    #E8A808;   /* Gold/Amber */
+      --c3:    #180A08;   /* Schwarz */
+      --c4:    #C81808;   /* Rot */
+      --c5:    #180A08;   /* Schwarz */
+      --ink:   #180A08;
+      --paper: #EDE8D0;
+    }
+
+    /* ══════════════════════════════════════════
+       RESET & BASE
+       ══════════════════════════════════════════ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 19.2px; scroll-behavior: smooth; }
+
+    html.switching * {
+      transition: background-color 0.3s ease, color 0.3s ease,
+                  border-color 0.3s ease !important;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Space Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════════
+       THEME SWITCHER
+       ══════════════════════════════════════════ */
+
+    .theme-switcher { display: flex; gap: 6px; align-items: center; }
+
+    .t-btn {
+      width: 26px; height: 26px;
+      border: 2px solid transparent;
+      cursor: pointer; padding: 0;
+      background: none;
+      transition: transform 0.12s;
+      position: relative;
+    }
+
+    .t-btn:hover { transform: scale(1.15) rotate(-3deg); }
+    .t-btn.active { border-color: var(--fg); }
+    .t-btn .sw { display: block; width: 100%; height: 100%; }
+
+    .t-btn[data-t="carnival"]  .sw { background: linear-gradient(135deg, #F5F0E0 25%, #FF2D00 25% 50%, #FFE100 50% 75%, #0050FF 75%); }
+    .t-btn[data-t="tokyo"]     .sw { background: linear-gradient(135deg, #07080F 25%, #FF1458 25% 50%, #00E8FF 50% 75%, #8820FF 75%); }
+    .t-btn[data-t="konstrukt"] .sw { background: linear-gradient(135deg, #EDE8D0 25%, #C81808 25% 50%, #E8A808 50% 75%, #180A08 75%); }
+
+    .t-btn::after {
+      content: attr(title);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%; transform: translateX(-50%);
+      background: var(--fg); color: var(--bg);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 7px; white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.15s;
+    }
+
+    .t-btn:hover::after { opacity: 1; }
+
+    /* ══════════════════════════════════════════
+       NAV — diagonal stripe bar
+       ══════════════════════════════════════════ */
+
+    nav {
+      background: var(--fg);
+      padding: 0;
+      position: sticky; top: 0; z-index: 100;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .nav-stripe {
+      display: flex; align-items: center;
+      padding: 0 28px;
+      height: 52px;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    /* colour stripe blocks */
+    .nav-stripe-c1 { background: var(--c1); clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 100%, 0 100%); padding-right: 36px; }
+    .nav-stripe-c2 { background: var(--c2); clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 100%, 16px 100%); margin-left: -18px; padding-right: 36px; }
+    .nav-stripe-c3 { background: var(--c3); clip-path: polygon(0 0, 100% 0, 100% 100%, 16px 100%); margin-left: -18px; }
+
+    .nav-id {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      color: var(--bg);
+      text-transform: uppercase;
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 20px;
+    }
+
+    /* ══════════════════════════════════════════
+       HERO — enormous stacked name with overlapping colour fills
+       ══════════════════════════════════════════ */
+
+    .hero {
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Big rotating decorative elements */
+    .hero-deco {
+      position: absolute;
+      z-index: 0;
+    }
+
+    .hero-deco-1 {
+      width: 420px; height: 420px;
+      background: var(--c2);
+      top: -120px; right: -80px;
+      transform: rotate(22deg);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    .hero-deco-2 {
+      width: 260px; height: 260px;
+      background: var(--c3);
+      bottom: 0; left: 20%;
+      transform: rotate(-10deg);
+      border-radius: 0 60% 0 60%;
+    }
+
+    .hero-deco-3 {
+      width: 180px; height: 180px;
+      background: var(--c5);
+      top: 20%; right: 18%;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 48px 32px 0;
+    }
+
+    .hero-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--fg);
+      opacity: 0.5;
+      margin-bottom: 12px;
+    }
+
+    .hero-name {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(80px, 17vw, 220px);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .hero-name .word {
+      display: block;
+      position: relative;
+      -webkit-text-stroke: 0px;
+    }
+
+    .hero-name .word-1 { color: var(--fg); }
+    .hero-name .word-2 { color: var(--c1); }
+
+    /* stacked shadow behind name */
+    .hero-name .word::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 6px; left: 6px;
+      color: var(--c2);
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    .hero-name .word-2::before {
+      color: var(--c3);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 24px 0 40px;
+      border-top: 4px solid var(--fg);
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 3px solid var(--fg);
+      color: var(--fg);
+    }
+
+    .hero-tag:nth-child(1) { background: var(--c1); color: var(--bg); border-color: var(--c1); }
+    .hero-tag:nth-child(2) { background: var(--c2); color: var(--fg); border-color: var(--c2); }
+    .hero-tag:nth-child(3) { background: var(--c3); color: var(--bg); border-color: var(--c3); }
+    .hero-tag:nth-child(4) { background: var(--c4); color: var(--bg); border-color: var(--c4); }
+    .hero-tag:nth-child(5) { background: var(--c5); color: var(--bg); border-color: var(--c5); }
+    .hero-tag:nth-child(6) { background: var(--bg); border-color: var(--fg); }
+
+    /* ══════════════════════════════════════════
+       STATS — oversized colourful blocks
+       ══════════════════════════════════════════ */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      padding: 32px 24px;
+      border: 4px solid var(--fg);
+      border-collapse: collapse;
+      margin: -2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat:nth-child(1) { background: var(--c1); }
+    .stat:nth-child(2) { background: var(--c2); }
+    .stat:nth-child(3) { background: var(--c3); }
+    .stat:nth-child(4) { background: var(--c4); }
+
+    .stat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(52px, 7vw, 90px);
+      line-height: 1;
+      display: block;
+      color: var(--bg);
+    }
+
+    .stat:nth-child(2) .stat-num { color: var(--fg); }
+
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 8px;
+      line-height: 1.5;
+      color: var(--bg);
+      opacity: 0.85;
+    }
+
+    .stat:nth-child(2) .stat-label { color: var(--fg); opacity: 0.7; }
+
+    /* Big decorative number behind */
+    .stat::after {
+      content: attr(data-n);
+      position: absolute;
+      bottom: -10px; right: -8px;
+      font-family: 'Anton', sans-serif;
+      font-size: 120px;
+      line-height: 1;
+      color: rgba(0,0,0,0.06);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ══════════════════════════════════════════
+       MARQUEE STRIP
+       ══════════════════════════════════════════ */
+
+    .marquee-wrap {
+      background: var(--fg);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 12px 0;
+      border-top: 4px solid var(--fg);
+      border-bottom: 4px solid var(--fg);
+    }
+
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-inner span {
+      font-family: 'Anton', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      padding: 0 32px;
+      color: var(--bg);
+      text-transform: uppercase;
+    }
+
+    .marquee-inner span.accent-1 { color: var(--c1); }
+    .marquee-inner span.accent-2 { color: var(--c2); }
+    .marquee-inner span.accent-3 { color: var(--c3); }
+    .marquee-inner span.accent-4 { color: var(--c4); }
+    .marquee-inner span.accent-5 { color: var(--c5); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ══════════════════════════════════════════
+       ABOUT — full bleed coloured columns
+       ══════════════════════════════════════════ */
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 4px solid var(--fg);
+      border-bottom: 4px solid var(--fg);
+    }
+
+    .about-left {
+      background: var(--c5);
+      padding: 52px 32px;
+      border-right: 4px solid var(--fg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* big rotated text decoration */
+    .about-left::before {
+      content: '//';
+      position: absolute;
+      bottom: -40px; right: -20px;
+      font-family: 'Anton', sans-serif;
+      font-size: 200px;
+      color: rgba(0,0,0,0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .about-quote {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(28px, 4.5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      color: var(--bg);
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-quote em {
+      font-style: normal;
+      -webkit-text-stroke: 2px var(--bg);
+      color: transparent;
+    }
+
+    .about-right {
+      padding: 52px 36px;
+      background: var(--bg);
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--fg);
+      opacity: 0.45;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 3px;
+      background: var(--c1);
+    }
+
+    .about-text {
+      font-size: 0.72rem;
+      line-height: 2.1;
+      color: var(--fg);
+    }
+
+    /* ══════════════════════════════════════════
+       SKILLS — huge stacked coloured rows
+       ══════════════════════════════════════════ */
+
+    .skills {
+      border-bottom: 4px solid var(--fg);
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 3px solid var(--fg);
+    }
+
+    .skill-row:last-child { border-bottom: none; }
+
+    .skill-cat {
+      width: 56px;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 3px solid var(--fg);
+      flex-shrink: 0;
+    }
+
+    .skill-cat-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+    }
+
+    .skill-row:nth-child(1) .skill-cat-dot { background: var(--c1); }
+    .skill-row:nth-child(2) .skill-cat-dot { background: var(--c2); }
+    .skill-row:nth-child(3) .skill-cat-dot { background: var(--c3); }
+    .skill-row:nth-child(4) .skill-cat-dot { background: var(--c4); }
+    .skill-row:nth-child(5) .skill-cat-dot { background: var(--c5); }
+    .skill-row:nth-child(6) .skill-cat-dot { background: var(--c1); }
+    .skill-row:nth-child(7) .skill-cat-dot { background: var(--c3); }
+    .skill-row:nth-child(8) .skill-cat-dot { background: var(--c4); }
+    .skill-row:nth-child(9) .skill-cat-dot { background: var(--c2); }
+    .skill-row:nth-child(10) .skill-cat-dot { background: var(--c5); }
+
+    .skill-name {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(1rem, 3vw, 1.8rem);
+      padding: 12px 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--fg);
+      flex: 1;
+    }
+
+    .skill-type {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0 20px;
+      color: var(--fg);
+      opacity: 0.35;
+      border-left: 3px solid var(--fg);
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ══════════════════════════════════════════
+       PROJECTS — giant numbered cards
+       ══════════════════════════════════════════ */
+
+    .projects {
+      border-bottom: 4px solid var(--fg);
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      align-items: center;
+      gap: 0;
+      border-bottom: 3px solid var(--fg);
+      overflow: hidden;
+    }
+
+    .project:last-child { border-bottom: none; }
+    .project:hover .proj-num { letter-spacing: 0.15em; }
+
+    .proj-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 3.5rem;
+      padding: 24px;
+      border-right: 3px solid var(--fg);
+      line-height: 1;
+      transition: letter-spacing 0.2s, background 0.2s;
+    }
+
+    .project:nth-child(1) .proj-num { background: var(--c3); color: var(--bg); }
+    .project:nth-child(2) .proj-num { background: var(--c4); color: var(--bg); }
+
+    .proj-body { padding: 24px 28px; }
+
+    .proj-name {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+      color: var(--fg);
+    }
+
+    .proj-desc {
+      font-size: 0.72rem;
+      color: var(--fg);
+      opacity: 0.55;
+      line-height: 1.7;
+    }
+
+    .proj-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-right: 24px;
+      border: 3px solid var(--fg);
+      color: var(--fg);
+      white-space: nowrap;
+    }
+
+    .project:nth-child(1) .proj-badge { background: var(--c3); color: var(--bg); border-color: var(--c3); }
+    .project:nth-child(2) .proj-badge { background: var(--c4); color: var(--bg); border-color: var(--c4); }
+
+    /* ══════════════════════════════════════════
+       CAREER — diagonal banded timeline
+       ══════════════════════════════════════════ */
+
+    .career { border-bottom: 4px solid var(--fg); }
+
+    .career-row {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      border-bottom: 3px solid var(--fg);
+    }
+
+    .career-row:last-child { border-bottom: none; }
+
+    .career-period {
+      padding: 28px 24px;
+      border-right: 3px solid var(--fg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      position: relative;
+    }
+
+    .career-row:nth-child(1) .career-period { background: var(--c2); }
+    .career-row:nth-child(2) .career-period { background: var(--c1); }
+    .career-row:nth-child(3) .career-period { background: var(--fg); }
+
+    .career-years {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .career-row:nth-child(1) .career-years { color: var(--fg); }
+    .career-row:nth-child(2) .career-years { color: var(--bg); }
+    .career-row:nth-child(3) .career-years { color: var(--c2); }
+
+    .career-org {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .career-row:nth-child(1) .career-org { color: var(--fg); opacity: 0.7; }
+    .career-row:nth-child(2) .career-org { color: var(--bg); opacity: 0.8; }
+    .career-row:nth-child(3) .career-org { color: var(--bg); opacity: 0.6; }
+
+    .career-body { padding: 28px 32px; }
+
+    .career-body h3 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+      color: var(--fg);
+    }
+
+    .career-body p {
+      font-size: 0.72rem;
+      color: var(--fg);
+      opacity: 0.6;
+      line-height: 1.8;
+    }
+
+    /* ══════════════════════════════════════════
+       CONTACT — 3 coloured cells
+       ══════════════════════════════════════════ */
+
+    .contact {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 4px solid var(--fg);
+    }
+
+    .contact-cell {
+      padding: 36px 28px;
+      border-right: 3px solid var(--fg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-cell:last-child { border-right: none; }
+
+    .contact-cell:nth-child(1)::after { content: '✉'; }
+    .contact-cell:nth-child(2)::after { content: 'in'; }
+    .contact-cell:nth-child(3)::after { content: '</> '; }
+
+    .contact-cell::after {
+      position: absolute;
+      bottom: -20px; right: 10px;
+      font-family: 'Anton', sans-serif;
+      font-size: 80px;
+      color: var(--fg);
+      opacity: 0.04;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .contact-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--fg);
+      opacity: 0.4;
+      margin-bottom: 10px;
+    }
+
+    .contact-val {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.85rem;
+      color: var(--fg);
+      text-decoration: none;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      word-break: break-all;
+      transition: color 0.15s;
+    }
+
+    .contact-cell:nth-child(1) .contact-val:hover { color: var(--c1); }
+    .contact-cell:nth-child(2) .contact-val:hover { color: var(--c3); }
+    .contact-cell:nth-child(3) .contact-val:hover { color: var(--c4); }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════ */
+
+    footer {
+      background: var(--fg);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span, footer a {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bg);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--c2); }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+       ══════════════════════════════════════════ */
+
+    @media (max-width: 860px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .about-left { border-right: none; border-bottom: 4px solid var(--fg); }
+
+      .project { grid-template-columns: 80px 1fr; }
+      .proj-badge { display: none; }
+
+      .career-row { grid-template-columns: 1fr; }
+      .career-period { border-right: none; border-bottom: 3px solid var(--fg); }
+
+      .contact { grid-template-columns: 1fr; }
+      .contact-cell { border-right: none; border-bottom: 3px solid var(--fg); }
+      .contact-cell:last-child { border-bottom: none; }
+
+      .nav-stripe-c2, .nav-stripe-c3 { display: none; }
+    }
+
+    @media (max-width: 520px) {
+      .stats { grid-template-columns: 1fr; }
+      .skill-type { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-stripe nav-stripe-c1">
+    <span class="nav-id">German Rauhut</span>
+  </div>
+  <div class="nav-stripe nav-stripe-c2" aria-hidden="true"></div>
+  <div class="nav-stripe nav-stripe-c3" aria-hidden="true"></div>
+  <div class="nav-right">
+    <div class="theme-switcher" role="group" aria-label="Farbschema">
+      <button class="t-btn active" data-t="carnival"  title="Carnival"  aria-label="Carnival"><span class="sw"></span></button>
+      <button class="t-btn"        data-t="tokyo"     title="Tokyo"     aria-label="Tokyo Night"><span class="sw"></span></button>
+      <button class="t-btn"        data-t="konstrukt" title="Konstrukt" aria-label="Konstrukt"><span class="sw"></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-deco hero-deco-1" aria-hidden="true"></div>
+  <div class="hero-deco hero-deco-2" aria-hidden="true"></div>
+  <div class="hero-deco hero-deco-3" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="hero-label">Technical Product Owner &amp; AI Product Builder</p>
+    <div class="hero-name" aria-label="German Rauhut">
+      <span class="word word-1" data-text="GERMAN">GERMAN</span>
+      <span class="word word-2" data-text="RAUHUT">RAUHUT</span>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag">AI Engineering</span>
+      <span class="hero-tag">Multi-Agent</span>
+      <span class="hero-tag">LLM Integration</span>
+      <span class="hero-tag">Product Ownership</span>
+      <span class="hero-tag">Full-Stack</span>
+      <span class="hero-tag">10+ Jahre Automotive</span>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats" aria-label="Kennzahlen">
+  <div class="stat" data-n="10">
+    <span class="stat-num">10+</span>
+    <p class="stat-label">Jahre Corporate<br>Erfahrung</p>
+  </div>
+  <div class="stat" data-n="466">
+    <span class="stat-num">466</span>
+    <p class="stat-label">Tests<br>Shipped</p>
+  </div>
+  <div class="stat" data-n="12">
+    <span class="stat-num">12+</span>
+    <p class="stat-label">KI-Agenten<br>gebaut</p>
+  </div>
+  <div class="stat" data-n="95">
+    <span class="stat-num">95</span>
+    <p class="stat-label">API<br>Endpoints</p>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="accent-1">Technical Product Owner</span>
+    <span>✦</span>
+    <span class="accent-2">AI Product Builder</span>
+    <span>✦</span>
+    <span class="accent-3">Multi-Agent Systems</span>
+    <span>✦</span>
+    <span class="accent-4">LLM Integration</span>
+    <span>✦</span>
+    <span class="accent-5">Full-Stack Engineering</span>
+    <span>✦</span>
+    <span class="accent-1">10+ Jahre Automotive</span>
+    <span>✦</span>
+    <span class="accent-2">Technical Product Owner</span>
+    <span>✦</span>
+    <span class="accent-3">AI Product Builder</span>
+    <span>✦</span>
+    <span class="accent-4">Multi-Agent Systems</span>
+    <span>✦</span>
+    <span class="accent-5">LLM Integration</span>
+    <span>✦</span>
+    <span class="accent-1">Full-Stack Engineering</span>
+    <span>✦</span>
+    <span class="accent-2">10+ Jahre Automotive</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-left">
+    <p class="about-quote">
+      Brücken&shy;bauer<br>zwischen<br><em>Business</em><br>&amp; <em>Tech</em>
+    </p>
+  </div>
+  <div class="about-right">
+    <p class="section-label">Profil</p>
+    <p class="about-text">
+      Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung.
+      Technisches Product Ownership, Multi-Agent-Architekturen und
+      LLM-Integration — von der Anforderung bis zum produktiven System.
+      <br><br>
+      Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz
+      in Rollen als Tester, Consultant und Technical Product Owner.
+      Davor 23 Jahre in Consulting, Softwareentwicklung und Management
+      in Deutschland, der Schweiz und Thailand.
+    </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" aria-label="Kompetenzen">
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">AI Product Development</span><span class="skill-type">Fokus</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Multi-Agent Architectures</span><span class="skill-type">Fokus</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">LLM Integration</span><span class="skill-type">Fokus</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Technical Product Ownership</span><span class="skill-type">Fokus</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Full-Stack Engineering</span><span class="skill-type">Fokus</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Requirements Management</span><span class="skill-type">Fundament</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Project Management</span><span class="skill-type">Fundament</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Test Automation</span><span class="skill-type">Fundament</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">DevOps</span><span class="skill-type">Fundament</span></div>
+  <div class="skill-row"><div class="skill-cat"><div class="skill-cat-dot"></div></div><span class="skill-name">Enterprise Consulting</span><span class="skill-type">Fundament</span></div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" aria-label="Projekte">
+  <article class="project">
+    <span class="proj-num">01</span>
+    <div class="proj-body">
+      <h3 class="proj-name">neckarshore.ai</h3>
+      <p class="proj-desc">KI-beschleunigte Softwareentwicklung — inkl. OMNOPSIS</p>
+    </div>
+    <span class="proj-badge">Aktiv</span>
+  </article>
+  <article class="project">
+    <span class="proj-num">02</span>
+    <div class="proj-body">
+      <h3 class="proj-name">Obsidian Vault Autopilot</h3>
+      <p class="proj-desc">Open Source Plugin — verfügbar auf GitHub</p>
+    </div>
+    <span class="proj-badge">Open Source</span>
+  </article>
+</section>
+
+<!-- CAREER -->
+<section class="career" aria-label="Karriere">
+  <div class="career-row">
+    <div class="career-period">
+      <span class="career-years">2025 —</span>
+      <span class="career-org">Freelance</span>
+    </div>
+    <div class="career-body">
+      <h3>Technical Product Ownership &amp; AI Engineering</h3>
+      <p>Selbstständig seit Oktober 2025. KI-Produktentwicklung, Multi-Agent-Systeme, LLM-Integration.</p>
+    </div>
+  </div>
+  <div class="career-row">
+    <div class="career-period">
+      <span class="career-years">2015 — 2025</span>
+      <span class="career-org">Mercedes-Benz</span>
+    </div>
+    <div class="career-body">
+      <h3>Tester → Consultant → Technical Product Owner</h3>
+      <p>10-jährige Laufbahn. Von Testautomatisierung bis Technical Product Ownership.</p>
+    </div>
+  </div>
+  <div class="career-row">
+    <div class="career-period">
+      <span class="career-years">1993 — 2015</span>
+      <span class="career-org">Frühe Karriere</span>
+    </div>
+    <div class="career-body">
+      <h3>Consulting, Software, Management</h3>
+      <p>23 Jahre in verschiedenen Positionen in Deutschland, der Schweiz und Thailand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" aria-label="Kontakt">
+  <div class="contact-cell">
+    <p class="contact-lbl">Email</p>
+    <a href="mailto:german@rauhut.com" class="contact-val">german@rauhut.com</a>
+  </div>
+  <div class="contact-cell">
+    <p class="contact-lbl">LinkedIn</p>
+    <a href="https://linkedin.com/in/german-rauhut" class="contact-val" target="_blank" rel="noopener">in/german-rauhut</a>
+  </div>
+  <div class="contact-cell">
+    <p class="contact-lbl">GitHub</p>
+    <a href="https://github.com/GmanFooFoo" class="contact-val" target="_blank" rel="noopener">GmanFooFoo</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 German Rauhut</span>
+  <a href="/impressum">Impressum</a>
+</footer>
+
+<script>
+  const root = document.documentElement;
+  const btns = document.querySelectorAll('.t-btn');
+
+  function applyTheme(t) {
+    root.classList.add('switching');
+    root.setAttribute('data-theme', t);
+    btns.forEach(b => b.classList.toggle('active', b.dataset.t === t));
+    localStorage.setItem('rauhut-max-theme', t);
+    setTimeout(() => root.classList.remove('switching'), 320);
+  }
+
+  btns.forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.t)));
+
+  const saved = localStorage.getItem('rauhut-max-theme');
+  if (saved && ['carnival','tokyo','konstrukt'].includes(saved)) applyTheme(saved);
+</script>
+</body>
+</html>

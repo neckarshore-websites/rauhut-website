@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="gold-rush">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Technical Product Owner &amp; AI Product Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   BASE RESET & ROOT
+───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+/* ─────────────────────────────────────────────
+   THEMES
+───────────────────────────────────────────── */
+[data-theme="gold-rush"] {
+  --bg: #F8F2E0;
+  --fg: #1A1008;
+  --surface: #EEE4C8;
+  --accent: #C89820;
+  --punch: #8B2820;
+  --muted: #786848;
+  --line: rgba(26,16,8,0.15);
+}
+[data-theme="copper-jade"] {
+  --bg: #F0F5F2;
+  --fg: #0A1810;
+  --surface: #E4EDE8;
+  --accent: #C87020;
+  --punch: #208060;
+  --muted: #507060;
+  --line: rgba(10,24,16,0.12);
+}
+[data-theme="midnight-deco"] {
+  --bg: #08080E;
+  --fg: #D8C8A0;
+  --surface: #0E0E18;
+  --accent: #D4A020;
+  --punch: #4060B0;
+  --muted: #5A5040;
+  --line: rgba(216,200,160,0.10);
+}
+
+/* ─────────────────────────────────────────────
+   BODY
+───────────────────────────────────────────── */
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  /* Art Déco chevron background */
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 28px,
+      var(--line) 28px,
+      var(--line) 29px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 28px,
+      var(--line) 28px,
+      var(--line) 29px
+    );
+}
+
+/* ─────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  border-top: 3px solid var(--accent);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+.theme-switcher {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.theme-btn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 0;
+  transition: border-color 0.2s;
+}
+
+.theme-btn[data-active="true"] {
+  border: 2px solid var(--fg);
+}
+
+/* Theme swatch gradients */
+.theme-btn[data-t="gold-rush"]    { background: linear-gradient(135deg, #F8F2E0 50%, #C89820 50%); }
+.theme-btn[data-t="copper-jade"]  { background: linear-gradient(135deg, #F0F5F2 50%, #C87020 50%); }
+.theme-btn[data-t="midnight-deco"]{ background: linear-gradient(135deg, #08080E 50%, #D4A020 50%); }
+
+/* ─────────────────────────────────────────────
+   MAIN WRAPPER
+───────────────────────────────────────────── */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* ─────────────────────────────────────────────
+   ORNAMENTAL DIVIDER
+───────────────────────────────────────────── */
+.deco-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2.5rem 0;
+}
+
+.deco-divider::before,
+.deco-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent);
+  max-width: 220px;
+}
+
+.deco-diamond {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.deco-divider-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Double-diamond divider variant */
+.deco-divider-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 3rem 0;
+}
+.deco-divider-lg::before,
+.deco-divider-lg::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent);
+}
+.deco-divider-lg .diamonds {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.deco-divider-lg .d-sm {
+  width: 7px;
+  height: 7px;
+  background: var(--muted);
+  transform: rotate(45deg);
+}
+.deco-divider-lg .d-lg {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+/* ─────────────────────────────────────────────
+   SECTION HEADER
+───────────────────────────────────────────── */
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+/* Flanking thin rules on section title */
+.section-title::before,
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent);
+  max-width: 160px;
+  opacity: 0.7;
+}
+
+.section-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.section-rule::before,
+.section-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  border-top: 1px solid var(--accent);
+  opacity: 0.5;
+}
+
+/* ─────────────────────────────────────────────
+   HERO — ART DÉCO
+───────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sunburst behind the hero name */
+.hero-sunburst {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 350px;
+  background: conic-gradient(
+    from 270deg at 50% 0%,
+    transparent 0deg,
+    var(--line) 3deg,
+    transparent 6deg,
+    transparent 9deg,
+    var(--line) 12deg,
+    transparent 15deg,
+    transparent 18deg,
+    var(--line) 21deg,
+    transparent 24deg,
+    transparent 27deg,
+    var(--line) 30deg,
+    transparent 33deg,
+    transparent 36deg,
+    var(--line) 39deg,
+    transparent 42deg,
+    transparent 45deg,
+    var(--line) 48deg,
+    transparent 51deg,
+    transparent 54deg,
+    var(--line) 57deg,
+    transparent 60deg,
+    transparent 63deg,
+    var(--line) 66deg,
+    transparent 69deg,
+    transparent 72deg,
+    var(--line) 75deg,
+    transparent 78deg,
+    transparent 81deg,
+    var(--line) 84deg,
+    transparent 87deg,
+    transparent 90deg,
+    var(--line) 93deg,
+    transparent 96deg,
+    transparent 99deg,
+    var(--line) 102deg,
+    transparent 105deg,
+    transparent 108deg,
+    var(--line) 111deg,
+    transparent 114deg,
+    transparent 117deg,
+    var(--line) 120deg,
+    transparent 123deg,
+    transparent 126deg,
+    var(--line) 129deg,
+    transparent 132deg,
+    transparent 135deg,
+    var(--line) 138deg,
+    transparent 141deg,
+    transparent 144deg,
+    var(--line) 147deg,
+    transparent 150deg,
+    transparent 153deg,
+    var(--line) 156deg,
+    transparent 159deg,
+    transparent 162deg,
+    var(--line) 165deg,
+    transparent 168deg,
+    transparent 171deg,
+    var(--line) 174deg,
+    transparent 177deg,
+    transparent 180deg
+  );
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.hero-frame {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 2rem 3rem;
+  background-color: var(--bg);
+}
+
+/* Double-line frame: outer is outline, inner is border */
+.hero-frame-inner {
+  border: 3px solid var(--accent);
+  outline: 3px solid var(--muted);
+  outline-offset: 6px;
+  padding: 2rem 3.5rem;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.hero-name {
+  font-family: 'Cinzel', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--fg);
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name span {
+  color: var(--accent);
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.hero-quote {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 0.6rem 1.5rem;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+/* Corner ornaments */
+.hero-frame-inner::before,
+.hero-frame-inner::after {
+  content: '◆';
+  position: absolute;
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+.hero-frame-inner::before {
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.hero-frame-inner::after {
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ─────────────────────────────────────────────
+   STATS — DIAMOND CONTAINERS
+───────────────────────────────────────────── */
+#stats {
+  padding: 1rem 0 3rem;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+}
+
+.stat-diamond-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stat-diamond {
+  width: 120px;
+  height: 120px;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  outline: 2px solid var(--muted);
+  outline-offset: 4px;
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.stat-diamond-content {
+  transform: rotate(-45deg);
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.stat-number {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  display: block;
+}
+
+.stat-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.15rem;
+  max-width: 70px;
+  line-height: 1.2;
+}
+
+/* ─────────────────────────────────────────────
+   BIO PANEL
+───────────────────────────────────────────── */
+#about {
+  padding: 1rem 0 2rem;
+}
+
+.panel {
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  outline: 1px solid var(--muted);
+  outline-offset: 5px;
+  padding: 2rem 2.5rem;
+  position: relative;
+  margin: 0 auto;
+  max-width: 760px;
+}
+
+/* Corner ornament diamonds */
+.panel::before {
+  content: '◆';
+  position: absolute;
+  top: -0.65rem;
+  left: 1.5rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+  background: var(--surface);
+  padding: 0 0.3rem;
+}
+
+.panel p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--fg);
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────
+   SKILLS
+───────────────────────────────────────────── */
+#skills {
+  padding: 1rem 0 2rem;
+}
+
+.skills-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.skills-panel {
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  outline: 1px solid var(--muted);
+  outline-offset: 5px;
+  padding: 1.5rem 2rem;
+}
+
+.skills-panel-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+
+.skills-list {
+  list-style: none;
+  text-align: center;
+}
+
+.skills-list li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  line-height: 2;
+  color: var(--fg);
+  padding: 0.1rem 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.skills-list li::before {
+  content: '◆';
+  color: var(--accent);
+  font-size: 0.68rem;
+  flex-shrink: 0;
+}
+
+.skills-list li::after {
+  content: '◆';
+  color: var(--accent);
+  font-size: 0.68rem;
+  flex-shrink: 0;
+}
+
+.skills-list li:last-child {
+  border-bottom: none;
+}
+
+/* ─────────────────────────────────────────────
+   PROJECTS
+───────────────────────────────────────────── */
+#projects {
+  padding: 1rem 0 2rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  outline: 1px solid var(--muted);
+  outline-offset: 5px;
+  padding: 1.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.project-card::before {
+  content: '◆';
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent);
+  background: var(--surface);
+  padding: 0 0.3rem;
+  font-size: 0.75rem;
+}
+
+.project-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.project-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--fg);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.project-status {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--punch);
+  border: 1px solid var(--punch);
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  margin-top: 0.3rem;
+}
+
+/* ─────────────────────────────────────────────
+   CAREER TIMELINE
+───────────────────────────────────────────── */
+#career {
+  padding: 1rem 0 2rem;
+}
+
+.timeline {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Center vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--accent);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+/* Alternating layout for true center symmetry */
+.timeline-item:nth-child(odd) {
+  flex-direction: row;
+}
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timeline-date {
+  flex: 1;
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+  text-align: left;
+  padding-right: 0;
+  padding-left: 1.5rem;
+}
+
+.timeline-content {
+  flex: 1;
+  padding-left: 1.5rem;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  padding-left: 0;
+  padding-right: 1.5rem;
+  text-align: right;
+}
+
+/* Center dot */
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 0.4rem;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.timeline-year {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.timeline-role {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--fg);
+  margin-bottom: 0.2rem;
+}
+
+.timeline-company {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* ─────────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────────── */
+#contact {
+  padding: 1rem 0 2rem;
+}
+
+.contact-panel {
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  outline: 1px solid var(--muted);
+  outline-offset: 5px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contact-panel::before,
+.contact-panel::after {
+  content: '◆';
+  position: absolute;
+  color: var(--accent);
+  background: var(--surface);
+  padding: 0 0.3rem;
+  font-size: 0.75rem;
+}
+.contact-panel::before { top: -0.55rem; left: 50%; transform: translateX(-50%); }
+.contact-panel::after  { bottom: -0.55rem; left: 50%; transform: translateX(-50%); }
+
+.contact-items {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  margin-top: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.contact-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.contact-value:hover {
+  color: var(--punch);
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer {
+  background: var(--fg);
+  color: var(--bg);
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 3px solid var(--accent);
+}
+
+.footer-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.footer-ornament::before,
+.footer-ornament::after {
+  content: '';
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.footer-ornament span {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+.footer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.footer-text a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────────
+   MOBILE
+───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  .hero-sunburst {
+    width: 340px;
+  }
+
+  .hero-frame {
+    padding: 1rem 1rem;
+  }
+
+  .hero-frame-inner {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .hero-name {
+    font-size: 1.6rem;
+  }
+
+  .stats-grid {
+    gap: 2rem;
+  }
+
+  .stat-diamond {
+    width: 90px;
+    height: 90px;
+  }
+
+  .stat-number {
+    font-size: 0.85rem;
+  }
+
+  .skills-container,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline::before { display: none; }
+  .timeline-item,
+  .timeline-item:nth-child(even) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .timeline-date,
+  .timeline-item:nth-child(even) .timeline-date {
+    text-align: left;
+    padding: 0;
+  }
+  .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content {
+    padding: 0;
+    text-align: left;
+  }
+  .timeline-dot { display: none; }
+
+  .contact-items {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════ -->
+<nav>
+  <span class="nav-logo">G. Rauhut</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#stats">Profil</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projekte</a></li>
+    <li><a href="#career">Karriere</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+  <div class="theme-switcher" role="group" aria-label="Theme auswählen">
+    <button class="theme-btn" data-t="gold-rush"     title="Gold Rush"     aria-label="Theme Gold Rush"></button>
+    <button class="theme-btn" data-t="copper-jade"   title="Copper Jade"   aria-label="Theme Copper Jade"></button>
+    <button class="theme-btn" data-t="midnight-deco" title="Midnight Déco" aria-label="Theme Midnight Déco"></button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<main>
+  <section class="hero" aria-label="Einführung">
+    <div class="hero-sunburst" aria-hidden="true"></div>
+    <div class="hero-frame">
+      <div class="hero-frame-inner">
+        <span class="hero-eyebrow">Portfolio — Stuttgart, 2026</span>
+        <h1 class="hero-name">German<br><span>Rauhut</span></h1>
+        <p class="hero-title">Technical Product Owner &amp; AI Product Builder</p>
+        <div class="hero-quote">Brückenbauer zwischen Business und Technologie</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ◆ ────────── ◆ -->
+  <div class="deco-divider-lg">
+    <div class="diamonds">
+      <span class="d-sm"></span>
+      <span class="d-lg"></span>
+      <span class="d-sm"></span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       STATS
+  ═══════════════════════════════════════ -->
+  <section id="stats">
+    <header class="section-header">
+      <span class="section-label">Kennzahlen</span>
+      <span class="section-title">Das Profil</span>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-diamond-wrap">
+        <div class="stat-diamond">
+          <div class="stat-diamond-content">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Jahre Erfahrung</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-diamond-wrap">
+        <div class="stat-diamond">
+          <div class="stat-diamond-content">
+            <span class="stat-number">466</span>
+            <span class="stat-label">Tests shipped</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-diamond-wrap">
+        <div class="stat-diamond">
+          <div class="stat-diamond-content">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">KI-Agenten</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-diamond-wrap">
+        <div class="stat-diamond">
+          <div class="stat-diamond-content">
+            <span class="stat-number">95</span>
+            <span class="stat-label">API Endpoints</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="deco-divider">
+    <div class="deco-divider-inner">
+      <div class="deco-diamond"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       BIO
+  ═══════════════════════════════════════ -->
+  <section id="about">
+    <header class="section-header">
+      <span class="section-label">Vita</span>
+      <span class="section-title">Über Mich</span>
+    </header>
+
+    <div class="panel">
+      <p>
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung.
+        Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration —
+        von der Anforderung bis zum produktiven System.
+        Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als
+        Tester, Consultant und Technical Product Owner.
+        Davor 23 Jahre in Consulting, Softwareentwicklung und Management
+        in Deutschland, der Schweiz und Thailand.
+      </p>
+    </div>
+  </section>
+
+  <div class="deco-divider-lg">
+    <div class="diamonds">
+      <span class="d-sm"></span>
+      <span class="d-lg"></span>
+      <span class="d-sm"></span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SKILLS
+  ═══════════════════════════════════════ -->
+  <section id="skills">
+    <header class="section-header">
+      <span class="section-label">Kompetenzen</span>
+      <span class="section-title">Skills &amp; Expertise</span>
+    </header>
+
+    <div class="skills-container">
+      <div class="skills-panel">
+        <div class="skills-panel-title">Schwerpunkte</div>
+        <ul class="skills-list">
+          <li>AI Product Development</li>
+          <li>Multi-Agent Architectures</li>
+          <li>LLM Integration</li>
+          <li>Technical Product Ownership</li>
+          <li>Full-Stack Engineering</li>
+        </ul>
+      </div>
+      <div class="skills-panel">
+        <div class="skills-panel-title">Fundament</div>
+        <ul class="skills-list">
+          <li>Requirements Management</li>
+          <li>Project Management</li>
+          <li>Test Automation</li>
+          <li>DevOps</li>
+          <li>Enterprise Consulting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="deco-divider">
+    <div class="deco-divider-inner">
+      <div class="deco-diamond"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       PROJECTS
+  ═══════════════════════════════════════ -->
+  <section id="projects">
+    <header class="section-header">
+      <span class="section-label">Werk</span>
+      <span class="section-title">Projekte</span>
+    </header>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-name">neckarshore.ai</span>
+        <p class="project-desc">KI-beschleunigte Softwareentwicklung. Agenten-gestützte Entwicklungsumgebungen und Automatisierungs-Pipelines.</p>
+        <span class="project-status">Aktiv</span>
+      </div>
+      <div class="project-card">
+        <span class="project-name">Obsidian Vault Autopilot</span>
+        <p class="project-desc">Open Source Plugin für intelligente Notizorganisation und automatisierte Wissensstrukturierung in Obsidian.</p>
+        <span class="project-status">Open Source</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="deco-divider-lg">
+    <div class="diamonds">
+      <span class="d-sm"></span>
+      <span class="d-lg"></span>
+      <span class="d-sm"></span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CAREER
+  ═══════════════════════════════════════ -->
+  <section id="career">
+    <header class="section-header">
+      <span class="section-label">Werdegang</span>
+      <span class="section-title">Karriere</span>
+    </header>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <div class="timeline-year">2025 —</div>
+        </div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-content">
+          <div class="timeline-role">Freelance</div>
+          <div class="timeline-company">Technical Product Owner &amp; AI Product Builder</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <div class="timeline-year">2015 – 2025</div>
+        </div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-content">
+          <div class="timeline-role">Mercedes-Benz AG</div>
+          <div class="timeline-company">Tester → Consultant → Technical Product Owner</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <div class="timeline-year">1993 – 2015</div>
+        </div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-content">
+          <div class="timeline-role">Frühe Karriere</div>
+          <div class="timeline-company">Consulting, Softwareentwicklung &amp; Management — DE / CH / Thailand</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="deco-divider">
+    <div class="deco-divider-inner">
+      <div class="deco-diamond"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       EDUCATION
+  ═══════════════════════════════════════ -->
+  <section id="education">
+    <header class="section-header">
+      <span class="section-label">Bildung</span>
+      <span class="section-title">Ausbildung</span>
+    </header>
+    <div class="panel" style="text-align:center;">
+      <p>
+        <strong style="font-family:'Cinzel',serif; letter-spacing:0.15em; font-size: 0.9rem;">Diplom-Betriebswirt</strong><br>
+        <em>Berufsakademie Stuttgart — Fachrichtung Datenverarbeitung</em>
+      </p>
+    </div>
+  </section>
+
+  <div class="deco-divider-lg">
+    <div class="diamonds">
+      <span class="d-sm"></span>
+      <span class="d-lg"></span>
+      <span class="d-sm"></span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════ -->
+  <section id="contact">
+    <header class="section-header">
+      <span class="section-label">Verbindung</span>
+      <span class="section-title">Kontakt</span>
+    </header>
+
+    <div class="contact-panel">
+      <div class="contact-items">
+        <div class="contact-item">
+          <span class="contact-label">E-Mail</span>
+          <a href="mailto:german@rauhut.com" class="contact-value">german@rauhut.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/german-rauhut" class="contact-value" target="_blank" rel="noopener">in/german-rauhut</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">GitHub</span>
+          <a href="https://github.com/GmanFooFoo" class="contact-value" target="_blank" rel="noopener">GmanFooFoo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-ornament" aria-hidden="true">
+    <span></span>
+  </div>
+  <p class="footer-text">
+    &copy; 2026 German Rauhut &nbsp;◆&nbsp;
+    <a href="#impressum">Impressum</a>
+  </p>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     THEME SWITCHER JS
+═══════════════════════════════════════════ -->
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-deco-theme';
+  var DEFAULT_THEME = 'gold-rush';
+  var themes = ['gold-rush', 'copper-jade', 'midnight-deco'];
+
+  function applyTheme(theme, animate) {
+    if (themes.indexOf(theme) === -1) theme = DEFAULT_THEME;
+    var html = document.documentElement;
+    if (animate) {
+      html.classList.add('switching');
+    }
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    // Update active button state
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.setAttribute('data-active', btn.getAttribute('data-t') === theme ? 'true' : 'false');
+    });
+    if (animate) {
+      setTimeout(function() {
+        html.classList.remove('switching');
+      }, 300);
+    }
+  }
+
+  // Restore on load — before paint
+  var stored = localStorage.getItem(STORAGE_KEY) || DEFAULT_THEME;
+  applyTheme(stored, false);
+
+  // Wire up buttons after DOM ready
+  document.addEventListener('DOMContentLoaded', function() {
+    // Re-apply to ensure buttons are updated after DOM is ready
+    var current = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME;
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.setAttribute('data-active', btn.getAttribute('data-t') === current ? 'true' : 'false');
+      btn.addEventListener('click', function() {
+        applyTheme(btn.getAttribute('data-t'), true);
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

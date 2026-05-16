@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight-palace">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Imperial Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME DEFINITIONS
+   ============================================================ */
+html[data-theme="vermilion"] {
+  --bg: #FDF5E8;
+  --fg: #2A0808;
+  --accent: #CC1A00;
+  --punch: #C8960A;
+  --muted: #8A6848;
+  --surface: #F5E8D0;
+  --line: #D4A860;
+}
+html[data-theme="jade"] {
+  --bg: #F0F5F0;
+  --fg: #0A1A10;
+  --accent: #1A6A30;
+  --punch: #C8960A;
+  --muted: #5A7A60;
+  --surface: #E4F0E8;
+  --line: #A0C8A8;
+}
+html[data-theme="midnight-palace"] {
+  --bg: #06040A;
+  --fg: #F0E8D8;
+  --accent: #CC1A00;
+  --punch: #C8960A;
+  --muted: #A89070;
+  --surface: #0E0A12;
+  --line: #3A2810;
+}
+html[data-theme="bronze-dynasty"] {
+  --bg: #2A1E10;
+  --fg: #F0D890;
+  --accent: #C87820;
+  --punch: #E8A030;
+  --muted: #A88060;
+  --surface: #362818;
+  --line: #604828;
+}
+
+/* ============================================================
+   TRANSITION CLASS
+   ============================================================ */
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+/* ============================================================
+   BASE RESET & ROOT
+   ============================================================ */
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   THEME SWITCHER
+   ============================================================ */
+.theme-switcher {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  gap: 0.45rem;
+  z-index: 1000;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  display: block;
+}
+.theme-btn[data-theme="vermilion"] {
+  background: linear-gradient(135deg, #FDF5E8 50%, #CC1A00 50%);
+}
+.theme-btn[data-theme="jade"] {
+  background: linear-gradient(135deg, #F0F5F0 50%, #1A6A30 50%);
+}
+.theme-btn[data-theme="midnight-palace"] {
+  background: linear-gradient(135deg, #06040A 50%, #CC1A00 50%);
+}
+.theme-btn[data-theme="bronze-dynasty"] {
+  background: linear-gradient(135deg, #2A1E10 50%, #C87820 50%);
+}
+.theme-btn.active {
+  border: 2px solid var(--fg);
+}
+
+/* ============================================================
+   KEY-FRET BORDER UTILITY
+   ============================================================ */
+.key-fret {
+  height: 16px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--punch) 0px,
+    var(--punch) 8px,
+    transparent 8px,
+    transparent 12px,
+    var(--punch) 12px,
+    var(--punch) 16px,
+    transparent 16px,
+    transparent 24px,
+    var(--punch) 24px,
+    var(--punch) 32px
+  );
+  opacity: 0.7;
+}
+
+.key-fret-accent {
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0px,
+    var(--accent) 6px,
+    transparent 6px,
+    transparent 10px,
+    var(--accent) 10px,
+    var(--accent) 14px,
+    transparent 14px,
+    transparent 20px
+  );
+  opacity: 0.6;
+}
+
+/* Stacked imperial border divider */
+.imperial-divider {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px 0;
+  background: var(--bg);
+}
+
+.imperial-divider .line-heavy {
+  height: 3px;
+  background: var(--accent);
+}
+
+.imperial-divider .line-medium {
+  height: 2px;
+  background: var(--punch);
+  opacity: 0.7;
+}
+
+.imperial-divider .line-light {
+  height: 1px;
+  background: var(--line);
+}
+
+/* ============================================================
+   IMPERIAL HEADER BAND
+   ============================================================ */
+.imperial-header {
+  background: var(--accent);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.imperial-header-inner {
+  padding: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.header-ruyi {
+  color: var(--punch);
+  font-size: 1.1rem;
+  letter-spacing: 0.3em;
+  opacity: 0.85;
+}
+
+.header-title-text {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.6em;
+  color: var(--bg);
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ============================================================
+   HERO — IMPERIAL DECREE
+   ============================================================ */
+.hero {
+  background: var(--bg);
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Large Chinese character watermark — 德 (virtue) for hero */
+.hero::before {
+  content: '德';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22rem;
+  color: var(--fg);
+  opacity: 0.025;
+  line-height: 1;
+  pointer-events: none;
+  font-family: 'Cinzel Decorative', serif, 'STKaiti', 'Kaiti SC', 'KaiTi', serif;
+}
+
+.decree-frame {
+  display: inline-block;
+  border: 3px solid var(--accent);
+  outline: 1px solid var(--punch);
+  outline-offset: 6px;
+  padding: 2.5rem 3.5rem;
+  position: relative;
+  max-width: 680px;
+  background: var(--surface);
+}
+
+/* Corner ornaments — double-layer corners */
+.decree-frame::before,
+.decree-frame::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--punch);
+  border-style: solid;
+}
+
+.decree-frame::before {
+  top: -10px;
+  left: -10px;
+  border-width: 3px 0 0 3px;
+}
+
+.decree-frame::after {
+  bottom: -10px;
+  right: -10px;
+  border-width: 0 3px 3px 0;
+}
+
+.decree-corners {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.decree-corners::before,
+.decree-corners::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--punch);
+  border-style: solid;
+}
+
+.decree-corners::before {
+  top: -10px;
+  right: -10px;
+  border-width: 3px 3px 0 0;
+}
+
+.decree-corners::after {
+  bottom: -10px;
+  left: -10px;
+  border-width: 0 0 3px 3px;
+}
+
+.decree-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  color: var(--punch);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+/* Imperial Seal SVG */
+.imperial-seal {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.2rem;
+  display: block;
+}
+
+.decree-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 900;
+  font-size: 2.8rem;
+  color: var(--fg);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+
+.decree-separator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.8rem 0;
+  justify-content: center;
+}
+
+.decree-separator-line {
+  width: 60px;
+  height: 1px;
+  background: var(--punch);
+}
+
+.decree-separator-gem {
+  font-size: 0.75rem;
+  color: var(--punch);
+  letter-spacing: 0.2em;
+}
+
+.decree-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.decree-location {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}
+
+/* Dragon SVG divider — hero to body */
+.dragon-divider {
+  text-align: center;
+  padding: 1rem 0 0;
+  overflow: hidden;
+}
+
+/* ============================================================
+   IMPERIAL CHRONICLE — BIO
+   ============================================================ */
+.chronicle-section {
+  background: var(--surface);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 才 (talent) watermark */
+.chronicle-section::before {
+  content: '才';
+  position: absolute;
+  bottom: -2rem;
+  right: 2rem;
+  font-size: 18rem;
+  color: var(--fg);
+  opacity: 0.025;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.section-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.5em;
+  color: var(--punch);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.section-heading {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.chronicle-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--fg);
+  max-width: 660px;
+  font-weight: 400;
+}
+
+.chronicle-text em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ============================================================
+   IMPERIAL RECORDS — STATS
+   ============================================================ */
+.records-section {
+  background: var(--bg);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 業 (achievement) watermark */
+.records-section::before {
+  content: '業';
+  position: absolute;
+  top: -1rem;
+  left: 2rem;
+  font-size: 18rem;
+  color: var(--fg);
+  opacity: 0.025;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.imperial-records-box {
+  border: 3px double var(--accent);
+  outline: 1px solid var(--punch);
+  outline-offset: 6px;
+  padding: 2rem;
+  position: relative;
+  background: var(--surface);
+  margin-top: 1.5rem;
+}
+
+.imperial-records-box::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: -10px;
+  width: 24px; height: 24px;
+  border-top: 3px solid var(--punch);
+  border-left: 3px solid var(--punch);
+}
+.imperial-records-box::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; right: -10px;
+  width: 24px; height: 24px;
+  border-bottom: 3px solid var(--punch);
+  border-right: 3px solid var(--punch);
+}
+
+.records-corners::before {
+  content: '';
+  position: absolute;
+  top: -10px; right: -10px;
+  width: 24px; height: 24px;
+  border-top: 3px solid var(--punch);
+  border-right: 3px solid var(--punch);
+}
+.records-corners::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: -10px;
+  width: 24px; height: 24px;
+  border-bottom: 3px solid var(--punch);
+  border-left: 3px solid var(--punch);
+}
+
+.records-corners {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.records-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.record-item {
+  text-align: center;
+  padding: 1.2rem 1rem;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+
+.record-item:last-child {
+  border-right: none;
+}
+
+.record-glyph {
+  font-size: 1.2rem;
+  color: var(--punch);
+  display: block;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.2em;
+}
+
+.record-number {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: var(--accent);
+  line-height: 1;
+  display: block;
+}
+
+.record-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+  display: block;
+}
+
+/* ============================================================
+   SKILLS — JADE TABLETS
+   ============================================================ */
+.skills-section {
+  background: var(--surface);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 技 (skill) watermark */
+.skills-section::before {
+  content: '技';
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 18rem;
+  color: var(--fg);
+  opacity: 0.025;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.jade-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.jade-tablet {
+  border: 2px solid var(--accent);
+  padding: 0.75rem 1rem;
+  text-align: center;
+  position: relative;
+  background: var(--bg);
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.jade-tablet::before,
+.jade-tablet::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--punch);
+  border-radius: 50%;
+}
+
+.jade-tablet::before {
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.jade-tablet::after {
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.jade-grid-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.jade-tablet-small {
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.9rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  background: var(--bg);
+}
+
+/* ============================================================
+   PROJECTS — IMPERIAL SCROLLS
+   ============================================================ */
+.projects-section {
+  background: var(--bg);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.scrolls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.scroll-card {
+  border: 2px solid var(--line);
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-header {
+  background: var(--accent);
+  padding: 0.75rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scroll-status {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: 0.85;
+}
+
+.scroll-glyph {
+  color: var(--punch);
+  font-size: 1rem;
+}
+
+.scroll-body {
+  padding: 1.2rem 1.5rem 1.5rem;
+  position: relative;
+}
+
+.scroll-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
+}
+
+.scroll-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ============================================================
+   CAREER — IMPERIAL CHRONICLE SCROLL
+   ============================================================ */
+.career-section {
+  background: var(--surface);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.chronicle-scroll {
+  margin-top: 2rem;
+  border-left: 3px solid var(--accent);
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.chronicle-entry {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.chronicle-entry:last-child {
+  border-bottom: none;
+}
+
+.chronicle-margin {
+  background: var(--bg);
+  border-right: 1px solid var(--line);
+  padding: 1.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.chronicle-margin::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 1.8rem;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+}
+
+.chronicle-years {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-align: right;
+}
+
+.chronicle-dynasty {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: right;
+  letter-spacing: 0.1em;
+}
+
+.chronicle-body {
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+}
+
+.chronicle-role {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.chronicle-org {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--punch);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+}
+
+.chronicle-text-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   EDUCATION
+   ============================================================ */
+.education-section {
+  background: var(--bg);
+  padding: 3.5rem 4rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.education-left {
+  flex: 1;
+  min-width: 260px;
+}
+
+.edu-seal {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.edu-seal-icon {
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  color: var(--punch);
+  background: var(--surface);
+}
+
+.edu-degree {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  margin-bottom: 0.25rem;
+}
+
+.edu-school {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+}
+
+.education-right {
+  flex: 0 0 auto;
+}
+
+/* Vertical Chinese character stack */
+.hanzi-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.hanzi-char {
+  font-size: 2.2rem;
+  color: var(--punch);
+  opacity: 0.4;
+  line-height: 1.1;
+  font-family: 'STKaiti', 'Kaiti SC', 'KaiTi', serif;
+}
+
+.hanzi-meaning {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   CONTACT — IMPERIAL AUDIENCE
+   ============================================================ */
+.contact-section {
+  background: var(--accent);
+  padding: 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '德';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20rem;
+  color: var(--bg);
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.contact-heading {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: var(--bg);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+
+.contact-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--bg);
+  opacity: 0.75;
+  letter-spacing: 0.3em;
+  margin-bottom: 2rem;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact-link {
+  display: inline-block;
+  border: 1px solid var(--bg);
+  color: var(--bg);
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  text-decoration: none;
+  background: transparent;
+  position: relative;
+}
+
+.contact-link::before,
+.contact-link::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--punch);
+  border-style: solid;
+}
+
+.contact-link::before {
+  top: -3px; left: -3px;
+  border-width: 2px 0 0 2px;
+}
+
+.contact-link::after {
+  bottom: -3px; right: -3px;
+  border-width: 0 2px 2px 0;
+}
+
+/* ============================================================
+   FOOTER — IMPERIAL COLOPHON
+   ============================================================ */
+.footer {
+  background: var(--fg);
+  padding: 1.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-seal-text {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.4em;
+  color: var(--bg);
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+.footer-hanzi {
+  font-size: 1.4rem;
+  color: var(--punch);
+  letter-spacing: 0.5rem;
+  opacity: 0.6;
+  font-family: 'STKaiti', 'Kaiti SC', serif;
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  .chronicle-section,
+  .records-section,
+  .skills-section,
+  .projects-section,
+  .career-section,
+  .contact-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .education-section {
+    padding: 2.5rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .footer {
+    padding: 1.2rem 1.5rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .decree-frame {
+    padding: 1.8rem 1.5rem;
+  }
+
+  .decree-name {
+    font-size: 1.8rem;
+  }
+
+  .records-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .record-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .record-item:nth-child(3),
+  .record-item:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .jade-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .scrolls-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chronicle-entry {
+    grid-template-columns: 1fr;
+  }
+
+  .chronicle-margin {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .chronicle-margin::after {
+    display: none;
+  }
+
+  .chronicle-years {
+    text-align: left;
+    font-size: 0.72rem;
+  }
+
+  .section-heading {
+    font-size: 1.1rem;
+  }
+
+  .theme-switcher {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .hero {
+    padding: 2.5rem 1.2rem 2rem;
+  }
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- THEME SWITCHER -->
+<div class="theme-switcher" role="group" aria-label="Choose theme">
+  <button class="theme-btn active" data-theme="midnight-palace" title="Midnight Palace" aria-label="Midnight Palace theme"></button>
+  <button class="theme-btn" data-theme="vermilion" title="Vermilion" aria-label="Vermilion theme"></button>
+  <button class="theme-btn" data-theme="jade" title="Jade" aria-label="Jade theme"></button>
+  <button class="theme-btn" data-theme="bronze-dynasty" title="Bronze Dynasty" aria-label="Bronze Dynasty theme"></button>
+</div>
+
+<!-- IMPERIAL HEADER BAND -->
+<header class="imperial-header">
+  <div class="key-fret"></div>
+  <div class="imperial-header-inner">
+    <span class="header-ruyi">◆ ◇ ◆ ◇ ◆</span>
+    <span class="header-title-text">Imperial Portfolio of German Rauhut — Stuttgart, Deutschland</span>
+    <span class="header-ruyi">◆ ◇ ◆ ◇ ◆</span>
+  </div>
+  <div class="key-fret"></div>
+</header>
+
+<!-- HERO — IMPERIAL DECREE -->
+<section class="hero">
+
+  <div style="display:inline-block; position:relative;">
+    <div class="decree-frame">
+      <div class="decree-corners"></div>
+
+      <!-- Imperial Seal SVG -->
+      <svg class="imperial-seal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="var(--punch)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="34" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        <!-- Dragon body — S-curve paths in parallel for depth -->
+        <path d="M 18,50 C 28,25 42,75 58,50 C 72,25 82,60 88,48" fill="none" stroke="var(--punch)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M 18,50 C 28,27 42,73 58,50 C 72,27 82,62 88,50" fill="none" stroke="var(--punch)" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 18,50 C 28,23 42,77 58,50 C 72,23 82,58 88,46" fill="none" stroke="var(--accent)" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <!-- Head circle -->
+        <circle cx="88" cy="48" r="3" fill="var(--punch)" opacity="0.8"/>
+        <!-- Tail -->
+        <path d="M 18,50 L 14,44 M 18,50 L 13,52" fill="none" stroke="var(--punch)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Scale dots -->
+        <circle cx="35" cy="53" r="1.5" fill="var(--punch)" opacity="0.4"/>
+        <circle cx="45" cy="47" r="1.5" fill="var(--punch)" opacity="0.4"/>
+        <circle cx="58" cy="50" r="1.5" fill="var(--punch)" opacity="0.4"/>
+        <circle cx="70" cy="44" r="1.5" fill="var(--punch)" opacity="0.4"/>
+        <!-- Ruyi cloud ornaments at cardinal points -->
+        <path d="M 50,8 Q 53,4 56,8 Q 53,6 50,8" fill="var(--punch)" opacity="0.6"/>
+        <path d="M 50,92 Q 47,96 44,92 Q 47,94 50,92" fill="var(--punch)" opacity="0.6"/>
+        <path d="M 8,50 Q 4,47 8,44 Q 6,47 8,50" fill="var(--punch)" opacity="0.6"/>
+        <path d="M 92,50 Q 96,53 92,56 Q 94,53 92,50" fill="var(--punch)" opacity="0.6"/>
+      </svg>
+
+      <div class="decree-eyebrow">Edict of the Imperial Court</div>
+      <h1 class="decree-name">German Rauhut</h1>
+
+      <div class="decree-separator">
+        <div class="decree-separator-line"></div>
+        <span class="decree-separator-gem">◆ ◆ ◆</span>
+        <div class="decree-separator-line"></div>
+      </div>
+
+      <div class="decree-title">Technical Product Owner &amp; AI Product Builder</div>
+      <div class="decree-location">Stuttgart, Deutschland &nbsp;·&nbsp; Freelance seit Oktober 2025</div>
+    </div>
+  </div>
+
+  <!-- Dragon wave divider below decree frame -->
+  <div class="dragon-divider">
+    <svg viewBox="0 0 800 40" width="100%" height="40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M 0,20 C 50,5 100,35 150,20 C 200,5 250,35 300,20 C 350,5 400,35 450,20 C 500,5 550,35 600,20 C 650,5 700,35 750,20 C 775,12 788,16 800,20" fill="none" stroke="var(--punch)" stroke-width="2" opacity="0.5"/>
+      <path d="M 0,24 C 50,9 100,39 150,24 C 200,9 250,39 300,24 C 350,9 400,39 450,24 C 500,9 550,39 600,24 C 650,9 700,39 750,24 C 775,16 788,20 800,24" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+    </svg>
+  </div>
+
+</section>
+
+<!-- IMPERIAL DIVIDER -->
+<div class="imperial-divider">
+  <div class="line-light"></div>
+  <div class="line-medium"></div>
+  <div class="line-heavy"></div>
+  <div class="line-medium"></div>
+  <div class="line-light"></div>
+</div>
+
+<!-- CHRONICLE — BIO -->
+<section class="chronicle-section">
+  <div class="section-eyebrow">Imperial Chronicle · Personal History</div>
+  <h2 class="section-heading">Upon the Mandate of Excellence</h2>
+  <p class="chronicle-text">
+    Über <em>zehn Jahre Erfahrung</em> in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+    Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor zehn Jahre bei
+    <em>Mercedes-Benz AG</em> als Tester, Consultant und Technical Product Owner. Davor dreiundzwanzig Jahre
+    in Consulting, Software und Management in Deutschland, der Schweiz und Thailand — a career of uncommon
+    breadth, disciplined craft, and enduring achievement across three nations and four decades of the
+    digital age.
+  </p>
+</section>
+
+<!-- KEY-FRET ACCENT -->
+<div class="key-fret-accent"></div>
+
+<!-- IMPERIAL RECORDS — STATS -->
+<section class="records-section">
+  <div class="section-eyebrow">Imperial Records · Verified Achievements</div>
+  <h2 class="section-heading">Chronicles of Achievement</h2>
+
+  <div style="position:relative;">
+    <div class="imperial-records-box">
+      <div class="records-corners"></div>
+      <div class="records-grid">
+        <div class="record-item">
+          <span class="record-glyph">◈</span>
+          <span class="record-number">10+</span>
+          <span class="record-label">Jahre Corporate Mastery</span>
+        </div>
+        <div class="record-item">
+          <span class="record-glyph">◈</span>
+          <span class="record-number">466</span>
+          <span class="record-label">Tests Shipped &amp; Verified</span>
+        </div>
+        <div class="record-item">
+          <span class="record-glyph">◈</span>
+          <span class="record-number">12+</span>
+          <span class="record-label">KI-Agenten Architected</span>
+        </div>
+        <div class="record-item">
+          <span class="record-glyph">◈</span>
+          <span class="record-number">95</span>
+          <span class="record-label">API Endpoints Forged</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPERIAL DIVIDER -->
+<div class="imperial-divider">
+  <div class="line-light"></div>
+  <div class="line-medium"></div>
+  <div class="line-heavy"></div>
+  <div class="line-medium"></div>
+  <div class="line-light"></div>
+</div>
+
+<!-- SKILLS — JADE TABLETS -->
+<section class="skills-section">
+  <div class="section-eyebrow">Jade Tablets of Skill · Verified Capabilities</div>
+  <h2 class="section-heading">Arts of the Imperial Craftsman</h2>
+
+  <div class="jade-grid">
+    <div class="jade-tablet">AI Product Development</div>
+    <div class="jade-tablet">Multi-Agent Architectures</div>
+    <div class="jade-tablet">LLM Integration</div>
+    <div class="jade-tablet">Technical Product Ownership</div>
+    <div class="jade-tablet">Full-Stack Engineering</div>
+    <div class="jade-tablet">Requirements Management</div>
+  </div>
+
+  <div class="jade-grid-secondary">
+    <div class="jade-tablet-small">Project Management</div>
+    <div class="jade-tablet-small">Test Automation</div>
+    <div class="jade-tablet-small">DevOps</div>
+    <div class="jade-tablet-small">Enterprise Consulting</div>
+  </div>
+</section>
+
+<!-- KEY-FRET ACCENT -->
+<div class="key-fret-accent"></div>
+
+<!-- PROJECTS — IMPERIAL SCROLLS -->
+<section class="projects-section">
+  <div class="section-eyebrow">Imperial Scrolls · Notable Works</div>
+  <h2 class="section-heading">Works of the Imperial Atelier</h2>
+
+  <div class="scrolls-grid">
+    <div class="scroll-card">
+      <div class="scroll-header">
+        <span class="scroll-status">Active Mandate · In Progress</span>
+        <span class="scroll-glyph">◆</span>
+      </div>
+      <div class="scroll-body">
+        <h3 class="scroll-title">neckarshore.ai</h3>
+        <p class="scroll-desc">KI-beschleunigte Softwareentwicklung — a company at the vanguard of AI-accelerated development. The convergence of ancient craft principles with the most modern intelligence available to the builder's art.</p>
+      </div>
+    </div>
+    <div class="scroll-card">
+      <div class="scroll-header">
+        <span class="scroll-status">Open Source · Public Benefaction</span>
+        <span class="scroll-glyph">◇</span>
+      </div>
+      <div class="scroll-body">
+        <h3 class="scroll-title">Obsidian Vault Autopilot</h3>
+        <p class="scroll-desc">An open-source plugin bestowed upon the community of knowledge-builders. Automating the stewardship of personal vaults — gift freely given to those who tend the gardens of thought.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPERIAL DIVIDER -->
+<div class="imperial-divider">
+  <div class="line-light"></div>
+  <div class="line-medium"></div>
+  <div class="line-heavy"></div>
+  <div class="line-medium"></div>
+  <div class="line-light"></div>
+</div>
+
+<!-- CAREER — IMPERIAL CHRONICLE SCROLL -->
+<section class="career-section">
+  <div class="section-eyebrow">Imperial Chronicle · Career History</div>
+  <h2 class="section-heading">The Historical Record<br>of Service &amp; Endeavour</h2>
+
+  <div class="chronicle-scroll">
+    <div class="chronicle-entry">
+      <div class="chronicle-margin">
+        <span class="chronicle-years">2025 — Present</span>
+        <span class="chronicle-dynasty">Third Era</span>
+      </div>
+      <div class="chronicle-body">
+        <div class="chronicle-role">Freelance TPO &amp; AI Builder</div>
+        <div class="chronicle-org">neckarshore.ai · Stuttgart, Deutschland</div>
+        <p class="chronicle-text-body">The present commission: independent architect of intelligent systems. Technical Product Ownership exercised with full authority. Multi-Agent Architectures designed from first principles. The mandate of the craftsman pursuing excellence without institutional constraint.</p>
+      </div>
+    </div>
+
+    <div class="chronicle-entry">
+      <div class="chronicle-margin">
+        <span class="chronicle-years">2015 – 2025</span>
+        <span class="chronicle-dynasty">Second Era</span>
+      </div>
+      <div class="chronicle-body">
+        <div class="chronicle-role">Tester → Consultant → Technical Product Owner</div>
+        <div class="chronicle-org">Mercedes-Benz AG · Stuttgart, Deutschland</div>
+        <p class="chronicle-text-body">A decade of ascent within the most storied of automotive institutions. The path from Testing through Consulting to Technical Product Ownership — each elevation earned through demonstrated mastery. Four hundred and sixty-six tests shipped. Ninety-five API endpoints. Twelve intelligent agents conceived and deployed.</p>
+      </div>
+    </div>
+
+    <div class="chronicle-entry">
+      <div class="chronicle-margin">
+        <span class="chronicle-years">1993 – 2015</span>
+        <span class="chronicle-dynasty">First Era</span>
+      </div>
+      <div class="chronicle-body">
+        <div class="chronicle-role">Consulting, Software &amp; Management</div>
+        <div class="chronicle-org">Deutschland · Schweiz · Thailand</div>
+        <p class="chronicle-text-body">Twenty-three years of the widest foundation: three nations, four decades, one unwavering discipline. Consulting and software management across the cultures of Central Europe and Southeast Asia — a breadth of experience from which all subsequent mastery was drawn.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY-FRET ACCENT -->
+<div class="key-fret-accent"></div>
+
+<!-- EDUCATION -->
+<section class="education-section">
+  <div class="education-left">
+    <div class="section-eyebrow">Academic Credentials · Foundation of Scholarship</div>
+    <h2 class="section-heading">Imperial Scholarship</h2>
+    <div class="edu-seal">
+      <div class="edu-seal-icon">◈</div>
+      <div>
+        <div class="edu-degree">Diplom-Betriebswirt · Datenverarbeitung</div>
+        <div class="edu-school">Berufsakademie Stuttgart — BA Stuttgart</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="education-right">
+    <div class="hanzi-stack">
+      <span class="hanzi-char">德</span>
+      <span class="hanzi-meaning">Virtue</span>
+      <span class="hanzi-char">才</span>
+      <span class="hanzi-meaning">Talent</span>
+      <span class="hanzi-char">業</span>
+      <span class="hanzi-meaning">Achievement</span>
+      <span class="hanzi-char">技</span>
+      <span class="hanzi-meaning">Skill</span>
+    </div>
+  </div>
+</section>
+
+<!-- IMPERIAL DIVIDER -->
+<div class="imperial-divider">
+  <div class="line-light"></div>
+  <div class="line-medium"></div>
+  <div class="line-heavy"></div>
+  <div class="line-medium"></div>
+  <div class="line-light"></div>
+</div>
+
+<!-- CONTACT — IMPERIAL AUDIENCE -->
+<section class="contact-section">
+  <div class="key-fret" style="margin-bottom: 2rem; opacity: 0.3;"></div>
+  <h2 class="contact-heading">Seek Imperial Audience</h2>
+  <p class="contact-sub">Stuttgart, Deutschland · Available for Counsel &amp; Collaboration</p>
+
+  <div class="contact-links">
+    <a href="mailto:german@rauhut.com" class="contact-link">german@rauhut.com</a>
+    <a href="https://linkedin.com/in/german-rauhut" class="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn Court</a>
+    <a href="https://github.com/GmanFooFoo" class="contact-link" target="_blank" rel="noopener noreferrer">GitHub Archive</a>
+  </div>
+
+  <div style="margin-top: 2rem;">
+    <svg viewBox="0 0 400 30" width="300" height="30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity:0.3;">
+      <path d="M 0,15 C 25,5 50,25 75,15 C 100,5 125,25 150,15 C 175,5 200,25 225,15 C 250,5 275,25 300,15 C 325,5 350,25 375,15 C 387,10 394,12 400,15" fill="none" stroke="var(--bg)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="key-fret" style="margin-top: 2rem; opacity: 0.3;"></div>
+</section>
+
+<!-- FOOTER — IMPERIAL COLOPHON -->
+<footer class="footer">
+  <div class="footer-seal-text">German Rauhut · Portfolio · Stuttgart · Deutschland · 2026</div>
+  <div class="footer-hanzi">德 才 業 技</div>
+  <div class="footer-seal-text">neckarshore.ai · Technical Product Owner · AI Builder</div>
+</footer>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-emperor-theme';
+  var DEFAULT_THEME = 'midnight-palace';
+
+  // Apply saved theme immediately (no FOUC — default already set on <html>)
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && saved !== DEFAULT_THEME) {
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+
+  function updateButtons(activeTheme) {
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-theme') === activeTheme);
+    });
+  }
+
+  // Update buttons on load to reflect actual active theme
+  var currentTheme = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME;
+  updateButtons(currentTheme);
+
+  // Theme switcher click handler
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var theme = btn.getAttribute('data-theme');
+      if (theme === document.documentElement.getAttribute('data-theme')) return;
+
+      // Add switching class for smooth transitions
+      document.documentElement.classList.add('switching');
+
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem(STORAGE_KEY, theme);
+      updateButtons(theme);
+
+      // Remove switching class after transition
+      setTimeout(function() {
+        document.documentElement.classList.remove('switching');
+      }, 300);
+    });
+  });
+})();
+</script>
+</body>
+</html>

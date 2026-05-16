@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="mission">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>German Rauhut — Technical Product Owner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    html[data-theme="mission"] {
+      --bg: #060606;
+      --fg: #FFFFFF;
+      --surface: #0F0F0F;
+      --accent: #FFFFFF;
+      --punch: #FFFFFF;
+      --muted: rgba(255,255,255,0.42);
+      --line: rgba(255,255,255,0.10);
+      --star: rgba(255,255,255,0.8);
+    }
+    html[data-theme="daytime"] {
+      --bg: #F7F7F7;
+      --fg: #0A0A0A;
+      --surface: #EEEEEE;
+      --accent: #0A0A0A;
+      --punch: #0A0A0A;
+      --muted: rgba(10,10,10,0.42);
+      --line: rgba(10,10,10,0.10);
+      --star: transparent;
+    }
+
+    html.switching * {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, opacity 0.3s !important;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 19.2px; scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.4rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--fg);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--fg); }
+
+    .theme-switcher {
+      display: flex;
+      gap: 0.4rem;
+      margin-left: 1.5rem;
+    }
+
+    .theme-btn {
+      width: 24px; height: 24px;
+      border-radius: 2px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .theme-btn[data-t="mission"]  { background: linear-gradient(135deg, #060606 50%, #FFFFFF 50%); }
+    .theme-btn[data-t="daytime"]  { background: linear-gradient(135deg, #F7F7F7 50%, #0A0A0A 50%); }
+    .theme-btn.active { border: 2px solid var(--fg); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      padding: 0 3rem;
+    }
+
+    /* Star field */
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    html[data-theme="daytime"] .stars { opacity: 0; }
+    .stars::before {
+      content: '';
+      position: absolute;
+      width: 2px; height: 2px;
+      background: transparent;
+      box-shadow:
+        120px 80px var(--star), 240px 150px rgba(255,255,255,0.4), 380px 60px var(--star),
+        520px 200px rgba(255,255,255,0.5), 680px 90px var(--star), 820px 180px rgba(255,255,255,0.3),
+        960px 50px var(--star), 1100px 220px rgba(255,255,255,0.6), 1240px 110px var(--star),
+        60px 320px rgba(255,255,255,0.4), 200px 400px var(--star), 340px 280px rgba(255,255,255,0.5),
+        480px 460px var(--star), 620px 360px rgba(255,255,255,0.3), 760px 420px var(--star),
+        900px 300px rgba(255,255,255,0.6), 1040px 500px var(--star), 1180px 380px rgba(255,255,255,0.4),
+        140px 560px var(--star), 280px 620px rgba(255,255,255,0.5), 420px 540px var(--star),
+        560px 680px rgba(255,255,255,0.3), 700px 600px var(--star), 840px 720px rgba(255,255,255,0.6),
+        980px 640px var(--star), 1120px 760px rgba(255,255,255,0.4), 1260px 580px var(--star),
+        50px 840px rgba(255,255,255,0.5), 190px 900px var(--star), 330px 780px rgba(255,255,255,0.3),
+        470px 940px var(--star), 610px 860px rgba(255,255,255,0.6), 750px 980px var(--star),
+        890px 820px rgba(255,255,255,0.4), 1030px 900px var(--star), 1170px 840px rgba(255,255,255,0.5),
+        170px 200px rgba(255,255,255,0.3), 310px 480px var(--star), 450px 140px rgba(255,255,255,0.5),
+        590px 720px var(--star), 730px 260px rgba(255,255,255,0.4), 870px 560px var(--star),
+        1010px 380px rgba(255,255,255,0.3), 1150px 660px var(--star), 1290px 440px rgba(255,255,255,0.6),
+        90px 700px var(--star), 230px 340px rgba(255,255,255,0.4), 370px 760px var(--star),
+        510px 100px rgba(255,255,255,0.5), 650px 500px var(--star), 790px 140px rgba(255,255,255,0.3),
+        930px 740px var(--star), 1070px 180px rgba(255,255,255,0.6), 1210px 620px var(--star);
+    }
+    .stars::after {
+      content: '';
+      position: absolute;
+      width: 3px; height: 3px;
+      background: transparent;
+      box-shadow:
+        180px 130px var(--star), 450px 310px rgba(255,255,255,0.7), 720px 480px var(--star),
+        990px 160px rgba(255,255,255,0.5), 260px 590px var(--star), 540px 750px rgba(255,255,255,0.8),
+        810px 380px var(--star), 1080px 640px rgba(255,255,255,0.6), 350px 870px var(--star),
+        630px 220px rgba(255,255,255,0.7), 900px 790px var(--star), 1170px 310px rgba(255,255,255,0.5);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      letter-spacing: 0.14em;
+      line-height: 1.0;
+      color: var(--fg);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--fg);
+      opacity: 0.3;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 0.75rem 2rem;
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .hero-cta:hover { background: rgba(255,255,255,0.08); }
+    html[data-theme="daytime"] .hero-cta { border-color: rgba(0,0,0,0.4); }
+    html[data-theme="daytime"] .hero-cta:hover { background: rgba(0,0,0,0.06); }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 1;
+    }
+
+    .scroll-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .scroll-chevron {
+      color: var(--muted);
+      font-size: 0.8rem;
+      animation: chevron-bob 2s ease-in-out infinite;
+      display: block;
+    }
+
+    @keyframes chevron-bob {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50%       { transform: translateY(5px); opacity: 0.8; }
+    }
+
+    /* ============================================================
+       SECTIONS
+    ============================================================ */
+    section {
+      padding: 120px 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+    }
+
+    .section-label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .section-rule {
+      width: 100%;
+      height: 0.5px;
+      background: var(--line);
+      margin-bottom: 120px;
+    }
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-item {
+      padding: 0 3rem 0 0;
+    }
+
+    .stat-item + .stat-item {
+      border-left: 0.5px solid var(--line);
+      padding-left: 3rem;
+    }
+
+    .stat-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 4.5rem;
+      line-height: 1.0;
+      color: var(--fg);
+      letter-spacing: -0.02em;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.8rem;
+      display: block;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       BIO
+    ============================================================ */
+    .bio-text {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--fg);
+      max-width: 680px;
+      opacity: 0.85;
+    }
+
+    .bio-edu {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 800px;
+    }
+
+    .skill-group-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .skill-list { list-style: none; }
+
+    .skill-list li {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--fg);
+      opacity: 0.75;
+      padding: 0.55rem 0;
+      border-bottom: 0.5px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .skill-list li::after {
+      content: '—';
+      color: var(--muted);
+      font-size: 0.68rem;
+    }
+
+    /* ============================================================
+       CAREER (MISSION LOG)
+    ============================================================ */
+    .mission-log { list-style: none; }
+
+    .mission-entry {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 0.5px solid var(--line);
+      align-items: start;
+    }
+    .mission-entry:first-child { border-top: 0.5px solid var(--line); }
+
+    .mission-id {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      padding-top: 0.1rem;
+    }
+
+    .mission-body {}
+
+    .mission-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+    .status-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+    }
+
+    .mission-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 0.4rem;
+    }
+
+    .mission-date {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       PROJECTS
+    ============================================================ */
+    .vehicle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .vehicle-card {
+      background: var(--bg);
+      padding: 2.5rem;
+    }
+
+    .vehicle-status {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .vehicle-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 0.6rem;
+    }
+
+    .vehicle-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      max-width: 800px;
+    }
+
+    .contact-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .contact-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--fg);
+    }
+
+    .contact-val a { color: var(--fg); text-decoration: none; }
+    .contact-val a:hover { color: var(--accent); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      padding: 3rem;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ============================================================
+       MOBILE
+    ============================================================ */
+    @media (max-width: 767px) {
+      html { font-size: 17px; }
+      nav  { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 0 1.5rem; }
+      section { padding: 80px 1.5rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .stat-item + .stat-item { border-left: none; padding-left: 0; border-top: 0.5px solid var(--line); padding-top: 2rem; }
+      .stat-number { font-size: 3rem; }
+      .skills-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .mission-entry { grid-template-columns: 60px 1fr; gap: 1.5rem; }
+      .vehicle-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
+    }
+
+
+  /* ===== IMAGE HERO ===== */
+  #img-hero {
+    width: 100%;
+    height: 55vh;
+    overflow: hidden;
+    position: relative;
+    display: block;
+  }
+  #img-hero-frame {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">German Rauhut</span>
+    <div class="nav-links">
+      <a href="#parameters">Parameters</a>
+      <a href="#specs">Specs</a>
+      <a href="#missions">Missions</a>
+      <a href="#comms">Comms</a>
+    </div>
+    <div class="theme-switcher" role="group" aria-label="Theme">
+      <button class="theme-btn active" data-t="mission"  title="Mission"  aria-label="Mission"></button>
+      <button class="theme-btn"        data-t="daytime"  title="Daytime"  aria-label="Daytime"></button>
+    </div>
+  </nav>
+
+  <!-- IMAGE HERO -->
+  <div id="img-hero">
+    <img id="img-hero-frame" src="spacex-hero-1.png" alt="" aria-hidden="true">
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="stars" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Technical Product Owner &amp; AI Product Builder</span>
+      <h1 class="hero-name">German<br>Rauhut</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-subtitle">Stuttgart, Deutschland &nbsp;·&nbsp; Freelance since 2025</p>
+      <a href="#comms" class="hero-cta">Initiate Contact</a>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span class="scroll-label">Scroll</span>
+      <span class="scroll-chevron">∨</span>
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- LAUNCH STATS -->
+  <section id="stats">
+    <div class="section-inner">
+      <span class="section-label">Launch Stats</span>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">10+</span>
+          <span class="stat-label">Jahre Corporate<br>Erfahrung</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">466</span>
+          <span class="stat-label">Tests<br>Shipped</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">12+</span>
+          <span class="stat-label">KI-Agenten<br>Gebaut</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">95</span>
+          <span class="stat-label">API<br>Endpoints</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- MISSION PARAMETERS -->
+  <section id="parameters">
+    <div class="section-inner">
+      <span class="section-label">Mission Parameters</span>
+      <p class="bio-text">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Software und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+      <p class="bio-edu">Diplom-Betriebswirt · BA Stuttgart — Datenverarbeitung</p>
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- TECHNICAL SPECIFICATIONS -->
+  <section id="specs">
+    <div class="section-inner">
+      <span class="section-label">Technical Specifications</span>
+      <div class="skills-grid">
+        <div>
+          <p class="skill-group-label">Primary Systems</p>
+          <ul class="skill-list">
+            <li>AI Product Development</li>
+            <li>Multi-Agent Architectures</li>
+            <li>LLM Integration</li>
+            <li>Technical Product Ownership</li>
+            <li>Full-Stack Engineering</li>
+          </ul>
+        </div>
+        <div>
+          <p class="skill-group-label">Support Systems</p>
+          <ul class="skill-list">
+            <li>Requirements Management</li>
+            <li>Project Management</li>
+            <li>Test Automation</li>
+            <li>DevOps</li>
+            <li>Enterprise Consulting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- ACTIVE VEHICLES -->
+  <section id="vehicles">
+    <div class="section-inner">
+      <span class="section-label">Active Vehicles</span>
+      <div class="vehicle-grid">
+        <div class="vehicle-card">
+          <p class="vehicle-status">● Operational</p>
+          <h3 class="vehicle-name">neckarshore.ai</h3>
+          <p class="vehicle-desc">KI-beschleunigte Softwareentwicklung — AI-powered software development studio</p>
+        </div>
+        <div class="vehicle-card">
+          <p class="vehicle-status">● Open Source</p>
+          <h3 class="vehicle-name">Obsidian Vault Autopilot</h3>
+          <p class="vehicle-desc">Autonomous knowledge management plugin for the Obsidian ecosystem</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- MISSION LOG -->
+  <section id="missions">
+    <div class="section-inner">
+      <span class="section-label">Mission Log</span>
+      <ul class="mission-log">
+        <li class="mission-entry">
+          <span class="mission-id">M-01</span>
+          <div class="mission-body">
+            <span class="mission-status">
+              <span class="status-dot active"></span>
+              Active
+            </span>
+            <p class="mission-title">Freelance — Technical Product Owner &amp; AI Product Builder</p>
+            <p class="mission-date">2025 — Present</p>
+          </div>
+        </li>
+        <li class="mission-entry">
+          <span class="mission-id">M-02</span>
+          <div class="mission-body">
+            <span class="mission-status">
+              <span class="status-dot"></span>
+              Completed
+            </span>
+            <p class="mission-title">Mercedes-Benz AG — Tester → Consultant → Technical Product Owner</p>
+            <p class="mission-date">2015 — 2025</p>
+          </div>
+        </li>
+        <li class="mission-entry">
+          <span class="mission-id">M-03</span>
+          <div class="mission-body">
+            <span class="mission-status">
+              <span class="status-dot"></span>
+              Completed
+            </span>
+            <p class="mission-title">Early Career — Consulting, Software &amp; Management</p>
+            <p class="mission-date">1993 — 2015 &nbsp;·&nbsp; DE / CH / TH</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="section-rule"></div>
+
+  <!-- COMMUNICATION -->
+  <section id="comms">
+    <div class="section-inner">
+      <span class="section-label">Communication</span>
+      <div class="contact-grid">
+        <div>
+          <span class="contact-label">Email</span>
+          <span class="contact-val"><a href="mailto:german@rauhut.com">german@rauhut.com</a></span>
+        </div>
+        <div>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-val"><a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">in/german-rauhut</a></span>
+        </div>
+        <div>
+          <span class="contact-label">GitHub</span>
+          <span class="contact-val"><a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">GmanFooFoo</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-copy">© 2026 German Rauhut</span>
+    <span class="footer-copy">Stuttgart, Deutschland</span>
+  </footer>
+
+  <script>
+    (function () {
+      var LS = 'rauhut-spacex-theme';
+      var THEMES = ['mission','daytime'];
+      var DEFAULT = 'mission';
+
+      function applyTheme(t, animate) {
+        if (animate) {
+          document.documentElement.classList.add('switching');
+          setTimeout(function(){ document.documentElement.classList.remove('switching'); }, 300);
+        }
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem(LS, t);
+        document.querySelectorAll('.theme-btn').forEach(function(btn){
+          btn.classList.toggle('active', btn.dataset.t === t);
+        });
+      }
+
+      var saved = localStorage.getItem(LS);
+      applyTheme(THEMES.indexOf(saved) !== -1 ? saved : DEFAULT, false);
+
+      document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.theme-btn').forEach(function(btn){
+          btn.addEventListener('click', function(){ applyTheme(btn.dataset.t, true); });
+        });
+        var cur = document.documentElement.getAttribute('data-theme') || DEFAULT;
+        document.querySelectorAll('.theme-btn').forEach(function(btn){
+          btn.classList.toggle('active', btn.dataset.t === cur);
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    (function(){
+      var imgs = ['spacex-hero-1.png','spacex-hero-2.png','spacex-hero-3.png','spacex-hero-4.png'];
+      var frame = document.getElementById('img-hero-frame');
+      var i = 0;
+      setInterval(function(){ i = (i+1) % imgs.length; frame.src = imgs[i]; }, 2000);
+    })();
+  </script>
+
+</body>
+</html>

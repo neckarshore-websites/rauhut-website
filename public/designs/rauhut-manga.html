@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="shoujo">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Manga Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+html { font-size: 19.2px; scroll-behavior: smooth; }
+
+html[data-theme="shonen"] {
+  --bg: #FFF9F0;
+  --fg: #0A0A0A;
+  --accent: #FF3300;
+  --punch: #FFD700;
+  --muted: #666;
+  --surface: #FFF0E0;
+  --line: #0A0A0A;
+}
+html[data-theme="seinen"] {
+  --bg: #0A0808;
+  --fg: #E8E0D0;
+  --accent: #FF6B00;
+  --punch: #00E5FF;
+  --muted: #706860;
+  --surface: #141010;
+  --line: #2A2020;
+}
+html[data-theme="shoujo"] {
+  --bg: #FFF0F4;
+  --fg: #1A0818;
+  --accent: #FF1477;
+  --punch: #9B59B6;
+  --muted: #C090A0;
+  --surface: #FFE0E8;
+  --line: #FF80A8;
+}
+html[data-theme="cyber-manga"] {
+  --bg: #04080F;
+  --fg: #D8F0FF;
+  --accent: #00CFFF;
+  --punch: #FF0080;
+  --muted: #406080;
+  --surface: #081018;
+  --line: #103050;
+}
+
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.5;
+  overflow-x: hidden;
+  /* Global halftone texture */
+  background-image: radial-gradient(circle, var(--fg) 1px, transparent 1px);
+  background-size: 6px 6px;
+  background-attachment: fixed;
+  background-color: var(--bg);
+  /* Use position trick to layer halftone over bg color */
+}
+/* Overlay body bg color on top of halftone at low opacity */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0.92;
+  z-index: 0;
+  pointer-events: none;
+}
+main, header, footer, section, div {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== THEME SWITCHER NAV ===== */
+.top-nav {
+  background: var(--fg);
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid var(--accent);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.top-nav-logo {
+  font-family: 'Bangers', cursive;
+  font-size: 1.4rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.top-nav-sub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  color: var(--bg);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-label {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  color: var(--bg);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  margin-right: 4px;
+}
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn[data-theme="shonen"] { background: linear-gradient(135deg, #FFF9F0 50%, #FF3300 50%); }
+.theme-btn[data-theme="seinen"] { background: linear-gradient(135deg, #0A0808 50%, #FF6B00 50%); }
+.theme-btn[data-theme="shoujo"] { background: linear-gradient(135deg, #FFF0F4 50%, #FF1477 50%); }
+.theme-btn[data-theme="cyber-manga"] { background: linear-gradient(135deg, #04080F 50%, #00CFFF 50%); }
+.theme-btn.active { border: 2px solid var(--bg) !important; }
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== HERO — SPEED LINES ===== */
+.hero {
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+  padding: 60px 0 48px;
+  border-bottom: 5px solid var(--fg);
+}
+/* Speed lines using conic-gradient */
+.speed-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from 0deg at 75% 50%,
+    transparent 0deg,
+    transparent 3.5deg,
+    rgba(0,0,0,0.04) 3.5deg,
+    rgba(0,0,0,0.04) 4deg
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+html[data-theme="seinen"] .speed-lines,
+html[data-theme="cyber-manga"] .speed-lines {
+  background: repeating-conic-gradient(
+    from 0deg at 75% 50%,
+    transparent 0deg,
+    transparent 3.5deg,
+    rgba(255,255,255,0.04) 3.5deg,
+    rgba(255,255,255,0.04) 4deg
+  );
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  align-items: center;
+}
+.hero-chapter-tag {
+  font-family: 'Bangers', cursive;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  border: 3px solid var(--accent);
+  display: inline-block;
+  padding: 2px 14px;
+  margin-bottom: 16px;
+  transform: skewX(-4deg);
+}
+.hero-name {
+  font-family: 'Bangers', cursive;
+  font-size: 6.5rem;
+  line-height: 0.85;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  /* Manga outline effect */
+  text-shadow:
+    -3px -3px 0 var(--fg),
+    3px -3px 0 var(--fg),
+    -3px 3px 0 var(--fg),
+    3px 3px 0 var(--fg),
+    -3px 0 0 var(--fg),
+    3px 0 0 var(--fg),
+    0 -3px 0 var(--fg),
+    0 3px 0 var(--fg);
+  margin-bottom: 12px;
+}
+.hero-subtitle {
+  font-family: 'Bangers', cursive;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: var(--fg);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+.speech-bubble {
+  position: relative;
+  background: var(--bg);
+  border: 3px solid var(--fg);
+  border-radius: 12px 12px 12px 0;
+  padding: 16px 20px;
+  max-width: 480px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid var(--fg);
+  border-right: 0 solid transparent;
+  border-top: 18px solid var(--fg);
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 23px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid var(--bg);
+  border-right: 0 solid transparent;
+  border-top: 13px solid var(--bg);
+}
+.speech-bubble strong { color: var(--accent); }
+
+/* Hero right panel */
+.hero-panel {
+  border: 4px solid var(--fg);
+  background: var(--surface);
+  padding: 28px 24px;
+  position: relative;
+}
+.hero-panel::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 2px solid var(--line);
+  pointer-events: none;
+}
+.panel-chapter {
+  font-family: 'Bangers', cursive;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.panel-id-name {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem;
+  color: var(--fg);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.panel-id-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding: 6px 0;
+  margin: 8px 0 12px;
+}
+.panel-id-loc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.arc-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Bangers', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  padding: 6px 16px;
+  border: 3px solid var(--fg);
+  transform: skewX(-6deg);
+  margin-top: 8px;
+}
+
+/* Sound effects — decorative only */
+.sfx {
+  position: absolute;
+  font-family: 'Bangers', cursive;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 10;
+  user-select: none;
+}
+.sfx-boom {
+  top: 20px; right: 20px;
+  font-size: 3.5rem;
+  color: var(--punch);
+  text-shadow: 3px 3px 0 var(--fg);
+  transform: rotate(10deg);
+  opacity: 0.7;
+}
+.sfx-zoom {
+  bottom: 30px; right: 60px;
+  font-size: 2.2rem;
+  color: var(--accent);
+  text-shadow: 2px 2px 0 var(--fg);
+  transform: rotate(-8deg);
+  opacity: 0.6;
+}
+.sfx-click {
+  top: 10px; left: 15px;
+  font-size: 1.8rem;
+  color: var(--punch);
+  text-shadow: 2px 2px 0 var(--fg);
+  transform: rotate(-12deg);
+  opacity: 0.5;
+}
+
+/* ===== SECTION HEADERS — CHAPTER STYLE ===== */
+.chapter-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 48px 0 28px;
+  padding-bottom: 10px;
+  border-bottom: 4px solid var(--fg);
+}
+.chapter-num {
+  font-family: 'Bangers', cursive;
+  font-size: 2.8rem;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 2px 2px 0 var(--fg);
+}
+.chapter-title-block {}
+.chapter-label {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+}
+.chapter-title {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* ===== POWER LEVEL STATS ===== */
+.power-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.power-stat {
+  background: var(--surface);
+  border: 3px solid var(--fg);
+  padding: 16px 18px;
+  position: relative;
+}
+.power-label {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.power-value {
+  font-family: 'Bangers', cursive;
+  font-size: 2.6rem;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 2px 2px 0 var(--fg);
+}
+.power-unit {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--fg);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+.power-bar-wrap {
+  margin-top: 8px;
+  height: 8px;
+  background: var(--line);
+  border: 1px solid var(--fg);
+  overflow: hidden;
+}
+.power-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.5s ease;
+}
+
+/* ===== SKILL BADGES ===== */
+.skills-container {
+  margin-bottom: 32px;
+}
+.skills-group {
+  margin-bottom: 20px;
+}
+.skills-group-label {
+  font-family: 'Bangers', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-left: 5px solid var(--accent);
+  padding-left: 10px;
+}
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-badge {
+  display: inline-block;
+  font-family: 'Bangers', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  background: var(--surface);
+  border: 2px solid var(--fg);
+  border-radius: 20px;
+  padding: 4px 14px;
+  transition: background 0.15s, color 0.15s;
+}
+.skill-badge:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ===== STORY ARC TIMELINE ===== */
+.story-arcs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.arc-item {
+  display: grid;
+  grid-template-columns: 80px 4px 1fr;
+  gap: 0 16px;
+  position: relative;
+  padding-bottom: 0;
+}
+.arc-years {
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  text-align: right;
+  padding-top: 4px;
+}
+.arc-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.arc-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--fg);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.arc-vert {
+  flex: 1;
+  width: 3px;
+  background: var(--fg);
+  min-height: 40px;
+}
+.arc-item:last-child .arc-vert { display: none; }
+.arc-content {
+  padding: 4px 0 24px;
+}
+.arc-chapter {
+  font-family: 'Bangers', cursive;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.arc-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.arc-desc {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.arc-current .arc-dot { background: var(--punch); }
+.arc-current .arc-years { color: var(--punch); }
+.arc-current .arc-title { color: var(--accent); }
+
+/* ===== FEATURED EPISODES (PROJEKTE) ===== */
+.episodes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 32px;
+  border: 4px solid var(--fg);
+}
+.episode-card {
+  background: var(--surface);
+  border-right: 4px solid var(--fg);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.episode-card:last-child { border-right: none; }
+/* Action lines on hover */
+.episode-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 150%,
+    transparent 0deg,
+    transparent 4deg,
+    rgba(0,0,0,0.03) 4deg,
+    rgba(0,0,0,0.03) 5deg
+  );
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.episode-card:hover::before { opacity: 1; }
+.episode-num {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.episode-title {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 4px;
+  text-shadow: 2px 2px 0 var(--accent);
+}
+.episode-status-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  padding: 2px 10px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.episode-desc {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== BIO PANEL ===== */
+.bio-panel {
+  border: 4px solid var(--fg);
+  background: var(--surface);
+  margin-bottom: 32px;
+  position: relative;
+}
+.bio-panel-header {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 12px 20px;
+  font-family: 'Bangers', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bio-panel-header span { color: var(--accent); margin-left: 8px; }
+.bio-content {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.bio-text {
+  font-size: 0.83rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--fg);
+}
+.bio-text strong { color: var(--accent); }
+.bio-edu {
+  border-left: 4px solid var(--accent);
+  padding-left: 16px;
+}
+.bio-edu-label {
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.bio-edu-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.3rem;
+  color: var(--fg);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.bio-edu-desc {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+  background: var(--fg);
+  padding: 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    transparent 4deg,
+    rgba(255,255,255,0.03) 4deg,
+    rgba(255,255,255,0.03) 5deg
+  );
+  pointer-events: none;
+}
+.contact-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.contact-title {
+  font-family: 'Bangers', cursive;
+  font-size: 3rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 3px 3px 0 var(--accent);
+  line-height: 1;
+}
+.contact-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+.contact-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.contact-btn {
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  text-decoration: none;
+  border: 3px solid #fff;
+  color: #fff;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+  display: inline-block;
+}
+.contact-btn:hover { background: var(--accent); border-color: var(--accent); }
+.contact-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.contact-btn.primary:hover { background: #fff; color: var(--accent); border-color: #fff; }
+
+/* ===== FOOTER ===== */
+.manga-footer {
+  background: var(--fg);
+  border-top: 4px solid var(--accent);
+  padding: 16px 0;
+  text-align: center;
+}
+.manga-footer p {
+  font-family: 'Bangers', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--bg);
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.manga-footer p span { color: var(--accent); opacity: 1; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-name { font-size: 4rem; }
+  .power-grid { grid-template-columns: 1fr; }
+  .episodes-grid { grid-template-columns: 1fr; border: 4px solid var(--fg); }
+  .episode-card { border-right: none; border-bottom: 4px solid var(--fg); }
+  .episode-card:last-child { border-bottom: none; }
+  .bio-content { grid-template-columns: 1fr; }
+  .contact-inner { flex-direction: column; align-items: flex-start; }
+  .sfx-boom { font-size: 2.5rem; }
+  .sfx-zoom { font-size: 1.6rem; }
+}
+
+/* font size overrides */
+.top-nav-sub { font-size: 0.82rem; }
+.theme-label { font-size: 0.82rem; }
+.panel-id-title { font-size: 0.82rem; }
+.panel-id-loc { font-size: 0.82rem; }
+.power-label { font-size: 0.82rem; }
+.power-unit { font-size: 0.82rem; }
+.chapter-label { font-size: 0.82rem; }
+.arc-chapter { font-size: 0.82rem; }
+.arc-desc { font-size: 0.85rem; }
+.episode-num { font-size: 0.82rem; }
+.episode-desc { font-size: 0.85rem; }
+.bio-edu-label { font-size: 0.82rem; }
+.bio-edu-desc { font-size: 0.82rem; }
+.contact-subtitle { font-size: 0.82rem; }
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'Bangers', cursive;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav" aria-label="Navigation">
+  <div>
+    <div class="top-nav-logo">RAUHUT MANGA PORTFOLIO</div>
+    <div class="top-nav-sub">Technical Product Owner &amp; AI Builder</div>
+  </div>
+  <div class="theme-switcher" role="group" aria-label="Theme auswählen">
+    <span class="theme-label">STYLE:</span>
+    <button class="theme-btn active" data-theme="shoujo" title="Shoujo" aria-label="Shoujo Theme"></button>
+    <button class="theme-btn" data-theme="shonen" title="Shonen" aria-label="Shonen Theme"></button>
+    <button class="theme-btn" data-theme="seinen" title="Seinen" aria-label="Seinen Theme"></button>
+    <button class="theme-btn" data-theme="cyber-manga" title="Cyber Manga" aria-label="Cyber Manga Theme"></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="speed-lines" aria-hidden="true"></div>
+  <!-- Sound effects decorative -->
+  <div class="sfx sfx-boom" aria-hidden="true">BOOM!</div>
+  <div class="sfx sfx-zoom" aria-hidden="true">ZOOM</div>
+  <div class="sfx sfx-click" aria-hidden="true">CLICK!</div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-chapter-tag">Chapter 01 — Der Protagonist</div>
+        <h1 class="hero-name">GERMAN<br>RAUHUT</h1>
+        <p class="hero-subtitle">Technical Product Owner<br>&amp; AI Product Builder</p>
+        <div class="speech-bubble">
+          Über <strong>10 Jahre Erfahrung</strong> in Automotive und KI-Produktentwicklung. Multi-Agent-Architekturen, LLM-Integration und Technical Product Ownership — das ist meine Superkraft!
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Personalakte">
+        <div class="panel-chapter">Personalakte — Vol. I</div>
+        <div class="panel-id-name">German Rauhut</div>
+        <div class="panel-id-title">TPO &amp; AI Product Builder</div>
+        <div class="panel-id-loc">Stuttgart, Deutschland</div>
+        <div style="font-size: 0.72rem; font-weight:700; color:var(--muted); margin-bottom:10px; line-height:1.5;">
+          Diplom-Betriebswirt · BA Stuttgart<br>Datenverarbeitung
+        </div>
+        <div class="arc-badge">FREELANCE ARC</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div class="container">
+
+    <!-- POWER LEVEL STATS -->
+    <div class="chapter-header">
+      <div class="chapter-num">01</div>
+      <div class="chapter-title-block">
+        <span class="chapter-label">Status Check</span>
+        <div class="chapter-title">Power Level Messsung!</div>
+      </div>
+    </div>
+    <div class="power-grid">
+      <div class="power-stat">
+        <div class="power-label">Corporate-Erfahrung</div>
+        <div class="power-value">10+</div>
+        <div class="power-unit">Jahre</div>
+        <div class="power-bar-wrap"><div class="power-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="power-stat">
+        <div class="power-label">Tests in Production</div>
+        <div class="power-value">466</div>
+        <div class="power-unit">Tests Shipped</div>
+        <div class="power-bar-wrap"><div class="power-bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="power-stat">
+        <div class="power-label">KI-Agenten gebaut</div>
+        <div class="power-value">12+</div>
+        <div class="power-unit">Agenten aktiv</div>
+        <div class="power-bar-wrap"><div class="power-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="power-stat">
+        <div class="power-label">API Endpoints</div>
+        <div class="power-value">95</div>
+        <div class="power-unit">Endpoints</div>
+        <div class="power-bar-wrap"><div class="power-bar-fill" style="width:75%"></div></div>
+      </div>
+    </div>
+
+    <!-- BIO + EDU -->
+    <div class="bio-panel">
+      <div class="bio-panel-header">Protagonist<span>Hintergrundgeschichte</span></div>
+      <div class="bio-content">
+        <div class="bio-text">
+          Über 10 Jahre Erfahrung in <strong>Automotive und KI-Produktentwicklung</strong>. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei <strong>Mercedes-Benz</strong> als Tester, Consultant und Technical Product Owner. Und davor? 23 Jahre Consulting, Software und Management in Deutschland, der Schweiz und Thailand.
+        </div>
+        <div class="bio-edu">
+          <div class="bio-edu-label">Ursprungs-Arc / Ausbildung</div>
+          <div class="bio-edu-title">Diplom-Betriebswirt<br>BA Stuttgart</div>
+          <div class="bio-edu-desc">Studienrichtung Datenverarbeitung. Schon damals: Business trifft Technologie. Der Grundstein war gelegt.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="chapter-header">
+      <div class="chapter-num">02</div>
+      <div class="chapter-title-block">
+        <span class="chapter-label">Fähigkeiten-Liste</span>
+        <div class="chapter-title">Spezial-Moves &amp; Abilities</div>
+      </div>
+    </div>
+    <div class="skills-container">
+      <div class="skills-group">
+        <div class="skills-group-label">KI &amp; Produktentwicklung</div>
+        <div class="skills-tags">
+          <span class="skill-badge">AI Product Development</span>
+          <span class="skill-badge">Multi-Agent Architectures</span>
+          <span class="skill-badge">LLM Integration</span>
+          <span class="skill-badge">Technical Product Ownership</span>
+          <span class="skill-badge">Full-Stack Engineering</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-label">Management &amp; Engineering</div>
+        <div class="skills-tags">
+          <span class="skill-badge">Requirements Management</span>
+          <span class="skill-badge">Project Management</span>
+          <span class="skill-badge">Test Automation</span>
+          <span class="skill-badge">DevOps</span>
+          <span class="skill-badge">Enterprise Consulting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAREER — STORY ARCS -->
+    <div class="chapter-header">
+      <div class="chapter-num">03</div>
+      <div class="chapter-title-block">
+        <span class="chapter-label">Karriere-Chronik</span>
+        <div class="chapter-title">Story Arcs — Die Reise</div>
+      </div>
+    </div>
+    <div class="story-arcs">
+      <div class="arc-item arc-current">
+        <div class="arc-years">2025—</div>
+        <div class="arc-line">
+          <div class="arc-dot"></div>
+          <div class="arc-vert"></div>
+        </div>
+        <div class="arc-content">
+          <div class="arc-chapter">Aktueller Arc — Freelance</div>
+          <div class="arc-title">Freelance TPO &amp; AI Builder</div>
+          <div class="arc-desc">Neckarshore AI. KI-beschleunigte Softwareentwicklung. Multi-Agent-Systeme. LLM-Integration. Der Protagonist schreibt sein eigenes Kapitel.</div>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="arc-years">2015–2025</div>
+        <div class="arc-line">
+          <div class="arc-dot"></div>
+          <div class="arc-vert"></div>
+        </div>
+        <div class="arc-content">
+          <div class="arc-chapter">Mercedes-Benz Arc — 10 Jahre</div>
+          <div class="arc-title">Mercedes-Benz AG</div>
+          <div class="arc-desc">Tester → Consultant → Technical Product Owner. Zehn Jahre im Stuttgarter Automobilkonzern. Vom Prüfstand in die Produktstrategie.</div>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="arc-years">1993–2015</div>
+        <div class="arc-line">
+          <div class="arc-dot"></div>
+          <div class="arc-vert"></div>
+        </div>
+        <div class="arc-content">
+          <div class="arc-chapter">Origin Arc — 23 Jahre</div>
+          <div class="arc-title">Consulting, Software &amp; Management</div>
+          <div class="arc-desc">Deutschland. Schweiz. Thailand. Drei Länder, eine Mission. Consulting, Software-Entwicklung und Management — das Fundament wird gelegt.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED EPISODES (PROJEKTE) -->
+    <div class="chapter-header">
+      <div class="chapter-num">04</div>
+      <div class="chapter-title-block">
+        <span class="chapter-label">Projekte</span>
+        <div class="chapter-title">Featured Episodes</div>
+      </div>
+    </div>
+    <div class="episodes-grid">
+      <div class="episode-card">
+        <div class="episode-num">Episode 01 — Aktiv</div>
+        <div class="episode-status-tag">In Production</div>
+        <div class="episode-title">neckarshore.ai</div>
+        <div class="episode-desc">KI-beschleunigte Softwareentwicklung für Unternehmen. Von der Idee bis zur Produktion — schneller, besser, mit echten Agenten. Das Hauptprojekt des Protagonisten.</div>
+      </div>
+      <div class="episode-card">
+        <div class="episode-num">Episode 02 — Open Source</div>
+        <div class="episode-status-tag">GitHub Live</div>
+        <div class="episode-title">Obsidian Vault Autopilot</div>
+        <div class="episode-desc">Open-Source-Plugin für Obsidian. Automatisiert Vault-Workflows mit KI. Für alle, die ihr Wissensmanagement ernstnehmen — gratis, für alle.</div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</main>
+
+<!-- CONTACT -->
+<section class="contact-section" aria-label="Kontakt">
+  <div class="container">
+    <div class="contact-inner">
+      <div>
+        <div class="contact-title">KONTAKT<br>AUFNEHMEN!</div>
+        <div class="contact-subtitle">Stuttgart, Deutschland &bull; Freelance seit Oktober 2025</div>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:german@rauhut.com" class="contact-btn primary">german@rauhut.com</a>
+        <a href="https://linkedin.com/in/german-rauhut" class="contact-btn" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/GmanFooFoo" class="contact-btn" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="manga-footer">
+  <div class="container">
+    <p>German Rauhut &bull; Technical Product Owner &amp; AI Product Builder &bull; <span>neckarshore.ai</span> &bull; Stuttgart &bull; © 2026</p>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'rauhut-manga-theme';
+  const DEFAULT_THEME = 'shoujo';
+
+  function applyTheme(theme, animate) {
+    const html = document.documentElement;
+    if (animate) {
+      html.classList.add('switching');
+      setTimeout(() => html.classList.remove('switching'), 300);
+    }
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+  }
+
+  const saved = localStorage.getItem(STORAGE_KEY) || DEFAULT_THEME;
+  applyTheme(saved, false);
+
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyTheme(btn.dataset.theme, true));
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="shiro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>German Rauhut — Technical Product Owner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+
+    /* ============================================================
+       THEMES
+    ============================================================ */
+    html[data-theme="shiro"] {
+      --bg: #F7F3EB;
+      --fg: #1C1610;
+      --surface: #EDE7DC;
+      --accent: #C8210A;
+      --punch: #1C1610;
+      --muted: #8C8478;
+      --line: rgba(28,22,16,0.12);
+    }
+        html[data-theme="kiniro"] {
+      --bg: #F5EFD8;
+      --fg: #1A1008;
+      --surface: #EDE4C4;
+      --accent: #A87010;
+      --punch: #1A1008;
+      --muted: #8A7A58;
+      --line: rgba(26,16,8,0.12);
+    }
+    html[data-theme="yoru"] {
+      --bg: #090910;
+      --fg: #D8D2C2;
+      --surface: #111120;
+      --accent: #B89030;
+      --punch: #8A3010;
+      --muted: #68645A;
+      --line: rgba(216,210,194,0.10);
+    }
+
+    html.switching * {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, fill 0.3s, stroke 0.3s !important;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 19.2px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Zen Kaku Gothic New', 'Noto Serif JP', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Washi paper noise texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 3rem 0 5rem;
+      position: relative;
+    }
+
+    /* Left running rail */
+    .page-rail {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: calc(50% - 380px + 2.5rem);
+      width: 0.5px;
+      background: var(--line);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hairline dividers between sections */
+    .brush-divider {
+      height: 0.5px;
+      background: linear-gradient(to right, transparent 5%, var(--line) 25%, var(--line) 75%, transparent 95%);
+      margin: 0;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background-color: var(--bg);
+      border-bottom: 0.5px solid var(--line);
+      padding: 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .nav-name {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .nav-kana {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+
+    .nav-links a {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--fg); }
+
+    .theme-switcher {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      margin-left: 1.2rem;
+    }
+
+    .theme-btn {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .theme-btn[data-theme-target="shiro"]  { background: linear-gradient(135deg, #F7F3EB 50%, #C8210A 50%); }
+
+    .theme-btn[data-theme-target="kiniro"] { background: linear-gradient(135deg, #F5EFD8 50%, #A87010 50%); }
+    .theme-btn[data-theme-target="yoru"]   { background: linear-gradient(135deg, #090910 50%, #B89030 50%); }
+    .theme-btn.active { border: 2px solid var(--fg); }
+
+    /* ============================================================
+       SECTION RAIL MARKERS
+    ============================================================ */
+    .section-marker {
+      position: absolute;
+      left: 1.8rem;
+      top: 108px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      z-index: 1;
+    }
+
+    .section-marker-kanji {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 1.4rem;
+      color: var(--accent);
+      opacity: 0.6;
+      writing-mode: vertical-rl;
+      letter-spacing: 0.1em;
+    }
+
+    .section-marker-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      border: 0.5px solid var(--accent);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       SECTION LABELS (Japanese primary, DE secondary)
+    ============================================================ */
+    .section-label-block {
+      margin-bottom: 2rem;
+    }
+
+    .section-label-jp {
+      display: block;
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      color: var(--fg);
+      margin-bottom: 0.25rem;
+    }
+
+    .section-label-de {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      padding-top: 110px;
+      padding-bottom: 80px;
+      position: relative;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 2rem;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero-name {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 3.2rem;
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+      color: var(--fg);
+      margin-bottom: 1rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero-location {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .hero-sep {
+      width: 24px;
+      height: 0.5px;
+      background: var(--muted);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    .hero-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      font-style: italic;
+      line-height: 2.2;
+      color: var(--punch);
+      border-left: 1px solid var(--accent);
+      padding-left: 1.2rem;
+    }
+
+    /* Hanko seal */
+    .hanko-wrap {
+      padding-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .hanko-svg {
+      width: 120px;
+      height: 120px;
+      display: block;
+    }
+
+    /* Vertical subtitle on far right */
+    .hero-vertical-sub {
+      position: absolute;
+      right: -1rem;
+      top: 0;
+      writing-mode: vertical-rl;
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      opacity: 0.45;
+      user-select: none;
+    }
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+    #stats {
+      padding: 50px 0 60px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-item {
+      padding: 1.5rem 0;
+      padding-right: 1.5rem;
+      border-left: 0.5px solid var(--line);
+      padding-left: 1.5rem;
+    }
+
+    .stat-item:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .stat-number {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 2.4rem;
+      line-height: 1.0;
+      color: var(--fg);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      line-height: 1.7;
+      display: block;
+    }
+
+    /* ============================================================
+       PROFIL
+    ============================================================ */
+    section {
+      padding: 60px 0 70px;
+      position: relative;
+    }
+
+    #stats {
+      padding: 50px 0 60px;
+    }
+
+    .bio-text {
+      font-weight: 300;
+      font-size: 0.88rem;
+      line-height: 2.0;
+      color: var(--fg);
+      max-width: 540px;
+    }
+
+    .bio-education {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-top: 2rem;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    .skills-group { margin-bottom: 2.5rem; }
+
+    .skills-group-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .skills-list li {
+      font-size: 0.74rem;
+      font-weight: 300;
+      color: var(--fg);
+      letter-spacing: 0.04em;
+      padding-right: 2rem;
+      padding-bottom: 0.4rem;
+    }
+
+    .skills-list li::before {
+      content: '—';
+      color: var(--muted);
+      margin-right: 0.5rem;
+    }
+
+    /* ============================================================
+       PROJECTS
+    ============================================================ */
+    .project-item {
+      padding: 2.5rem 0;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .project-item:last-child {
+      border-bottom: 0.5px solid var(--line);
+    }
+
+    .project-name {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      color: var(--fg);
+      margin-bottom: 0.3rem;
+    }
+
+    .project-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.4rem;
+    }
+
+    /* ============================================================
+       CAREER
+    ============================================================ */
+    .career-list {
+      list-style: none;
+      position: relative;
+    }
+
+    .career-list::before {
+      content: '';
+      position: absolute;
+      left: 4.5rem;
+      top: 0; bottom: 0;
+      width: 0.5px;
+      background: var(--line);
+    }
+
+    .career-item {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.6rem 0;
+      position: relative;
+    }
+
+    .career-item::before {
+      content: '';
+      position: absolute;
+      left: calc(4.5rem - 3px);
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 0.5px solid var(--accent);
+      background: var(--bg);
+      transform: translateY(-50%);
+    }
+
+    .career-year {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      min-width: 4rem;
+      flex-shrink: 0;
+    }
+
+    .career-role {
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: var(--fg);
+      padding-left: 1.5rem;
+      line-height: 1.9;
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact-list { list-style: none; }
+
+    .contact-list li {
+      padding: 1rem 0;
+      border-top: 0.5px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .contact-list li:last-child { border-bottom: 0.5px solid var(--line); }
+
+    .contact-label {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      min-width: 5.5rem;
+    }
+
+    .contact-value {
+      font-size: 0.76rem;
+      font-weight: 300;
+      color: var(--fg);
+    }
+
+    .contact-value a { color: var(--fg); text-decoration: none; }
+    .contact-value a:hover { color: var(--accent); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      padding: 3rem 0;
+      border-top: 0.5px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-copy a { color: var(--muted); text-decoration: none; }
+    .footer-copy a:hover { color: var(--fg); }
+
+    .footer-seal {
+      opacity: 0.35;
+    }
+
+    /* ============================================================
+       MOBILE
+    ============================================================ */
+    @media (max-width: 767px) {
+      html { font-size: 17px; }
+      .container { padding: 0 1.5rem 0 2.5rem; }
+      nav { padding: 0.8rem 1.5rem; }
+      .nav-links { display: none; }
+      .page-rail { display: none; }
+      #hero { padding-top: 120px; padding-bottom: 80px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hanko-wrap { display: none; }
+      .hero-name { font-size: 2.2rem; }
+      .hero-vertical-sub { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-left: none; padding-left: 0; border-top: 0.5px solid var(--line); padding-top: 1rem; }
+      .stat-item:first-child { border-top: none; }
+      section { padding: 60px 0 70px; }
+      .section-marker { display: none; }
+      .career-list::before { left: 3.5rem; }
+      .career-item::before { left: calc(3.5rem - 3px); }
+      .career-year { min-width: 3rem; font-size: 0.72rem; }
+      .career-role { padding-left: 1rem; }
+      .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+  
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+  <!-- Left rail running full page height -->
+  <div class="page-rail" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">
+      <span class="nav-name">German Rauhut</span>
+      <span class="nav-kana">ラウフト</span>
+    </div>
+    <div class="nav-links">
+      <a href="#profil">プロフィール</a>
+      <a href="#skills">専門</a>
+      <a href="#projekte">作品</a>
+      <a href="#karriere">経歴</a>
+      <a href="#kontakt">連絡</a>
+    </div>
+    <div class="theme-switcher" role="group" aria-label="Theme wählen">
+      <button class="theme-btn active" data-theme-target="shiro" title="白 Shiro" aria-label="白 Shiro"></button>
+
+      <button class="theme-btn" data-theme-target="kiniro" title="金 Kiniro" aria-label="金 Kiniro"></button>
+      <button class="theme-btn" data-theme-target="yoru" title="夜 Yoru" aria-label="夜 Yoru"></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <span class="hero-eyebrow">Technical Product Owner · AI Product Builder</span>
+          <h1 class="hero-name">German<br>Rauhut</h1>
+          <div class="hero-meta">
+            <span class="hero-location">Stuttgart</span>
+            <span class="hero-sep"></span>
+            <span class="hero-location">Deutschland</span>
+          </div>
+          <blockquote class="hero-quote">
+            »Brückenbauer zwischen<br>Business und Technologie«
+          </blockquote>
+        </div>
+
+        <!-- Hanko / Kamon seal -->
+        <div class="hanko-wrap" aria-hidden="true">
+          <svg class="hanko-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle cx="60" cy="60" r="56" stroke="var(--accent)" stroke-width="1.5"/>
+            <!-- Inner ring -->
+            <circle cx="60" cy="60" r="48" stroke="var(--accent)" stroke-width="0.5"/>
+            <!-- Kamon: four-diamond mon -->
+            <g stroke="var(--accent)" stroke-width="1" fill="none">
+              <polygon points="60,28 80,60 60,92 40,60" stroke-width="1"/>
+              <polygon points="60,38 75,60 60,82 45,60" stroke-width="0.75"/>
+              <line x1="60" y1="28" x2="60" y2="92" stroke-width="0.5" opacity="0.4"/>
+              <line x1="40" y1="60" x2="80" y2="60" stroke-width="0.5" opacity="0.4"/>
+              <circle cx="60" cy="60" r="4" fill="var(--accent)" opacity="0.5"/>
+              <circle cx="60" cy="28" r="2" fill="var(--accent)" opacity="0.4"/>
+              <circle cx="80" cy="60" r="2" fill="var(--accent)" opacity="0.4"/>
+              <circle cx="60" cy="92" r="2" fill="var(--accent)" opacity="0.4"/>
+              <circle cx="40" cy="60" r="2" fill="var(--accent)" opacity="0.4"/>
+            </g>
+            <!-- Top kanji: 技術 (technology) -->
+            <text x="60" y="17" text-anchor="middle"
+                  font-family="'Noto Serif JP', serif" font-size="11"
+                  fill="var(--accent)" opacity="0.75" letter-spacing="3">技術</text>
+            <!-- Bottom kana: ラウフト -->
+            <text x="60" y="108" text-anchor="middle"
+                  font-family="'Noto Serif JP', serif" font-size="9.5"
+                  fill="var(--accent)" opacity="0.65" letter-spacing="1.5">ラウフト</text>
+          </svg>
+        </div>
+      </div>
+
+      <span class="hero-vertical-sub" aria-hidden="true">技術製品責任者</span>
+    </div>
+  </section>
+
+  <div class="brush-divider"></div>
+
+  <!-- STATS -->
+  <section id="stats">
+    <div class="container">
+      <div class="section-marker" aria-hidden="true">
+        <span class="section-marker-kanji">一</span>
+        <span class="section-marker-dot"></span>
+      </div>
+      <div class="section-label-block">
+        <span class="section-label-jp">実績</span>
+        <span class="section-label-de">Kennzahlen</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">10<span style="font-size: 1.3rem;color:var(--muted)">+</span></span>
+          <span class="stat-label">Jahre Corporate<br>Erfahrung</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">466</span>
+          <span class="stat-label">Tests<br>Shipped</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">12<span style="font-size: 1.3rem;color:var(--muted)">+</span></span>
+          <span class="stat-label">KI-Agenten<br>Gebaut</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">95</span>
+          <span class="stat-label">API<br>Endpoints</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="brush-divider"></div>
+
+  <!-- PROFIL -->
+  <section id="profil">
+    <div class="container">
+      <div class="section-marker" aria-hidden="true">
+        <span class="section-marker-kanji">二</span>
+        <span class="section-marker-dot"></span>
+      </div>
+      <div class="section-label-block">
+        <span class="section-label-jp">プロフィール</span>
+        <span class="section-label-de">Profil</span>
+      </div>
+      <p class="bio-text">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Software und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+      <p class="bio-education">Diplom-Betriebswirt · BA Stuttgart — Datenverarbeitung</p>
+    </div>
+  </section>
+
+  <div class="brush-divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-marker" aria-hidden="true">
+        <span class="section-marker-kanji">三</span>
+        <span class="section-marker-dot"></span>
+      </div>
+      <div class="section-label-block">
+        <span class="section-label-jp">専門</span>
+        <span class="section-label-de">Kompetenzen</span>
+      </div>
+
+      <div class="skills-group">
+        <p class="skills-group-label">Schwerpunkte</p>
+        <ul class="skills-list">
+          <li>AI Product Development</li>
+          <li>Multi-Agent Architectures</li>
+          <li>LLM Integration</li>
+          <li>Technical Product Ownership</li>
+          <li>Full-Stack Engineering</li>
+        </ul>
+      </div>
+
+      <div class="skills-group">
+        <p class="skills-group-label">Grundlage</p>
+        <ul class="skills-list">
+          <li>Requirements Management</li>
+          <li>Project Management</li>
+          <li>Test Automation</li>
+          <li>DevOps</li>
+          <li>Enterprise Consulting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="brush-divider"></div>
+
+  <!-- PROJEKTE -->
+  <section id="projekte">
+    <div class="container">
+      <div class="section-marker" aria-hidden="true">
+        <span class="section-marker-kanji">四</span>
+        <span class="section-marker-dot"></span>
+      </div>
+      <div class="section-label-block">
+        <span class="section-label-jp">作品</span>
+        <span class="section-label-de">Projekte</span>
+      </div>
+
+      <div class="project-item">
+        <h3 class="project-name">neckarshore.ai</h3>
+        <p class="project-desc">KI-beschleunigte Softwareentwicklung</p>
+        <span class="project-tag">Aktiv</span>
+      </div>
+
+      <div class="project-item">
+        <h3 class="project-name">Obsidian Vault Autopilot</h3>
+        <p class="project-desc">Open Source Plugin</p>
+        <span class="project-tag">Open Source</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="brush-divider"></div>
+
+  <!-- KARRIERE -->
+  <section id="karriere">
+    <div class="container">
+      <div class="section-marker" aria-hidden="true">
+        <span class="section-marker-kanji">五</span>
+        <span class="section-marker-dot"></span>
+      </div>
+      <div class="section-label-block">
+        <span class="section-label-jp">経歴</span>
+        <span class="section-label-de">Karriere</span>
+      </div>
+
+      <ul class="career-list">
+        <li class="career-item">
+          <span class="career-year">2025—</span>
+          <span class="career-role">Freelance · Technical Product Owner &amp; AI Product Builder</span>
+        </li>
+        <li class="career-item">
+          <span class="career-year">2015–2025</span>
+          <span class="career-role">Mercedes-Benz AG · Tester → Consultant → Technical Product Owner</span>
+        </li>
+        <li class="career-item">
+          <span class="career-year">1993–2015</span>
+          <span class="career-role">Frühe Karriere · Consulting, Software &amp; Management</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="brush-divider"></div>
+
+  <!-- KONTAKT -->
+  <section id="kontakt">
+    <div class="container">
+      <div class="section-marker" aria-hidden="true">
+        <span class="section-marker-kanji">六</span>
+        <span class="section-marker-dot"></span>
+      </div>
+      <div class="section-label-block">
+        <span class="section-label-jp">連絡先</span>
+        <span class="section-label-de">Kontakt</span>
+      </div>
+
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">メール</span>
+          <span class="contact-value"><a href="mailto:german@rauhut.com">german@rauhut.com</a></span>
+        </li>
+        <li>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value"><a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">in/german-rauhut</a></span>
+        </li>
+        <li>
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value"><a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">GmanFooFoo</a></span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2026 German Rauhut</span>
+        <svg class="footer-seal" width="32" height="32" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="60" cy="60" r="55" stroke="var(--muted)" stroke-width="1.5"/>
+          <polygon points="60,28 80,60 60,92 40,60" stroke="var(--muted)" stroke-width="1" fill="none"/>
+          <circle cx="60" cy="60" r="5" fill="var(--muted)" opacity="0.5"/>
+        </svg>
+        <span class="footer-copy"><a href="#">Impressum</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var LS_KEY = 'rauhut-jp-theme';
+      var DEFAULT_THEME = 'shiro';
+      var THEMES = ['shiro', 'kiniro', 'yoru'];
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem(LS_KEY, theme);
+        document.querySelectorAll('.theme-btn').forEach(function (btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-theme-target') === theme);
+        });
+      }
+
+      function switchTheme(theme) {
+        document.documentElement.classList.add('switching');
+        applyTheme(theme);
+        setTimeout(function () {
+          document.documentElement.classList.remove('switching');
+        }, 300);
+      }
+
+      var stored = localStorage.getItem(LS_KEY);
+      applyTheme(THEMES.indexOf(stored) !== -1 ? stored : DEFAULT_THEME);
+
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.theme-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var t = btn.getAttribute('data-theme-target');
+            if (t) switchTheme(t);
+          });
+        });
+        var current = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME;
+        document.querySelectorAll('.theme-btn').forEach(function (btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-theme-target') === current);
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

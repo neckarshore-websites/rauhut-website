@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="liberty">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>German Rauhut — Portfolio</title>
+  <script>
+    (function() {
+      var k = 'rauhut-nouveau-theme';
+      var s = localStorage.getItem(k);
+      if (s) document.documentElement.setAttribute('data-theme', s);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 19.2px;
+      scroll-behavior: smooth;
+    }
+
+    html.switching * {
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+    }
+
+    /* ===== THEMES ===== */
+    html[data-theme="klimt"] {
+      --bg: #F4F0E4;
+      --fg: #1A1008;
+      --accent: #C89010;
+      --punch: #8A2810;
+      --muted: #9A8860;
+      --surface: #ECE4D0;
+      --line: #C89010;
+    }
+    html[data-theme="horta-nacht"] {
+      --bg: #080A06;
+      --fg: #E8E4D8;
+      --accent: #8B6A14;
+      --punch: #5A8A30;
+      --muted: #7A7060;
+      --surface: #101408;
+      --line: #6A5830;
+    }
+    html[data-theme="liberty"] {
+      --bg: #EEF4F0;
+      --fg: #0A1810;
+      --accent: #2A6A40;
+      --punch: #8B6A14;
+      --muted: #6A8870;
+      --surface: #E4F0E8;
+      --line: #4A8858;
+    }
+
+    /* ===== BODY ===== */
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ===== WHIPLASH BACKGROUND SVG ===== */
+    .whiplash-bg {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 680px;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+    }
+
+    /* ===== THEME SWITCHER ===== */
+    .theme-switcher {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.2rem;
+      display: flex;
+      gap: 0.4rem;
+      z-index: 100;
+      background: var(--surface);
+      padding: 0.4rem;
+      border-radius: 2rem;
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+
+    .theme-btn {
+      width: 25px;
+      height: 25px;
+      border-radius: 2px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-btn:hover { transform: scale(1.15); }
+    .theme-btn.active { border: 2px solid var(--fg); }
+
+    .theme-btn[data-theme="klimt"]      { background: linear-gradient(135deg, #F4F0E4 50%, #C89010 50%); }
+    .theme-btn[data-theme="horta-nacht"]{ background: linear-gradient(135deg, #080A06 50%, #8B6A14 50%); }
+    .theme-btn[data-theme="liberty"]    { background: linear-gradient(135deg, #EEF4F0 50%, #2A6A40 50%); }
+
+    /* ===== MAIN WRAPPER ===== */
+    main { position: relative; z-index: 1; }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+      position: relative;
+    }
+
+    .hero-medallion {
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', 'Times New Roman', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--punch);
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+      position: relative;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-location {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ===== SECTION DIVIDERS ===== */
+    .divider {
+      display: block;
+      margin: 2rem auto;
+      width: 100%;
+      overflow: visible;
+    }
+
+    /* ===== SECTION HEADING ===== */
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--punch);
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .section-heading::before,
+    .section-heading::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: var(--line);
+      margin: 0.4rem auto;
+      width: 40%;
+    }
+
+    .section-heading .ornament {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin: 0 0.5rem;
+    }
+
+    /* ===== BIO SECTION ===== */
+    .bio-section {
+      padding: 0.5rem 0 1.5rem;
+    }
+
+    .bio-text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--fg);
+    }
+
+    .bio-text::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 700;
+      float: left;
+      line-height: 0.75;
+      margin-right: 0.12em;
+      margin-top: 0.08em;
+      color: var(--accent);
+      padding: 0.15em 0.1em;
+      border: 2px solid var(--line);
+      background: var(--surface);
+    }
+
+    .bio-text::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .stat-panel {
+      padding: 1.2rem 1rem;
+      text-align: center;
+      border: 1px solid var(--line);
+      position: relative;
+    }
+
+    .stat-panel:nth-child(1) { background: #8B9A7020; border-color: #8B9A70; }
+    .stat-panel:nth-child(2) { background: #C8906020; border-color: #C89060; }
+    .stat-panel:nth-child(3) { background: #C8A81020; border-color: #C8A810; }
+    .stat-panel:nth-child(4) { background: #2A8A8020; border-color: #2A8A80; }
+
+    html[data-theme="horta-nacht"] .stat-panel:nth-child(1) { background: #8B9A7010; }
+    html[data-theme="horta-nacht"] .stat-panel:nth-child(2) { background: #C8906010; }
+    html[data-theme="horta-nacht"] .stat-panel:nth-child(3) { background: #C8A81010; }
+    html[data-theme="horta-nacht"] .stat-panel:nth-child(4) { background: #2A8A8010; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--punch);
+      display: block;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .skills-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--line);
+      color: var(--fg);
+      background: var(--surface);
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== PROJECTS ===== */
+    .project-card {
+      border: 1px solid var(--line);
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: -6px;
+      bottom: -6px;
+      border: 1px solid var(--line);
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--punch);
+      margin-bottom: 0.3rem;
+    }
+
+    .project-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .project-status {
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ===== CAREER ===== */
+    .career-entry {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .career-entry:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .career-period {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+      min-width: 80px;
+    }
+
+    .career-info {}
+
+    .career-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .career-org {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ===== EDUCATION ===== */
+    .edu-entry {
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1rem 0 0.5rem;
+    }
+
+    .contact-link {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.1rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .contact-link:hover { color: var(--punch); border-color: var(--punch); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 2.5rem 0 3rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      html { font-size: 16px; }
+      .hero-name { font-size: 1.9rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .theme-switcher { top: 0.7rem; right: 0.7rem; }
+      .career-period { min-width: 60px; font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WHIPLASH BACKGROUND SVG -->
+  <svg class="whiplash-bg" viewBox="0 0 680 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <path d="M -40,0 C 80,150 -60,300 100,450 C 260,600 -20,720 120,900"
+          fill="none" stroke="var(--accent)" stroke-width="60" opacity="0.6"/>
+    <path d="M 720,0 C 600,200 750,380 580,560 C 410,740 660,820 520,900"
+          fill="none" stroke="var(--line)" stroke-width="40" opacity="0.5"/>
+  </svg>
+
+  <!-- THEME SWITCHER -->
+  <nav class="theme-switcher" aria-label="Theme switcher">
+    <button class="theme-btn active" data-theme="liberty"     title="Liberty" aria-label="Theme Liberty"></button>
+    <button class="theme-btn"        data-theme="klimt"       title="Klimt" aria-label="Theme Klimt"></button>
+    <button class="theme-btn"        data-theme="horta-nacht" title="Horta Nacht (dark)" aria-label="Theme Horta Nacht"></button>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" aria-label="Hero">
+
+      <!-- Medallion with botanical frame -->
+      <svg class="hero-medallion" width="340" height="360" viewBox="0 0 340 360" aria-hidden="true">
+        <!-- Concentric rings halo -->
+        <circle cx="170" cy="160" r="120" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+        <circle cx="170" cy="160" r="110" fill="none" stroke="var(--accent)" stroke-width="0.5" opacity="0.4"/>
+        <circle cx="170" cy="160" r="98"  fill="var(--surface)" stroke="var(--line)" stroke-width="1.5" opacity="0.7"/>
+
+        <!-- LEFT TENDRIL COLUMN -->
+        <!-- Main left vine -->
+        <path d="M 40,320 C 45,280 30,260 50,220 C 70,180 40,160 55,120 C 70,80 50,60 65,20"
+              fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <!-- Left branch 1 -->
+        <path d="M 48,240 C 30,230 20,215 15,200 C 10,185 20,175 30,180"
+              fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        <!-- Left leaf 1 -->
+        <path d="M 15,200 C 5,190 8,178 18,182 C 28,186 22,198 15,200 Z"
+              fill="var(--accent)" opacity="0.5"/>
+        <!-- Left flower -->
+        <circle cx="65" cy="20" r="6" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+        <circle cx="65" cy="20" r="3" fill="var(--accent)" opacity="0.6"/>
+        <!-- Petal around left flower -->
+        <path d="M 65,14 C 70,12 72,18 68,20 C 72,22 70,28 65,26 C 60,28 58,22 62,20 C 58,18 60,12 65,14 Z"
+              fill="none" stroke="var(--accent)" stroke-width="1"/>
+        <!-- Left branch 2 -->
+        <path d="M 52,170 C 35,162 22,148 25,135 C 28,122 38,120 44,128"
+              fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        <path d="M 25,135 C 16,125 18,112 28,115 C 38,118 34,132 25,135 Z"
+              fill="var(--accent)" opacity="0.4"/>
+        <!-- Left branch 3 lower -->
+        <path d="M 44,280 C 25,270 12,258 18,244 C 24,230 36,232 38,242"
+              fill="none" stroke="var(--line)" stroke-width="1"/>
+        <path d="M 18,244 C 8,237 10,224 20,226 C 30,228 28,240 18,244 Z"
+              fill="var(--line)" opacity="0.5"/>
+
+        <!-- RIGHT TENDRIL COLUMN -->
+        <path d="M 300,320 C 295,280 310,260 290,220 C 270,180 300,160 285,120 C 270,80 290,60 275,20"
+              fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <path d="M 292,240 C 310,230 320,215 325,200 C 330,185 320,175 310,180"
+              fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        <path d="M 325,200 C 335,190 332,178 322,182 C 312,186 318,198 325,200 Z"
+              fill="var(--accent)" opacity="0.5"/>
+        <circle cx="275" cy="20" r="6" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+        <circle cx="275" cy="20" r="3" fill="var(--accent)" opacity="0.6"/>
+        <path d="M 275,14 C 280,12 282,18 278,20 C 282,22 280,28 275,26 C 270,28 268,22 272,20 C 268,18 270,12 275,14 Z"
+              fill="none" stroke="var(--accent)" stroke-width="1"/>
+        <path d="M 288,170 C 305,162 318,148 315,135 C 312,122 302,120 296,128"
+              fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+        <path d="M 315,135 C 324,125 322,112 312,115 C 302,118 306,132 315,135 Z"
+              fill="var(--accent)" opacity="0.4"/>
+        <path d="M 296,280 C 315,270 328,258 322,244 C 316,230 304,232 302,242"
+              fill="none" stroke="var(--line)" stroke-width="1"/>
+        <path d="M 322,244 C 332,237 330,224 320,226 C 310,228 312,240 322,244 Z"
+              fill="var(--line)" opacity="0.5"/>
+
+        <!-- TOP ARCH flowing into tendrils -->
+        <path d="M 65,20 C 100,-10 130,-18 170,-16 C 210,-18 240,-10 275,20"
+              fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <!-- Arch leaves -->
+        <path d="M 120,-14 C 115,-24 125,-28 130,-20 C 135,-12 125,-8 120,-14 Z"
+              fill="var(--accent)" opacity="0.5"/>
+        <path d="M 160,-17 C 155,-27 165,-30 170,-22 C 175,-14 165,-10 160,-17 Z"
+              fill="var(--line)" opacity="0.6"/>
+        <path d="M 200,-14 C 195,-24 205,-28 210,-20 C 215,-12 205,-8 200,-14 Z"
+              fill="var(--accent)" opacity="0.5"/>
+        <!-- Arch top center iris/lily motif -->
+        <path d="M 170,-16 C 165,-30 158,-34 162,-40 C 166,-46 174,-46 178,-40 C 182,-34 175,-30 170,-16 Z"
+              fill="var(--accent)" opacity="0.7"/>
+        <path d="M 158,-34 C 150,-38 148,-46 154,-48 C 160,-50 162,-42 158,-34 Z"
+              fill="var(--line)" opacity="0.6"/>
+        <path d="M 182,-34 C 190,-38 192,-46 186,-48 C 180,-50 178,-42 182,-34 Z"
+              fill="var(--line)" opacity="0.6"/>
+
+        <!-- Lower vine base connections -->
+        <path d="M 40,320 C 80,340 120,350 170,350 C 220,350 260,340 300,320"
+              fill="none" stroke="var(--line)" stroke-width="1.5" opacity="0.5"/>
+
+        <!-- Name placeholder area indicator — purely decorative inner ring -->
+        <circle cx="170" cy="160" r="85" fill="none" stroke="var(--line)" stroke-width="0.5" stroke-dasharray="2,6" opacity="0.5"/>
+      </svg>
+
+      <h1 class="hero-name">German Rauhut</h1>
+      <p class="hero-title">Technical Product Owner &amp; AI Product Builder</p>
+      <p class="hero-location">Stuttgart, Deutschland</p>
+    </section>
+
+    <!-- DIVIDER 1 -->
+    <svg class="divider" viewBox="0 0 680 40" height="40" aria-hidden="true">
+      <path d="M 0,20 C 40,5 80,35 120,20 C 160,5 200,35 240,20 C 280,5 320,35 360,20 C 400,5 440,35 480,20 C 520,5 560,35 600,20 C 630,10 650,25 680,20"
+            fill="none" stroke="var(--line)" stroke-width="1.2"/>
+      <circle cx="170" cy="16" r="3" fill="var(--accent)" opacity="0.7"/>
+      <path d="M 170,13 C 168,8 172,6 174,10 C 176,6 180,8 178,13 C 182,10 183,15 179,16 C 181,20 178,22 174,19 C 170,22 167,20 169,16 C 165,15 166,10 170,13 Z"
+            fill="var(--accent)" opacity="0.5"/>
+      <circle cx="340" cy="16" r="3" fill="var(--accent)" opacity="0.7"/>
+      <path d="M 340,13 C 338,8 342,6 344,10 C 346,6 350,8 348,13 C 352,10 353,15 349,16 C 351,20 348,22 344,19 C 340,22 337,20 339,16 C 335,15 336,10 340,13 Z"
+            fill="var(--accent)" opacity="0.5"/>
+      <circle cx="510" cy="16" r="3" fill="var(--accent)" opacity="0.7"/>
+      <path d="M 510,13 C 508,8 512,6 514,10 C 516,6 520,8 518,13 C 522,10 523,15 519,16 C 521,20 518,22 514,19 C 510,22 507,20 509,16 C 505,15 506,10 510,13 Z"
+            fill="var(--accent)" opacity="0.5"/>
+    </svg>
+
+    <!-- ===== BIO ===== -->
+    <section class="bio-section" aria-labelledby="bio-heading">
+      <h2 class="section-heading" id="bio-heading">
+        <span class="ornament">&#9670;</span>Profil<span class="ornament">&#9670;</span>
+      </h2>
+      <p class="bio-text">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+        Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei
+        Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+        Software und Management in Deutschland, der Schweiz und Thailand.
+      </p>
+    </section>
+
+    <!-- DIVIDER 2 -->
+    <svg class="divider" viewBox="0 0 680 40" height="40" aria-hidden="true">
+      <path d="M 0,20 C 40,35 80,5 120,20 C 160,35 200,5 240,20 C 280,35 320,5 360,20 C 400,35 440,5 480,20 C 520,35 560,5 600,20 C 630,30 650,15 680,20"
+            fill="none" stroke="var(--line)" stroke-width="1.2"/>
+      <path d="M 240,16 C 238,10 242,8 246,12 C 248,8 252,10 250,16 C 254,14 256,19 252,20 C 254,24 251,26 246,23 C 241,26 238,24 240,20 C 236,19 238,14 240,16 Z"
+            fill="var(--line)" opacity="0.6"/>
+      <path d="M 440,16 C 438,10 442,8 446,12 C 448,8 452,10 450,16 C 454,14 456,19 452,20 C 454,24 451,26 446,23 C 441,26 438,24 440,20 C 436,19 438,14 440,16 Z"
+            fill="var(--line)" opacity="0.6"/>
+    </svg>
+
+    <!-- ===== STATS ===== -->
+    <section aria-labelledby="stats-heading">
+      <h2 class="section-heading" id="stats-heading">
+        <span class="ornament">&#9670;</span>Kennzahlen<span class="ornament">&#9670;</span>
+      </h2>
+      <div class="stats-grid">
+        <div class="stat-panel">
+          <span class="stat-number">10+</span>
+          <span class="stat-label">Jahre Corporate</span>
+        </div>
+        <div class="stat-panel">
+          <span class="stat-number">466</span>
+          <span class="stat-label">Tests Shipped</span>
+        </div>
+        <div class="stat-panel">
+          <span class="stat-number">12+</span>
+          <span class="stat-label">KI-Agenten gebaut</span>
+        </div>
+        <div class="stat-panel">
+          <span class="stat-number">95</span>
+          <span class="stat-label">API Endpoints</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVIDER 3 (lily motif) -->
+    <svg class="divider" viewBox="0 0 680 50" height="50" aria-hidden="true">
+      <line x1="0" y1="25" x2="280" y2="25" stroke="var(--line)" stroke-width="0.8"/>
+      <line x1="400" y1="25" x2="680" y2="25" stroke="var(--line)" stroke-width="0.8"/>
+      <!-- Central iris/lily ornament -->
+      <path d="M 340,10 C 335,4 330,2 332,8 C 328,5 325,10 330,12 C 326,14 328,20 334,18 C 332,22 336,26 340,24 C 344,26 348,22 346,18 C 352,20 354,14 350,12 C 355,10 352,5 348,8 C 350,2 345,4 340,10 Z"
+            fill="var(--accent)" opacity="0.7"/>
+      <path d="M 340,10 C 340,16 340,20 340,24" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+      <circle cx="340" cy="16" r="2.5" fill="var(--bg)"/>
+      <circle cx="340" cy="16" r="1.2" fill="var(--accent)" opacity="0.8"/>
+      <!-- Side leaves -->
+      <path d="M 320,25 C 315,20 318,15 324,18 C 322,22 320,25 320,25 Z"
+            fill="var(--line)" opacity="0.5"/>
+      <path d="M 360,25 C 365,20 362,15 356,18 C 358,22 360,25 360,25 Z"
+            fill="var(--line)" opacity="0.5"/>
+    </svg>
+
+    <!-- ===== SKILLS ===== -->
+    <section aria-labelledby="skills-heading">
+      <h2 class="section-heading" id="skills-heading">
+        <span class="ornament">&#9670;</span>Kompetenzen<span class="ornament">&#9670;</span>
+      </h2>
+      <div class="skills-group">
+        <div class="skills-group-title">Technologie &amp; KI</div>
+        <div class="skills-list">
+          <span class="skill-tag">AI Product Development</span>
+          <span class="skill-tag">Multi-Agent Architectures</span>
+          <span class="skill-tag">LLM Integration</span>
+          <span class="skill-tag">Full-Stack Engineering</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-title">Management &amp; Prozesse</div>
+        <div class="skills-list">
+          <span class="skill-tag">Technical Product Ownership</span>
+          <span class="skill-tag">Requirements Management</span>
+          <span class="skill-tag">Project Management</span>
+          <span class="skill-tag">Test Automation</span>
+          <span class="skill-tag">DevOps</span>
+          <span class="skill-tag">Enterprise Consulting</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVIDER 4 -->
+    <svg class="divider" viewBox="0 0 680 40" height="40" aria-hidden="true">
+      <path d="M 0,20 C 40,5 80,35 120,20 C 160,5 200,35 240,20 C 280,5 320,35 360,20 C 400,5 440,35 480,20 C 520,5 560,35 600,20 C 630,10 650,25 680,20"
+            fill="none" stroke="var(--line)" stroke-width="1.2"/>
+      <circle cx="120" cy="16" r="2.5" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="340" cy="24" r="2.5" fill="var(--accent)" opacity="0.6"/>
+      <circle cx="560" cy="16" r="2.5" fill="var(--accent)" opacity="0.6"/>
+    </svg>
+
+    <!-- ===== PROJECTS ===== -->
+    <section aria-labelledby="projects-heading">
+      <h2 class="section-heading" id="projects-heading">
+        <span class="ornament">&#9670;</span>Projekte<span class="ornament">&#9670;</span>
+      </h2>
+      <div class="project-card">
+        <div class="project-name">neckarshore.ai</div>
+        <div class="project-desc">KI-beschleunigte Softwareentwicklung</div>
+        <div class="project-status">Aktiv</div>
+      </div>
+      <div class="project-card">
+        <div class="project-name">Obsidian Vault Autopilot</div>
+        <div class="project-desc">Open Source Plugin</div>
+        <div class="project-status">Open Source</div>
+      </div>
+    </section>
+
+    <!-- DIVIDER 5 -->
+    <svg class="divider" viewBox="0 0 680 40" height="40" aria-hidden="true">
+      <path d="M 0,20 C 40,35 80,5 120,20 C 160,35 200,5 240,20 C 280,35 320,5 360,20 C 400,35 440,5 480,20 C 520,35 560,5 600,20 C 630,30 650,15 680,20"
+            fill="none" stroke="var(--line)" stroke-width="1.2"/>
+    </svg>
+
+    <!-- ===== CAREER ===== -->
+    <section aria-labelledby="career-heading">
+      <h2 class="section-heading" id="career-heading">
+        <span class="ornament">&#9670;</span>Karriere<span class="ornament">&#9670;</span>
+      </h2>
+      <div class="career-entry">
+        <div class="career-period">2025 —</div>
+        <div class="career-info">
+          <div class="career-role">Freelance TPO &amp; AI Builder</div>
+          <div class="career-org">Neckarshore AI</div>
+        </div>
+      </div>
+      <div class="career-entry">
+        <div class="career-period">2015 – 2025</div>
+        <div class="career-info">
+          <div class="career-role">Tester · Consultant · Technical Product Owner</div>
+          <div class="career-org">Mercedes-Benz AG</div>
+        </div>
+      </div>
+      <div class="career-entry">
+        <div class="career-period">1993 – 2015</div>
+        <div class="career-info">
+          <div class="career-role">Consulting, Software &amp; Management</div>
+          <div class="career-org">Deutschland · Schweiz · Thailand</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVIDER 6 -->
+    <svg class="divider" viewBox="0 0 680 40" height="40" aria-hidden="true">
+      <path d="M 0,20 C 40,5 80,35 120,20 C 160,5 200,35 240,20 C 280,5 320,35 360,20 C 400,5 440,35 480,20 C 520,5 560,35 600,20 C 630,10 650,25 680,20"
+            fill="none" stroke="var(--line)" stroke-width="1.2"/>
+    </svg>
+
+    <!-- ===== EDUCATION ===== -->
+    <section aria-labelledby="edu-heading">
+      <h2 class="section-heading" id="edu-heading">
+        <span class="ornament">&#9670;</span>Bildung<span class="ornament">&#9670;</span>
+      </h2>
+      <div class="edu-entry">
+        <div class="edu-degree">Diplom-Betriebswirt · Datenverarbeitung</div>
+        <div class="edu-school">BA Stuttgart</div>
+      </div>
+    </section>
+
+    <!-- DIVIDER 7 -->
+    <svg class="divider" viewBox="0 0 680 50" height="50" aria-hidden="true">
+      <line x1="0" y1="25" x2="680" y2="25" stroke="var(--line)" stroke-width="0.8"/>
+      <path d="M 340,10 C 335,4 330,2 332,8 C 328,5 325,10 330,12 C 326,14 328,20 334,18 C 332,22 336,26 340,24 C 344,26 348,22 346,18 C 352,20 354,14 350,12 C 355,10 352,5 348,8 C 350,2 345,4 340,10 Z"
+            fill="var(--accent)" opacity="0.6"/>
+    </svg>
+
+    <!-- ===== CONTACT ===== -->
+    <section aria-labelledby="contact-heading">
+      <h2 class="section-heading" id="contact-heading">
+        <span class="ornament">&#9670;</span>Kontakt<span class="ornament">&#9670;</span>
+      </h2>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:german@rauhut.com">german@rauhut.com</a>
+        <a class="contact-link" href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="contact-link" href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <svg width="200" height="16" viewBox="0 0 200 16" aria-hidden="true">
+      <line x1="0" y1="8" x2="85" y2="8" stroke="var(--line)" stroke-width="0.8"/>
+      <path d="M 100,2 C 97,0 95,4 100,6 C 105,4 103,0 100,2 Z M 100,6 C 97,8 95,12 100,14 C 105,12 103,8 100,6 Z"
+            fill="var(--accent)" opacity="0.6"/>
+      <line x1="115" y1="8" x2="200" y2="8" stroke="var(--line)" stroke-width="0.8"/>
+    </svg>
+    <p style="margin-top:0.6rem;">German Rauhut &mdash; Stuttgart &mdash; 2025</p>
+  </footer>
+
+  <script>
+    (function() {
+      var STORAGE_KEY = 'rauhut-nouveau-theme';
+      var themes = ['liberty', 'klimt', 'horta-nacht'];
+      var current = localStorage.getItem(STORAGE_KEY) || 'liberty';
+
+      function applyTheme(name) {
+        document.documentElement.classList.add('switching');
+        document.documentElement.setAttribute('data-theme', name);
+        localStorage.setItem(STORAGE_KEY, name);
+        current = name;
+        document.querySelectorAll('.theme-btn').forEach(function(btn) {
+          btn.classList.toggle('active', btn.getAttribute('data-theme') === name);
+        });
+        setTimeout(function() {
+          document.documentElement.classList.remove('switching');
+        }, 300);
+      }
+
+      // Init buttons
+      document.querySelectorAll('.theme-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-theme') === current);
+        btn.addEventListener('click', function() {
+          applyTheme(btn.getAttribute('data-theme'));
+        });
+      });
+
+      // Apply stored theme on load
+      if (current !== document.documentElement.getAttribute('data-theme')) {
+        document.documentElement.setAttribute('data-theme', current);
+      }
+    })();
+  </script>
+</body>
+</html>

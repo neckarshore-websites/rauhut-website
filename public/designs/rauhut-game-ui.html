@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark-fantasy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Character Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 19.2px; scroll-behavior: smooth; }
+html.switching * { transition: background-color 0.3s, color 0.3s, border-color 0.3s !important; }
+
+/* ── THEMES ───────────────────────────────────────────────── */
+[data-theme="scifi-hud"] {
+  --bg: #E8F0F8; --fg: #081828; --surface: #D8E8F0;
+  --accent: #0080C0; --punch: #00C0A0;
+  --muted: #507080; --line: rgba(8,24,40,0.15);
+}
+[data-theme="neon-arena"] {
+  --bg: #F0F8E8; --fg: #080C08; --surface: #E0F0D8;
+  --accent: #40C020; --punch: #F0A000;
+  --muted: #507040; --line: rgba(8,12,8,0.15);
+}
+[data-theme="dark-fantasy"] {
+  --bg: #080810; --fg: #D0C8E0; --surface: #0E0E18;
+  --accent: #8040C0; --punch: #C07020;
+  --muted: #504860; --line: rgba(208,200,224,0.10);
+}
+
+/* ── BASE ─────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+/* ── SCANLINE OVERLAY ─────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.018) 3px,
+    rgba(0,0,0,0.018) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── BLINKING CURSOR ANIMATION ────────────────────────────── */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: var(--accent);
+  vertical-align: -0.15em;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+/* ── GAME PANEL (double border + corner markers) ──────────── */
+.game-panel {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Corner markers via pseudo-elements on wrapper spans */
+.game-panel .corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+}
+.game-panel .corner-tl { top: -5px; left: -5px; }
+.game-panel .corner-tr { top: -5px; right: -5px; }
+.game-panel .corner-bl { bottom: -5px; left: -5px; }
+.game-panel .corner-br { bottom: -5px; right: -5px; }
+
+/* ── NAV / GAME TOP BAR ───────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 2px solid var(--accent);
+  outline-bottom: 1px solid var(--accent);
+  padding: 0;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.nav-logo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  padding: 0.65rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-logo-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--fg);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: stretch;
+  list-style: none;
+  gap: 0;
+}
+
+.nav-links li a {
+  display: flex;
+  align-items: center;
+  padding: 0 0.9rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-left: 1px solid var(--line);
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-links li a:hover {
+  background: rgba(0,0,0,0.04);
+  color: var(--accent);
+}
+
+[data-theme="dark-fantasy"] .nav-links li a:hover { background: rgba(255,255,255,0.04); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 0;
+  border-left: 1px solid var(--line);
+  padding-left: 0.8rem;
+}
+
+.theme-btn {
+  width: 26px;
+  height: 26px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { transform: scale(1.12); }
+.theme-btn.active { border: 2px solid var(--fg); }
+
+#btn-fantasy-rpg { background: linear-gradient(135deg, #F0E8D0 50%, #8B4820 50%); }
+#btn-scifi-hud   { background: linear-gradient(135deg, #E8F0F8 50%, #0080C0 50%); }
+#btn-neon-arena  { background: linear-gradient(135deg, #F0F8E8 50%, #40C020 50%); }
+#btn-dark-fantasy{ background: linear-gradient(135deg, #080810 50%, #8040C0 50%); }
+
+/* ── WRAPPER ──────────────────────────────────────────────── */
+.page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 4rem;
+}
+
+/* ── SECTION DIVIDER ──────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1.8rem 0;
+  position: relative;
+}
+.divider::before {
+  content: '◆';
+  position: absolute;
+  left: 50%;
+  top: -0.55em;
+  transform: translateX(-50%);
+  background: var(--bg);
+  color: var(--accent);
+  font-size: 0.72rem;
+  padding: 0 0.4rem;
+}
+
+/* ── MENU HEADING ─────────────────────────────────────────── */
+.menu-heading {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu-heading::before {
+  content: '▶';
+  font-size: 0.8em;
+  color: var(--punch);
+}
+
+.menu-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  margin-left: 0.5rem;
+}
+
+/* ── HERO — CHARACTER SELECT ──────────────────────────────── */
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.char-select-panel {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  padding: 2rem 2rem 1.6rem;
+  text-align: center;
+}
+
+.char-class-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--punch);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.char-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.char-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.char-edu {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.char-corner { position: absolute; width: 12px; height: 12px; background: var(--accent); }
+.char-corner.tl { top: -6px; left: -6px; }
+.char-corner.tr { top: -6px; right: -6px; }
+.char-corner.bl { bottom: -6px; left: -6px; }
+.char-corner.br { bottom: -6px; right: -6px; }
+
+/* ── STAT BLOCK ───────────────────────────────────────────── */
+.stat-block-panel {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  padding: 1.5rem 1.8rem;
+}
+
+.stat-block-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--punch);
+  margin-bottom: 1rem;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.stat-row-label {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  min-width: 6.5rem;
+  flex-shrink: 0;
+}
+
+.stat-bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: var(--accent);
+}
+
+.stat-bar-text {
+  font-weight: 700;
+  color: var(--fg);
+  min-width: 3.5rem;
+  text-align: right;
+  font-size: 0.72rem;
+}
+
+/* Corner helpers shared */
+.corner { position: absolute; width: 10px; height: 10px; background: var(--accent); }
+.corner.tl { top: -5px; left: -5px; }
+.corner.tr { top: -5px; right: -5px; }
+.corner.bl { bottom: -5px; left: -5px; }
+.corner.br { bottom: -5px; right: -5px; }
+
+/* ── LORE / BIO ───────────────────────────────────────────── */
+.lore-panel {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  padding: 1.5rem 1.8rem;
+}
+
+.lore-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 400;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--fg);
+  opacity: 0.88;
+}
+
+/* ── ABILITY TREE ─────────────────────────────────────────── */
+.ability-section { margin-bottom: 1.2rem; }
+
+.ability-category-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--punch);
+  margin-bottom: 0.55rem;
+  padding-left: 0.1rem;
+}
+
+.ability-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ability-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.ability-icon {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  min-width: 1.4rem;
+  text-align: center;
+}
+
+.ability-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg);
+  flex: 1;
+}
+
+.ability-tier {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--punch);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── QUEST LOG ────────────────────────────────────────────── */
+.quest-entry {
+  position: relative;
+  border: 1px solid var(--line);
+  padding: 0.9rem 1.1rem 0.9rem 3rem;
+  margin-bottom: 0.6rem;
+  background: var(--bg);
+}
+
+.quest-status {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.9rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.quest-status.completed { color: var(--punch); }
+.quest-status.active    { color: var(--accent); }
+
+.quest-period {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2rem;
+}
+
+.quest-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.quest-org {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+/* ── PROJECT ENTRIES ──────────────────────────────────────── */
+.project-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 1px solid var(--line);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.6rem;
+  background: var(--bg);
+}
+
+.project-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.project-info { flex: 1; }
+
+.project-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin-bottom: 0.2rem;
+}
+
+.project-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ── PARTY / CONTACT ──────────────────────────────────────── */
+.contact-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.contact-icon {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--punch);
+  min-width: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.contact-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--fg);
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 1.2rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  border-top: 1px solid var(--line);
+  margin-top: 2rem;
+}
+
+footer a { color: var(--accent); text-decoration: none; }
+
+/* ── SESSION INFO ─────────────────────────────────────────── */
+.session-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .hero-layout { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav-inner { padding: 0 0.75rem; }
+  .page-wrap { padding: 1rem 0.8rem 3rem; }
+  .char-name { font-size: 2rem; }
+  .stat-row-label { min-width: 5rem; }
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAV / TOP BAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span>[ SESSION_2026.05.16 ]</span>
+      <span class="nav-logo-label">German Rauhut</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#profil">▶ PROFIL</a></li>
+      <li><a href="#skills">▶ FÄHIGKEITEN</a></li>
+      <li><a href="#quests">▶ QUEST LOG</a></li>
+      <li><a href="#party">▶ PARTY</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn active" id="btn-fantasy-rpg"  title="Fantasy RPG"  onclick="setTheme('dark-fantasy')"></button>
+      <button class="theme-btn"        id="btn-scifi-hud"    title="Sci-Fi HUD"   onclick="setTheme('scifi-hud')"></button>
+      <button class="theme-btn"        id="btn-neon-arena"   title="Neon Arena"   onclick="setTheme('neon-arena')"></button>
+      <button class="theme-btn"        id="btn-dark-fantasy" title="Dark Fantasy" onclick="setTheme('dark-fantasy')"></button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- HERO: CHARACTER SELECT -->
+  <section id="profil">
+    <div class="hero-layout">
+
+      <div class="char-select-panel">
+        <div class="char-corner tl"></div>
+        <div class="char-corner tr"></div>
+        <div class="char-corner bl"></div>
+        <div class="char-corner br"></div>
+        <span class="char-class-label">[ CHARACTER SELECT // SLOT 01 ]</span>
+        <div class="char-name">German<br>Rauhut</div>
+        <div class="char-title">Technical Product Owner<br>&amp; AI Product Builder</div>
+        <div class="char-edu">DIPLOM-BETRIEBSWIRT · BA STUTTGART · DATENVERARBEITUNG</div>
+      </div>
+
+      <div class="stat-block-panel">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <div class="stat-block-title">[ BASE STATS ]</div>
+
+        <div class="stat-row">
+          <span class="stat-row-label">CORP. EXP.</span>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" style="width:100%"></div>
+          </div>
+          <span class="stat-bar-text">10+ YRS</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row-label">TESTS SHIPPED</span>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" style="width:93%"></div>
+          </div>
+          <span class="stat-bar-text">466</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row-label">KI-AGENTS</span>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" style="width:85%"></div>
+          </div>
+          <span class="stat-bar-text">12+</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-row-label">API ENDPOINTS</span>
+          <div class="stat-bar-track">
+            <div class="stat-bar-fill" style="width:95%"></div>
+          </div>
+          <span class="stat-bar-text">95</span>
+        </div>
+
+        <div style="margin-top:1.2rem; border-top: 1px solid var(--line); padding-top:0.8rem;">
+          <div style="font-family:'Share Tech Mono',monospace; font-size: 0.72rem; color:var(--muted); letter-spacing:0.08em; line-height:1.7;">
+            CLASS &nbsp;&nbsp;&nbsp;: Brückenbauer<br>
+            FACTION : Business ↔ Technology<br>
+            STATUS &nbsp;: FREELANCE ACTIVE
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BIO / LORE -->
+    <div class="lore-panel">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+      <div class="menu-heading">LORE DESCRIPTION</div>
+      <p class="lore-text">
+        Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership,
+        Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei
+        Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting,
+        Software und Management in Deutschland, der Schweiz und Thailand.<span class="cursor"></span>
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ABILITY TREE / SKILLS -->
+  <section id="skills">
+    <div class="menu-heading">FÄHIGKEITEN</div>
+
+    <div class="ability-section">
+      <div class="ability-category-label">[ CORE ABILITIES — UNLOCKED ]</div>
+      <div class="ability-rows">
+        <div class="ability-row">
+          <span class="ability-icon">◈</span>
+          <span class="ability-name">AI Product Development</span>
+          <span class="ability-tier">MASTERY</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◈</span>
+          <span class="ability-name">Multi-Agent Architectures</span>
+          <span class="ability-tier">MASTERY</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◈</span>
+          <span class="ability-name">LLM Integration</span>
+          <span class="ability-tier">MASTERY</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◈</span>
+          <span class="ability-name">Technical Product Ownership</span>
+          <span class="ability-tier">MASTERY</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◈</span>
+          <span class="ability-name">Full-Stack Engineering</span>
+          <span class="ability-tier">ADVANCED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ability-section">
+      <div class="ability-category-label">[ FOUNDATION SKILLS — PASSIVE ]</div>
+      <div class="ability-rows">
+        <div class="ability-row">
+          <span class="ability-icon">◇</span>
+          <span class="ability-name">Requirements Management</span>
+          <span class="ability-tier">VETERAN</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◇</span>
+          <span class="ability-name">Project Management</span>
+          <span class="ability-tier">VETERAN</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◇</span>
+          <span class="ability-name">Test Automation</span>
+          <span class="ability-tier">VETERAN</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◇</span>
+          <span class="ability-name">DevOps</span>
+          <span class="ability-tier">SKILLED</span>
+        </div>
+        <div class="ability-row">
+          <span class="ability-icon">◇</span>
+          <span class="ability-name">Enterprise Consulting</span>
+          <span class="ability-tier">VETERAN</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- QUEST LOG / CAREER -->
+  <section id="quests">
+    <div class="menu-heading">QUEST LOG</div>
+
+    <div class="quest-entry">
+      <span class="quest-status active">► ACT</span>
+      <div class="quest-period">2025 — PRESENT</div>
+      <div class="quest-title">Freelance AI Product Builder &amp; Technical Consultant</div>
+      <div class="quest-org">neckarshore.ai · Remote</div>
+    </div>
+
+    <div class="quest-entry">
+      <span class="quest-status completed">✓ CMP</span>
+      <div class="quest-period">2015 — 2025</div>
+      <div class="quest-title">Tester → Consultant → Technical Product Owner</div>
+      <div class="quest-org">Mercedes-Benz AG · Stuttgart</div>
+    </div>
+
+    <div class="quest-entry">
+      <span class="quest-status completed">✓ CMP</span>
+      <div class="quest-period">1993 — 2015</div>
+      <div class="quest-title">Consulting, Software &amp; Management</div>
+      <div class="quest-org">Deutschland · Schweiz · Thailand</div>
+    </div>
+
+    <div style="margin-top:1.5rem;">
+      <div class="ability-category-label">[ NOTABLE ITEMS — PROJECTS ]</div>
+
+      <div class="project-entry">
+        <span class="project-badge">ACTIVE</span>
+        <div class="project-info">
+          <div class="project-title">neckarshore.ai</div>
+          <div class="project-desc">KI-beschleunigte Softwareentwicklung. Baut AI-First-Produkte für kleine und mittlere Unternehmen mit Multi-Agent-Architekturen und modernen LLM-Stacks.</div>
+        </div>
+      </div>
+
+      <div class="project-entry">
+        <span class="project-badge">OS</span>
+        <div class="project-info">
+          <div class="project-title">Obsidian Vault Autopilot</div>
+          <div class="project-desc">Open Source Plugin für Obsidian. Automatisiert Vault-Management, Note-Organisation und AI-gestützte Wissensarbeit direkt im Editor.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PARTY / CONTACT -->
+  <section id="party">
+    <div class="menu-heading">PARTY / NETZWERK</div>
+
+    <div class="contact-rows">
+      <div class="contact-row">
+        <span class="contact-icon">[ MAIL ]</span>
+        <span class="contact-value">german@rauhut.com</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">[ LINKEDIN ]</span>
+        <span class="contact-value">in/german-rauhut</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">[ GITHUB ]</span>
+        <span class="contact-value">GmanFooFoo</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-wrap -->
+
+<footer>
+  &copy; 2026 GERMAN RAUHUT &nbsp;|&nbsp; <a href="#">IMPRESSUM</a>
+  &nbsp;|&nbsp; <span class="session-tag">CHAR_BUILD v2026.05.16</span>
+</footer>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-game-theme';
+  var THEMES = ['dark-fantasy', 'scifi-hud', 'neon-arena'];
+
+  function setTheme(theme) {
+    var html = document.documentElement;
+    html.classList.add('switching');
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    THEMES.forEach(function(t) {
+      var btn = document.getElementById('btn-' + t);
+      if (btn) btn.classList.toggle('active', t === theme);
+    });
+    setTimeout(function() { html.classList.remove('switching'); }, 300);
+  }
+
+  window.setTheme = setTheme;
+
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && THEMES.indexOf(saved) !== -1) {
+    setTheme(saved);
+  } else {
+    setTheme('fantasy-rpg');
+  }
+})();
+</script>
+</body>
+</html>

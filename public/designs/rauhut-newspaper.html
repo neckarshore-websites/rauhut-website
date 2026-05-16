@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="morning-edition">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rauhut Gazette — German Rauhut, Technical Product Owner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   BASE RESET & ROOT
+───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+/* ─────────────────────────────────────────────
+   THEMES
+───────────────────────────────────────────── */
+[data-theme="morning-edition"] {
+  --bg: #FBF8F0;
+  --fg: #1A1208;
+  --surface: #F0E8D8;
+  --accent: #CC2000;
+  --punch: #1A1208;
+  --muted: #7A6858;
+  --line: rgba(26,18,8,0.18);
+}
+[data-theme="sunday-color"] {
+  --bg: #FFFEF8;
+  --fg: #141008;
+  --surface: #F5F2E8;
+  --accent: #E84020;
+  --punch: #206030;
+  --muted: #807060;
+  --line: rgba(20,16,8,0.15);
+}
+[data-theme="afternoon-tabloid"] {
+  --bg: #FFF8DC;
+  --fg: #1A0808;
+  --surface: #FFF0C0;
+  --accent: #DD2000;
+  --punch: #004400;
+  --muted: #7A6040;
+  --line: rgba(26,8,8,0.15);
+}
+[data-theme="press-night"] {
+  --bg: #0A0A08;
+  --fg: #E8E2D0;
+  --surface: #141410;
+  --accent: #E8C040;
+  --punch: #CC3020;
+  --muted: #6A6050;
+  --line: rgba(232,226,208,0.10);
+}
+
+/* ─────────────────────────────────────────────
+   BODY
+───────────────────────────────────────────── */
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   UTILITY — RULED LINES
+───────────────────────────────────────────── */
+.rule-thick {
+  border: none;
+  border-top: 4px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  height: 6px;
+  margin: 0;
+}
+
+.rule-thin {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0;
+  background: none;
+  height: 1px;
+}
+
+.rule-double {
+  border: none;
+  border-top: 3px double var(--fg);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+   FLOATING NAV / THEME BAR
+───────────────────────────────────────────── */
+.top-bar {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 1.5rem;
+}
+
+.top-bar-meta {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.theme-switcher {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.theme-btn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  border-radius: 0;
+  padding: 0;
+  transition: border-color 0.2s;
+}
+
+.theme-btn[data-active="true"] {
+  border: 2px solid var(--fg);
+}
+
+.theme-btn[data-t="morning-edition"]   { background: linear-gradient(135deg, #FBF8F0 50%, #CC2000 50%); }
+.theme-btn[data-t="sunday-color"]      { background: linear-gradient(135deg, #FFFEF8 50%, #E84020 50%); }
+.theme-btn[data-t="afternoon-tabloid"] { background: linear-gradient(135deg, #FFF8DC 50%, #DD2000 50%); }
+.theme-btn[data-t="press-night"]       { background: linear-gradient(135deg, #0A0A08 50%, #E8C040 50%); }
+
+/* ─────────────────────────────────────────────
+   NEWSPAPER WRAPPER
+───────────────────────────────────────────── */
+.newspaper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+/* ─────────────────────────────────────────────
+   MASTHEAD
+───────────────────────────────────────────── */
+.masthead {
+  padding: 1.5rem 0 0;
+  text-align: center;
+}
+
+.masthead-top-rule {
+  border: none;
+  border-top: 6px solid var(--fg);
+  margin-bottom: 0.5rem;
+}
+
+.masthead-subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid var(--fg);
+  border-top: 1px solid var(--fg);
+  margin-bottom: 0.5rem;
+}
+
+.masthead-subtitle-row span {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.masthead-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg);
+  line-height: 1;
+  margin-bottom: 0.15rem;
+}
+
+.masthead-tagline {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.masthead-edition-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0.5rem;
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  margin-top: 0.5rem;
+}
+
+.masthead-edition-row span {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* ─────────────────────────────────────────────
+   SECTION FLAGS
+───────────────────────────────────────────── */
+.section-flag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--fg);
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+/* ─────────────────────────────────────────────
+   FRONT PAGE LAYOUT: HEADLINE + COLUMNS
+───────────────────────────────────────────── */
+.front-page {
+  padding-top: 1.2rem;
+}
+
+.headline-block {
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.kicker {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.headline-main {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--fg);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.deck {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.byline {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.byline strong {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* ─────────────────────────────────────────────
+   BODY COLUMNS (3-col newspaper)
+───────────────────────────────────────────── */
+.body-columns {
+  column-count: 3;
+  column-gap: 1.5rem;
+  column-rule: 1px solid var(--line);
+  margin-bottom: 1.5rem;
+}
+
+.body-columns p {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  text-align: justify;
+  hyphens: auto;
+  margin-bottom: 0.65rem;
+}
+
+/* Drop cap */
+.body-columns p:first-child::first-letter {
+  font-family: 'Oswald', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  float: left;
+  line-height: 0.75;
+  margin-right: 0.12em;
+  margin-top: 0.08em;
+  color: var(--fg);
+  text-transform: uppercase;
+}
+
+/* Pull quote — breaks column flow */
+.pull-quote {
+  column-span: all;
+  border-top: 3px double var(--fg);
+  border-bottom: 3px double var(--fg);
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem 0 1rem;
+  text-align: center;
+}
+
+.pull-quote blockquote {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--fg);
+  quotes: "\201C" "\201D";
+}
+
+.pull-quote blockquote::before {
+  content: open-quote;
+  font-size: 2rem;
+  line-height: 0;
+  vertical-align: -0.4em;
+  color: var(--accent);
+  margin-right: 0.1em;
+}
+
+.pull-quote blockquote::after {
+  content: close-quote;
+  font-size: 2rem;
+  line-height: 0;
+  vertical-align: -0.4em;
+  color: var(--accent);
+  margin-left: 0.1em;
+}
+
+.pull-quote cite {
+  display: block;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  font-style: normal;
+}
+
+/* ─────────────────────────────────────────────
+   BELOW-FOLD LAYOUT: SIDEBAR + MAIN
+───────────────────────────────────────────── */
+.below-fold {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Column rule between sidebar and main */
+.below-fold > * + * {
+  border-left: 1px solid var(--line);
+  padding-left: 1.5rem;
+}
+
+/* ─────────────────────────────────────────────
+   NEWS-IN-BRIEF BOX (Stats)
+───────────────────────────────────────────── */
+.news-brief-box {
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.news-brief-box .box-flag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--fg);
+  display: block;
+  padding: 0.15rem 0.4rem;
+  margin: -0.85rem -1rem 0.75rem;
+  text-align: center;
+}
+
+.news-brief-item {
+  border-bottom: 1px solid var(--line);
+  padding: 0.45rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.news-brief-item:last-child { border-bottom: none; }
+
+.news-brief-number {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.news-brief-desc {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  color: var(--fg);
+  line-height: 1.35;
+  text-align: right;
+}
+
+/* ─────────────────────────────────────────────
+   AT-A-GLANCE SIDEBAR (Skills)
+───────────────────────────────────────────── */
+.at-a-glance {
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.at-a-glance .box-flag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--fg);
+  display: block;
+  padding: 0.15rem 0.4rem;
+  margin: -0.85rem -1rem 0.75rem;
+  text-align: center;
+}
+
+.at-a-glance-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 1rem;
+}
+
+.at-a-glance-col-head {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.15rem;
+  grid-column: span 1;
+}
+
+.at-a-glance-list {
+  list-style: none;
+  grid-column: span 1;
+}
+
+.at-a-glance-list li {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: var(--fg);
+  padding-left: 0.6em;
+  position: relative;
+}
+
+.at-a-glance-list li::before {
+  content: '▸';
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  font-size: 0.68rem;
+}
+
+/* ─────────────────────────────────────────────
+   PROJECTS BOX (sidebar)
+───────────────────────────────────────────── */
+.projects-sidebar {
+  background: var(--surface);
+  border: 1px solid var(--fg);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.projects-sidebar .box-flag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--fg);
+  display: block;
+  padding: 0.15rem 0.4rem;
+  margin: -0.85rem -1rem 0.75rem;
+  text-align: center;
+}
+
+.project-brief {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-brief:last-child { border-bottom: none; }
+
+.project-brief-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+  margin-bottom: 0.15rem;
+}
+
+.project-brief-desc {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.project-brief-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  display: inline-block;
+  padding: 0.05rem 0.3rem;
+  margin-top: 0.2rem;
+}
+
+/* ─────────────────────────────────────────────
+   CAREER STORY (main column)
+───────────────────────────────────────────── */
+.career-story {
+  padding: 0;
+}
+
+.career-story-intro {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  margin-bottom: 1rem;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.career-entry {
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.career-entry:last-child {
+  border-bottom: none;
+}
+
+.career-entry-head {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin-bottom: 0.1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.career-entry-date {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--accent);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.career-entry-body {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--fg);
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* ─────────────────────────────────────────────
+   EDUCATION ROW
+───────────────────────────────────────────── */
+.education-strip {
+  background: var(--surface);
+  border-top: 2px solid var(--fg);
+  border-bottom: 2px solid var(--fg);
+  padding: 0.6rem 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.edu-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.edu-value {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--fg);
+}
+
+.edu-separator {
+  width: 1px;
+  height: 1.2em;
+  background: var(--line);
+}
+
+/* ─────────────────────────────────────────────
+   CONTACT SECTION
+───────────────────────────────────────────── */
+.contact-section {
+  border-top: 3px double var(--fg);
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contact-col {
+  flex: 1;
+  min-width: 150px;
+}
+
+.contact-col-head {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.contact-col-items {
+  list-style: none;
+}
+
+.contact-col-items li {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.72rem;
+  line-height: 1.75;
+  color: var(--fg);
+}
+
+.contact-col-items a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.contact-col-items a:hover {
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer {
+  border-top: 4px solid var(--fg);
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background-color: var(--surface);
+}
+
+.footer-left {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.footer-right {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.footer-right a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────────
+   MOBILE
+───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .masthead-name { font-size: 2.8rem; }
+
+  .body-columns {
+    column-count: 1;
+  }
+
+  .body-columns p:first-child::first-letter {
+    font-size: 2.8rem;
+  }
+
+  .below-fold {
+    grid-template-columns: 1fr;
+  }
+
+  .below-fold > * + * {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+
+  .at-a-glance-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .masthead-subtitle-row,
+  .masthead-edition-row {
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+  }
+
+  .headline-main { font-size: 1.8rem; }
+
+  .contact-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     TOP BAR (meta + theme switcher)
+═══════════════════════════════════════════ -->
+<div class="top-bar">
+  <span class="top-bar-meta">Stuttgart, Germany &mdash; Technical Product Owner &amp; AI Product Builder</span>
+  <div class="theme-switcher" role="group" aria-label="Theme auswählen">
+    <button class="theme-btn" data-t="morning-edition"   title="Morning Edition"   aria-label="Theme Morning Edition"></button>
+    <button class="theme-btn" data-t="sunday-color"      title="Sunday Color"      aria-label="Theme Sunday Color"></button>
+    <button class="theme-btn" data-t="afternoon-tabloid" title="Afternoon Tabloid" aria-label="Theme Afternoon Tabloid"></button>
+    <button class="theme-btn" data-t="press-night"       title="Press Night"       aria-label="Theme Press Night"></button>
+  </div>
+</div>
+
+<div class="newspaper">
+
+  <!-- ═══════════════════════════════════════
+       MASTHEAD
+  ═══════════════════════════════════════ -->
+  <header class="masthead">
+    <div class="masthead-top-rule"></div>
+    <div class="masthead-subtitle-row">
+      <span>Diplom-Betriebswirt &middot; BA Stuttgart</span>
+      <span>Technical Product Owner &amp; AI Product Builder</span>
+      <span>german@rauhut.com</span>
+    </div>
+    <h1 class="masthead-name">Rauhut Gazette</h1>
+    <p class="masthead-tagline">The Professional Record of German Rauhut</p>
+    <div class="masthead-edition-row">
+      <span>Vol. 1, No. 1</span>
+      <span>Stuttgart, Germany &mdash; 2026</span>
+      <span>Freelance seit Oktober 2025</span>
+    </div>
+  </header>
+
+  <div style="height:0.75rem;"></div>
+  <hr class="rule-thick">
+  <div style="height:0.1rem;"></div>
+
+  <!-- ═══════════════════════════════════════
+       FRONT PAGE
+  ═══════════════════════════════════════ -->
+  <main class="front-page">
+    <div class="headline-block">
+      <span class="kicker">Karriere &mdash; Stuttgart exklusiv</span>
+      <h2 class="headline-main">Vom Tester zum KI-Architekten:<br>Zehn Jahre, 95 Endpoints, 12 Agenten</h2>
+      <p class="deck">German Rauhut hat aus einer Jahrzehnte-Karriere in Automotive und Consulting eine Expertise geformt, die Geschäftsstrategie und KI-Produktentwicklung verbindet — von der Anforderung bis zum produktiven System.</p>
+      <p class="byline">By <strong>German Rauhut</strong> | Technical Product Owner &amp; AI Product Builder</p>
+    </div>
+
+    <!-- 3-column body text with pull quote -->
+    <div class="body-columns">
+      <p><strong>STUTTGART (GR)</strong> &mdash; Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration — von der Anforderung bis zum produktiven System.</p>
+
+      <p>Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner — eine Karriere, die konsequent von der technischen Basis zur strategischen Produktverantwortung führte.</p>
+
+      <div class="pull-quote">
+        <blockquote>Brückenbauer zwischen Business und Technologie</blockquote>
+        <cite>&mdash; German Rauhut</cite>
+      </div>
+
+      <p>Davor 23 Jahre in Consulting, Softwareentwicklung und Management in Deutschland, der Schweiz und Thailand. Eine internationale Perspektive, die heute in der Arbeit mit verteilten KI-Agenten-Systemen und globalen Unternehmensanforderungen zum Tragen kommt.</p>
+
+      <p>466 Tests in Produktion, 95 API-Endpoints, über 12 KI-Agenten gebaut — Zahlen, die nicht für sich selbst stehen, sondern die Tiefe einer Praxis beschreiben, die Theorie und Umsetzung konsequent verbindet.</p>
+    </div>
+
+    <hr class="rule-thin">
+    <div style="height:1rem;"></div>
+
+    <!-- Below-fold: sidebar + career story -->
+    <div class="below-fold">
+
+      <!-- LEFT SIDEBAR -->
+      <aside>
+        <!-- Stats box -->
+        <div class="news-brief-box">
+          <span class="box-flag">&#9632; Zahlen &amp; Fakten</span>
+          <div class="news-brief-item">
+            <span class="news-brief-number">10+</span>
+            <span class="news-brief-desc">Jahre Corporate Erfahrung</span>
+          </div>
+          <div class="news-brief-item">
+            <span class="news-brief-number">466</span>
+            <span class="news-brief-desc">Tests in Produktion</span>
+          </div>
+          <div class="news-brief-item">
+            <span class="news-brief-number">12+</span>
+            <span class="news-brief-desc">KI-Agenten gebaut</span>
+          </div>
+          <div class="news-brief-item">
+            <span class="news-brief-number">95</span>
+            <span class="news-brief-desc">API Endpoints</span>
+          </div>
+        </div>
+
+        <!-- At-a-glance skills -->
+        <div class="at-a-glance">
+          <span class="box-flag">&#9632; Auf einen Blick</span>
+          <div class="at-a-glance-cols">
+            <div class="at-a-glance-col-head">Schwerpunkte</div>
+            <div class="at-a-glance-col-head">Fundament</div>
+            <ul class="at-a-glance-list">
+              <li>AI Product Dev</li>
+              <li>Multi-Agent</li>
+              <li>LLM Integration</li>
+              <li>Tech Product Owner</li>
+              <li>Full-Stack Eng.</li>
+            </ul>
+            <ul class="at-a-glance-list">
+              <li>Requirements Mgmt</li>
+              <li>Project Management</li>
+              <li>Test Automation</li>
+              <li>DevOps</li>
+              <li>Enterprise Consulting</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="projects-sidebar">
+          <span class="box-flag">&#9632; Projekte</span>
+          <div class="project-brief">
+            <div class="project-brief-name">neckarshore.ai</div>
+            <div class="project-brief-desc">KI-beschleunigte Softwareentwicklung. Agenten-gestützte Entwicklung und Automatisierung.</div>
+            <span class="project-brief-tag">Aktiv</span>
+          </div>
+          <div class="project-brief">
+            <div class="project-brief-name">Obsidian Vault Autopilot</div>
+            <div class="project-brief-desc">Open Source Plugin für intelligente Notizorganisation.</div>
+            <span class="project-brief-tag">Open Source</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: CAREER STORY -->
+      <section class="career-story">
+        <div class="section-flag">&#9632; Karriere</div>
+
+        <p class="career-story-intro">
+          Die berufliche Laufbahn von German Rauhut ist eine Geschichte kontinuierlicher Transformation — vom Tester zum Architekten, von der Implementierung zur Produktstrategie, von Deutschland über die Schweiz und Thailand bis zurück nach Stuttgart.
+        </p>
+
+        <div class="career-entry">
+          <div class="career-entry-head">
+            Freelance &mdash; Technical Product Owner &amp; AI Product Builder
+            <span class="career-entry-date">2025 &mdash; heute</span>
+          </div>
+          <p class="career-entry-body">
+            Seit Oktober 2025 selbstständig tätig. Entwicklung KI-beschleunigter Softwareprodukte, Multi-Agent-Systeme und LLM-Integrationen für Unternehmenskunden. Gründer von neckarshore.ai.
+          </p>
+        </div>
+
+        <div class="career-entry">
+          <div class="career-entry-head">
+            Mercedes-Benz AG
+            <span class="career-entry-date">2015 &mdash; 2025</span>
+          </div>
+          <p class="career-entry-body">
+            Zehn Jahre bei Mercedes-Benz in Stuttgart. Einstieg als Tester, Entwicklung zum Consultant, schließlich Technical Product Owner. Verantwortung für komplexe Software-Produktlinien im Enterprise-Umfeld. 466 Tests und 95 API-Endpoints als messbare Ergebnisse dieser Dekade.
+          </p>
+        </div>
+
+        <div class="career-entry">
+          <div class="career-entry-head">
+            Frühe Karriere: DE / CH / Thailand
+            <span class="career-entry-date">1993 &mdash; 2015</span>
+          </div>
+          <p class="career-entry-body">
+            Zwanzig Jahre in Consulting, Softwareentwicklung und Management. Stationen in Deutschland, der Schweiz und Thailand. Diese internationale Grundlage prägt bis heute den Blick auf Technologie als globales Werkzeug.
+          </p>
+        </div>
+
+        <hr class="rule-thin" style="margin: 1rem 0;">
+
+        <!-- Education strip -->
+        <div class="education-strip">
+          <span class="edu-label">Bildung</span>
+          <div class="edu-separator" aria-hidden="true"></div>
+          <span class="edu-value">Diplom-Betriebswirt</span>
+          <div class="edu-separator" aria-hidden="true"></div>
+          <span class="edu-value">Berufsakademie Stuttgart &mdash; Datenverarbeitung</span>
+        </div>
+
+        <hr class="rule-thin" style="margin: 1rem 0;">
+
+        <!-- Contact -->
+        <div class="section-flag">&#9632; Kontakt</div>
+        <div class="contact-section">
+          <div class="contact-col">
+            <div class="contact-col-head">E-Mail</div>
+            <ul class="contact-col-items">
+              <li><a href="mailto:german@rauhut.com">german@rauhut.com</a></li>
+            </ul>
+          </div>
+          <div class="contact-col">
+            <div class="contact-col-head">LinkedIn</div>
+            <ul class="contact-col-items">
+              <li><a href="https://www.linkedin.com/in/german-rauhut" target="_blank" rel="noopener">in/german-rauhut</a></li>
+            </ul>
+          </div>
+          <div class="contact-col">
+            <div class="contact-col-head">GitHub</div>
+            <ul class="contact-col-items">
+              <li><a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">GmanFooFoo</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-left">&copy; 2026 German Rauhut &mdash; All rights reserved</span>
+  <span class="footer-right"><a href="#impressum">Impressum</a></span>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     THEME SWITCHER JS
+═══════════════════════════════════════════ -->
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-newspaper-theme';
+  var DEFAULT_THEME = 'morning-edition';
+  var themes = ['morning-edition', 'sunday-color', 'afternoon-tabloid', 'press-night'];
+
+  function applyTheme(theme, animate) {
+    if (themes.indexOf(theme) === -1) theme = DEFAULT_THEME;
+    var html = document.documentElement;
+    if (animate) {
+      html.classList.add('switching');
+    }
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.setAttribute('data-active', btn.getAttribute('data-t') === theme ? 'true' : 'false');
+    });
+    if (animate) {
+      setTimeout(function() {
+        html.classList.remove('switching');
+      }, 300);
+    }
+  }
+
+  // Restore on load — before paint
+  var stored = localStorage.getItem(STORAGE_KEY) || DEFAULT_THEME;
+  applyTheme(stored, false);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var current = document.documentElement.getAttribute('data-theme') || DEFAULT_THEME;
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.setAttribute('data-active', btn.getAttribute('data-t') === current ? 'true' : 'false');
+      btn.addEventListener('click', function() {
+        applyTheme(btn.getAttribute('data-t'), true);
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

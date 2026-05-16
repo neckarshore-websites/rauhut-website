@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="pip-boy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Vault-Tec Personnel File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ──────────────────────────────────────────────
+   THEME DEFINITIONS
+────────────────────────────────────────────── */
+html[data-theme="pip-boy"] {
+  --bg:      #050A02;
+  --fg:      #40FF40;
+  --accent:  #30CC30;
+  --punch:   #FFFF00;
+  --muted:   #206020;
+  --surface: #080F04;
+  --line:    #204010;
+}
+html[data-theme="red-menace"] {
+  --bg:      #F8E8E0;
+  --fg:      #1A0808;
+  --accent:  #CC1A00;
+  --punch:   #D4880A;
+  --muted:   #9A6858;
+  --surface: #F0DCD8;
+  --line:    #8B2800;
+}
+html[data-theme="nuclear-night"] {
+  --bg:      #0A0806;
+  --fg:      #E8D8A0;
+  --accent:  #D4880A;
+  --punch:   #CC1A00;
+  --muted:   #685840;
+  --surface: #141008;
+  --line:    #3A2810;
+}
+
+/* ──────────────────────────────────────────────
+   TRANSITION (switching class)
+────────────────────────────────────────────── */
+html.switching * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s !important;
+}
+
+/* ──────────────────────────────────────────────
+   BASE
+────────────────────────────────────────────── */
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* CRT Scan-line Overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    transparent 0px,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+}
+
+/* ──────────────────────────────────────────────
+   THEME SWITCHER
+────────────────────────────────────────────── */
+.theme-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 0.4rem;
+}
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.theme-btn[data-theme="pip-boy"] {
+  background: linear-gradient(135deg, #050A02 50%, #40FF40 50%);
+}
+.theme-btn[data-theme="red-menace"] {
+  background: linear-gradient(135deg, #F8E8E0 50%, #CC1A00 50%);
+}
+.theme-btn[data-theme="nuclear-night"] {
+  background: linear-gradient(135deg, #0A0806 50%, #D4880A 50%);
+}
+.theme-btn.active {
+  border: 2px solid var(--fg);
+}
+
+/* ──────────────────────────────────────────────
+   VAULT-TEC HEADER BAND
+────────────────────────────────────────────── */
+.vaulttec-header {
+  background: #F5C518;
+  border-bottom: 6px solid #8B4513;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  letter-spacing: 0.3em;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #1A0A00;
+  text-transform: uppercase;
+}
+.vaulttec-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+.vaulttec-logo-mark {
+  width: 32px;
+  height: 32px;
+  background: #8B4513;
+  border-radius: 50%;
+  border: 3px solid #1A0A00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #F5C518;
+  font-weight: 700;
+}
+
+/* ──────────────────────────────────────────────
+   HERO
+────────────────────────────────────────────── */
+.hero {
+  background-color: var(--surface);
+  border-bottom: 4px solid var(--line);
+  padding: 3rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Warning stripe border top */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 12px;
+  background: repeating-linear-gradient(
+    45deg,
+    #F5C518 0 10px,
+    #1A0A00 10px 20px
+  );
+}
+
+.hero-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Atom decoration */
+.hero-decoration {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+.atom-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px; height: 24px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 3px solid var(--fg);
+  z-index: 3;
+}
+.atom-nucleus {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; height: 40px;
+  background: var(--punch);
+  border-radius: 50%;
+  border: 2px solid var(--fg);
+  z-index: 2;
+}
+.orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+  transform-origin: center;
+}
+.orbit-1 {
+  width: 80px; height: 40px;
+  margin-top: -20px; margin-left: -40px;
+  transform: rotate(0deg);
+}
+.orbit-2 {
+  width: 80px; height: 40px;
+  margin-top: -20px; margin-left: -40px;
+  transform: rotate(60deg);
+}
+.orbit-3 {
+  width: 80px; height: 40px;
+  margin-top: -20px; margin-left: -40px;
+  transform: rotate(120deg);
+}
+.orbit-outer {
+  width: 140px; height: 70px;
+  margin-top: -35px; margin-left: -70px;
+  border-color: var(--line);
+  opacity: 0.5;
+}
+
+/* SVG Radiation symbol */
+.radiation-svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px; height: 100px;
+  opacity: 0.15;
+}
+
+.hero-text h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.hero-text .title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--accent);
+  padding-left: 0.8rem;
+}
+.hero-text .location {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+.hero-text .bio {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--fg);
+  max-width: 540px;
+  opacity: 0.85;
+}
+
+/* ──────────────────────────────────────────────
+   MAIN LAYOUT
+────────────────────────────────────────────── */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Full width */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ──────────────────────────────────────────────
+   SECTION HEADERS
+────────────────────────────────────────────── */
+.section-header {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+/* ──────────────────────────────────────────────
+   PIP-BOY TERMINAL PANEL
+────────────────────────────────────────────── */
+.terminal-panel {
+  background: #1A2A0A;
+  border: 2px solid #30CC30;
+  box-shadow: 0 0 12px rgba(48, 204, 48, 0.3), inset 0 0 20px rgba(0,0,0,0.5);
+  padding: 1.2rem;
+  font-family: 'Courier Prime', monospace;
+  color: #40FF40;
+}
+.terminal-panel .section-header {
+  color: #40FF40;
+  border-color: #30CC30;
+}
+
+/* SPECIAL stats */
+.special-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.special-row {
+  display: grid;
+  grid-template-columns: 2rem auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+}
+.special-letter {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFFF00;
+  text-align: center;
+}
+.special-label {
+  color: #40FF40;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  min-width: 80px;
+}
+.special-bar {
+  color: #30CC30;
+  letter-spacing: -0.05em;
+  font-size: 0.75rem;
+}
+.special-num {
+  color: #FFFF00;
+  font-weight: 700;
+  text-align: right;
+  min-width: 2.5rem;
+}
+
+/* ──────────────────────────────────────────────
+   WARNING PANEL
+────────────────────────────────────────────── */
+.warning-panel {
+  border: 4px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    repeating-linear-gradient(45deg, #F5C518 0 10px, #1A0A00 10px 20px) border-box;
+  padding: 1.2rem;
+}
+
+/* ──────────────────────────────────────────────
+   PERK CARDS (Skills)
+────────────────────────────────────────────── */
+.perks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+.perk-card {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 0.7rem;
+  position: relative;
+}
+.perk-stars {
+  color: var(--accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2rem;
+}
+.perk-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin-bottom: 0.15rem;
+}
+.perk-desc {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ──────────────────────────────────────────────
+   RESIDENT RECORD (Career)
+────────────────────────────────────────────── */
+.record-panel {
+  background: var(--surface);
+  border: 3px solid var(--line);
+}
+.record-header {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.5rem 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.record-entry {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+}
+.record-entry:last-child {
+  border-bottom: none;
+}
+.record-case {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 0.08em;
+  border-right: 1px solid var(--line);
+  padding-right: 0.4rem;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+.record-info .record-date {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.record-info .record-role {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin: 0.1rem 0;
+}
+.record-info .record-org {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ──────────────────────────────────────────────
+   PROJECTS
+────────────────────────────────────────────── */
+.project-card {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-left: 6px solid var(--accent);
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+}
+.project-card:last-child {
+  margin-bottom: 0;
+}
+.project-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--punch);
+  margin-bottom: 0.2rem;
+}
+.project-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.1rem 0.4rem;
+  text-transform: uppercase;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+.project-desc {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ──────────────────────────────────────────────
+   EDUCATION
+────────────────────────────────────────────── */
+.edu-box {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.edu-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  background: var(--fg);
+  color: var(--accent);
+  width: 50px; height: 50px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--accent);
+  font-size: 1rem;
+}
+.edu-text .edu-degree {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg);
+}
+.edu-text .edu-school {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ──────────────────────────────────────────────
+   CONTACT
+────────────────────────────────────────────── */
+.contact-panel {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.contact-panel .section-header {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.contact-item {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.contact-item a {
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+.contact-item a:hover {
+  text-decoration: underline;
+}
+.contact-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  min-width: 60px;
+}
+
+/* ──────────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────────── */
+.footer {
+  background: #F5C518;
+  border-top: 4px solid #8B4513;
+  padding: 0.8rem 2rem;
+  text-align: center;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.72rem;
+  color: #1A0A00;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE
+────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .hero-decoration {
+    display: none;
+  }
+  .main {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  .perks-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+  .theme-switcher {
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- Theme switcher -->
+<div class="theme-switcher" role="group" aria-label="Theme selection">
+  <button class="theme-btn active" data-theme="pip-boy" title="Pip-Boy" aria-label="Pip-Boy theme"></button>
+  <button class="theme-btn" data-theme="red-menace" title="Red Menace" aria-label="Red Menace theme"></button>
+  <button class="theme-btn" data-theme="nuclear-night" title="Nuclear Night" aria-label="Nuclear Night theme"></button>
+</div>
+
+<!-- Vault-Tec Header Band -->
+<div class="vaulttec-header">
+  <div class="vaulttec-logo">
+    <div class="vaulttec-logo-mark">VT</div>
+    <span>Vault-Tec Corporation — Personnel Management Division — Authorized Access Only</span>
+    <div class="vaulttec-logo-mark">VT</div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div style="font-family:'Courier Prime',monospace; font-size: 0.72rem; letter-spacing:0.25em; color:var(--muted); text-transform:uppercase; margin-bottom:0.5rem;">
+        Vault-Tec Presents
+      </div>
+      <h1>German Rauhut</h1>
+      <div class="title">Technical Product Owner &amp; AI Product Builder</div>
+      <div class="location">&#9679; Stuttgart, Deutschland — Sector 7-G</div>
+      <p class="bio">Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Software und Management in Deutschland, der Schweiz und Thailand.</p>
+    </div>
+    <div class="hero-decoration">
+      <!-- Radiation SVG -->
+      <svg class="radiation-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="8" fill="currentColor"/>
+        <path d="M50,50 L50,12 A38,38 0 0,1 82.9,31 Z" fill="currentColor"/>
+        <path d="M50,50 L82.9,31 A38,38 0 0,1 82.9,69 Z" fill="currentColor"/>
+        <path d="M50,50 L82.9,69 A38,38 0 0,1 17.1,69 Z" fill="currentColor"/>
+        <path d="M50,50 L17.1,69 A38,38 0 0,1 17.1,31 Z" fill="currentColor"/>
+        <path d="M50,50 L17.1,31 A38,38 0 0,1 50,12 Z" fill="currentColor"/>
+        <circle cx="50" cy="50" r="6" fill="var(--surface)"/>
+      </svg>
+      <!-- Atom orbits -->
+      <div class="atom-nucleus"></div>
+      <div class="atom-center"></div>
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="orbit orbit-3"></div>
+      <div class="orbit orbit-outer"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Main content grid -->
+<div class="main">
+
+  <!-- SPECIAL Stats (full width, terminal panel) -->
+  <div class="full-width terminal-panel">
+    <div class="section-header">// S.P.E.C.I.A.L. Attribute Record — Unit: RAUHUT-G</div>
+    <div class="special-grid">
+      <div class="special-row">
+        <span class="special-letter">S</span>
+        <span class="special-label">SHIPPED</span>
+        <span class="special-bar">████████████</span>
+        <span class="special-num">466 Tests</span>
+      </div>
+      <div class="special-row">
+        <span class="special-letter">P</span>
+        <span class="special-label">PRODUCTS</span>
+        <span class="special-bar">████████████</span>
+        <span class="special-num">10+ Yrs</span>
+      </div>
+      <div class="special-row">
+        <span class="special-letter">E</span>
+        <span class="special-label">ENDPOINTS</span>
+        <span class="special-bar">████████████</span>
+        <span class="special-num">95 APIs</span>
+      </div>
+      <div class="special-row">
+        <span class="special-letter">C</span>
+        <span class="special-label">COGNITION</span>
+        <span class="special-bar">████████████</span>
+        <span class="special-num">12+ Agents</span>
+      </div>
+      <div class="special-row">
+        <span class="special-letter">I</span>
+        <span class="special-label">INTEL</span>
+        <span class="special-bar">████████████</span>
+        <span class="special-num">23 Yrs Exp</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Perk Cards — Skills -->
+  <div>
+    <div class="section-header">Perk Cards — Aktive Fähigkeiten</div>
+    <div class="perks-grid">
+      <div class="perk-card">
+        <div class="perk-stars">★★★</div>
+        <div class="perk-name">AI Product Dev</div>
+        <div class="perk-desc">Build intelligent systems from zero to production. LLM mastery.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★★</div>
+        <div class="perk-name">Multi-Agent Arch</div>
+        <div class="perk-desc">Design multi-agent pipelines. Orchestration specialist.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★★</div>
+        <div class="perk-name">LLM Integration</div>
+        <div class="perk-desc">Claude, GPT, custom models. Production-grade integration.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★★</div>
+        <div class="perk-name">Tech Product Own</div>
+        <div class="perk-desc">Bridge between engineering and business. Roadmap precision.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★☆</div>
+        <div class="perk-name">Full-Stack Eng</div>
+        <div class="perk-desc">TypeScript, Node.js, Postgres, REST. Ship end-to-end.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★★</div>
+        <div class="perk-name">Requirements Mgmt</div>
+        <div class="perk-desc">10 years automotive requirements. Zero ambiguity tolerance.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★☆</div>
+        <div class="perk-name">Test Automation</div>
+        <div class="perk-desc">466 tests shipped. CI/CD pipelines. Quality gated.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-stars">★★☆</div>
+        <div class="perk-name">DevOps</div>
+        <div class="perk-desc">Vercel, GitHub Actions, Docker. Deploy with confidence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div>
+    <div class="section-header">Active Missions</div>
+
+    <div class="project-card">
+      <div class="project-name">neckarshore.ai <span class="project-badge">ACTIVE</span></div>
+      <div class="project-desc">KI-beschleunigte Softwareentwicklung. Multi-agent workflows for product teams. Freelance consulting and product development.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-name">Obsidian Vault Autopilot <span class="project-badge">OPEN SOURCE</span></div>
+      <div class="project-desc">AI-powered Obsidian plugin for automated knowledge base management. Inbox triage, note linking, tag management.</div>
+    </div>
+
+    <!-- Education here too -->
+    <div style="margin-top: 1.5rem;">
+      <div class="section-header">Academic Record</div>
+      <div class="edu-box">
+        <div class="edu-icon">DPL</div>
+        <div class="edu-text">
+          <div class="edu-degree">Diplom-Betriebswirt</div>
+          <div class="edu-school">BA Stuttgart — Datenverarbeitung<br>Berufsakademie Stuttgart, Baden-Württemberg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resident Record (Career) — full width -->
+  <div class="full-width">
+    <div class="section-header">Residential History — Filed Records</div>
+    <div class="record-panel">
+      <div class="record-header">Vault-Tec Residential Archive — Classified Level 2 — Unit: RAUHUT-G</div>
+
+      <div class="record-entry">
+        <div class="record-case">CASE-001</div>
+        <div class="record-info">
+          <div class="record-date">2025 — PRESENT</div>
+          <div class="record-role">Freelance TPO &amp; AI Builder</div>
+          <div class="record-org">neckarshore.ai — Independent Operations — Stuttgart Sector</div>
+        </div>
+      </div>
+
+      <div class="record-entry">
+        <div class="record-case">CASE-002</div>
+        <div class="record-info">
+          <div class="record-date">2015 — 2025</div>
+          <div class="record-role">Tester → Consultant → Technical Product Owner</div>
+          <div class="record-org">Mercedes-Benz AG — Automotive Division — Stuttgart Headquarters</div>
+        </div>
+      </div>
+
+      <div class="record-entry">
+        <div class="record-case">CASE-003</div>
+        <div class="record-info">
+          <div class="record-date">1993 — 2015</div>
+          <div class="record-role">Consulting, Software &amp; Management</div>
+          <div class="record-org">Multiple Organizations — Deutschland · Schweiz · Thailand — 23 Years Service</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="full-width">
+    <div class="contact-panel">
+      <div class="section-header">Transmission Frequencies</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+        <div class="contact-item">
+          <span class="contact-label">MAIL</span>
+          <a href="mailto:german@rauhut.com">german@rauhut.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LINKED</span>
+          <a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">GITHUB</span>
+          <a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  Vault-Tec Corporation &mdash; Personnel File: RAUHUT-G &mdash; Classification: Active &mdash; Clearance Level: EXECUTIVE &mdash; Stuttgart Sector 7-G &mdash; 2026
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'rauhut-fallout-theme';
+  var themes = ['pip-boy', 'red-menace', 'nuclear-night'];
+
+  function setTheme(theme) {
+    if (!themes.includes(theme)) theme = 'pip-boy';
+    document.documentElement.classList.add('switching');
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+    });
+    setTimeout(function() {
+      document.documentElement.classList.remove('switching');
+    }, 300);
+  }
+
+  // Init from localStorage
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && themes.includes(saved)) {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.querySelectorAll('.theme-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-theme') === saved);
+    });
+  }
+
+  // Attach click handlers
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setTheme(btn.getAttribute('data-theme'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="manifesto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GERMAN RAUHUT — ANTI-PORTFOLIO 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Abril+Fatface&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================
+   THEME DEFINITIONS — NO FOUC
+   ========================================== */
+html[data-theme="manifesto"] {
+  --bg: #F5F0E4;
+  --fg: #0A0808;
+  --accent: #CC1A00;
+  --punch: #0A0808;
+  --muted: #6A6058;
+  --surface: #EAE4D8;
+  --line: #0A0808;
+}
+html[data-theme="berlin-nacht"] {
+  --bg: #0A0808;
+  --fg: #F0ECE4;
+  --accent: #CC1A00;
+  --punch: #F0ECE4;
+  --muted: #5A5250;
+  --surface: #141010;
+  --line: #F0ECE4;
+}
+html[data-theme="cabaret"] {
+  --bg: #F8F0D8;
+  --fg: #1A0A08;
+  --accent: #0030A8;
+  --punch: #CC1A00;
+  --muted: #6A5840;
+  --surface: #F0E4C0;
+  --line: #1A0A08;
+}
+html[data-theme="konstrukt"] {
+  --bg: #E8E4DC;
+  --fg: #060404;
+  --accent: #E8A000;
+  --punch: #060404;
+  --muted: #706858;
+  --surface: #DCD8D0;
+  --line: #060404;
+}
+
+/* ==========================================
+   TRANSITION SWITCHING CLASS
+   ========================================== */
+html.switching * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease !important;
+}
+
+/* ==========================================
+   BASE RESET & LAYOUT
+   ========================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: 'Courier Prime', monospace;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* SVG noise texture filter */
+.noise-filter {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+}
+
+/* ==========================================
+   THEME SWITCHER
+   ========================================== */
+.theme-switcher {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 10000;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  border: 1.5px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: transform 0.15s ease;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border: 2px solid var(--fg); }
+
+.theme-btn[data-theme="manifesto"]    { background: linear-gradient(135deg, #F5F0E4 50%, #CC1A00 50%); }
+.theme-btn[data-theme="berlin-nacht"] { background: linear-gradient(135deg, #0A0808 50%, #CC1A00 50%); }
+.theme-btn[data-theme="cabaret"]      { background: linear-gradient(135deg, #F8F0D8 50%, #0030A8 50%); }
+.theme-btn[data-theme="konstrukt"]    { background: linear-gradient(135deg, #E8E4DC 50%, #E8A000 50%); }
+
+/* ==========================================
+   DECORATIVE GEOMETRIC SHAPES
+   ========================================== */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  pointer-events: none;
+}
+.deco-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.deco-bar {
+  position: absolute;
+  background-color: var(--accent);
+  pointer-events: none;
+}
+.deco-dot {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--fg);
+  pointer-events: none;
+}
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  overflow: hidden;
+}
+
+/* Thick photomontage frame on right side only */
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 20%;
+  width: 8px;
+  height: 60%;
+  background: var(--line);
+  box-shadow: 4px 0 0 var(--accent), 8px 0 0 var(--line);
+}
+
+.hero-name-block {
+  position: relative;
+  padding-top: 3rem;
+  z-index: 2;
+}
+
+/* G-E-R-M-A-N — individual letter spans */
+.name-line-1 {
+  display: block;
+  line-height: 0.85;
+  margin-bottom: 0.2rem;
+}
+.name-line-2 {
+  display: block;
+  line-height: 0.85;
+}
+
+.letter {
+  font-family: 'Bebas Neue', sans-serif;
+  display: inline-block;
+  color: var(--fg);
+  line-height: 0.9;
+}
+.letter-G  { font-size: 7.8rem;  transform: rotate(-8deg)  translateY(5px);  color: var(--punch); }
+.letter-E  { font-size: 5.2rem;  transform: rotate(3deg)   translateY(-8px); color: var(--fg);    font-family: 'Abril Fatface', serif; }
+.letter-R1 { font-size: 9.1rem;  transform: rotate(-14deg) translateY(12px); color: var(--accent); }
+.letter-M  { font-size: 6.4rem;  transform: rotate(6deg)   translateY(-4px); color: var(--fg);    font-family: 'Special Elite', cursive; }
+.letter-A  { font-size: 11.2rem; transform: rotate(-5deg)  translateY(8px);  color: var(--punch); font-family: 'Bebas Neue', sans-serif; }
+.letter-N  { font-size: 4.8rem;  transform: rotate(11deg)  translateY(-14px);color: var(--muted); font-family: 'Courier Prime', monospace; }
+
+.letter-R2 { font-size: 8.6rem;  transform: rotate(7deg)   translateY(-6px); color: var(--fg);    }
+.letter-A2 { font-size: 5.0rem;  transform: rotate(-18deg) translateY(14px); color: var(--accent); font-family: 'Abril Fatface', serif; }
+.letter-U  { font-size: 12.0rem; transform: rotate(3deg)   translateY(-2px); color: var(--punch); }
+.letter-H  { font-size: 4.2rem;  transform: rotate(-11deg) translateY(10px); color: var(--fg);    font-family: 'Special Elite', cursive; }
+.letter-U2 { font-size: 7.0rem;  transform: rotate(15deg)  translateY(-10px);color: var(--muted); font-family: 'Courier Prime', monospace; font-weight: 700; }
+.letter-T  { font-size: 9.8rem;  transform: rotate(-6deg)  translateY(4px);  color: var(--line);  font-family: 'Bebas Neue', sans-serif; }
+
+/* Upside-down subtitle fragment */
+.hero-title-upside {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.85rem;
+  color: var(--muted);
+  transform: rotate(180deg);
+  display: inline-block;
+  position: absolute;
+  top: 1.5rem;
+  left: 18%;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+.hero-title-main {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  display: inline-block;
+  margin-top: 1.5rem;
+  margin-left: 8%;
+  border-top: 2px solid var(--accent);
+  padding-top: 0.3rem;
+}
+
+.hero-location {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--muted);
+  transform: rotate(8deg);
+  display: inline-block;
+  position: absolute;
+  right: 5%;
+  bottom: 28%;
+  letter-spacing: 0.08em;
+}
+
+/* Big decorative number/accent behind hero */
+.hero-bg-number {
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28rem;
+  color: var(--surface);
+  top: -4rem;
+  right: -3rem;
+  z-index: 0;
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Black bar accent */
+.hero-black-bar {
+  position: absolute;
+  left: -2rem;
+  bottom: 18%;
+  width: 40%;
+  height: 4px;
+  background: var(--line);
+  transform: rotate(-1.5deg);
+}
+.hero-red-bar {
+  position: absolute;
+  left: 5%;
+  bottom: 19%;
+  width: 15%;
+  height: 12px;
+  background: var(--accent);
+  transform: rotate(2deg);
+  z-index: 1;
+}
+
+/* ==========================================
+   MANIFESTO BOX
+   ========================================== */
+.manifesto-section {
+  position: relative;
+  padding: 4rem 2rem 2rem;
+  overflow: visible;
+}
+
+.manifesto-box {
+  display: inline-block;
+  background-color: var(--fg);
+  color: var(--bg);
+  font-family: 'Special Elite', cursive;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  padding: 2rem 2.2rem;
+  transform: rotate(-3deg);
+  max-width: 520px;
+  position: relative;
+  z-index: 4;
+  margin-left: 5%;
+  /* rough border simulation */
+  box-shadow:
+    -4px -3px 0 var(--accent),
+    6px 5px 0 var(--muted),
+    -7px 8px 0 var(--line),
+    10px -6px 0 var(--surface);
+}
+
+.manifesto-box::before {
+  content: '▓▓▓';
+  position: absolute;
+  top: -1.2rem;
+  left: 1rem;
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.3em;
+}
+
+.manifesto-box-text {
+  display: block;
+  letter-spacing: 0.05em;
+}
+.manifesto-slash {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Floating anti-label */
+.anti-label {
+  position: absolute;
+  right: 8%;
+  top: 3rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  color: var(--accent);
+  transform: rotate(15deg);
+  letter-spacing: 0.06em;
+  border-bottom: 4px solid var(--accent);
+  z-index: 5;
+}
+
+/* ==========================================
+   BIO SECTION
+   ========================================== */
+.bio-section {
+  position: relative;
+  padding: 3rem 2rem 3rem;
+  overflow: visible;
+}
+
+.bio-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: var(--surface);
+  position: absolute;
+  top: 0;
+  left: -1rem;
+  z-index: 0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  pointer-events: none;
+  /* Stroke effect */
+  -webkit-text-stroke: 1.5px var(--line);
+}
+
+.bio-text-block {
+  position: relative;
+  z-index: 2;
+  margin-left: 12%;
+  margin-right: 8%;
+  transform: rotate(-1deg);
+  background: var(--surface);
+  padding: 1.5rem 1.8rem;
+  border-left: 6px solid var(--line);
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--fg);
+  max-width: 600px;
+  box-shadow: 8px 8px 0 var(--line);
+}
+
+.bio-education {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.72rem;
+  color: var(--muted);
+  transform: rotate(2.5deg);
+  display: inline-block;
+  margin-top: 0.8rem;
+  letter-spacing: 0.1em;
+  border-top: 1px dashed var(--muted);
+  padding-top: 0.4rem;
+  width: 100%;
+}
+
+/* Overlapping career-strip */
+.career-strip {
+  position: relative;
+  z-index: 5;
+  margin-top: -1rem;
+  margin-right: -1rem;
+  float: right;
+  clear: right;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1rem;
+  transform: rotate(3deg);
+  width: 42%;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   STATS SECTION — NEWSPAPER CUT-OUTS
+   ========================================== */
+.stats-section {
+  position: relative;
+  padding: 5rem 1rem 5rem;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+.stats-section::before {
+  content: 'ZAHLEN';
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14rem;
+  color: var(--surface);
+  position: absolute;
+  bottom: -2rem;
+  left: -1rem;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-text-stroke: 2px var(--line);
+}
+
+.stat-cutout {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-num {
+  line-height: 0.9;
+  color: var(--punch);
+}
+.stat-label {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+/* Stat 1: 10+ Jahre */
+.stat-1 {
+  left: 6%;
+  top: 2rem;
+  transform: rotate(-7deg);
+}
+.stat-1 .stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5.5rem;
+}
+
+/* Stat 2: 466 Tests */
+.stat-2 {
+  left: 35%;
+  top: 4.5rem;
+  transform: rotate(5deg);
+}
+.stat-2 .stat-num {
+  font-family: 'Abril Fatface', serif;
+  font-size: 4.2rem;
+  color: var(--accent);
+}
+
+/* Stat 3: 12+ Agenten */
+.stat-3 {
+  right: 8%;
+  top: 1rem;
+  transform: rotate(-12deg);
+}
+.stat-3 .stat-num {
+  font-family: 'Courier Prime', monospace;
+  font-size: 3.8rem;
+  font-weight: 700;
+}
+
+/* Stat 4: 95 API */
+.stat-4 {
+  left: 55%;
+  bottom: 2rem;
+  transform: rotate(9deg);
+}
+.stat-4 .stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 6.5rem;
+  color: var(--fg);
+  -webkit-text-stroke: 2px var(--accent);
+}
+
+/* Stats decorative elements */
+.stats-deco-line {
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  width: 60%;
+  height: 2px;
+  background: var(--line);
+  transform: rotate(-8deg);
+  z-index: 1;
+}
+
+/* ==========================================
+   SKILLS SECTION — SCATTERED WORD ART
+   ========================================== */
+.skills-section {
+  position: relative;
+  padding: 3rem 1rem 6rem;
+  min-height: 480px;
+  overflow: visible;
+  /* Thick photomontage frame */
+  border-top: 8px solid var(--line);
+  border-bottom: 8px solid var(--line);
+  margin: 0 -0rem;
+}
+
+.skills-section::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.skills-section::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.skills-header {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--accent);
+  letter-spacing: 0.3em;
+  display: block;
+  margin-bottom: 1rem;
+  margin-left: 3%;
+  transform: rotate(-0.5deg);
+}
+
+.skill-word {
+  position: absolute;
+  display: inline-block;
+  font-weight: 400;
+  text-transform: uppercase;
+  cursor: default;
+  transition: color 0.2s ease;
+}
+.skill-word:hover { color: var(--accent); }
+
+/* Each skill word — unique position + rotation + font + size */
+.sk-1  { font-family: 'Bebas Neue'; font-size: 2.4rem;  top: 3rem;   left: 2%;   transform: rotate(-6deg);  color: var(--fg); }
+.sk-2  { font-family: 'Abril Fatface'; font-size: 1.1rem; top: 1.5rem; left: 28%;  transform: rotate(8deg);   color: var(--accent); }
+.sk-3  { font-family: 'Special Elite'; font-size: 0.85rem; top: 5rem;  left: 55%;  transform: rotate(-14deg); color: var(--fg); }
+.sk-4  { font-family: 'Courier Prime'; font-size: 1.6rem; font-weight: 700; top: 7rem; left: 10%; transform: rotate(4deg); color: var(--punch); }
+.sk-5  { font-family: 'Bebas Neue'; font-size: 1.8rem;  top: 1.8rem; right: 4%;  transform: rotate(11deg);  color: var(--muted); }
+.sk-6  { font-family: 'Abril Fatface'; font-size: 1.4rem; top: 9rem;  left: 40%;  transform: rotate(-9deg);  color: var(--fg); }
+.sk-7  { font-family: 'Special Elite'; font-size: 1.0rem; top: 11rem; left: 5%;   transform: rotate(3deg);   color: var(--accent); }
+.sk-8  { font-family: 'Courier Prime'; font-size: 0.75rem; top: 13rem; left: 60%; transform: rotate(-5deg);  color: var(--muted); letter-spacing: 0.2em; }
+.sk-9  { font-family: 'Bebas Neue'; font-size: 3.2rem;  top: 12rem; left: 25%;  transform: rotate(-3deg);  color: var(--surface); -webkit-text-stroke: 1.5px var(--line); }
+.sk-10 { font-family: 'Abril Fatface'; font-size: 0.9rem; top: 16rem; left: 3%;   transform: rotate(6deg);   color: var(--fg); }
+.sk-11 { font-family: 'Bebas Neue'; font-size: 2.0rem;  top: 15rem; right: 2%;  transform: rotate(-17deg); color: var(--accent); }
+.sk-12 { font-family: 'Special Elite'; font-size: 0.8rem; top: 18rem; left: 35%; transform: rotate(12deg);  color: var(--fg); }
+.sk-13 { font-family: 'Courier Prime'; font-size: 1.2rem; font-weight: 700; top: 20rem; left: 12%; transform: rotate(-8deg); color: var(--muted); }
+.sk-14 { font-family: 'Bebas Neue'; font-size: 1.5rem;  top: 22rem; left: 55%;  transform: rotate(7deg);   color: var(--punch); }
+.sk-15 { font-family: 'Abril Fatface'; font-size: 1.8rem; top: 24rem; left: 2%;   transform: rotate(-4deg);  color: var(--fg); }
+
+/* Geometric deco in skills */
+.skills-circle-1 {
+  position: absolute;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  top: 8rem; right: 15%;
+  z-index: 0;
+}
+.skills-circle-2 {
+  position: absolute;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  bottom: 3rem; left: 50%;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ==========================================
+   PROJECTS SECTION
+   ========================================== */
+.projects-section {
+  position: relative;
+  padding: 4rem 2rem 3rem;
+  overflow: visible;
+}
+
+.projects-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.4em;
+  color: var(--muted);
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--muted);
+  display: inline-block;
+  padding-bottom: 0.2rem;
+  margin-bottom: 2rem;
+  transform: rotate(1deg);
+}
+
+.project-card {
+  display: block;
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.project-card-1 {
+  margin-left: 0;
+  transform: rotate(-2deg);
+  max-width: 480px;
+}
+.project-card-2 {
+  margin-left: 20%;
+  transform: rotate(1.5deg);
+  max-width: 420px;
+}
+
+.project-inner {
+  padding: 1.4rem 1.6rem;
+  background: var(--surface);
+  position: relative;
+}
+
+.project-card-1 .project-inner {
+  border: 3px solid var(--line);
+  box-shadow: 6px 6px 0 var(--line);
+}
+.project-card-2 .project-inner {
+  border: 4px solid var(--accent);
+  box-shadow: -5px 5px 0 var(--accent);
+}
+
+.project-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+.project-type {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.project-desc {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+.project-status {
+  position: absolute;
+  top: -0.8rem;
+  right: 1rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  padding: 0.1rem 0.6rem;
+}
+
+/* Overlapping torn-paper element */
+.torn-overlap {
+  position: absolute;
+  right: -1.5rem;
+  top: 1rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: var(--surface);
+  -webkit-text-stroke: 1px var(--line);
+  transform: rotate(90deg);
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+/* ==========================================
+   CAREER TIMELINE
+   ========================================== */
+.career-section {
+  position: relative;
+  padding: 4rem 1.5rem 4rem;
+  overflow: visible;
+  background: var(--surface);
+  margin: 0 -0rem;
+}
+
+.career-section::before {
+  content: 'VITA';
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18rem;
+  color: var(--bg);
+  position: absolute;
+  bottom: -3rem;
+  right: -1rem;
+  line-height: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.career-entry {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.career-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--accent);
+  min-width: 100px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.career-role {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.82rem;
+  color: var(--fg);
+  line-height: 1.65;
+  padding-top: 0.2rem;
+}
+
+.career-1 { transform: rotate(-1deg); margin-left: 2%; }
+.career-2 { transform: rotate(0.5deg); margin-left: 6%; }
+.career-3 { transform: rotate(-0.8deg); margin-left: 3%; }
+
+/* Vertical deco line */
+.career-vline {
+  position: absolute;
+  left: 2rem;
+  top: 1rem;
+  width: 3px;
+  height: calc(100% - 2rem);
+  background: var(--line);
+  z-index: 1;
+}
+
+/* ==========================================
+   CONTACT SECTION
+   ========================================== */
+.contact-section {
+  position: relative;
+  padding: 4rem 1.5rem 3rem;
+  overflow: visible;
+}
+
+.contact-header {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 6rem;
+  color: var(--fg);
+  line-height: 0.85;
+  transform: rotate(-3deg);
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.contact-header span {
+  color: var(--accent);
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 8%;
+  position: relative;
+  z-index: 3;
+}
+
+.contact-link {
+  display: inline-block;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.82rem;
+  color: var(--fg);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  border-bottom: 1.5px solid var(--muted);
+  padding-bottom: 0.1rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.contact-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.contact-link-mail { transform: rotate(-2deg); }
+.contact-link-li   { transform: rotate(1.5deg); margin-left: 2rem; }
+.contact-link-gh   { transform: rotate(-1deg); margin-left: 1rem; }
+
+/* Contact deco circle */
+.contact-deco {
+  position: absolute;
+  right: 5%;
+  top: 2rem;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(5deg);
+  z-index: 2;
+}
+.contact-deco-inner {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  color: var(--fg);
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  transform: rotate(-5deg);
+}
+
+/* ==========================================
+   FOOTER MANIFESTO
+   ========================================== */
+footer {
+  position: relative;
+  background: var(--line);
+  color: var(--bg);
+  padding: 1.5rem 1.5rem;
+  overflow: hidden;
+}
+
+.footer-text {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  line-height: 1.8;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-plus {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+footer::before {
+  content: 'DADA';
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12rem;
+  color: rgba(255,255,255,0.04);
+  position: absolute;
+  right: -1rem;
+  bottom: -2rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
+   ========================================== */
+@media (max-width: 767px) {
+  .letter-G  { font-size: 3.8rem; }
+  .letter-E  { font-size: 2.8rem; }
+  .letter-R1 { font-size: 4.5rem; }
+  .letter-M  { font-size: 3.2rem; }
+  .letter-A  { font-size: 5.5rem; }
+  .letter-N  { font-size: 2.4rem; }
+  .letter-R2 { font-size: 4.2rem; }
+  .letter-A2 { font-size: 2.5rem; }
+  .letter-U  { font-size: 6.0rem; }
+  .letter-H  { font-size: 2.2rem; }
+  .letter-U2 { font-size: 3.5rem; }
+  .letter-T  { font-size: 4.8rem; }
+
+  .hero-bg-number { font-size: 12rem; top: 0; right: -2rem; }
+
+  .manifesto-box {
+    margin-left: 0;
+    font-size: 0.82rem;
+    transform: rotate(-2deg);
+    max-width: 100%;
+  }
+  .anti-label { font-size: 2rem; right: 2%; }
+
+  .bio-text-block { margin-left: 2%; margin-right: 2%; }
+  .career-strip { float: none; width: 100%; max-width: 100%; margin-top: 1rem; margin-right: 0; }
+
+  .stats-section { min-height: 560px; }
+  .stat-1 { left: 2%;  top: 1rem; }
+  .stat-2 { left: 50%; top: 4rem; }
+  .stat-3 { right: 2%; top: 14rem; transform: rotate(-8deg); }
+  .stat-4 { left: 10%; bottom: 1rem; }
+  .stat-1 .stat-num { font-size: 3.8rem; }
+  .stat-4 .stat-num { font-size: 4.5rem; }
+
+  .skills-section { min-height: 900px; }
+  .sk-1  { font-size: 1.8rem; left: 1%; }
+  .sk-2  { font-size: 0.9rem; left: 50%; top: 2.5rem; }
+  .sk-4  { font-size: 1.2rem; }
+  .sk-5  { font-size: 1.4rem; right: 1%; }
+  .sk-6  { font-size: 1.1rem; left: 30%; }
+  .sk-9  { font-size: 2.2rem; left: 15%; }
+  .sk-11 { font-size: 1.6rem; right: 1%; }
+  .sk-14 { left: 40%; }
+  .sk-15 { font-size: 1.4rem; }
+
+  .project-card-2 { margin-left: 5%; }
+  .torn-overlap { display: none; }
+
+  .career-section::before { font-size: 8rem; }
+
+  .contact-header { font-size: 3.5rem; }
+  .contact-deco { width: 80px; height: 80px; }
+  .contact-deco-inner { font-size: 0.75rem; }
+
+  .bio-label { font-size: 3rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================================
+     SVG FILTERS (hidden)
+     ========================================== -->
+<svg class="noise-filter" aria-hidden="true">
+  <defs>
+    <filter id="paper-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ==========================================
+     THEME SWITCHER
+     ========================================== -->
+<div class="theme-switcher" role="group" aria-label="Theme auswählen">
+  <button class="theme-btn active" data-theme="manifesto" title="Manifesto" aria-label="Manifesto theme"></button>
+  <button class="theme-btn" data-theme="berlin-nacht" title="Berlin Nacht" aria-label="Berlin Nacht theme"></button>
+  <button class="theme-btn" data-theme="cabaret" title="Cabaret" aria-label="Cabaret theme"></button>
+  <button class="theme-btn" data-theme="konstrukt" title="Konstrukt" aria-label="Konstrukt theme"></button>
+</div>
+
+<!-- ==========================================
+     HERO
+     ========================================== -->
+<section class="hero" aria-labelledby="hero-name">
+  <div class="hero-bg-number" aria-hidden="true">1</div>
+
+  <!-- Upside-down subtitle -->
+  <span class="hero-title-upside" aria-hidden="true">ANTI · PORTFOLIO · 2026</span>
+
+  <div class="hero-name-block" id="hero-name">
+    <!-- G E R M A N -->
+    <span class="name-line-1" aria-label="German">
+      <span class="letter letter-G" aria-hidden="true">G</span><!--
+   --><span class="letter letter-E" aria-hidden="true">E</span><!--
+   --><span class="letter letter-R1" aria-hidden="true">R</span><!--
+   --><span class="letter letter-M" aria-hidden="true">M</span><!--
+   --><span class="letter letter-A" aria-hidden="true">A</span><!--
+   --><span class="letter letter-N" aria-hidden="true">N</span>
+    </span>
+    <!-- R A U H U T -->
+    <span class="name-line-2" aria-label="Rauhut">
+      <span class="letter letter-R2" aria-hidden="true">R</span><!--
+   --><span class="letter letter-A2" aria-hidden="true">A</span><!--
+   --><span class="letter letter-U" aria-hidden="true">U</span><!--
+   --><span class="letter letter-H" aria-hidden="true">H</span><!--
+   --><span class="letter letter-U2" aria-hidden="true">U</span><!--
+   --><span class="letter letter-T" aria-hidden="true">T</span>
+    </span>
+  </div>
+
+  <div class="hero-title-main">Technical Product Owner &amp; AI Product Builder</div>
+
+  <div class="hero-black-bar" aria-hidden="true"></div>
+  <div class="hero-red-bar" aria-hidden="true"></div>
+  <div class="hero-location" aria-label="Stuttgart, Deutschland">Stuttgart · DE</div>
+
+  <!-- Decorative dots -->
+  <div class="deco-dot" style="width:10px;height:10px;top:15%;left:78%;opacity:0.5;" aria-hidden="true"></div>
+  <div class="deco-dot" style="width:5px;height:5px;top:40%;left:88%;opacity:0.3;" aria-hidden="true"></div>
+  <div class="deco-circle" style="width:60px;height:60px;bottom:22%;left:3%;opacity:0.4;" aria-hidden="true"></div>
+</section>
+
+<!-- ==========================================
+     MANIFESTO BOX
+     ========================================== -->
+<section class="manifesto-section">
+  <div class="manifesto-box" role="note">
+    <span class="manifesto-box-text">DADA IST DADA <span class="manifesto-slash">/</span></span>
+    <span class="manifesto-box-text">DAS PORTFOLIO IST EINE LÜGE <span class="manifesto-slash">/</span></span>
+    <span class="manifesto-box-text">DIE LÜGE IST DIE WAHRHEIT <span class="manifesto-slash">/</span></span>
+    <span class="manifesto-box-text">RAUHUT 2026</span>
+  </div>
+  <div class="anti-label" aria-hidden="true">ANTI-<br>BÜRGER</div>
+
+  <!-- Triangle deco -->
+  <div style="position:absolute;left:70%;top:40%;width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:34px solid var(--line);transform:rotate(-8deg);opacity:0.3;pointer-events:none;" aria-hidden="true"></div>
+</section>
+
+<!-- ==========================================
+     BIO SECTION
+     ========================================== -->
+<section class="bio-section">
+  <div class="bio-label" aria-hidden="true">WHO</div>
+
+  <!-- Career strip floated right, inside bio for overlap -->
+  <div class="career-strip" aria-label="Karriere-Überblick">
+    2025— FREELANCE TPO<br>
+    &amp; AI BUILDER<br>
+    ——————————<br>
+    2015–2025 MERCEDES-BENZ AG<br>
+    TESTER › CONSULTANT › TPO<br>
+    ——————————<br>
+    1993–2015 CONSULTING,<br>
+    SOFTWARE &amp; MANAGEMENT
+  </div>
+
+  <div class="bio-text-block">
+    <p>Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration.</p>
+    <p style="margin-top:0.8rem;">Freelance seit Oktober 2025. Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Software und Management in Deutschland, der Schweiz und Thailand.</p>
+    <span class="bio-education">Diplom-Betriebswirt · BA Stuttgart · Datenverarbeitung</span>
+  </div>
+</section>
+
+<!-- ==========================================
+     STATS — NEWSPAPER CUT-OUTS
+     ========================================== -->
+<section class="stats-section" aria-label="Statistiken">
+  <div class="stats-deco-line" aria-hidden="true"></div>
+
+  <div class="stat-cutout stat-1">
+    <span class="stat-num">10+</span>
+    <span class="stat-label">Jahre Corporate</span>
+  </div>
+
+  <div class="stat-cutout stat-2">
+    <span class="stat-num">466</span>
+    <span class="stat-label">Tests Shipped</span>
+  </div>
+
+  <div class="stat-cutout stat-3">
+    <span class="stat-num">12+</span>
+    <span class="stat-label">KI-Agenten gebaut</span>
+  </div>
+
+  <div class="stat-cutout stat-4">
+    <span class="stat-num">95</span>
+    <span class="stat-label">API Endpoints</span>
+  </div>
+
+  <!-- Deco elements -->
+  <div class="deco-dot" style="width:18px;height:18px;top:45%;left:48%;opacity:0.25;" aria-hidden="true"></div>
+  <div style="position:absolute;top:30%;left:80%;width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:26px solid var(--accent);transform:rotate(20deg);opacity:0.4;pointer-events:none;" aria-hidden="true"></div>
+</section>
+
+<!-- ==========================================
+     SKILLS — SCATTERED WORD ART
+     ========================================== -->
+<section class="skills-section" aria-label="Fähigkeiten">
+  <span class="skills-header" aria-hidden="true">·· SKILLS ··</span>
+
+  <span class="skill-word sk-1"  aria-hidden="true">AI PRODUCT</span>
+  <span class="skill-word sk-2"  aria-hidden="true">Multi-Agent</span>
+  <span class="skill-word sk-3"  aria-hidden="true">LLM INTEGRATION</span>
+  <span class="skill-word sk-4"  aria-hidden="true">FULL-STACK</span>
+  <span class="skill-word sk-5"  aria-hidden="true">DevOps</span>
+  <span class="skill-word sk-6"  aria-hidden="true">Architectures</span>
+  <span class="skill-word sk-7"  aria-hidden="true">Requirements Mgmt</span>
+  <span class="skill-word sk-8"  aria-hidden="true">TEST AUTOMATION</span>
+  <span class="skill-word sk-9"  aria-hidden="true">TPO</span>
+  <span class="skill-word sk-10" aria-hidden="true">Project Management</span>
+  <span class="skill-word sk-11" aria-hidden="true">ENTERPRISE</span>
+  <span class="skill-word sk-12" aria-hidden="true">Consulting</span>
+  <span class="skill-word sk-13" aria-hidden="true">Full-Stack Eng.</span>
+  <span class="skill-word sk-14" aria-hidden="true">KI-BUILDER</span>
+  <span class="skill-word sk-15" aria-hidden="true">Automotive</span>
+
+  <!-- Hidden accessible list for screen readers -->
+  <ul style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+    <li>AI Product Development</li>
+    <li>Multi-Agent Architectures</li>
+    <li>LLM Integration</li>
+    <li>Technical Product Ownership</li>
+    <li>Full-Stack Engineering</li>
+    <li>Requirements Management</li>
+    <li>Project Management</li>
+    <li>Test Automation</li>
+    <li>DevOps</li>
+    <li>Enterprise Consulting</li>
+  </ul>
+
+  <div class="skills-circle-1" aria-hidden="true"></div>
+  <div class="skills-circle-2" aria-hidden="true"></div>
+</section>
+
+<!-- ==========================================
+     PROJECTS
+     ========================================== -->
+<section class="projects-section" aria-label="Projekte">
+  <span class="projects-label">·· PROJEKTE ··</span>
+  <div class="torn-overlap" aria-hidden="true">01</div>
+
+  <article class="project-card project-card-1">
+    <div class="project-inner">
+      <span class="project-status">AKTIV</span>
+      <span class="project-name">neckarshore.ai</span>
+      <span class="project-type">KI-Produktentwicklung · Freelance Studio</span>
+      <p class="project-desc">KI-beschleunigte Softwareentwicklung. Multi-Agent-Systeme, LLM-Integration, technisches Product Ownership für moderne Softwareteams.</p>
+    </div>
+  </article>
+
+  <article class="project-card project-card-2">
+    <div class="project-inner">
+      <span class="project-name">Obsidian Vault Autopilot</span>
+      <span class="project-type">Open Source Plugin · Community</span>
+      <p class="project-desc">Automatisierte Vault-Verwaltung für Obsidian. KI-gestützte Notizorganisation, automatisches Tagging und Verlinkung.</p>
+    </div>
+  </article>
+
+  <!-- Deco line across -->
+  <div style="position:absolute;right:-2rem;top:50%;width:30%;height:3px;background:var(--accent);transform:rotate(-5deg);opacity:0.5;pointer-events:none;" aria-hidden="true"></div>
+</section>
+
+<!-- ==========================================
+     CAREER
+     ========================================== -->
+<section class="career-section" aria-label="Karriere">
+  <div class="career-vline" aria-hidden="true"></div>
+
+  <div class="career-entry career-1">
+    <span class="career-year">2025—</span>
+    <span class="career-role">
+      <strong>Freelance TPO &amp; AI Builder</strong><br>
+      neckarshore.ai · Stuttgart
+    </span>
+  </div>
+
+  <div class="career-entry career-2">
+    <span class="career-year">2015–2025</span>
+    <span class="career-role">
+      <strong>Mercedes-Benz AG</strong><br>
+      Tester → Consultant → Technical Product Owner<br>
+      Stuttgart · 10 Jahre Automotive
+    </span>
+  </div>
+
+  <div class="career-entry career-3">
+    <span class="career-year">1993–2015</span>
+    <span class="career-role">
+      <strong>Consulting, Software &amp; Management</strong><br>
+      Deutschland · Schweiz · Thailand<br>
+      23 Jahre internationale Karriere
+    </span>
+  </div>
+</section>
+
+<!-- ==========================================
+     CONTACT
+     ========================================== -->
+<section class="contact-section" aria-label="Kontakt">
+  <div class="contact-header">KON<span>T</span><br>AKT</div>
+
+  <div class="contact-deco" aria-hidden="true">
+    <span class="contact-deco-inner">FREE-<br>LANCE<br>SEIT<br>2025</span>
+  </div>
+
+  <div class="contact-links">
+    <a href="mailto:german@rauhut.com" class="contact-link contact-link-mail">german@rauhut.com</a>
+    <a href="https://linkedin.com/in/german-rauhut" class="contact-link contact-link-li" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+    <a href="https://github.com/GmanFooFoo" class="contact-link contact-link-gh" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+  </div>
+
+  <!-- Deco noise bars -->
+  <div style="position:absolute;bottom:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--line) 0,var(--line) 8px,transparent 8px,transparent 16px);opacity:0.25;pointer-events:none;" aria-hidden="true"></div>
+</section>
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<footer role="contentinfo">
+  <p class="footer-text">
+    WEDER SINN NOCH UNSINN
+    <span class="footer-plus"> ++ </span>
+    RAUHUT.COM
+    <span class="footer-plus"> ++ </span>
+    2026
+    <span class="footer-plus"> ++ </span>
+    ANTI-PORTFOLIO
+    <span class="footer-plus"> ++ </span>
+    TROTZDEM PERFEKT
+  </p>
+</footer>
+
+<!-- ==========================================
+     THEME SWITCHER SCRIPT
+     ========================================== -->
+<script>
+(function () {
+  var STORAGE_KEY = 'rauhut-dada-theme';
+  var VALID_THEMES = ['manifesto', 'berlin-nacht', 'cabaret', 'konstrukt'];
+  var html = document.documentElement;
+
+  /* Apply saved theme immediately (already set in HTML attr, this syncs buttons) */
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && VALID_THEMES.indexOf(saved) !== -1 && saved !== html.getAttribute('data-theme')) {
+    html.setAttribute('data-theme', saved);
+  }
+
+  function setActiveButton(theme) {
+    document.querySelectorAll('.theme-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+    });
+  }
+
+  /* Sync button state on load */
+  setActiveButton(html.getAttribute('data-theme'));
+
+  document.querySelectorAll('.theme-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var theme = btn.getAttribute('data-theme');
+      var current = html.getAttribute('data-theme');
+      if (theme === current) return;
+
+      html.classList.add('switching');
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem(STORAGE_KEY, theme);
+      setActiveButton(theme);
+
+      setTimeout(function () {
+        html.classList.remove('switching');
+      }, 300);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

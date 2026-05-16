@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="vermilion">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>German Rauhut — Technical Product Owner & AI Product Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   THEME DEFINITIONS
+   ============================================================ */
+html[data-theme="vermilion"] {
+  --bg: #F8F2E4;
+  --fg: #1A0808;
+  --surface: #F0E6D0;
+  --accent: #8B1A1A;
+  --punch: #C8920A;
+  --muted: #8A6848;
+  --line: #C8920A;
+}
+html[data-theme="lapis"] {
+  --bg: #F4F0E8;
+  --fg: #0A1020;
+  --surface: #E8EAF4;
+  --accent: #1A3A8B;
+  --punch: #C8920A;
+  --muted: #5A6880;
+  --line: #C8920A;
+}
+html[data-theme="jade-sultanate"] {
+  --bg: #EFF5EE;
+  --fg: #0A1A10;
+  --surface: #E2F0E4;
+  --accent: #1A6A30;
+  --punch: #C8920A;
+  --muted: #5A7A60;
+  --line: #C8920A;
+}
+
+/* ============================================================
+   TRANSITION CLASS (no FOUC)
+   ============================================================ */
+html.switching * {
+  transition: background-color 0.28s ease, color 0.28s ease,
+              border-color 0.28s ease, outline-color 0.28s ease,
+              fill 0.28s ease, stroke 0.28s ease, box-shadow 0.28s ease !important;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 19.2px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   THEME SWITCHER
+   ============================================================ */
+.theme-switcher {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 1000;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  padding: 0.35rem 0.55rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+
+.theme-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 2px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border: 2px solid var(--fg); }
+
+.theme-btn[data-theme="vermilion"] {
+  background: linear-gradient(135deg, #F8F2E4 50%, #8B1A1A 50%);
+}
+.theme-btn[data-theme="lapis"] {
+  background: linear-gradient(135deg, #F4F0E8 50%, #1A3A8B 50%);
+}
+.theme-btn[data-theme="jade-sultanate"] {
+  background: linear-gradient(135deg, #EFF5EE 50%, #1A6A30 50%);
+}
+
+/* ============================================================
+   GEOMETRIC PATTERN (8-pointed star band)
+   ============================================================ */
+.star-band {
+  width: 100%;
+  height: 48px;
+  background-image:
+    repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      var(--accent) 0deg 45deg,
+      transparent 45deg 90deg
+    );
+  background-size: 40px 40px;
+  opacity: 0.55;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background-color: var(--accent);
+  position: relative;
+  overflow: hidden;
+  padding: 3.5rem 2rem 0;
+  text-align: center;
+}
+
+/* Star-tile background inside hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(0,0,0,0.22) 0deg 45deg,
+      transparent 45deg 90deg
+    );
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* Arabic rosette SVG */
+.rosette-wrap {
+  margin: 0 auto 1.8rem;
+  width: 180px;
+  height: 180px;
+  animation: rosetteSpin 60s linear infinite;
+}
+
+@keyframes rosetteSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Manuscript-style name */
+.hero-name-bar {
+  margin: 0 auto 0.5rem;
+}
+
+.manuscript-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.22rem;
+  justify-content: center;
+}
+.manuscript-rule .rule-thick {
+  height: 3px;
+  flex: 1;
+  max-width: 120px;
+  background: var(--punch);
+}
+.manuscript-rule .rule-thin {
+  height: 1px;
+  flex: 1;
+  max-width: 80px;
+  background: var(--punch);
+  opacity: 0.6;
+}
+.manuscript-rule .diamond {
+  color: var(--punch);
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.hero-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 5vw, 2.8rem);
+  color: var(--punch);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  line-height: 1.15;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: #F0E6D0;
+  letter-spacing: 0.12em;
+  margin-top: 0.6rem;
+  opacity: 0.92;
+}
+
+.hero-location {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  color: var(--punch);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+  opacity: 0.85;
+}
+
+/* Contact bar inside hero */
+.hero-contact {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.8rem;
+  margin: 1.5rem auto 0;
+  padding-bottom: 1.6rem;
+}
+
+.hero-contact a {
+  color: var(--punch);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  opacity: 0.88;
+  transition: opacity 0.2s;
+}
+.hero-contact a:hover { opacity: 1; text-decoration: underline; }
+
+/* ============================================================
+   MUQARNAS — stepped arch transition
+   ============================================================ */
+.muqarnas {
+  width: 100%;
+  height: 52px;
+  background-color: var(--accent);
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    3.33% 100%, 3.33% 55%,
+    6.66% 55%, 6.66% 30%,
+    10% 30%, 10% 55%,
+    13.33% 55%, 13.33% 75%,
+    16.66% 75%, 16.66% 45%,
+    20% 45%, 20% 20%,
+    23.33% 20%, 23.33% 45%,
+    26.66% 45%, 26.66% 65%,
+    30% 65%, 30% 35%,
+    33.33% 35%, 33.33% 10%,
+    36.66% 10%, 36.66% 35%,
+    40% 35%, 40% 60%,
+    43.33% 60%, 43.33% 40%,
+    46.66% 40%, 46.66% 20%,
+    50% 20%, 50% 40%,
+    53.33% 40%, 53.33% 60%,
+    56.66% 60%, 56.66% 35%,
+    60% 35%, 60% 10%,
+    63.33% 10%, 63.33% 35%,
+    66.66% 35%, 66.66% 65%,
+    70% 65%, 70% 45%,
+    73.33% 45%, 73.33% 20%,
+    76.66% 20%, 76.66% 45%,
+    80% 45%, 80% 75%,
+    83.33% 75%, 83.33% 55%,
+    86.66% 55%, 86.66% 30%,
+    90% 30%, 90% 55%,
+    93.33% 55%, 93.33% 100%,
+    100% 100%, 100% 0%
+  );
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   ORNAMENT BAND (between sections)
+   ============================================================ */
+.ornament-band {
+  width: 100%;
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent)   0px,  var(--accent)   10px,
+    transparent     10px, transparent     18px,
+    var(--punch)    18px, var(--punch)    28px,
+    transparent     28px, transparent     36px,
+    var(--accent)   36px, var(--accent)   46px,
+    transparent     46px, transparent     54px
+  );
+  opacity: 0.75;
+  margin: 0;
+}
+
+/* ============================================================
+   MAIN CONTENT WRAPPER
+   ============================================================ */
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================================================
+   SECTION HEADING (bismillah-style)
+   ============================================================ */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2.8rem 0 1.6rem;
+  text-align: center;
+}
+
+.section-title::before,
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(
+    to var(--dir, right),
+    transparent 0%,
+    var(--line) 40%,
+    var(--line) 100%
+  );
+}
+.section-title::before { --dir: right; }
+.section-title::after  { --dir: left; }
+
+.section-title-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.section-title-inner .dia {
+  color: var(--punch);
+  font-size: 0.75rem;
+}
+
+.section-title h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 400;
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ============================================================
+   ILLUMINATED PANEL (card with corner ornaments)
+   ============================================================ */
+.panel {
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  outline: 1px solid var(--punch);
+  outline-offset: -7px;
+  position: relative;
+  padding: 1.8rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Corner ornaments */
+.panel::before,
+.panel::after {
+  content: '◆';
+  position: absolute;
+  color: var(--punch);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+.panel::before { top: 5px; left: 5px; }
+.panel::after  { bottom: 5px; right: 5px; }
+
+.panel-corner-tr,
+.panel-corner-bl {
+  position: absolute;
+  color: var(--punch);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+.panel-corner-tr { top: 5px; right: 5px; }
+.panel-corner-bl { bottom: 5px; left: 5px; }
+
+/* Arch-style section entrance */
+.arch-entrance {
+  position: relative;
+  margin-bottom: 0;
+}
+.arch-entrance::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 36px;
+  background: var(--accent);
+  clip-path: polygon(0% 100%, 4% 0%, 50% 28%, 96% 0%, 100% 100%);
+  margin-bottom: -1px;
+}
+
+/* ============================================================
+   BIO SECTION
+   ============================================================ */
+.bio-text {
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--fg);
+}
+
+.bio-text p + p { margin-top: 0.8rem; }
+
+.bio-edu {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-style: italic;
+}
+.bio-edu::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--punch);
+}
+
+/* ============================================================
+   STATS MEDALLIONS
+   ============================================================ */
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.medallion {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 3px solid var(--accent);
+  box-shadow:
+    0 0 0 6px var(--bg),
+    0 0 0 9px var(--punch),
+    0 0 0 13px var(--bg),
+    0 0 0 16px var(--accent);
+  text-align: center;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.medallion-number {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.medallion-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.2rem;
+  line-height: 1.3;
+  max-width: 90px;
+  text-align: center;
+}
+
+/* ============================================================
+   SKILLS SECTION
+   ============================================================ */
+.skills-group {
+  margin-bottom: 1rem;
+}
+
+.skills-group-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--punch);
+  margin-bottom: 0.65rem;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  display: inline-block;
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  color: var(--fg);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.22rem 0.75rem;
+  position: relative;
+}
+
+/* Diamond end-caps on skill tags */
+.skill-tag::before,
+.skill-tag::after {
+  content: '◆';
+  font-size: 0.68rem;
+  color: var(--punch);
+  vertical-align: middle;
+  margin: 0 0.2rem;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  outline: 1px solid var(--line);
+  outline-offset: -5px;
+  padding: 1.3rem 1.4rem;
+  position: relative;
+}
+
+.project-card::before {
+  content: '◆';
+  position: absolute;
+  top: 5px; left: 5px;
+  color: var(--punch);
+  font-size: 0.68rem;
+}
+.project-card::after {
+  content: '◆';
+  position: absolute;
+  bottom: 5px; right: 5px;
+  color: var(--punch);
+  font-size: 0.68rem;
+}
+
+.project-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.project-desc {
+  font-size: 0.8rem;
+  color: var(--fg);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.project-status {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--punch);
+  font-style: italic;
+}
+
+/* ============================================================
+   CAREER SCROLL
+   ============================================================ */
+.scroll-wrap {
+  position: relative;
+  margin: 0.5rem 0;
+}
+
+/* Scroll rollers */
+.scroll-roller {
+  height: 22px;
+  background: linear-gradient(
+    to bottom,
+    var(--punch) 0%,
+    var(--accent) 40%,
+    var(--punch) 70%,
+    var(--muted) 100%
+  );
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-roller::before,
+.scroll-roller::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  background: var(--punch);
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.scroll-roller::before { left: -8px; }
+.scroll-roller::after  { right: -8px; }
+
+.scroll-body {
+  background: var(--surface);
+  padding: 1.6rem 2rem;
+  border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  position: relative;
+  /* Subtle parchment texture via gradient */
+  background-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(200,146,10,0.03) 50%,
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(139,26,26,0.04) 28px,
+      rgba(139,26,26,0.04) 29px
+    );
+}
+
+.career-entry {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.career-entry:last-child { border-bottom: none; }
+
+.career-period {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--punch);
+  padding-top: 0.15rem;
+  line-height: 1.5;
+}
+
+.career-body {}
+
+.career-role {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.career-desc {
+  font-size: 0.78rem;
+  color: var(--fg);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem 1.5rem;
+  position: relative;
+}
+
+.footer-rosette {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 0.8rem;
+  opacity: 0.4;
+}
+
+.footer-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.footer-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  html { font-size: 17px; }
+
+  .hero { padding: 3rem 1.2rem 0; }
+  .rosette-wrap { width: 130px; height: 130px; }
+
+  .stats-grid { gap: 1rem; }
+  .medallion { width: 115px; height: 115px; }
+  .medallion-number { font-size: 1.2rem; }
+
+  .projects-grid { grid-template-columns: 1fr; }
+
+  .career-entry {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .theme-switcher { top: 0.7rem; right: 0.7rem; }
+
+  .panel { padding: 1.3rem 1.2rem; }
+  .content { padding: 0 1rem; }
+
+  .scroll-body { padding: 1.2rem 1.2rem; }
+}
+
+/* ============================================================
+   SECTION SPACING
+   ============================================================ */
+section { margin-bottom: 0; }
+.section-pad { padding: 2rem 0 1rem; }
+
+/* Reveal animation on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* custom tooltip below */
+.theme-btn { position: relative; }
+.theme-btn::after {
+  content: attr(title);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.78);
+  color: #fff;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 3px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 500;
+}
+.theme-btn:hover::after { opacity: 1; }
+</style>
+</head>
+
+<body>
+
+<!-- THEME SWITCHER -->
+<div class="theme-switcher" role="group" aria-label="Choose theme">
+  <button class="theme-btn active" data-theme="vermilion" title="Vermilion" aria-pressed="true"></button>
+  <button class="theme-btn" data-theme="lapis" title="Lapis" aria-pressed="false"></button>
+  
+  <button class="theme-btn" data-theme="jade-sultanate" title="Jade Sultanate" aria-pressed="false"></button>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero" role="banner">
+  <div class="hero-inner">
+
+    <!-- Arabesque rosette SVG (12-fold symmetric) -->
+    <div class="rosette-wrap" aria-hidden="true">
+      <svg viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg" width="180" height="180">
+        <defs>
+          <g id="rosette-petal">
+            <!-- Outer pointed petal -->
+            <ellipse cx="0" cy="-58" rx="9" ry="26" fill="var(--punch)" opacity="0.85"/>
+            <!-- Inner smaller petal -->
+            <ellipse cx="0" cy="-42" rx="5" ry="16" fill="#F0E6D0" opacity="0.35"/>
+          </g>
+          <g id="rosette-mid">
+            <ellipse cx="0" cy="-32" rx="6" ry="14" fill="var(--punch)" opacity="0.5"/>
+          </g>
+          <!-- 8-pointed inner star points -->
+          <g id="star-point">
+            <polygon points="0,-22 3,-12 0,-6 -3,-12"
+                     fill="var(--punch)" opacity="0.9"/>
+          </g>
+        </defs>
+
+        <!-- 12 outer petals -->
+        <use href="#rosette-petal" transform="rotate(0)"/>
+        <use href="#rosette-petal" transform="rotate(30)"/>
+        <use href="#rosette-petal" transform="rotate(60)"/>
+        <use href="#rosette-petal" transform="rotate(90)"/>
+        <use href="#rosette-petal" transform="rotate(120)"/>
+        <use href="#rosette-petal" transform="rotate(150)"/>
+        <use href="#rosette-petal" transform="rotate(180)"/>
+        <use href="#rosette-petal" transform="rotate(210)"/>
+        <use href="#rosette-petal" transform="rotate(240)"/>
+        <use href="#rosette-petal" transform="rotate(270)"/>
+        <use href="#rosette-petal" transform="rotate(300)"/>
+        <use href="#rosette-petal" transform="rotate(330)"/>
+
+        <!-- 12 mid petals (offset 15deg) -->
+        <use href="#rosette-mid" transform="rotate(15)"/>
+        <use href="#rosette-mid" transform="rotate(45)"/>
+        <use href="#rosette-mid" transform="rotate(75)"/>
+        <use href="#rosette-mid" transform="rotate(105)"/>
+        <use href="#rosette-mid" transform="rotate(135)"/>
+        <use href="#rosette-mid" transform="rotate(165)"/>
+        <use href="#rosette-mid" transform="rotate(195)"/>
+        <use href="#rosette-mid" transform="rotate(225)"/>
+        <use href="#rosette-mid" transform="rotate(255)"/>
+        <use href="#rosette-mid" transform="rotate(285)"/>
+        <use href="#rosette-mid" transform="rotate(315)"/>
+        <use href="#rosette-mid" transform="rotate(345)"/>
+
+        <!-- 8-pointed inner star -->
+        <use href="#star-point" transform="rotate(0)"/>
+        <use href="#star-point" transform="rotate(45)"/>
+        <use href="#star-point" transform="rotate(90)"/>
+        <use href="#star-point" transform="rotate(135)"/>
+        <use href="#star-point" transform="rotate(180)"/>
+        <use href="#star-point" transform="rotate(225)"/>
+        <use href="#star-point" transform="rotate(270)"/>
+        <use href="#star-point" transform="rotate(315)"/>
+
+        <!-- Outer ring -->
+        <circle cx="0" cy="0" r="88" fill="none" stroke="var(--punch)" stroke-width="1.5" opacity="0.6"/>
+        <!-- Second ring -->
+        <circle cx="0" cy="0" r="76" fill="none" stroke="var(--punch)" stroke-width="0.8" opacity="0.35"/>
+
+        <!-- Center jewel -->
+        <circle cx="0" cy="0" r="10" fill="var(--punch)" opacity="0.9"/>
+        <circle cx="0" cy="0" r="6"  fill="var(--accent)" opacity="0.8"/>
+        <circle cx="0" cy="0" r="3"  fill="var(--punch)" opacity="1"/>
+      </svg>
+    </div>
+
+    <!-- Manuscript name treatment -->
+    <div class="hero-name-bar">
+      <div class="manuscript-rule">
+        <div class="rule-thick"></div>
+        <div class="rule-thin"></div>
+        <span class="diamond">◆</span>
+        <div class="rule-thin"></div>
+        <div class="rule-thick"></div>
+      </div>
+
+      <h1 class="hero-name">German Rauhut</h1>
+
+      <div class="manuscript-rule" style="margin-top:0.22rem;">
+        <div class="rule-thick"></div>
+        <div class="rule-thin"></div>
+        <span class="diamond">◆</span>
+        <div class="rule-thin"></div>
+        <div class="rule-thick"></div>
+      </div>
+    </div>
+
+    <p class="hero-title">Technical Product Owner &amp; AI Product Builder</p>
+    <p class="hero-location">Stuttgart, Deutschland</p>
+
+    <nav class="hero-contact" aria-label="Contact">
+      <a href="mailto:german@rauhut.com">german@rauhut.com</a>
+      <a href="https://linkedin.com/in/german-rauhut" target="_blank" rel="noopener">linkedin.com/in/german-rauhut</a>
+      <a href="https://github.com/GmanFooFoo" target="_blank" rel="noopener">github.com/GmanFooFoo</a>
+    </nav>
+  </div>
+</header>
+
+<!-- MUQARNAS transition -->
+<div class="muqarnas" aria-hidden="true"></div>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<main>
+<div class="content">
+
+  <section class="section-pad reveal" aria-labelledby="about-heading">
+    <div class="section-title">
+      <div class="section-title-inner">
+        <span class="dia">◆</span>
+        <h2 id="about-heading">Vita</h2>
+        <span class="dia">◆</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="panel-corner-tr">◆</span>
+      <span class="panel-corner-bl">◆</span>
+      <div class="bio-text">
+        <p>Über 10 Jahre Erfahrung in Automotive und KI-Produktentwicklung. Technisches Product Ownership, Multi-Agent-Architekturen und LLM-Integration. Freelance seit Oktober 2025.</p>
+        <p>Davor 10 Jahre bei Mercedes-Benz als Tester, Consultant und Technical Product Owner. Davor 23 Jahre in Consulting, Software und Management in Deutschland, der Schweiz und Thailand.</p>
+      </div>
+      <div class="bio-edu">
+        Diplom-Betriebswirt &middot; BA Stuttgart &mdash; Datenverarbeitung
+      </div>
+    </div>
+  </section>
+
+</div><!-- /.content -->
+
+<!-- Ornament band -->
+<div class="ornament-band" aria-hidden="true"></div>
+
+<!-- ============================================================
+     STATS MEDALLIONS
+     ============================================================ -->
+<div class="content">
+
+  <section class="section-pad reveal" aria-labelledby="stats-heading">
+    <div class="section-title">
+      <div class="section-title-inner">
+        <span class="dia">◆</span>
+        <h2 id="stats-heading">Kennzahlen</h2>
+        <span class="dia">◆</span>
+      </div>
+    </div>
+
+    <div class="stats-grid" role="list">
+      <div class="medallion" role="listitem">
+        <div class="medallion-number">10+</div>
+        <div class="medallion-label">Jahre Corporate</div>
+      </div>
+      <div class="medallion" role="listitem">
+        <div class="medallion-number">466</div>
+        <div class="medallion-label">Tests Shipped</div>
+      </div>
+      <div class="medallion" role="listitem">
+        <div class="medallion-number">12+</div>
+        <div class="medallion-label">KI-Agenten gebaut</div>
+      </div>
+      <div class="medallion" role="listitem">
+        <div class="medallion-number">95</div>
+        <div class="medallion-label">API Endpoints</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Ornament band -->
+<div class="ornament-band" aria-hidden="true"></div>
+
+<!-- ============================================================
+     SKILLS
+     ============================================================ -->
+<div class="content">
+
+  <section class="section-pad reveal" aria-labelledby="skills-heading">
+    <div class="section-title">
+      <div class="section-title-inner">
+        <span class="dia">◆</span>
+        <h2 id="skills-heading">Kompetenzen</h2>
+        <span class="dia">◆</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="panel-corner-tr">◆</span>
+      <span class="panel-corner-bl">◆</span>
+
+      <div class="skills-group">
+        <div class="skills-group-title">AI &amp; Produktentwicklung</div>
+        <div class="skills-list">
+          <span class="skill-tag">AI Product Development</span>
+          <span class="skill-tag">Multi-Agent Architectures</span>
+          <span class="skill-tag">LLM Integration</span>
+          <span class="skill-tag">Technical Product Ownership</span>
+          <span class="skill-tag">Full-Stack Engineering</span>
+        </div>
+      </div>
+
+      <div class="skills-group" style="margin-top:1.2rem;">
+        <div class="skills-group-title">Management &amp; Methodik</div>
+        <div class="skills-list">
+          <span class="skill-tag">Requirements Management</span>
+          <span class="skill-tag">Project Management</span>
+          <span class="skill-tag">Test Automation</span>
+          <span class="skill-tag">DevOps</span>
+          <span class="skill-tag">Enterprise Consulting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Ornament band -->
+<div class="ornament-band" aria-hidden="true"></div>
+
+<!-- ============================================================
+     PROJECTS
+     ============================================================ -->
+<div class="content">
+
+  <section class="section-pad reveal" aria-labelledby="projects-heading">
+    <div class="section-title">
+      <div class="section-title-inner">
+        <span class="dia">◆</span>
+        <h2 id="projects-heading">Projekte</h2>
+        <span class="dia">◆</span>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-name">neckarshore.ai</div>
+        <div class="project-desc">KI-beschleunigte Softwareentwicklung. Produkte, Agenten und Infrastruktur.</div>
+        <div class="project-status">Aktiv</div>
+      </div>
+      <div class="project-card">
+        <div class="project-name">Obsidian Vault Autopilot</div>
+        <div class="project-desc">Open Source Plugin — automatisierte KI-gestützte Vault-Verwaltung für Obsidian.</div>
+        <div class="project-status">Open Source</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Ornament band -->
+<div class="ornament-band" aria-hidden="true"></div>
+
+<!-- ============================================================
+     CAREER SCROLL
+     ============================================================ -->
+<div class="content">
+
+  <section class="section-pad reveal" aria-labelledby="career-heading">
+    <div class="section-title">
+      <div class="section-title-inner">
+        <span class="dia">◆</span>
+        <h2 id="career-heading">Laufbahn</h2>
+        <span class="dia">◆</span>
+      </div>
+    </div>
+
+    <div class="scroll-wrap">
+      <!-- Top roller -->
+      <div class="scroll-roller" role="presentation" aria-hidden="true"></div>
+
+      <!-- Scroll body -->
+      <div class="scroll-body">
+        <div class="career-entry">
+          <div class="career-period">2025 —<br>heute</div>
+          <div class="career-body">
+            <div class="career-role">Freelance TPO &amp; AI Builder</div>
+            <div class="career-desc">Technical Product Owner und AI Builder. Neckarshore AI — KI-beschleunigte Produktentwicklung. Multi-Agent-Architekturen, LLM-Integration, Full-Stack Engineering.</div>
+          </div>
+        </div>
+
+        <div class="career-entry">
+          <div class="career-period">2015 — 2025</div>
+          <div class="career-body">
+            <div class="career-role">Mercedes-Benz AG</div>
+            <div class="career-desc">10 Jahre in unterschiedlichen Rollen: Tester, Consultant, Technical Product Owner. Softwareentwicklung und Qualitätssicherung im Automotive-Umfeld.</div>
+          </div>
+        </div>
+
+        <div class="career-entry">
+          <div class="career-period">1993 — 2015</div>
+          <div class="career-body">
+            <div class="career-role">Consulting, Software &amp; Management</div>
+            <div class="career-desc">23 Jahre in Consulting, Softwareentwicklung und Management. Tätigkeiten in Deutschland, der Schweiz und Thailand.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom roller -->
+      <div class="scroll-roller" role="presentation" aria-hidden="true"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Final geometric star band -->
+<div class="star-band" aria-hidden="true" style="margin-top: 2rem;"></div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <!-- Small rosette mark -->
+  <div class="footer-rosette" aria-hidden="true">
+    <svg viewBox="-40 -40 80 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <g id="fp">
+          <ellipse cx="0" cy="-24" rx="4" ry="10" fill="var(--muted)" opacity="0.7"/>
+        </g>
+      </defs>
+      <use href="#fp" transform="rotate(0)"/>
+      <use href="#fp" transform="rotate(30)"/>
+      <use href="#fp" transform="rotate(60)"/>
+      <use href="#fp" transform="rotate(90)"/>
+      <use href="#fp" transform="rotate(120)"/>
+      <use href="#fp" transform="rotate(150)"/>
+      <use href="#fp" transform="rotate(180)"/>
+      <use href="#fp" transform="rotate(210)"/>
+      <use href="#fp" transform="rotate(240)"/>
+      <use href="#fp" transform="rotate(270)"/>
+      <use href="#fp" transform="rotate(300)"/>
+      <use href="#fp" transform="rotate(330)"/>
+      <circle cx="0" cy="0" r="35" fill="none" stroke="var(--muted)" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="0" cy="0" r="6" fill="var(--muted)" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="footer-name">German Rauhut &nbsp;◆&nbsp; Stuttgart</div>
+  <div class="footer-note">Technical Product Owner &amp; AI Product Builder &mdash; Neckarshore AI</div>
+</footer>
+
+</main>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var STORAGE_KEY = 'rauhut-damascus-theme';
+  var THEMES = ['vermilion', 'lapis', 'jade-sultanate'];
+  var html = document.documentElement;
+
+  /* ---- Apply saved theme immediately (before paint) ---- */
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved && THEMES.indexOf(saved) !== -1) {
+    html.setAttribute('data-theme', saved);
+  }
+
+  /* ---- Theme switcher ---- */
+  function applyTheme(theme) {
+    html.classList.add('switching');
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+
+    /* Update button states */
+    var btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(function (btn) {
+      var isActive = btn.getAttribute('data-theme') === theme;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+
+    setTimeout(function () {
+      html.classList.remove('switching');
+    }, 300);
+  }
+
+  /* Wire up buttons after DOM ready */
+  document.addEventListener('DOMContentLoaded', function () {
+    var btns = document.querySelectorAll('.theme-btn');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyTheme(btn.getAttribute('data-theme'));
+      });
+    });
+
+    /* Set initial active state from current theme */
+    var current = html.getAttribute('data-theme') || 'vermilion';
+    btns.forEach(function (btn) {
+      var isActive = btn.getAttribute('data-theme') === current;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+
+    /* ---- Scroll reveal ---- */
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealEls.forEach(function (el) { observer.observe(el); });
+    } else {
+      /* Fallback: show everything immediately */
+      revealEls.forEach(function (el) { el.classList.add('visible'); });
+    }
+  });
+}());
+</script>
+
+</body>
+</html>
