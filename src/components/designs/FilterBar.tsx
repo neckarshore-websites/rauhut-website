@@ -27,7 +27,7 @@ export default function FilterBar({
             key={tag}
             onClick={() => onTagChange(tag)}
             className={`
-              font-mono text-[0.7rem] px-3 py-1.5 rounded border
+              font-mono text-xs px-3 py-1.5 rounded border
               transition-colors capitalize tracking-wide
               ${
                 activeTag === tag
@@ -44,7 +44,7 @@ export default function FilterBar({
         <button
           onClick={() => setTourOpen(true)}
           className="
-            ml-auto font-mono text-[0.7rem] px-3 py-1.5 rounded border
+            ml-auto font-mono text-xs px-3 py-1.5 rounded border
             border-white/20 bg-[#CC1A00] text-white
             hover:bg-[#AA1400] transition-colors
             animate-[shuffle-pulse_2.8s_ease-in-out_infinite]

@@ -144,7 +144,7 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
             <button
               key={s}
               onClick={() => setSpeed(s)}
-              className={`font-mono text-[0.65rem] px-2 py-0.5 rounded border transition-colors ${
+              className={`font-mono text-xs px-2 py-0.5 rounded border transition-colors ${
                 speed === s
                   ? "border-white/40 text-white bg-white/10"
                   : "border-white/10 text-white/40 hover:border-white/30"
@@ -159,7 +159,7 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
             href={`/designs/rauhut-${current.slug}.html`}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[0.65rem] text-white/50 hover:text-white no-underline px-2 py-0.5"
+            className="font-mono text-xs text-white/50 hover:text-white no-underline px-2 py-0.5"
           >
             ↗
           </a>
@@ -168,7 +168,7 @@ export default function ShuffleTour({ designs, onClose }: ShuffleTourProps) {
           <button
             onClick={onClose}
             aria-label="Close tour"
-            className="font-mono text-[0.65rem] text-white/40 hover:text-white px-2 py-0.5 border border-white/10 hover:border-white/30 rounded transition-colors"
+            className="font-mono text-xs text-white/40 hover:text-white px-2 py-0.5 border border-white/10 hover:border-white/30 rounded transition-colors"
           >
             ✕
           </button>

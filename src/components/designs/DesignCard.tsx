@@ -44,7 +44,7 @@ export default function DesignCard({ design }: DesignCardProps) {
 
           <div className="flex flex-1 flex-col gap-2 p-4 overflow-hidden">
             {/* Index */}
-            <span className="font-mono text-[0.65rem] text-text-subtle leading-none">
+            <span className="font-mono text-xs text-text-subtle leading-none">
               {String(design.index).padStart(2, "0")}
             </span>
 
@@ -99,10 +99,10 @@ export default function DesignCard({ design }: DesignCardProps) {
           />
           {/* Bottom label */}
           <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent px-3 py-2">
-            <span className="font-mono text-[0.65rem] text-white/80">
+            <span className="font-mono text-xs text-white/80">
               {design.name}
             </span>
-            <span className="font-mono text-[0.65rem] text-white/60">
+            <span className="font-mono text-xs text-white/60">
               ↗ öffnen
             </span>
           </div>
