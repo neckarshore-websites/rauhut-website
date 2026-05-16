@@ -263,3 +263,8 @@ h3 {
   from { width: 0%; }
   to   { width: 100%; }
 }
+
+@keyframes shuffle-pulse {
+  0%, 100% { background: #CC1A00; color: #FFFFFF; }
+  50%       { background: #FFFFFF; color: #CC1A00; }
+}
