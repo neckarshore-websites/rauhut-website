@@ -1,0 +1,410 @@
+export interface Design {
+  /** Display number from original index (1-based; 14 = luxury, skipped). */
+  index: number;
+  /** File stem: "egypt" → /designs/rauhut-egypt.html */
+  slug: string;
+  /** Human-readable name */
+  name: string;
+  /** One-line style description */
+  style: string;
+  /** Filter tags */
+  tags: string[];
+  /** CSS background value for the accent strip */
+  accentColor: string;
+  /** CSS background values for swatch squares */
+  swatches: string[];
+}
+
+// 28 entries — luxury (#14) excluded (file intentionally deleted, D8)
+export const DESIGNS: Design[] = [
+  {
+    index: 1,
+    slug: "egypt",
+    name: "Ancient Egypt",
+    style: "Hieroglyphen, Sand, Papyrus, Nilgold",
+    tags: ["art", "cultural"],
+    accentColor: "#C8901C",
+    swatches: [
+      "linear-gradient(135deg,#F0E4C0 50%,#C89010 50%)",
+      "linear-gradient(135deg,#EEF2F8 50%,#1A3A8B 50%)",
+      "linear-gradient(135deg,#060408 50%,#C89010 50%)",
+      "linear-gradient(135deg,#EEF8F6 50%,#1A7A6A 50%)",
+    ],
+  },
+  {
+    index: 2,
+    slug: "art-deco",
+    name: "Art Déco",
+    style: "Gold auf Schwarz, geometrische Ornamente, Roaring 20s",
+    tags: ["art", "retro"],
+    accentColor: "#C8A840",
+    swatches: [
+      "linear-gradient(135deg,#F8F2E0 50%,#C89820 50%)",
+      "linear-gradient(135deg,#F0F5F2 50%,#C87020 50%)",
+      "linear-gradient(135deg,#08080E 50%,#D4A020 50%)",
+    ],
+  },
+  {
+    index: 3,
+    slug: "nouveau",
+    name: "Art Nouveau",
+    style: "Florale Linien, Jugendstil-Ornamente, Klimt-Energie",
+    tags: ["art"],
+    accentColor: "#5A8A40",
+    swatches: [
+      "linear-gradient(135deg,#EEF4F0 50%,#2A6A40 50%)",
+      "linear-gradient(135deg,#F4F0E4 50%,#C89010 50%)",
+      "linear-gradient(135deg,#080A06 50%,#8B6A14 50%)",
+    ],
+  },
+  {
+    index: 4,
+    slug: "bild",
+    name: "Bild.de",
+    style: "Boulevardblatt, Knallrot, maximale Schlagzeile",
+    tags: ["editorial"],
+    accentColor: "#E2001A",
+    swatches: [
+      "linear-gradient(135deg,#FFFFFF 50%,#E2001A 50%)",
+      "linear-gradient(135deg,#0A0A0A 50%,#FF1A1A 50%)",
+    ],
+  },
+  {
+    index: 5,
+    slug: "brutalist",
+    name: "Brutalist",
+    style: "Rohe Typografie, harte Kanten, kein Ornament",
+    tags: ["minimal", "editorial"],
+    accentColor: "#E8240A",
+    swatches: [
+      "linear-gradient(135deg,#0D0D0D 50%,#FF2D00 50%)",
+      "linear-gradient(135deg,#F5F0E8 50%,#E8240A 50%)",
+      "linear-gradient(135deg,#F0F4F8 50%,#0057FF 50%)",
+    ],
+  },
+  {
+    index: 6,
+    slug: "emperor",
+    name: "Chinese Emperor",
+    style: "Kaiserliches Rot, Gold, Drachen-Ornamente",
+    tags: ["art", "cultural"],
+    accentColor: "#CC1A00",
+    swatches: [
+      "linear-gradient(135deg,#FDF5E8 50%,#CC1A00 50%)",
+      "linear-gradient(135deg,#F0F5F0 50%,#1A6A30 50%)",
+      "linear-gradient(135deg,#06040A 50%,#CC1A00 50%)",
+      "linear-gradient(135deg,#2A1E10 50%,#C87820 50%)",
+    ],
+  },
+  {
+    index: 7,
+    slug: "dada",
+    name: "Dada",
+    style: "Anti-Kunst, Chaos, Collage — Zürich 1916",
+    tags: ["art"],
+    accentColor: "linear-gradient(180deg,#FF2020,#2020FF)",
+    swatches: [
+      "linear-gradient(135deg,#F5F0E4 50%,#CC1A00 50%)",
+      "linear-gradient(135deg,#0A0808 50%,#CC1A00 50%)",
+      "linear-gradient(135deg,#F8F0D8 50%,#0030A8 50%)",
+      "linear-gradient(135deg,#E8E4DC 50%,#E8A000 50%)",
+    ],
+  },
+  {
+    index: 8,
+    slug: "damascus",
+    name: "Damascus",
+    style: "Islamische Arabeske, Kachelornament, 1500 n. Chr.",
+    tags: ["art", "cultural"],
+    accentColor: "#8B1A1A",
+    swatches: [
+      "linear-gradient(135deg,#F8F2E4 50%,#8B1A1A 50%)",
+      "linear-gradient(135deg,#F4F0E8 50%,#1A3A8B 50%)",
+      "linear-gradient(135deg,#06040A 50%,#8B1A1A 50%)",
+      "linear-gradient(135deg,#EFF5EE 50%,#1A6A30 50%)",
+    ],
+  },
+  {
+    index: 9,
+    slug: "editorial",
+    name: "Editorial",
+    style: "Magazin-Layout, starke Typografie, Weißraum",
+    tags: ["editorial", "minimal"],
+    accentColor: "#C8001E",
+    swatches: [
+      "linear-gradient(135deg,#FAF6EC 50%,#C41020 50%)",
+      "linear-gradient(135deg,#F8F8F8 50%,#E8000A 50%)",
+      "linear-gradient(135deg,#EEE8D8 50%,#8B2020 50%)",
+      "linear-gradient(135deg,#0C0C08 50%,#E0C040 50%)",
+    ],
+  },
+  {
+    index: 10,
+    slug: "fallout",
+    name: "Fallout / Nuclear Retro",
+    style: "Vault-Tec, Pip-Boy-Grün, S.P.E.C.I.A.L.-Stats",
+    tags: ["retro", "dark"],
+    accentColor: "#D4880A",
+    swatches: [
+      "linear-gradient(135deg,#F0E8C0 50%,#D4880A 50%)",
+      "linear-gradient(135deg,#050A02 50%,#30CC30 50%)",
+      "linear-gradient(135deg,#F8E8E0 50%,#CC1A00 50%)",
+      "linear-gradient(135deg,#0A0806 50%,#D4880A 50%)",
+    ],
+  },
+  {
+    index: 11,
+    slug: "game-ui",
+    name: "Game UI",
+    style: "HUD-Interface, Sci-Fi-Terminal, Spieler-Stats",
+    tags: ["dark", "retro"],
+    accentColor: "#00FF41",
+    swatches: [
+      "linear-gradient(135deg,#F0E8D0 50%,#8B4820 50%)",
+      "linear-gradient(135deg,#E8F0F8 50%,#0080C0 50%)",
+      "linear-gradient(135deg,#F0F8E8 50%,#40C020 50%)",
+      "linear-gradient(135deg,#080810 50%,#8040C0 50%)",
+    ],
+  },
+  {
+    index: 12,
+    slug: "gothic",
+    name: "Gothic / Dark Academia",
+    style: "Fraktur, Kerzen, Pergament, Bibliothek um Mitternacht",
+    tags: ["dark", "art"],
+    accentColor: "#C89030",
+    swatches: [
+      "linear-gradient(135deg,#0C0A08 50%,#C89030 50%)",
+      "linear-gradient(135deg,#F4EDD8 50%,#8A5A10 50%)",
+      "linear-gradient(135deg,#060810 50%,#4A5A9A 50%)",
+      "linear-gradient(135deg,#1A1408 50%,#D4A020 50%)",
+    ],
+  },
+  {
+    index: 13,
+    slug: "japanese-minimal",
+    name: "Japanese Minimal",
+    style: "Shiro, Ma, Hanko-Siegel, Washi-Textur",
+    tags: ["minimal", "cultural"],
+    accentColor: "#C8001E",
+    swatches: [
+      "linear-gradient(135deg,#F7F3EB 50%,#C8210A 50%)",
+      "linear-gradient(135deg,#F0EBE0 50%,#141008 50%)",
+      "linear-gradient(135deg,#F5EFD8 50%,#A87010 50%)",
+      "linear-gradient(135deg,#090910 50%,#B89030 50%)",
+    ],
+  },
+  // index 14 = luxury — file intentionally deleted (D8)
+  {
+    index: 15,
+    slug: "maga",
+    name: "MAGA",
+    style: "Rot-Weiß-Blau, patriotischer Maximalismus",
+    tags: ["editorial"],
+    accentColor: "#B22234",
+    swatches: [
+      "linear-gradient(135deg,#FFFFFF 50%,#B22234 50%)",
+      "linear-gradient(135deg,#04040F 50%,#CC1A2A 50%)",
+      "linear-gradient(135deg,#FFF8E0 50%,#B22234 50%)",
+      "linear-gradient(135deg,#03060F 50%,#4A6FD8 50%)",
+    ],
+  },
+  {
+    index: 16,
+    slug: "manga",
+    name: "Manga",
+    style: "Speed-Lines, Screentone, Shōnen-Energie",
+    tags: ["art", "cultural"],
+    accentColor: "#FF3300",
+    swatches: [
+      "linear-gradient(135deg,#FFF9F0 50%,#FF3300 50%)",
+      "linear-gradient(135deg,#0A0808 50%,#FF6B00 50%)",
+      "linear-gradient(135deg,#FFF0F4 50%,#FF1477 50%)",
+      "linear-gradient(135deg,#04080F 50%,#00CFFF 50%)",
+    ],
+  },
+  {
+    index: 17,
+    slug: "maximalist",
+    name: "Maximalist",
+    style: "Überladene Pracht, viele Farben, Chaos als System",
+    tags: ["art"],
+    accentColor: "linear-gradient(180deg,#FF6B6B,#4ECDC4,#FFE66D)",
+    swatches: [
+      "linear-gradient(135deg,#F5F0E0 50%,#FF2D00 50%)",
+      "linear-gradient(135deg,#07080F 50%,#FF1458 50%)",
+      "linear-gradient(135deg,#EDE8D0 50%,#C81808 50%)",
+    ],
+  },
+  {
+    index: 18,
+    slug: "newspaper",
+    name: "Newspaper",
+    style: "Zeitungsdruck, Spalten, Broadsheet-Energie",
+    tags: ["editorial", "retro"],
+    accentColor: "#CC2000",
+    swatches: [
+      "linear-gradient(135deg,#FBF8F0 50%,#CC2000 50%)",
+      "linear-gradient(135deg,#FFFEF8 50%,#E84020 50%)",
+      "linear-gradient(135deg,#FFF8DC 50%,#DD2000 50%)",
+      "linear-gradient(135deg,#0A0A08 50%,#E8C040 50%)",
+    ],
+  },
+  {
+    index: 19,
+    slug: "organic",
+    name: "Organic",
+    style: "Naturtöne, geschwungene Formen, Wabi-Sabi",
+    tags: ["minimal", "art"],
+    accentColor: "#3D6B2C",
+    swatches: [
+      "linear-gradient(135deg,#F6F2E9 50%,#3D6B2C 50%)",
+      "linear-gradient(135deg,#F5EDE4 50%,#B85C38 50%)",
+      "linear-gradient(135deg,#0D1A10 50%,#7ABF4A 50%)",
+      "linear-gradient(135deg,#F3EFF9 50%,#7B4FAA 50%)",
+    ],
+  },
+  {
+    index: 20,
+    slug: "retro-futuristic",
+    name: "Retro-Futuristic",
+    style: "Neon-Akzente, Scan-Lines, kosmische Ästhetik",
+    tags: ["retro", "dark"],
+    accentColor: "#00FF88",
+    swatches: [
+      "linear-gradient(135deg,#020C04 50%,#00FF88 50%)",
+      "linear-gradient(135deg,#08000E 50%,#FF0090 50%)",
+      "linear-gradient(135deg,#0A0018 50%,#FF00A8 50%)",
+      "linear-gradient(135deg,#090900 50%,#FFE600 50%)",
+    ],
+  },
+  {
+    index: 21,
+    slug: "constructivism",
+    name: "Soviet Constructivism",
+    style: "Rodchenko-Diagonalen, Oswald 900, Agitprop-Energie",
+    tags: ["art", "retro"],
+    accentColor: "#CC2020",
+    swatches: [
+      "linear-gradient(135deg,#F5F0E8 50%,#CC1A00 50%)",
+      "linear-gradient(135deg,#080808 50%,#FF2000 50%)",
+      "linear-gradient(135deg,#F0F4F8 50%,#0A2A8B 50%)",
+      "linear-gradient(135deg,#F8F0D8 50%,#CC1A00 50%)",
+    ],
+  },
+  {
+    index: 22,
+    slug: "spacex",
+    name: "SpaceX",
+    style: "Mission Control, Barlow Condensed, Starfield",
+    tags: ["minimal", "dark"],
+    accentColor: "#FFFFFF",
+    swatches: [
+      "linear-gradient(135deg,#060606 50%,#FFFFFF 50%)",
+      "linear-gradient(135deg,#F7F7F7 50%,#0A0A0A 50%)",
+    ],
+  },
+  {
+    index: 23,
+    slug: "swiss-grid",
+    name: "Swiss Grid",
+    style: "Helvetica-Tradition, Rasterstrenge, Internationalismus",
+    tags: ["editorial", "minimal"],
+    accentColor: "#CC0000",
+    swatches: [
+      "linear-gradient(135deg,#FFFFFF 50%,#CC0000 50%)",
+      "linear-gradient(135deg,#F8F4EE 50%,#CC2800 50%)",
+      "linear-gradient(135deg,#F0F4F8 50%,#0040C0 50%)",
+      "linear-gradient(135deg,#080808 50%,#FF2800 50%)",
+    ],
+  },
+  {
+    index: 24,
+    slug: "typewriter",
+    name: "Typewriter",
+    style: "Sepia, Courier, das Klappern einer Olivetti",
+    tags: ["retro", "minimal"],
+    accentColor: "#8B6B3A",
+    swatches: [
+      "linear-gradient(135deg,#F5F0E0 50%,#1C1408 50%)",
+      "linear-gradient(135deg,#FFFAE8 50%,#CC8020 50%)",
+      "linear-gradient(135deg,#E0ECF8 50%,#08183A 50%)",
+      "linear-gradient(135deg,#080C08 50%,#C0A840 50%)",
+    ],
+  },
+  {
+    index: 25,
+    slug: "ukiyoe",
+    name: "Ukiyo-e",
+    style: "Hokusai-Welle, Kirschblüten, Holzschnitt-Block",
+    tags: ["art", "cultural"],
+    accentColor: "#1A3A8B",
+    swatches: [
+      "linear-gradient(135deg,#F5EFE0 50%,#1A3A8B 50%)",
+      "linear-gradient(135deg,#FFF0F4 50%,#CC4A6A 50%)",
+      "linear-gradient(135deg,#080C06 50%,#2A6A30 50%)",
+      "linear-gradient(135deg,#F8EEE0 50%,#CC2A10 50%)",
+    ],
+  },
+  {
+    index: 26,
+    slug: "vaporwave",
+    name: "Vaporwave",
+    style: "Retro-Internet, Pastel-Neon, nostalgische Hyperrealität",
+    tags: ["retro", "dark"],
+    accentColor: "#FF2090",
+    swatches: [
+      "linear-gradient(135deg,#FFE0F0 50%,#FF2090 50%)",
+      "linear-gradient(135deg,#E8E0F8 50%,#A020C0 50%)",
+      "linear-gradient(135deg,#FFF0E0 50%,#FF4060 50%)",
+      "linear-gradient(135deg,#0A0014 50%,#FF00C0 50%)",
+    ],
+  },
+  {
+    index: 27,
+    slug: "wes",
+    name: "Wes Anderson",
+    style: "Venice Beach · Asteroid City · Bottega — symmetrisch",
+    tags: ["art", "minimal"],
+    accentColor: "#E57268",
+    swatches: [
+      "linear-gradient(135deg,#FAEAE4 50%,#E57268 50%)",
+      "linear-gradient(135deg,#E8D4A4 50%,#3A9CA8 50%)",
+      "linear-gradient(135deg,#DDB8B0 50%,#7A9E88 50%)",
+    ],
+  },
+  {
+    index: 28,
+    slug: "win95",
+    name: "Windows 95",
+    style: "Raised Borders, Teal Desktop, Start-Button, VT323",
+    tags: ["retro"],
+    accentColor: "#000080",
+    swatches: [
+      "linear-gradient(135deg,#C0C0C0 50%,#000080 50%)",
+      "linear-gradient(135deg,#1A1A2E 50%,#4A6FD8 50%)",
+      "linear-gradient(135deg,#FF0000 50%,#000000 50%)",
+      "linear-gradient(135deg,#D4C8B8 50%,#5A2878 50%)",
+    ],
+  },
+  {
+    index: 29,
+    slug: "zine",
+    name: "Zine",
+    style: "DIY-Punk, Collagen-Ästhetik, Xerox-Textur",
+    tags: ["art", "editorial"],
+    accentColor: "#E84020",
+    swatches: [
+      "linear-gradient(135deg,#F0ECE0 50%,#141008 50%)",
+      "linear-gradient(135deg,#FFF8E8 50%,#E84020 50%)",
+      "linear-gradient(135deg,#F0E8E0 50%,#CC0000 50%)",
+      "linear-gradient(135deg,#080808 50%,#00FF40 50%)",
+    ],
+  },
+];
+
+/** All unique tags across all designs, sorted alphabetically. */
+export const ALL_TAGS: string[] = [
+  "all",
+  ...Array.from(new Set(DESIGNS.flatMap((d) => d.tags))).sort(),
+];
