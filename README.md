@@ -29,6 +29,7 @@ Port **3001** (statt Standard 3000), um Kollision mit `neckarshore-website` zu v
 
 | Pfad | Zweck |
 |------|-------|
+| `docs/architecture.md` | Architektur-Doku: Systemgrenzen, Routen, Rendering, SEO, Privacy, Deploy-Flow |
 | `src/app/page.tsx` | Startseite DE: Header, Zusammenfassung, Kernkompetenzen, Projekte, Kontakt |
 | `src/app/en/page.tsx` | Startseite EN (volle Uebersetzung, `<main lang="en">`) |
 | `src/app/impressum/page.tsx` | Impressum (§5 TMG), `noindex`, DE-only |
