@@ -39,7 +39,7 @@ flowchart TD
 | 3 | UI Runtime | React 19 | Renders server and client components. |
 | 4 | Styling | Tailwind CSS v4 with `@theme` tokens | Provides utility classes and runtime-overridable design tokens. |
 | 5 | Analytics | `@vercel/analytics` | Provides cookieless web analytics without a cookie banner. |
-| 6 | Tests | Playwright | Covers the design gallery route and linked static design assets. |
+| 6 | Tests | Playwright | Covers the homepage (German and English), language toggle, theme toggle, imprint, and the design gallery route with linked static design assets. |
 
 ## Route Model
 
@@ -134,6 +134,19 @@ The site is designed to avoid consent-banner complexity.
 | 4 | Cookies | No site cookies. Theme preference uses `localStorage`. |
 | 5 | Legal page | `/impressum` is German-only and excluded from indexing. |
 
+## Accessibility Posture
+
+| # | Concern | Implementation |
+|---|---------|----------------|
+| 1 | Minimum font size | 12px hard floor. Tailwind utilities below `text-xs` (12px) are forbidden in production markup. |
+| 2 | Minimum touch targets | 24px minimum for interactive controls (dots, buttons, icon-only triggers). Enforced in `ShuffleTour` navigation. |
+| 3 | Focus management | Global `:focus-visible` outline using the accent token. Modal components (`ShuffleTour`) implement a focus trap so keyboard users cannot escape the modal accidentally. |
+| 4 | Reduced motion | Global `prefers-reduced-motion: reduce` handling plus an explicit `Reveal` guard for scroll animations. |
+| 5 | Semantic structure | Pages use a single `<h1>`, hierarchical `<h2>`/`<h3>`, semantic landmarks (`<main>`, `<nav>`, `<footer>`), and ARIA roles only where native semantics are insufficient. |
+| 6 | Language metadata | `<html lang>` defaults to German. The English page sets `lang="en"` on `<main>` to keep screen readers in sync without splitting the route tree. |
+
+Lighthouse Accessibility score is 100 on desktop and mobile per the latest baseline in `README.md`.
+
 ## Build, Test, And Deployment Flow
 
 Local development runs on port `3001` to avoid collisions with related projects.
@@ -205,6 +218,38 @@ Direct production deployment via `vercel --prod` is not part of the normal flow.
 
 **Affects:** `public/designs/*.html`, `src/app/designs/data.ts`, `DesignsGallery`, `DesignCard`, and Playwright tests.
 
+### Decision 7: SpaceX hero image interval at 2000 ms
+
+**Decision:** The SpaceX-style cycling hero image transitions every 2000 ms, not the original 150 ms.
+
+**Rationale:** At 150 ms the imagery cycled faster than a viewer could read or recognize each frame, defeating the purpose of the visual. 2000 ms preserves the kinetic feeling while keeping the content legible.
+
+**Affects:** The hero component on `/designs` related rauhut-spacex page.
+
+### Decision 8: `rauhut-luxury.html` design exploration excluded
+
+**Decision:** The original 14th design exploration (`rauhut-luxury.html`) is intentionally not part of the published gallery.
+
+**Rationale:** The file was deleted before integration. The gallery renders 28 cards and the `Design` interface comment documents the skip.
+
+**Affects:** `public/designs`, `src/app/designs/data.ts`, gallery card count assertions in `tests/designs.spec.ts`.
+
+### Decision 9: Gallery page uses `max-w-7xl`, main pages stay `max-w-2xl`
+
+**Decision:** The `/designs` page uses a wide `max-w-7xl` container; the main bilingual pages keep the narrower `max-w-2xl` CV column.
+
+**Rationale:** The gallery needs a multi-column grid for 28 cards; the CV pages prioritize linear reading flow in a single column.
+
+**Affects:** `src/app/designs/page.tsx`, `src/app/page.tsx`, `src/app/en/page.tsx`.
+
+### Decision 10: Security overrides for transitive CVE fixes
+
+**Decision:** Patch transitive-dependency CVEs through the `overrides` field in `package.json` when the upstream framework has not yet released a bumped pin, instead of waiting on framework releases or accepting `npm audit fix --force` semver-major downgrades.
+
+**Rationale:** Frameworks like Next.js pin transitive dependencies to specific patch versions for testing reproducibility. When a CVE lands in that pinned version, `npm audit fix --force` often proposes downgrading the framework (e.g. `next@9.3.3`), which is unacceptable. `overrides` performs a surgical minor-bump within the same major, verified by build, lint, and Playwright e2e gates. The first application was `postcss: 8.5.15` (PR #7, 2026-05-19), closing `GHSA-qx2v-qp2m-jg93` while preserving `next@16.2.6`.
+
+**Affects:** `package.json` (`overrides` block), CVE response workflow, future Next.js patch bumps that must verify whether overrides can be relaxed.
+
 ## Operational Notes
 
 | # | Topic | Note |
@@ -213,7 +258,8 @@ Direct production deployment via `vercel --prod` is not part of the normal flow.
 | 2 | Google Search Console | Domain property is parked because IONOS Domain Connect risks overwriting MX records. URL-prefix verification and sitemap submission are sufficient for the current site shape. |
 | 3 | Static assets | Images, fonts, and social assets are checked in to keep runtime requests predictable. |
 | 4 | Open Graph fonts | OG image generation reads TTF files from `src/fonts` because Satori does not accept WOFF2. |
-| 5 | Gallery tests | Playwright currently focuses on `/designs` discoverability, link health, and basic static-page controls. |
+| 5 | Test coverage | `tests/site.spec.ts` covers German and English homepages, language toggle, theme toggle, and the imprint route. `tests/designs.spec.ts` covers gallery discoverability, link health, the 28-card render, and static-page controls. |
+| 6 | Security overrides | `package.json` uses `overrides` to force patched transitive dependencies when an upstream framework has not yet bumped its pinned version. Current override: `postcss: 8.5.15` (closes GHSA-qx2v-qp2m-jg93). |
 
 ## Known Constraints
 

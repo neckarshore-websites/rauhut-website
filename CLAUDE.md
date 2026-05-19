@@ -63,13 +63,14 @@ Aktualisierungen am Projektprofil → erst Vault-Datei aktualisieren, dann Seite
 | 7 | 2026-05-16 | **D7 — SpaceX hero interval 150ms → 2000ms** | Per user request: images were cycling too fast to read |
 | 8 | 2026-05-16 | **D8 — rauhut-luxury.html excluded** | File intentionally deleted before integration; 28 cards shown |
 | 9 | 2026-05-16 | **D9 — Gallery page uses max-w-7xl** | Full-width card grid; main site uses max-w-2xl (single CV column) |
+| 10 | 2026-05-19 | **D10 — Security overrides for transitive CVE fixes** | When upstream pins a vulnerable transitive dep (e.g. `next@16.2.6` pinning `postcss@8.4.31`), patch via `package.json` `overrides` instead of `npm audit fix --force` (which proposes semver-major framework downgrades). First use: `postcss: 8.5.15` (PR #7) |
 
 ## Out of Scope (post-v1)
 
 - Dark/Light-Mode-Erweiterungen über die zwei Default-Themes hinaus
 - Third-party Analytics (GA, Plausible, Sentry) — nur Vercel Web Analytics
 - Cookie-Banner (nicht nötig, da cookieless)
-- Playwright E2E (klein genug, manuelle Smoke-Tests reichen)
+- ~~Playwright E2E (klein genug, manuelle Smoke-Tests reichen)~~ — superseded by D6 (2026-05-16); Playwright is in scope and covers `/designs` + bilingual homepages + toggles + impressum
 - Lighthouse CI (Baseline manuell, nicht automatisiert)
 - Blog / CMS / Content-Pipeline
 - E-Mail MX-Aenderungen — Mail bleibt bei IONOS, nicht anfassen
