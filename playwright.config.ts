@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3001";
+const skipWebServer = process.env.PLAYWRIGHT_SKIP_WEBSERVER === "1";
+
 export default defineConfig({
   testDir: "./tests",
   fullyParallel: false,
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: 1,
   reporter: "list",
   use: {
-    baseURL: "http://localhost:3001",
+    baseURL,
     trace: "retain-on-failure",
   },
   projects: [
@@ -17,10 +20,12 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
-  webServer: {
-    command: "npm run dev",
-    url: "http://localhost:3001",
-    reuseExistingServer: true,
-    timeout: 60_000,
-  },
+  webServer: skipWebServer
+    ? undefined
+    : {
+        command: "node node_modules/next/dist/bin/next dev -p 3001",
+        url: baseURL,
+        reuseExistingServer: true,
+        timeout: 60_000,
+      },
 });

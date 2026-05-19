@@ -40,3 +40,8 @@ next-env.d.ts
 
 # lighthouse reports (local only)
 /.lighthouse/
+
+# playwright artifacts (local only)
+/test-results/
+/playwright-report/
+/.playwright-mcp/
