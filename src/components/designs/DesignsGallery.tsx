@@ -97,7 +97,7 @@ export default function DesignsGallery({ designs }: DesignsGalleryProps) {
           tags={ALL_TAGS}
           activeTag={activeTag}
           onTagChange={setActiveTag}
-          designs={designs}
+          designs={filtered}
         />
 
         <div

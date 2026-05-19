@@ -73,3 +73,35 @@ test("rauhut-egypt.html has theme swatch buttons", async ({ page }) => {
   const count = await swatchButtons.count();
   expect(count).toBeGreaterThanOrEqual(2);
 });
+
+// ── Test 6: ShuffleTour respects active tag filter ──────────────────────────
+// Regression guard for the 2026-05-20 fix: tour was previously seeded with
+// the full 28-design list regardless of activeTag. Now it must mirror the
+// filtered grid.
+test("ShuffleTour queue size matches active filter", async ({ page }) => {
+  await page.goto("/designs");
+
+  // Apply a non-"all" filter — pick the second tag (first is "all").
+  const filterButtons = page.locator('button[class*="font-mono"]').filter({
+    hasText: /^[a-zäöü]/i,
+  });
+  await filterButtons.nth(1).click();
+
+  // Count visible cards after filter (= expected tour size).
+  const visibleCards = await page.locator('a[href^="/designs/rauhut-"]').count();
+  expect(visibleCards).toBeGreaterThan(0);
+  expect(visibleCards).toBeLessThan(28);
+
+  // Open the tour.
+  await page.getByRole("button", { name: /Tour/i }).click();
+
+  // Tour top-bar shows "<idx> / <total>". Read total.
+  const counter = page.locator('[role="dialog"] span.text-white\\/30').first();
+  await expect(counter).toBeVisible();
+  const counterText = await counter.textContent();
+  const match = counterText?.match(/\/\s*(\d+)/);
+  expect(match, `Counter text: ${counterText}`).not.toBeNull();
+  const tourSize = Number(match![1]);
+
+  expect(tourSize).toBe(visibleCards);
+});
