@@ -1,0 +1,64 @@
+# German Rauhut
+
+> Technical Product Owner & AI Product Builder aus Stuttgart. 10+ Jahre Mercedes-Benz Alumni, heute Freelance und Aufbau eigener AI-Produkte. Bilingual personal site (DE primary, EN at /en).
+
+## About
+
+German Rauhut is a Technical Product Owner and AI Product Builder based in Stuttgart, Germany. Bridge-builder between business and technology — 10+ years at Mercedes-Benz (tester to Business IT Consultant to Technical Product Owner), now freelance since 10/2025 and building own AI products through Neckarshore AI.
+
+Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA Stuttgart, Fachrichtung Datenverarbeitung). 23 years of career before Mercedes-Benz across Germany, Switzerland, and Thailand — software development, consulting, operational leadership.
+
+## Current Focus
+
+- **Neckarshore AI** — own AI-product company. Flagship: OMNOPSIS Documentor (AI-powered documentation engine; 466 tests, 95 API endpoints, RBAC, monitoring stack).
+- **Obsidian Vault Autopilot** — open-source plugin for automated knowledge management. Nearing public GitHub launch.
+- **Multi-agent AI development process** — 12+ specialized AI agents (architecture, implementation, security, refactoring, marketing) with structured handoff protocol, parallel execution, automated quality assurance.
+
+## Stack
+
+NestJS, TypeScript, PostgreSQL, Redis/BullMQ, Next.js, Claude Code (Opus), Docker, GitHub Actions, Vercel.
+
+## Career Highlights
+
+- 07/2015 – 10/2025: Mercedes-Benz AG & ecosystem — Tester → Business IT Consultant → Technical Product Owner. International, agile projects.
+- 07/2014 – 06/2015: Senior PM Compliance at Targens, Stuttgart (AML application).
+- 10/2011 – 06/2014: Business IT Consultant at Contargo AG, Basel (freight forwarding software 4ward).
+- 06/2010 – 07/2013: Subproject Lead at Allianz AMOS (AML implementation).
+- 04/2007 – 03/2010: Business IT Consultant at Regional Container Lines, Bangkok (ERP implementation).
+- 07/1996 – 06/2000: Manager Software Development at SoftControl, Bangkok — founded and led the dev unit.
+- 1992: Mandatory Military Service, German Air Force (Programmierzentrum der Luftwaffe für fliegende Waffensysteme, Welfen-Kaserne Landsberg).
+
+Worked for: Mercedes-Benz, IBM, Deutsche Bank, Allianz, Gothaer, Contargo, Rhenus AG, Regional Container Lines, plenum, Targens, TestGilde.
+
+## Core Competencies
+
+- AI Product Development — multi-agent architectures, LLM integration, prompt engineering
+- Technical Product Ownership — vision, backlog, delivery
+- Full-Stack Engineering — NestJS, TypeScript, PostgreSQL, Redis, Docker
+- DevOps & CI/CD — GitHub Actions, Vercel, monitoring
+- Requirements Management — concept to technical story
+- Project Management — classic & agile, international teams
+- Test Management — E2E, API, automation, test strategy
+- Enterprise Consulting — ITSM, Release Mgmt, Change Mgmt
+
+## Site Structure
+
+- [Startseite DE](https://rauhut.com/): Profil, Projekte, Werdegang, Kontakt (deutsch, default)
+- [English version](https://rauhut.com/en): Same content in English
+- [Design Gallery](https://rauhut.com/designs): 28 UI design explorations (Art Déco, Vaporwave, SpaceX, Egypt, Brutalist, Gothic and more)
+- [Impressum](https://rauhut.com/impressum): § 5 TMG (Anbieterkennzeichnung)
+
+## Contact
+
+- Website: https://rauhut.com
+- Email: german@rauhut.com
+- Location: Stuttgart, Germany
+- Company: Neckarshore AI (https://neckarshore.ai)
+
+## Site Technology
+
+- Next.js 16 (App Router), Tailwind CSS 4, Vercel hosting
+- Self-hosted Inter font (DSGVO-compliant, no Google Fonts CDN)
+- Vercel Web Analytics (cookieless, no banner needed)
+- Dark mode default, light mode toggle persisted in localStorage
+- Lighthouse 100/100/100/100 desktop, 97/100/100/100 mobile
