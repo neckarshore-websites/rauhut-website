@@ -21,6 +21,21 @@ export const metadata: Metadata = {
     siteName: "rauhut.com",
     locale: "en_US",
     type: "website",
+    // Next.js Metadata API REPLACES (not merges) openGraph when a child
+    // segment redefines it, which bypasses the opengraph-image.tsx
+    // file-convention auto-fill cascade. We re-emit images here so /en
+    // gets the same OG card as /. twitter.images inherits via the
+    // twitter.images→openGraph.images cascade. Same pattern as oakwood
+    // pageOpenGraph (D-LIN-20-3, 2026-05-20).
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "German Rauhut — Technical Product Owner & AI Product Builder",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
