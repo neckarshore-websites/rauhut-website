@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "lighthouse:quick": "node scripts/lighthouse.mjs --quick",
+    "lighthouse:desktop": "node scripts/lighthouse.mjs --quick --profile=desktop",
+    "lighthouse:mobile": "node scripts/lighthouse.mjs --quick --profile=mobile-4g",
+    "lighthouse:slow": "node scripts/lighthouse.mjs --quick --profile=mobile-slow"
   },
   "dependencies": {
     "@vercel/analytics": "2.0.1",
@@ -23,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
+    "lighthouse": "13.0.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
