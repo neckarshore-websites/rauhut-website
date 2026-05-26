@@ -31,6 +31,28 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Canonical host enforcement: www → apex (308 permanent).
+  // Mirrors neckarshore-website pattern. Apex is the declared canonical
+  // (src/app/layout.tsx metadataBase + alternates.canonical).
+  //
+  // History: until 2026-05-26 the Vercel project was inverted — apex 307→www
+  // (platform-level config), conflicting with the HTML canonical. Flipped
+  // via Vercel API the same day (apex now primary 200, www 308→apex).
+  //
+  // This code-level redirect is belt-and-suspenders: version-controlled,
+  // visible at review time, and safe even if a future Vercel-dashboard
+  // change accidentally re-enables www. Runs at the framework layer; for
+  // requests routed through the platform redirect it is a harmless no-op.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.rauhut.com" }],
+        destination: "https://rauhut.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
