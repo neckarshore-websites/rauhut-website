@@ -12,7 +12,57 @@ import type { NextConfig } from "next";
 // X-Frame-Options=SAMEORIGIN (not DENY as oakwood ships): personal-site
 // posture per Plan-Doc rationale — allows same-domain embedding while
 // still blocking cross-origin clickjacking.
+//
+// Content-Security-Policy strategy (Linus 2026-06-07, L-RH-CSP-PER-SITE):
+// Pragmatic policy for a static personal site with no auth and no
+// user-generated content — residual XSS surface from `'unsafe-inline'` is
+// minimal. Identical to the neckarshore-website policy; every external host
+// the open_item predicted for rauhut turned out wrong when verified against
+// the live site:
+//   - The MAIN site's fonts are self-hosted via next/font/local — no CDN.
+//     BUT the /designs gallery embeds 28 standalone HTML mockups
+//     (public/designs/rauhut-*.html, each a self-contained art piece) that
+//     DO pull Google Fonts: stylesheet from fonts.googleapis.com (style-src)
+//     + font files from fonts.gstatic.com (font-src). These load as
+//     same-origin iframe documents, so each inherits this CSP — without the
+//     two font hosts the gallery's typefaces are blocked (caught in the
+//     browser console-walk, 28 violations). The github/linkedin URLs in the
+//     mockups are <a href> links (navigation), so CSP does not govern them.
+//   - @vercel/analytics IS used (<Analytics/> in layout), but Vercel v2
+//     edge-proxies it SAME-ORIGIN: the script loads from
+//     /_vercel/insights/script.js (verified HTTP 200 on rauhut.com) and the
+//     beacon posts to /_vercel/insights/* — both same-origin. So
+//     script-src 'self' + connect-src 'self' cover analytics with NO
+//     external va.vercel-scripts.com / vitals.vercel-insights.com host.
+//   - script-src 'unsafe-inline' is REQUIRED: Next.js injects inline
+//     hydration/RSC scripts + theme-init bootstrap + inline JSON-LD. A
+//     nonce-based strict CSP would need middleware and force every route OUT
+//     of static generation — sacrificing the Lighthouse-first static posture.
+//     Deliberate trade: keep static + Lighthouse, land ~B+ (not A+) on
+//     Mozilla Observatory.
+//   - 'unsafe-eval' is DEV-ONLY (React dev + HMR use eval); production omits
+//     it and stays strict.
+//   - frame-ancestors 'self' mirrors X-Frame-Options=SAMEORIGIN above.
+const isDev = process.env.NODE_ENV !== "production";
+const scriptSrc = isDev
+  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+  : "script-src 'self' 'unsafe-inline'";
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  scriptSrc,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "img-src 'self' data: blob:",
+  "font-src 'self' https://fonts.gstatic.com",
+  "connect-src 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+].join("; ");
+
 const securityHeaders = [
+  { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
