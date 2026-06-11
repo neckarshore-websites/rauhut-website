@@ -9,10 +9,10 @@
 
 ## Working Directory Rule
 
-This repo lives at `~/Developer/projects/neckarshore-ai/rauhut-website/`. Every Bash command must start with:
+This repo lives at `~/Developer/projects/neckarshore-websites/rauhut-website/`. Every Bash command must start with:
 
 ```bash
-cd ~/Developer/projects/neckarshore-ai/rauhut-website && ...
+cd ~/Developer/projects/neckarshore-websites/rauhut-website && ...
 ```
 
 The Claude Code harness resets `cwd` after every Bash call. Unscoped commands risk writing to the wrong repo. Same discipline as `neckarshore-website`.
