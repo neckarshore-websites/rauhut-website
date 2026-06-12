@@ -25,14 +25,15 @@ export default defineConfig({
   webServer: skipWebServer
     ? undefined
     : {
-        // Production build, NOT `next dev`: rauhut's Turbopack dev server
-        // panics in a loop ("Next.js package not found") on this clone — the
-        // dev-managed suite drowned in ~22k panics + flaked. The e2e gate
-        // builds + serves the production artifact (what actually ships), which
-        // is deterministic and panic-free: 11/11 green in ~5s. (Linus 2026-06-12.)
-        command: "npm run build && npm run start",
+        // `next dev`, matching the family (goldoni/oakwood/neckarshore). The
+        // "Next.js package not found" Turbopack panic that briefly pushed this
+        // to a prod build was a corrupt local node_modules, not committed code —
+        // a clean `npm ci` clears it (CI does a fresh install every run). Dev
+        // mode also keeps @vercel/analytics out of the page, so the /designs
+        // console-cleanliness test stays in the CI gate. (Linus 2026-06-13.)
+        command: "npm run dev",
         url: baseURL,
         reuseExistingServer: !process.env.CI,
-        timeout: 180_000,
+        timeout: 120_000,
       },
 });
