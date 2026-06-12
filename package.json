@@ -8,6 +8,7 @@
     "start": "next start -p 3001",
     "lint": "eslint",
     "test:e2e": "playwright test",
+    "test:e2e:ci": "playwright test --grep-invert @external",
     "lighthouse": "node scripts/lighthouse.mjs",
     "lighthouse:quick": "node scripts/lighthouse.mjs --quick",
     "lighthouse:desktop": "node scripts/lighthouse.mjs --quick --profile=desktop",
