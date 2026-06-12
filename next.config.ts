@@ -59,7 +59,12 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob:",
   "font-src 'self' https://fonts.gstatic.com",
   "connect-src 'self' https://challenges.cloudflare.com",
-  "frame-src https://challenges.cloudflare.com",
+  // 'self' is REQUIRED: the /designs gallery frames its own same-origin
+  // preview HTML files (public/designs/rauhut-*.html) in iframes. Because
+  // frame-src is set explicitly it overrides default-src 'self', so without
+  // 'self' here every preview iframe is CSP-blocked — a regression the
+  // Turnstile rollout introduced (caught by the e2e gate, Linus 2026-06-12).
+  "frame-src 'self' https://challenges.cloudflare.com",
   "form-action 'self'",
   "frame-ancestors 'self'",
   "base-uri 'self'",
