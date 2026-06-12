@@ -5,6 +5,7 @@ import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
+import ContactForm from "@/components/ContactForm";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
 
@@ -335,6 +336,13 @@ export default function HomePage() {
           Kontakt
         </h2>
         <ContactCards lang="de" />
+
+        <div className="mt-10 max-w-xl">
+          <p className="mb-5 text-[0.9375rem] text-text-subtle">
+            Oder schreiben Sie mir direkt:
+          </p>
+          <ContactForm />
+        </div>
       </Reveal>
 
       <hr />
