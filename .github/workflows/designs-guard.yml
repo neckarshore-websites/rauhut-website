@@ -1,0 +1,80 @@
+# Designs Script Guard — drift-watch over the framebar design gallery.
+#
+# Context (James RAUHUT-CSP PIR, F1+F2 LOW, 2026-06-13): the 28
+# public/designs/*.html previews are served SAME-ORIGIN and are framebar
+# (CSP `frame-src 'self'` — required so the /designs gallery can iframe its
+# own previews). They all carry INLINE <script> (today benign: IIFE
+# theme-switchers, hardcoded arrays). That JS surface is benign now but
+# UNGUARDED against drift — a future PR could add a design HTML with a risky
+# inline script and nothing would surface it for review.
+#
+# This job flags any ADDED or MODIFIED public/designs/*.html that contains a
+# <script> tag, as a GitHub review annotation + PR step-summary. It is
+# DELIBERATELY NON-BLOCKING: visibility, not a gate. The hard-gate question
+# (a James review before auto-merge of CSP-touching site PRs) is a separate
+# org-policy item tracked in planning ideas.md, not this workflow.
+#
+# Security-note: the only github.event.* inputs used are the base/head commit
+# SHAs, passed via `env:` and referenced as quoted shell vars ("$BASE_SHA").
+# SHAs are 40-hex, and they are never interpolated inline into the run script,
+# so there is no command-injection surface (same discipline as lint.yml).
+name: Designs Script Guard
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "public/designs/**"
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Flag inline scripts in changed designs HTML
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Flag added/modified designs HTML carrying inline <script>
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          changed=$(git diff --name-only --diff-filter=AM "$BASE_SHA" "$HEAD_SHA" -- 'public/designs/*.html' || true)
+
+          {
+            echo "### 🎨 Designs script guard"
+            echo ""
+            echo "\`public/designs/*.html\` previews are **same-origin** and **framebar** (CSP \`frame-src 'self'\`). Added/modified previews carrying inline \`<script>\` are listed below — **review the JS surface before merge**. This check never blocks; it only surfaces drift."
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -z "$changed" ]; then
+            echo "No added/modified public/designs/*.html in this PR."
+            echo "_No added/modified designs HTML in this PR._" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          flagged=0
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            if grep -qE '<script' "$f"; then
+              flagged=$((flagged + 1))
+              echo "::warning file=$f::Same-origin framebar designs HTML carries inline <script> — review the JS surface before merge (CSP frame-src 'self')."
+              echo "- \`$f\`" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          done <<< "$changed"
+
+          if [ "$flagged" -eq 0 ]; then
+            echo "No changed designs HTML carries inline <script>."
+            echo "_No changed designs HTML carries inline \`<script>\`._" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Flagged $flagged changed designs HTML carrying inline <script> (non-blocking, review-only)."
+          fi

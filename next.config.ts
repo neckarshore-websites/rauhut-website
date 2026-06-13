@@ -64,6 +64,12 @@ const contentSecurityPolicy = [
   // frame-src is set explicitly it overrides default-src 'self', so without
   // 'self' here every preview iframe is CSP-blocked — a regression the
   // Turnstile rollout introduced (caught by the e2e gate, Linus 2026-06-12).
+  //   ⚠️ FRAMEBAR JS SURFACE: those 28 same-origin previews all carry INLINE
+  //   <script> (today benign: IIFE theme-switchers, hardcoded arrays). They
+  //   are framebar by the 'self' above, so their JS surface must not drift
+  //   unreviewed. `.github/workflows/designs-guard.yml` flags any added/
+  //   modified public/designs/*.html that carries a <script> for review
+  //   (non-blocking annotation). Keep that guard in lockstep with this directive.
   "frame-src 'self' https://challenges.cloudflare.com",
   "form-action 'self'",
   "frame-ancestors 'self'",
