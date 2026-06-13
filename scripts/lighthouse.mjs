@@ -30,6 +30,13 @@
  *     prior 95 threshold matched a single lucky baseline run (2026-05-25
  *     CI port). 90 catches real regressions while tolerating documented
  *     ±5pp runner-CPU noise.
+ *   - Desktop performance lowered 90 → 80 on 2026-06-13 (cross-site family
+ *     calibration, D-LIN-27-2 / Codify-Brief #458 "anchor below worst-observed").
+ *     90 turned out insufficient: PR #21 still false-red at 67 on a 1.0s TBT
+ *     spike (LCP 1.1s / CLS 0.003 / Mobile 97 — site healthy). The ±5pp buffer
+ *     under-modeled the real TBT tail. Family worst-normal across neckarshore
+ *     {86,93,98,100} + goldoni {89,90} is 86; 80 anchors below it. A real
+ *     regression below 80 still hard-fails. Mobile 4G stays the perf canary.
  */
 
 import { execFileSync, spawn } from "node:child_process";
@@ -49,7 +56,12 @@ const PROFILES = [
     gate: "hard",
     lhArgs: ["--preset=desktop"],
     thresholds: {
-      performance: 90,
+      // Desktop Perf relaxed 90 → 80 on 2026-06-13 (cross-site calibration).
+      // The 2026-05-26 95 → 90 step was not enough: PR #21 still false-red at
+      // 67 on a 1.0s TBT spike (LCP 1.1s / CLS 0.003 — site fine). The score
+      // tracks shared-runner TBT jitter, not the site. 80 anchors below the
+      // family worst-normal (86). See "Thresholds history" above.
+      performance: 80,
       accessibility: 95,
       "best-practices": 95,
       seo: 95,
