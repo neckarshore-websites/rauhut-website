@@ -13,7 +13,8 @@
     "lighthouse:quick": "node scripts/lighthouse.mjs --quick",
     "lighthouse:desktop": "node scripts/lighthouse.mjs --quick --profile=desktop",
     "lighthouse:mobile": "node scripts/lighthouse.mjs --quick --profile=mobile-4g",
-    "lighthouse:slow": "node scripts/lighthouse.mjs --quick --profile=mobile-slow"
+    "lighthouse:5g": "node scripts/lighthouse.mjs --quick --profile=mobile-5g",
+    "test:lighthouse:unit": "node --test scripts/lighthouse-profiles.test.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "2.0.1",
