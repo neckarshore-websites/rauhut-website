@@ -352,6 +352,7 @@ export default function HomePage() {
         <p>
           © {new Date().getFullYear()} German Rauhut ·{" "}
           <a href="/impressum">Impressum</a> ·{" "}
+          <a href="/datenschutz">Datenschutz</a> ·{" "}
           <a href="/designs">Designs</a>
         </p>
       </footer>

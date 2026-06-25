@@ -422,6 +422,10 @@ export default function HomePageEN() {
             Imprint (German)
           </a>{" "}
           ·{" "}
+          <a href="/datenschutz" lang="de">
+            Privacy (German)
+          </a>{" "}
+          ·{" "}
           <a href="/designs">Designs</a>
         </p>
       </footer>
