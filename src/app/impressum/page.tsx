@@ -98,11 +98,12 @@ export default function ImpressumPage() {
             Datenschutz
           </h2>
           <p className="text-text-muted">
-            Diese Website setzt weder Cookies noch externe Analysetools ein.
-            Beim Aufruf werden technisch notwendige Server-Logs (IP-Adresse,
-            Zeitpunkt, User-Agent) temporär durch den Hosting-Anbieter erfasst
-            und nach kurzer Zeit automatisch gelöscht. Eine Verknüpfung dieser
-            Daten mit einer Person findet nicht statt.
+            Diese Website setzt keine Cookies. Beim Aufruf werden technisch
+            notwendige Server-Logs (IP-Adresse, Zeitpunkt, User-Agent) temporär
+            durch den Hosting-Anbieter erfasst. Einzelheiten zur
+            Datenverarbeitung — einschließlich der cookiefreien Webanalyse —
+            finden Sie in der{" "}
+            <Link href="/datenschutz">Datenschutzerklärung</Link>.
           </p>
         </div>
       </section>
