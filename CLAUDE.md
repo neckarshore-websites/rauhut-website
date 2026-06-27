@@ -29,7 +29,7 @@ Same quality bar as `neckarshore-website`:
 - No CMS. Analytics: Vercel Web Analytics only (cookieless, DSGVO-friendly, no banner)
 - Self-hosted fonts (DSGVO)
 - Commit after each section / logical block
-- **Deploy-Flow:** Branch → PR → User-merge → Vercel Auto-Deploy via OAuth (verified end-to-end 2026-05-13 b PR #1). Preview-Deploys laufen auf jeder Branch-Push automatisch. Kein manueller `vercel --prod` nötig. Push direkt auf `main` is technisch erlaubt — wird aber per Konvention vermieden (PR-Flow).
+- **Deploy-Flow:** Push/merge to `main` auto-deploys via Vercel OAuth (verified end-to-end 2026-05-13 b PR #1). **Docs/content/copy: direct-to-main, no ceremony** — estate standard, harmonized 2026-06-27 (see Decision 11); the prior rauhut-only PR-flow special-case is retired. Preview-Deploys laufen auf jeder Branch-Push automatisch. Kein manueller `vercel --prod` nötig. PR-Flow bleibt verfügbar für substantielle/riskante Änderungen nach Ermessen.
 
 ## Lighthouse Device Matrix
 
@@ -88,6 +88,7 @@ Aktualisierungen am Projektprofil → erst Vault-Datei aktualisieren, dann Seite
 | 8 | 2026-05-16 | **D8 — rauhut-luxury.html excluded** | File intentionally deleted before integration; 28 cards shown |
 | 9 | 2026-05-16 | **D9 — Gallery page uses max-w-7xl** | Full-width card grid; main site uses max-w-2xl (single CV column) |
 | 10 | 2026-05-19 | **D10 — Security overrides for transitive CVE fixes** | When upstream pins a vulnerable transitive dep (e.g. `next@16.2.6` pinning `postcss@8.4.31`), patch via `package.json` `overrides` instead of `npm audit fix --force` (which proposes semver-major framework downgrades). First use: `postcss: 8.5.15` (PR #7) |
+| 11 | 2026-06-27 | **D11 — Deploy-flow harmonized to estate direct-to-main** | rauhut.com is a solo, low-traffic personal site; the per-site PR-flow divergence was just drift (owner call 2026-06-27). Docs/content/copy push direct-to-main like goldoni/oakwood/neckarshore. PR-flow stays available for substantive/risky changes at discretion |
 
 ## Out of Scope (post-v1)
 
