@@ -4,7 +4,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Impressum — rauhut.com",
-  description: "Angaben gemäß § 5 TMG",
+  description: "Angaben gemäß § 5 DDG",
   robots: { index: false, follow: true },
   alternates: { canonical: "https://rauhut.com/impressum" },
 };
@@ -27,7 +27,7 @@ export default function ImpressumPage() {
         Impressum
       </h1>
       <p className="mt-4 text-sm text-text-subtle">
-        Angaben gemäß § 5 TMG
+        Angaben gemäß § 5 DDG
       </p>
 
       <hr className="my-12" />
@@ -40,12 +40,11 @@ export default function ImpressumPage() {
           <p>
             German Rauhut
             <br />
-            Stuttgart
+            Rotebühlstraße 176
+            <br />
+            70197 Stuttgart
             <br />
             Deutschland
-          </p>
-          <p className="mt-3 text-sm text-text-subtle">
-            Die vollständige Postanschrift stelle ich auf Anfrage zur Verfügung.
           </p>
         </div>
 
@@ -56,6 +55,8 @@ export default function ImpressumPage() {
           <p>
             E-Mail:{" "}
             <a href="mailto:german@rauhut.com">german@rauhut.com</a>
+            <br />
+            Telefon: <a href="tel:+491603859135">+49 160 385 9135</a>
           </p>
         </div>
 
@@ -74,7 +75,7 @@ export default function ImpressumPage() {
             Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für
             die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann
             jedoch keine Gewähr übernommen werden. Als Diensteanbieter bin ich
-            gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den
+            gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den
             allgemeinen Gesetzen verantwortlich.
           </p>
         </div>
