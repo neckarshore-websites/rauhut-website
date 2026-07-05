@@ -40,15 +40,16 @@ export default function DatenschutzPage() {
           <p>
             German Rauhut
             <br />
-            Stuttgart
+            Rotebühlstraße 176
+            <br />
+            70197 Stuttgart
             <br />
             Deutschland
           </p>
           <p className="mt-3">
             E-Mail: <a href="mailto:german@rauhut.com">german@rauhut.com</a>
-          </p>
-          <p className="mt-3 text-sm text-text-subtle">
-            Die vollständige Postanschrift stelle ich auf Anfrage zur Verfügung.
+            <br />
+            Telefon: <a href="tel:+491603859135">+49 160 385 9135</a>
           </p>
         </div>
 
