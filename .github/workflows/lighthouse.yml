@@ -7,6 +7,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    # A stats.json-only commit (pushed by e2e.yml's emit-stats job) must not re-trigger
+    # this workflow — nothing here depends on the emitted data file.
+    paths-ignore:
+      - 'stats.json'
   pull_request:
     branches: [main]
   schedule:
