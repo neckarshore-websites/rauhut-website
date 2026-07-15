@@ -14,7 +14,8 @@
     "lighthouse:desktop": "node scripts/lighthouse.mjs --quick --profile=desktop",
     "lighthouse:mobile": "node scripts/lighthouse.mjs --quick --profile=mobile-4g",
     "lighthouse:5g": "node scripts/lighthouse.mjs --quick --profile=mobile-5g",
-    "test:lighthouse:unit": "node --test scripts/lighthouse-profiles.test.mjs"
+    "test:lighthouse:unit": "node --test scripts/lighthouse-profiles.test.mjs",
+    "test:unit": "node --experimental-strip-types --import ./tests/loaders/alias-loader.mjs --test src/app/actions/inquiry.test.ts"
   },
   "dependencies": {
     "@vercel/analytics": "2.0.1",
