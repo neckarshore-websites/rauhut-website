@@ -43,6 +43,14 @@ function clean(formData: FormData, key: string, max = MAX_FIELD_LEN): string {
     .slice(0, max);
 }
 
+// Single-line fields (name, email, honeypot): newlines collapse to spaces so
+// a value can never span mail-header lines (`name` flows into the Subject
+// header; nodemailer folds header newlines itself — this is belt-and-
+// suspenders). The multi-line `message` body keeps plain clean().
+function cleanLine(formData: FormData, key: string, max = MAX_FIELD_LEN): string {
+  return clean(formData, key, max).replace(/[\r\n]+/g, " ").trim();
+}
+
 /**
  * Sanitize the free-text message against prompt-injection.
  *
@@ -99,14 +107,14 @@ export async function sendContact(
   formData: FormData,
 ): Promise<ContactState> {
   // ----- Honeypot ---------------------------------------------------
-  if (clean(formData, "website")) {
+  if (cleanLine(formData, "website")) {
     // Bot detected — pretend success so they don't retry differently.
     return { status: "success" };
   }
 
   // ----- Fields -----------------------------------------------------
-  const name = clean(formData, "name");
-  const email = clean(formData, "email");
+  const name = cleanLine(formData, "name");
+  const email = cleanLine(formData, "email");
   const message = sanitizeText(clean(formData, "message", MAX_MESSAGE_LEN));
 
   const echoValues: ContactFieldValues = { name, email, message };
