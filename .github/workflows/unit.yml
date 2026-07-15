@@ -28,11 +28,16 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          # 22, not 20: test:unit runs a TypeScript test file directly via
+          # node --test, which needs Node >=22.6's native type-stripping.
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run unit tests
+      - name: Run lighthouse-profile unit tests
         run: npm run test:lighthouse:unit
+
+      - name: Run contact-action + lighthouse-url unit tests
+        run: npm run test:unit

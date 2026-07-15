@@ -18,12 +18,10 @@
  * CAPTCHA_ENABLED unset, `verifyCaptchaToken()` short-circuits to
  * `{ ok: true, skipped: true }` without calling out to Cloudflare.
  *
- * Run: node --test src/app/actions/inquiry.test.ts
+ * Run: npm run test:unit  (gated in CI by .github/workflows/unit.yml)
  * Requires Node >=22.6 for native TypeScript type-stripping of the erasable
  * syntax in inquiry.ts (type annotations, `import type`, interfaces — no
- * enums/namespaces). This repo's `test:lighthouse:unit` CI job currently
- * pins Node 20 for the (dependency-free) Lighthouse profile test; run this
- * suite on a newer local Node until CI is updated to match.
+ * enums/namespaces); the unit CI job runs on Node 22 for this reason.
  *
  * A tiny loader (./test-support/ts-path-alias-loader.mjs) is registered
  * below so the tsconfig `@/*` alias used inside inquiry.ts resolves under
@@ -72,17 +70,21 @@ const ENV_KEYS = [
 
 const savedEnv: Record<string, string | undefined> = {};
 
+// Next's ambient types mark process.env.NODE_ENV readonly; the test needs to
+// mutate it, so write through an untyped view of the same object.
+const mutableEnv = process.env as Record<string, string | undefined>;
+
 before(() => {
   for (const k of ENV_KEYS) savedEnv[k] = process.env[k];
   for (const k of ENV_KEYS) delete process.env[k];
   // Force the dev/preview dry-run branch (never the production error path).
-  process.env.NODE_ENV = "test";
+  mutableEnv.NODE_ENV = "test";
 });
 
 after(() => {
   for (const k of ENV_KEYS) {
     if (savedEnv[k] === undefined) delete process.env[k];
-    else process.env[k] = savedEnv[k];
+    else mutableEnv[k] = savedEnv[k];
   }
 });
 
