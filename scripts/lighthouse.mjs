@@ -5,7 +5,7 @@
  *
  * Usage:
  *   npm run lighthouse           (builds, starts, audits all profiles, stops)
- *   npm run lighthouse:quick     (skips build, assumes server is running on :3000)
+ *   npm run lighthouse:quick     (skips build, assumes server is running on :3001)
  *
  * Device Matrix (3 profiles) — defined in ./lighthouse-profiles.mjs:
  *   1. Desktop    — LAN baseline, --preset=desktop, 1× CPU
@@ -36,7 +36,7 @@ import { PROFILES } from "./lighthouse-profiles.mjs";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 
-const URL = process.env.LIGHTHOUSE_URL || "http://localhost:3000";
+const URL = process.env.LIGHTHOUSE_URL || "http://localhost:3001";
 const QUICK = process.argv.includes("--quick");
 const MAX_RETRIES = 3;
 
@@ -172,7 +172,7 @@ try {
     await waitForServer(URL);
     log("Server ready.");
   } else {
-    log("Quick mode — assuming server is running on :3000");
+    log("Quick mode — assuming server is running on :3001");
   }
 
   const reportDir = resolve(ROOT, ".lighthouse");

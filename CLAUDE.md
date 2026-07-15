@@ -50,7 +50,7 @@ Three profiles. **Performance is soft-warn on all of them** (advisory, never blo
 
 ### Commands
 
-- `npm run lighthouse:quick` — all 3 profiles (CI mode, assumes server on :3000)
+- `npm run lighthouse:quick` — all 3 profiles (CI mode, assumes server on :3001)
 - `npm run lighthouse:desktop` / `npm run lighthouse:mobile` (4G) / `npm run lighthouse:5g` — single profile for dev-loop
 - `npm run test:lighthouse:unit` — profile-shape regression test (no Chrome; ~0.1s)
 - `npm run lighthouse` — full pipeline (build + start + all profiles + stop)
