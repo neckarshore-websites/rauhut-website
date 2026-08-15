@@ -9,13 +9,22 @@ type Stat = { value: string; label: string };
  * the modest direction — the site undersold itself by roughly half on two of
  * four. Re-measured at source before this edit:
  *
- *   Tests   905  = omnopsis-backend 588 (unit 302 + integration 27 + e2e 259)
- *                + omnopsis-contracts 85 + omnopsis-frontend 232.
+ *   Tests   905  = omnopsis-backend 588 (unit 302 + integration 27 + e2e 259,
+ *                  measured 2026-07-02 @2f8a721)
+ *                + omnopsis-contracts 85 (measured 2026-06-30 @b690536)
+ *                + omnopsis-frontend 232 (measured 2026-06-30 @725e66f).
  *                Source: neckarshore-planning docs/reference/test-coverage-matrix.yaml
  *                (Lenin estate recount, MASCHIN read-the-code PIR PASS, SHA-pinned).
  *                Cross-check: the public audited estate figure at
  *                neckarshore.ai/estate-test-scope.json lists the same three
  *                Omnopsis rows summing to 905.
+ *                AGE OF THIS FIGURE, STATED BECAUSE ITS ABSENCE IS WHAT LET 466
+ *                SURVIVE TEN MONTHS: the three rows are six to seven weeks old
+ *                and the matrix carries `status: populating` with an explicit
+ *                honesty note that its quotable total stays gated. 905 replaces
+ *                a badly-measured number with a well-measured one — it is not a
+ *                fresh count. Treat it as a floor, and re-measure before quoting
+ *                it in anything that matters more than a project blurb.
  *   Agents   23  = count of agent definitions in the estate (`~/.claude/agents/*.md`).
  *   Endpoints 96 = `@Get|@Post|@Put|@Patch|@Delete` decorators across the 23
  *                controllers in omnopsis-backend at origin/main.
