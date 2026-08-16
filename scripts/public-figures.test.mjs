@@ -84,6 +84,27 @@ function readSurface(relPath) {
   }
 }
 
+/**
+ * Strip comments from source files before checking for retired values.
+ *
+ * WHY THIS EXISTS, AND WHY IT IS NOT A LOOPHOLE: this guard fired on its first
+ * day — against the provenance block in StatsRow.tsx, which explains WHY 466
+ * was wrong and therefore contains the string "466". A guard that forbids
+ * writing ABOUT a retired value pushes the next maintainer to delete the
+ * explanation rather than re-check the number, destroying exactly the
+ * documentation that prevents the next drift.
+ *
+ * So: a retired value is banned as CODE, permitted as PROSE. The comments are
+ * where the reasoning lives; the ban belongs on the value fields.
+ *
+ * Line comments are stripped only when `//` opens the line (after whitespace),
+ * so a URL inside a string literal survives intact.
+ */
+function stripComments(content, relPath) {
+  if (!/\.(tsx?|mjs|jsx?)$/.test(relPath)) return content;
+  return content.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+}
+
 test("no surface is left unguarded", () => {
   assert.ok(
     SURFACES.length >= 4,
@@ -94,20 +115,25 @@ test("no surface is left unguarded", () => {
 
 for (const { file, required, note } of SURFACES) {
   test(`${file} — retired figures do not return (${note})`, () => {
-    const content = readSurface(file);
+    const content = stripComments(readSurface(file), file);
     for (const stale of RETIRED) {
       assert.ok(
         !content.includes(stale),
-        `${file} carries the retired value "${stale}" again. ` +
+        `${file} carries the retired value "${stale}" again, OUTSIDE a comment. ` +
           `It was corrected on 2026-08-15 because it was measurably wrong. ` +
           `If the number genuinely changed back, re-measure it and update the ` +
-          `provenance block in src/components/StatsRow.tsx first.`,
+          `provenance block in src/components/StatsRow.tsx first. ` +
+          `(Writing about the old value in a comment is fine and deliberate — ` +
+          `only the value fields are guarded.)`,
       );
     }
   });
 
   test(`${file} — carries the measured figures`, () => {
-    const content = readSurface(file);
+    // Also comment-stripped, and that direction matters more: a figure that
+    // survives only inside the provenance comment while dropping out of the
+    // rendered code would otherwise read as "present" — a vacuous pass.
+    const content = stripComments(readSurface(file), file);
     for (const value of required) {
       assert.ok(
         content.includes(value),
