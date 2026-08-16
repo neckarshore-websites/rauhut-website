@@ -125,6 +125,47 @@ export default function HomePageEN() {
 
       <hr />
 
+      {/*
+        AI Consulting — English counterpart of the KI-Beratung bridge.
+
+        The offer page itself is German-only (`/en/ki-beratung` returns 404,
+        verified 2026-08-16), so the link carries the "(German)" marker this
+        page already uses for the imprint. Leaving the section out entirely
+        would make the two language versions structurally different, which is
+        the worse of the two honest options.
+
+        This copy is a translation by Linus, not Founder-worded — unlike the
+        German original it may be reworded without asking. Same `?ref=rauhut`
+        marker on purpose: one value keeps the campaign measurement simple.
+      */}
+      <Reveal className="py-16 sm:py-20" aria-labelledby="ai-consulting">
+        <h2
+          id="ai-consulting"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
+        >
+          AI Consulting
+        </h2>
+        <p className="text-lg leading-relaxed">
+          What works in my own products, I pass on as an analysis: Neckarshore
+          AI offers a workshop day that shows where AI agents carry real
+          processes — and where they do not. I run the analysis myself; nothing
+          is recommended that has not run in our own operation first. Scope,
+          format and pricing are on the offer page.
+        </p>
+        <p className="mt-6">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            AI potential analysis (German)
+          </a>
+        </p>
+      </Reveal>
+
+      <hr />
+
       {/* Core Competencies */}
       <Reveal className="py-16 sm:py-20" aria-labelledby="competencies">
         <h2
