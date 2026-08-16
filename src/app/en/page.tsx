@@ -126,6 +126,27 @@ export default function HomePageEN() {
             AI potential analysis (German)
           </a>
         </p>
+        {/*
+          Calendly — Founder instruction 2026-08-16. Full note on the German
+          page. Short version: a LINK, never an embed, or § 7 of the
+          Datenschutzerklaerung stops being true.
+
+          No "(German)" marker here, unlike the offer link above. That marker
+          is used where WE established the destination is German-only.
+          Calendly's booking page follows the visitor's own locale and I have
+          not verified how it renders — claiming a language would be inventing
+          a fact instead of stating one.
+        */}
+        <p className="mt-3">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Or arrange an introductory call with Neckarshore AI (20 minutes)
+          </a>
+        </p>
       </Reveal>
 
       <hr />

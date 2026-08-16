@@ -53,14 +53,15 @@ const PRODUCTS: ReadonlyArray<{
     href: "https://neckarshore.ai/products/trustscope",
   },
   {
-    // Deliberately still descriptive. The Founder answered on 2026-08-16
-    // that Kaze counts as an own Neckarshore product; that answer is not yet
-    // reflected here because it contradicts this estate's own agent
-    // definitions (which name `zappasequencer/kaze` as a third party's repo
-    // we do product management for). The contradiction was raised back
-    // rather than resolved silently in code — on a PERSON page the claim
-    // becomes a statement about him, which is the most expensive place for
-    // it to be wrong. "iOS" is correct under either reading.
+    // FOUNDER-RULED 2026-08-16, asked twice on purpose: Kaze counts as an
+    // own Neckarshore product. The first answer was challenged because this
+    // estate's own agent definitions say the opposite — they name
+    // `zappasequencer/kaze` as a third party's repo "we do NOT develop
+    // ourselves". The Founder confirmed against that evidence and ruled the
+    // definitions stale; correcting them is tracked separately.
+    // The tag stays "iOS" regardless: it was chosen to be true under either
+    // reading, and the ruling removes a constraint rather than requiring
+    // new wording. Nothing here needs to change on the ruling alone.
     name: "Kaze",
     tag: { de: "iOS", en: "iOS" },
     href: "https://neckarshore.ai/products/kaze",

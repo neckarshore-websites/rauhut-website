@@ -60,6 +60,65 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
 });
 
 /**
+ * Calendly CTA — Founder instruction 2026-08-16.
+ *
+ * Three things are asserted, and the second is the one that matters most:
+ *
+ * 1. The CTA exists in both language versions and points at the verified
+ *    address (`calendly.com/rauhut/20min` — found in neckarshore-website's
+ *    source AND on the live offer page, not assumed).
+ *
+ * 2. IT IS A LINK, NOT AN EMBED. § 7 of the Datenschutzerklaerung states
+ *    that no data reaches Calendly until the visitor clicks. That sentence
+ *    is only true while this stays an outbound link. A script tag or iframe
+ *    from calendly.com would make a published legal document false — which
+ *    is a defect of a different order than a layout regression, and exactly
+ *    the kind that ships unnoticed because nothing looks broken.
+ *
+ * 3. The privacy section that covers it still exists. Link and disclosure
+ *    have to travel together; removing the section while keeping the link is
+ *    the silent half of the same failure.
+ */
+const CALENDLY = "https://calendly.com/rauhut/20min?utm_source=rauhut-com";
+
+for (const [language, path, regionName] of [
+  ["German", "/", "KI-Beratung"],
+  ["English", "/en", "AI Consulting"],
+] as const) {
+  test(`${language} homepage offers the Calendly call as a link, never an embed`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const section = page.getByRole("region", { name: regionName });
+    await expect(
+      section.locator(`a[href="${CALENDLY}"]`),
+      "the Calendly CTA must survive a content pass"
+    ).toHaveCount(1);
+
+    // Positive assertion first (above), so the absence check below cannot go
+    // vacuously green on a page where the section vanished entirely.
+    await expect(
+      page.locator('script[src*="calendly"], iframe[src*="calendly"]'),
+      "an embed would make § 7 of the Datenschutzerklaerung false"
+    ).toHaveCount(0);
+  });
+}
+
+test("the privacy policy covers the Calendly link it is written for", async ({
+  page,
+}) => {
+  await page.goto("/datenschutz");
+
+  const policy = page.locator("main");
+  await expect(policy).toContainText("Terminbuchung (Calendly)");
+  await expect(
+    policy,
+    "the section's load-bearing claim is that nothing is embedded"
+  ).toContainText("nicht in diese Website eingebunden");
+});
+
+/**
  * C4 guard — rauhut.com is a person page and deliberately NOT an
  * availability page (Founder decision via Engels, batch 4). Until now that
  * decision existed only as prose in a report, which is exactly the shape
@@ -69,6 +128,17 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
  * Forbidden is availability language: "I am free, book me." The second kind
  * re-opens the settled question through the back door, one innocuous word
  * at a time.
+ *
+ * NARROWED 2026-08-16 by Founder instruction, recorded here rather than
+ * left to erode quietly: a CTA to NECKARSHORE AI's booking page is now
+ * explicitly allowed. That is a company offer with a fixed format, not a
+ * statement about this person's availability, and it is the same register
+ * as the offer link beside it. What stays forbidden is unchanged — wording
+ * that makes HIM the bookable resource ("freie Slots", "Kapazität",
+ * "buchbar"). The guard below is untouched by this narrowing because the
+ * CTA's own wording ("Erstgespräch bei Neckarshore AI vereinbaren") does
+ * not use that vocabulary; if the CTA is ever reworded into it, the guard
+ * fires and that is correct behaviour, not a false alarm.
  *
  * Scoped to the section on purpose — "Auftrag" and friends are legitimate
  * words elsewhere on a CV page.

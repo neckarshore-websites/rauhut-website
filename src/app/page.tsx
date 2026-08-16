@@ -76,6 +76,33 @@ export default function HomePage() {
             Zur KI-Potenzialanalyse
           </a>
         </p>
+        {/*
+          Calendly — Founder instruction 2026-08-16.
+
+          A LINK, never an embed: no script, no iframe, no widget. As long as
+          it stays a link, no visitor data reaches Calendly until the visitor
+          has clicked and left this site. The moment anyone turns this into an
+          embed, § 7 of the Datenschutzerklaerung stops being true and this
+          page acquires a US third-party processor it does not declare.
+
+          The address is verified, not assumed — `calendly.com/rauhut/20min`
+          appears in neckarshore-website's source AND on the live offer page.
+          It is TWENTY minutes; older notes in this estate say fifteen.
+
+          `utm_source` should surface the origin in Calendly's own reporting.
+          NOT verified against the account — if it does not show up there the
+          parameter is inert and costs nothing.
+        */}
+        <p className="mt-3">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Oder ein Erstgespräch bei Neckarshore AI vereinbaren (20 Minuten)
+          </a>
+        </p>
       </Reveal>
 
       <hr />

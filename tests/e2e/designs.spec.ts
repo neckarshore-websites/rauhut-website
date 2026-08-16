@@ -19,11 +19,47 @@ test("/designs loads without console errors and no failed network requests", asy
   const consoleErrors: string[] = [];
   const failedRequests: string[] = [];
 
+  // THIS FIXES ONE OF TWO CAUSES. Stated up front so the next reader does
+  // not treat a still-flaky test as a new defect: after this filter the
+  // suite goes green roughly four runs in five, not five in five. The
+  // remaining failure is a bare "404" console error with no URL attached; it
+  // does NOT reproduce when /designs is loaded six times in isolation
+  // (measured), only inside a full suite run, which fits Next's on-demand
+  // dev compilation serving a chunk request before it is built. Not chased
+  // further on 2026-08-16 — three attempts, and the fix-loop rule says stop
+  // and write it down. Production is statically built and cannot have this.
+  //
+  // ONE known, explained, dev-only console error is filtered — and the
+  // filter is narrow enough to name exactly what it drops.
+  //
+  // In dev, @vercel/analytics loads `script.debug.js` from
+  // va.vercel-scripts.com. Our CSP allows only 'self' + Turnstile, so the
+  // browser blocks it and logs a violation. Whether that log lands before or
+  // after the assertion is a race, which made this test fail roughly half
+  // the time — five false reds on 2026-08-16 alone, plus a twenty-minute
+  // hunt through an unrelated diff on the same day, twice diagnosed wrongly
+  // (orphan dev server, then cold start) before the message was read.
+  //
+  // PRODUCTION IS NOT AFFECTED, verified rather than assumed: live,
+  // @vercel/analytics is edge-proxied SAME-ORIGIN from
+  // /_vercel/insights/script.js (HTTP 200 on rauhut.com), covered by
+  // `script-src 'self'`. next.config.ts documents the same arrangement.
+  //
+  // WHAT THIS WOULD HIDE, stated so nobody has to reconstruct it: a CSP
+  // violation for THIS EXACT dev-only URL. Any other blocked script — a real
+  // production CSP gap included — still fails, because the match is the full
+  // debug-script URL and not the word "CSP".
+  const DEV_ONLY_ANALYTICS_CSP =
+    "https://va.vercel-scripts.com/v1/script.debug.js";
+
   page.on("console", (msg) => {
-    if (msg.type() === "error") consoleErrors.push(msg.text());
+    if (msg.type() !== "error") return;
+    if (msg.text().includes(DEV_ONLY_ANALYTICS_CSP)) return;
+    consoleErrors.push(msg.text());
   });
 
   page.on("requestfailed", (req) => {
+    if (req.url().includes(DEV_ONLY_ANALYTICS_CSP)) return;
     failedRequests.push(req.url());
   });
 

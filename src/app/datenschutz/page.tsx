@@ -169,7 +169,43 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 7 · Speicherung im Browser</h2>
+          <h2 className={labelClass}>§ 7 · Terminbuchung (Calendly)</h2>
+          <p>
+            Auf der Startseite befindet sich ein <strong>Link</strong> zu einer
+            Terminbuchungsseite bei Calendly LLC, 3423 Piedmont Rd NE, Suite
+            420, Atlanta, GA 30305, USA. Calendly ist{" "}
+            <strong>nicht in diese Website eingebunden</strong> — es werden
+            weder Skripte noch Schaltflächen oder sonstige Inhalte von Calendly
+            geladen. Solange Sie den Link nicht anklicken, werden{" "}
+            <strong>keine Daten an Calendly übermittelt</strong>.
+          </p>
+          <p className="mt-3">
+            Erst bei Nutzung des Links werden Sie auf die Website von Calendly
+            weitergeleitet. Die dort von Ihnen eingegebenen Daten (Name,
+            E-Mail-Adresse, ggf. Telefonnummer) verarbeitet Calendly in eigener
+            Verantwortung.
+          </p>
+          <p className="mt-3">
+            <strong>Rechtsgrundlage:</strong> Einwilligung (Art. 6 Abs. 1 lit. a
+            DSGVO) — Sie entscheiden selbst, ob Sie den Link nutzen und Daten
+            eingeben. <strong>Drittlandtransfer:</strong>{" "}
+            EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO).
+            Datenschutz:{" "}
+            <a
+              href="https://calendly.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              calendly.com/privacy
+            </a>
+            . Wird der Link jemals durch eine Einbettung ersetzt, ist dieser
+            Abschnitt hinfällig und muss neu gefasst werden.
+          </p>
+        </div>
+
+        <div>
+          <h2 className={labelClass}>§ 8 · Speicherung im Browser</h2>
           <p>
             Für die von Ihnen gewählte Designvariante (hell/dunkel) speichert die
             Website Ihre Auswahl im lokalen Speicher Ihres Browsers
@@ -182,7 +218,7 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 8 · Ihre Rechte</h2>
+          <h2 className={labelClass}>§ 9 · Ihre Rechte</h2>
           <p>
             Sie haben folgende Rechte: Auskunft (Art. 15), Berichtigung (Art.
             16), Löschung (Art. 17), Einschränkung (Art. 18),
@@ -196,7 +232,7 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 9 · Beschwerderecht</h2>
+          <h2 className={labelClass}>§ 10 · Beschwerderecht</h2>
           <p>
             Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu
             beschweren. Zuständig: Der Landesbeauftragte für den Datenschutz und
