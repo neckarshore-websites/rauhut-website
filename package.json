@@ -15,7 +15,7 @@
     "lighthouse:mobile": "node scripts/lighthouse.mjs --quick --profile=mobile-4g",
     "lighthouse:5g": "node scripts/lighthouse.mjs --quick --profile=mobile-5g",
     "test:lighthouse:unit": "node --test scripts/lighthouse-profiles.test.mjs",
-    "test:unit": "node --test src/app/actions/inquiry.test.ts scripts/lighthouse-url.test.mjs"
+    "test:unit": "node --test src/app/actions/inquiry.test.ts scripts/lighthouse-url.test.mjs scripts/public-figures.test.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "2.0.1",
