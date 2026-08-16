@@ -88,12 +88,48 @@ const securityHeaders = [
   },
 ];
 
+// The /designs gallery is a design PLAYGROUND, not a statement (Founder call,
+// 2026-08-16). The 28 standalone mockups in public/designs/ are art pieces that
+// each restate the site's content in a different visual language — including
+// its figures. On 2026-08-15 all four public figures were re-measured and
+// corrected on the real pages; all 28 mockups still carry the old ones, 38
+// occurrences in total.
+//
+// Chasing those 38 strings would be the wrong fix twice over: it costs 28 file
+// edits, and the mockups would drift again the next time a number moves. The
+// class fix is to stop them being read as statements at all.
+//
+// WHY A HEADER AND NOT `Disallow` IN robots.txt — this is the trap in this
+// exact problem: `Disallow` forbids CRAWLING, which means the crawler never
+// fetches the page and therefore never SEES a noindex directive. A URL blocked
+// that way can still be indexed from external links, just without content. To
+// de-index reliably the page must stay crawlable and say noindex. So: no
+// Disallow, an X-Robots-Tag header instead.
+//
+// `nofollow` rides along deliberately: the mockups link out to github/linkedin
+// and to each other, and a playground should not be casting ranking signals.
+const designsNoIndexHeaders = [
+  { key: "X-Robots-Tag", value: "noindex, nofollow" },
+];
+
 const nextConfig: NextConfig = {
   async headers() {
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      // Both entries are needed: `/designs` is the Next route (the gallery
+      // page), `/designs/:path*` are the 28 static HTML files served from
+      // public/. Matching only the second would leave the gallery itself
+      // indexable.
+      {
+        source: "/designs",
+        headers: designsNoIndexHeaders,
+      },
+      {
+        source: "/designs/:path*",
+        headers: designsNoIndexHeaders,
       },
     ];
   },

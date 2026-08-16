@@ -31,10 +31,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
-    {
-      url: `${base}/designs`,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
+    // /designs is DELIBERATELY ABSENT (2026-08-16). The gallery now ships
+    // `X-Robots-Tag: noindex` (see next.config.ts for the full reasoning).
+    // Listing a noindex URL in the sitemap sends search engines two opposite
+    // instructions in the same breath — "please index this" and "do not index
+    // this" — and the sitemap entry is the half that has to go, because the
+    // noindex is the decision.
   ];
 }
