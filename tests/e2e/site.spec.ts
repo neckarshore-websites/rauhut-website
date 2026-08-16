@@ -119,6 +119,89 @@ test("English homepage bridges to the offer page and marks it as German", async 
   ).toHaveAttribute("href", "https://neckarshore.ai/ki-beratung?ref=rauhut");
 });
 
+/**
+ * Projektblock — Variante A (Founder-decided 2026-08-16): one lead tile for
+ * neckarshore.ai, and under it a compact list of the products that live
+ * inside it. The hierarchy is the point — the five rows are not siblings of
+ * the tile, they are its contents.
+ *
+ * Two things are asserted rather than trusted:
+ *
+ * 1. THE TARGETS. Every row points at a product page on neckarshore.ai. All
+ *    routes were measured 200 on 2026-08-16, but nothing in this repo keeps
+ *    a slug honest afterwards — a typo ships a 404 into the most prominent
+ *    block on the page and nothing here would notice. Asserted against a
+ *    literal list and NOT by fetching the live site: a network call would
+ *    make this suite depend on a foreign deployment's uptime, which is how
+ *    a green suite starts lying for reasons that have nothing to do with
+ *    this repo.
+ *
+ * 2. THE ABSENCE OF REPOSITORY LINKS. Sending a visitor of a person page
+ *    into a code repository is exactly what this rebuild removed. Without an
+ *    assertion it creeps back on the next content pass, one helpful link at
+ *    a time — the same shape as the C4 guard below.
+ */
+const PRODUCT_ROWS = [
+  ["Omnopsis Documentor", "https://neckarshore.ai/products/omnopsis"],
+  [
+    "Obsidian Vault Autopilot",
+    "https://neckarshore.ai/products/obsidian-vault-autopilot",
+  ],
+  ["TrustScope", "https://neckarshore.ai/products/trustscope"],
+  ["Kaze", "https://neckarshore.ai/products/kaze"],
+  ["Skills", "https://neckarshore.ai/products/skills"],
+] as const;
+
+const PROJECT_BLOCK = [
+  ["German", "/", "Projektbereich"],
+  ["English", "/en", "Project overview"],
+] as const;
+
+for (const [language, path, regionLabel] of PROJECT_BLOCK) {
+  test(`${language} homepage leads with neckarshore.ai and lists its products`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const block = page.getByRole("region", { name: regionLabel });
+    await expect(block).toBeVisible();
+
+    await expect(
+      block.getByRole("link", { name: /neckarshore/i })
+    ).toHaveAttribute("href", "https://neckarshore.ai");
+
+    for (const [name, href] of PRODUCT_ROWS) {
+      await expect(
+        block.getByRole("link", { name: new RegExp(`^${name}`) }),
+        `row "${name}" must point at its product page`
+      ).toHaveAttribute("href", href);
+    }
+  });
+
+  test(`${language} project block sends nobody into a code repository`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const block = page.getByRole("region", { name: regionLabel });
+
+    // The absence check below is worthless on its own: if the block ever
+    // disappears, "zero repository links" becomes trivially true and this
+    // test goes green while the page loses its most prominent element.
+    // So prove there is something to search FIRST. Caught by running this
+    // test red-first, where it passed against a page that still carried the
+    // GitHub link — the same empty-assertion shape logged for the OGC search
+    // suite one day earlier.
+    await expect(block).toBeVisible();
+    expect(await block.getByRole("link").count()).toBeGreaterThan(1);
+
+    await expect(
+      block.locator('a[href*="github.com"]'),
+      "a person page links to products, not to repositories"
+    ).toHaveCount(0);
+  });
+}
+
 test("language toggle links German and English pages without self-links", async ({
   page,
 }) => {
