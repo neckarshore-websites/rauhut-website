@@ -178,6 +178,34 @@ for (const [language, path, regionLabel] of PROJECT_BLOCK) {
     }
   });
 
+  /**
+   * Proper nouns survive the stylesheet.
+   *
+   * "iOS" is Apple's own spelling (apple.com/os/ios). An earlier version of
+   * this block ran the tags through `text-transform: uppercase` and shipped
+   * "IOS" — a styling rule silently rewriting a product's name. The source
+   * read "iOS" and looked correct; only the rendered page showed it.
+   *
+   * Asserted on `innerText`, which is what the BROWSER produces, not on the
+   * source value — reading the source is exactly the check that missed it
+   * the first time. Re-adding an uppercase class to these tags fails here.
+   */
+  test(`${language} project block spells iOS the way Apple does`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const kaze = page
+      .getByRole("region", { name: regionLabel })
+      .getByRole("link", { name: /^Kaze/ });
+
+    await expect(kaze).toContainText("iOS");
+    expect(
+      await kaze.innerText(),
+      'the tag must render as "iOS", never "IOS" — check for a text-transform on the tag span'
+    ).not.toMatch(/\bIOS\b/);
+  });
+
   test(`${language} project block sends nobody into a code repository`, async ({
     page,
   }) => {
