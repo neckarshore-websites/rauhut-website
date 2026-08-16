@@ -89,8 +89,70 @@ export default function HomePageEN() {
         </div>
       </header>
 
+      {/*
+        AI Consulting — English counterpart of the KI-Beratung bridge.
+
+        The offer page itself is German-only (`/en/ki-beratung` returns 404,
+        verified 2026-08-16), so the link carries the "(German)" marker this
+        page already uses for the imprint. Leaving the section out entirely
+        would make the two language versions structurally different, which is
+        the worse of the two honest options.
+
+        This copy is a translation by Linus, not Founder-worded — unlike the
+        German original it may be reworded without asking. Same `?ref=rauhut`
+        marker on purpose: one value keeps the campaign measurement simple.
+      */}
+      <Reveal className="pb-16 sm:pb-20" aria-labelledby="ai-consulting">
+        <h2
+          id="ai-consulting"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
+        >
+          AI Consulting
+        </h2>
+        <p className="text-lg leading-relaxed">
+          What works in my own products, I pass on as an analysis: Neckarshore
+          AI offers a workshop day that shows where AI agents carry real
+          processes — and where they do not. I run the analysis myself; nothing
+          is recommended that has not run in our own operation first. Scope,
+          format and pricing are on the offer page.
+        </p>
+        <p className="mt-6">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            AI potential analysis (German)
+          </a>
+        </p>
+        {/*
+          Calendly — Founder instruction 2026-08-16. Full note on the German
+          page. Short version: a LINK, never an embed, or § 7 of the
+          Datenschutzerklaerung stops being true.
+
+          No "(German)" marker here, unlike the offer link above. That marker
+          is used where WE established the destination is German-only.
+          Calendly's booking page follows the visitor's own locale and I have
+          not verified how it renders — claiming a language would be inventing
+          a fact instead of stating one.
+        */}
+        <p className="mt-3">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Or arrange an introductory call with Neckarshore AI (20 minutes)
+          </a>
+        </p>
+      </Reveal>
+
+      <hr />
+
       {/* Project Tiles — Neckarshore + Obsidian Vault Autopilot */}
-      <div className="mb-16 sm:mb-20">
+      <div className="py-16 sm:py-20">
         <ProjectTiles lang="en" />
       </div>
 
@@ -121,47 +183,6 @@ export default function HomePageEN() {
             Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
           </p>
         </div>
-      </Reveal>
-
-      <hr />
-
-      {/*
-        AI Consulting — English counterpart of the KI-Beratung bridge.
-
-        The offer page itself is German-only (`/en/ki-beratung` returns 404,
-        verified 2026-08-16), so the link carries the "(German)" marker this
-        page already uses for the imprint. Leaving the section out entirely
-        would make the two language versions structurally different, which is
-        the worse of the two honest options.
-
-        This copy is a translation by Linus, not Founder-worded — unlike the
-        German original it may be reworded without asking. Same `?ref=rauhut`
-        marker on purpose: one value keeps the campaign measurement simple.
-      */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="ai-consulting">
-        <h2
-          id="ai-consulting"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
-          AI Consulting
-        </h2>
-        <p className="text-lg leading-relaxed">
-          What works in my own products, I pass on as an analysis: Neckarshore
-          AI offers a workshop day that shows where AI agents carry real
-          processes — and where they do not. I run the analysis myself; nothing
-          is recommended that has not run in our own operation first. Scope,
-          format and pricing are on the offer page.
-        </p>
-        <p className="mt-6">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            AI potential analysis (German)
-          </a>
-        </p>
       </Reveal>
 
       <hr />
