@@ -157,21 +157,20 @@ export default function HomePage() {
               <strong className="font-semibold">OMNOPSIS Documentor</strong> —
               AI-gestützte Dokumentations-Engine. Generierung von Compliance-,
               Technik- und Release-Dokumentation aus Git, Jira und Confluence.
-              466 Tests, 95 API-Endpoints, RBAC, Monitoring-Stack.
+              905 Tests, 96 API-Endpoints, RBAC, Monitoring-Stack.
             </li>
             <li>
               <strong className="font-semibold">
                 Obsidian Vault Autopilot
               </strong>{" "}
               — Open-Source-Plugin für automatisiertes Wissensmanagement
-              (Markdown, YAML Frontmatter, Obsidian API). Kurz vor Public Launch
-              auf GitHub.
+              (Markdown, YAML Frontmatter, Obsidian API). Öffentlich auf GitHub.
             </li>
             <li>
               <strong className="font-semibold">
                 KI-gestützter Multi-Agent-Entwicklungsprozess
               </strong>{" "}
-              — 12+ spezialisierte AI-Agenten (Architektur, Implementation,
+              — 23 spezialisierte AI-Agenten (Architektur, Implementation,
               Security, Refactoring, Marketing) mit strukturiertem
               Handoff-Protokoll, paralleler Ausführung und automatisierter
               Qualitätssicherung.
