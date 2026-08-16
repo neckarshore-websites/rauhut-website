@@ -10,9 +10,9 @@ Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA S
 
 ## Current Focus
 
-- **Neckarshore AI** — own AI-product company. Flagship: OMNOPSIS Documentor (AI-powered documentation engine; 466 tests, 95 API endpoints, RBAC, monitoring stack).
-- **Obsidian Vault Autopilot** — open-source plugin for automated knowledge management. Nearing public GitHub launch.
-- **Multi-agent AI development process** — 12+ specialized AI agents (architecture, implementation, security, refactoring, marketing) with structured handoff protocol, parallel execution, automated quality assurance.
+- **Neckarshore AI** — own AI-product company. Flagship: OMNOPSIS Documentor (AI-powered documentation engine; 905 tests, 96 API endpoints, RBAC, monitoring stack).
+- **Obsidian Vault Autopilot** — open-source plugin for automated knowledge management. Public on GitHub.
+- **Multi-agent AI development process** — 23 specialized AI agents (architecture, implementation, security, refactoring, marketing) with structured handoff protocol, parallel execution, automated quality assurance.
 
 ## Stack
 
