@@ -40,8 +40,48 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/*
+        KI-Beratung — the bridge from the person page to the Neckarshore offer.
+
+        Copy is Founder-worded (approved 2026-08-16); do not paraphrase it in a
+        refactor. The constraint that shaped it: this page is deliberately NOT
+        an availability or acquisition page, so the register is "this exists,
+        here is the way" and never "I am free, book me". A regression guard
+        enforces that in tests/e2e/site.spec.ts rather than leaving it in prose.
+
+        The `?ref=rauhut` on the link is load-bearing, not decoration — it is
+        how the campaign tells traffic from this page apart from the rest.
+      */}
+      <Reveal className="pb-16 sm:pb-20" aria-labelledby="ki-beratung">
+        <h2
+          id="ki-beratung"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
+        >
+          KI-Beratung
+        </h2>
+        <p className="text-lg leading-relaxed">
+          Was in meinen eigenen Produkten funktioniert, gebe ich als Analyse
+          weiter: Bei Neckarshore AI gibt es dafür einen Workshop-Tag, der zeigt,
+          wo KI-Agenten in konkreten Prozessen tragen — und wo nicht. Die Analyse
+          mache ich selbst; empfohlen wird nur, was vorher im eigenen Betrieb
+          gelaufen ist. Ablauf, Umfang und Preise stehen auf der Angebotsseite.
+        </p>
+        <p className="mt-6">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Zur KI-Potenzialanalyse
+          </a>
+        </p>
+      </Reveal>
+
+      <hr />
+
       {/* Project Tiles — Neckarshore + Obsidian Vault Autopilot */}
-      <div className="mb-16 sm:mb-20">
+      <div className="py-16 sm:py-20">
         <ProjectTiles />
       </div>
 
@@ -72,46 +112,6 @@ export default function HomePage() {
             Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
           </p>
         </div>
-      </Reveal>
-
-      <hr />
-
-      {/*
-        KI-Beratung — the bridge from the person page to the Neckarshore offer.
-
-        Copy is Founder-worded (approved 2026-08-16); do not paraphrase it in a
-        refactor. The constraint that shaped it: this page is deliberately NOT
-        an availability or acquisition page, so the register is "this exists,
-        here is the way" and never "I am free, book me". A regression guard
-        enforces that in tests/e2e/site.spec.ts rather than leaving it in prose.
-
-        The `?ref=rauhut` on the link is load-bearing, not decoration — it is
-        how the campaign tells traffic from this page apart from the rest.
-      */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="ki-beratung">
-        <h2
-          id="ki-beratung"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
-          KI-Beratung
-        </h2>
-        <p className="text-lg leading-relaxed">
-          Was in meinen eigenen Produkten funktioniert, gebe ich als Analyse
-          weiter: Bei Neckarshore AI gibt es dafür einen Workshop-Tag, der zeigt,
-          wo KI-Agenten in konkreten Prozessen tragen — und wo nicht. Die Analyse
-          mache ich selbst; empfohlen wird nur, was vorher im eigenen Betrieb
-          gelaufen ist. Ablauf, Umfang und Preise stehen auf der Angebotsseite.
-        </p>
-        <p className="mt-6">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Zur KI-Potenzialanalyse
-          </a>
-        </p>
       </Reveal>
 
       <hr />

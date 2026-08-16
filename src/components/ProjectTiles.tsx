@@ -25,10 +25,14 @@ type Lang = "de" | "en";
  * silently rewriting a proper noun. Found by looking at the rendered page,
  * not at the code: in the source the value read "iOS" and looked right.
  */
-const PRODUCTS: ReadonlyArray<{ name: string; tag: string; href: string }> = [
+const PRODUCTS: ReadonlyArray<{
+  name: string;
+  tag: Record<Lang, string>;
+  href: string;
+}> = [
   {
     name: "Omnopsis Documentor",
-    tag: "FLAGSHIP",
+    tag: { de: "FLAGSHIP", en: "FLAGSHIP" },
     href: "https://neckarshore.ai/products/omnopsis",
   },
   {
@@ -36,26 +40,34 @@ const PRODUCTS: ReadonlyArray<{ name: string; tag: string; href: string }> = [
     // anchor breaks silently when that list is re-sorted, and it delivers
     // the reader into a list instead of onto the product.
     name: "Obsidian Vault Autopilot",
-    tag: "OPEN SOURCE",
+    tag: { de: "OPEN SOURCE", en: "OPEN SOURCE" },
     href: "https://neckarshore.ai/products/obsidian-vault-autopilot",
   },
   {
+    // "MMP" until 2026-08-16, replaced on Founder decision: it is an
+    // internal abbreviation and says nothing to a visitor of this page. The
+    // label had no history worth protecting — it came from the design draft,
+    // not from a Founder wording.
     name: "TrustScope",
-    tag: "MMP",
+    tag: { de: "EIGENES PRODUKT", en: "OWN PRODUCT" },
     href: "https://neckarshore.ai/products/trustscope",
   },
   {
-    // Neutral by intent. Whether Kaze may be presented as a Neckarshore
-    // product or is a mandate is an open question (reported 2026-08-16); on
-    // a PERSON page that distinction becomes a statement about him, so the
-    // wording stays descriptive until it is answered.
+    // Deliberately still descriptive. The Founder answered on 2026-08-16
+    // that Kaze counts as an own Neckarshore product; that answer is not yet
+    // reflected here because it contradicts this estate's own agent
+    // definitions (which name `zappasequencer/kaze` as a third party's repo
+    // we do product management for). The contradiction was raised back
+    // rather than resolved silently in code — on a PERSON page the claim
+    // becomes a statement about him, which is the most expensive place for
+    // it to be wrong. "iOS" is correct under either reading.
     name: "Kaze",
-    tag: "iOS",
+    tag: { de: "iOS", en: "iOS" },
     href: "https://neckarshore.ai/products/kaze",
   },
   {
     name: "Skills",
-    tag: "CLAUDE CODE",
+    tag: { de: "CLAUDE CODE", en: "CLAUDE CODE" },
     href: "https://neckarshore.ai/products/skills",
   },
 ];
@@ -147,7 +159,7 @@ export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
                 {product.name}
               </span>
               <span className="text-[0.6875rem] font-semibold tracking-[0.1em] text-text-subtle">
-                {product.tag}
+                {product.tag[lang]}
               </span>
               <span
                 aria-hidden="true"
