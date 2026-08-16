@@ -72,6 +72,15 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
  *
  * Scoped to the section on purpose — "Auftrag" and friends are legitimate
  * words elsewhere on a CV page.
+ *
+ * KNOWN LIMITATION, written down before it bites: this matches strings, not
+ * meaning. `beauftrag` would also fire on a harmless past-tense sentence
+ * ("vom Kunden beauftragt") if the section ever grows one. That is the same
+ * shape as the public-figures guard, which on its first day reported the
+ * comment explaining a retired number as a defect — a tool enforcing a rule
+ * cannot tell a claim from talk about a claim. If this ever false-alarms,
+ * narrow the pattern; do NOT reword the copy to appease it. Rewording to
+ * satisfy a naive guard is how the guarded thing quietly disappears.
  */
 const AVAILABILITY_VOCAB =
   /buchbar|verf[üu]gbar|Verf[üu]gbarkeit|Kapazit[äa]t|freie? Slots?|Mandat|beauftrag/i;
