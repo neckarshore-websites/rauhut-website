@@ -20,9 +20,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    # Break the emit commit-loop: the emit-stats job below commits a stats.json-only
-    # commit to main; paths-ignore keeps that commit from re-triggering this workflow
-    # (cleaner than a [skip ci] string convention). estate stats-json-contract, Phase 3.
+    # Defensive no-op: the estate stats.json emit (emit-stats job below) targets the
+    # UNPROTECTED `stats-data` branch, never main — a push to stats-data never matches
+    # this main-only trigger, so the re-emit loop is structurally impossible. Kept so
+    # that even a hypothetical manual stats.json commit on main cannot self-trigger.
     paths-ignore:
       - 'stats.json'
   pull_request:
@@ -70,12 +71,17 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
-  # Estate stats.json producer (test-scope facet, backlog #391 Lane 3 / direct-to-main).
-  # main is public + UNPROTECTED, so the CI bot commits stats.json straight to main on every
+  # Estate stats.json producer (test-scope facet, backlog #391 Lane 3 / Approach E).
+  # Publishes a contract-conformant stats.json to the UNPROTECTED `stats-data` branch on every
   # push:main, AFTER the e2e gate. Runs even when e2e fails (if: always) so a non-green run
   # emits red:true — never a stale-green count. contents:write is scoped to THIS job only;
-  # the workflow-level paths-ignore on stats.json breaks the re-trigger loop. Mirrors the
-  # md-viewer direct-to-main precedent.
+  # publishing to stats-data (not main) keeps main's branch protection fully intact — no bypass
+  # actor, no weakened required check, and no standing PAT in a public repo's CI.
+  #
+  # Ported from oakwoodgolfclub-website (the protected-producer precedent) per planning #1987,
+  # Founder question 4 / Route 1. It REPLACES the previous direct-to-main commit, which branch
+  # protection rejects with GH006 — the md-viewer failure mode: the job dies, the number freezes,
+  # and no mechanism reads red scheduled runs (39 days silent, found by chance).
   #
   # WHAT IS COUNTED: the Playwright e2e suite this job's `e2e` gate runs (`test:e2e:ci` =
   # `--grep-invert @external`), enumerated via `playwright test --list` (the authoritative
@@ -83,6 +89,11 @@ jobs:
   # any, use ad-hoc `check()` / node:test reporters that no test-stats-action adapter parses
   # yet — deliberately NOT counted here; needs a node:test/ok-summary adapter (AP-1) + a
   # one-line runners: addition. The emitted total is an honest e2e floor until then.
+  #
+  # CONSUMER NOTE: the aggregator finds this file only once `stats-config.json` in
+  # neckarshore-website carries `"statsRef": "stats-data"` for this repo. Until that lands, the
+  # freshness gate reads main's now-frozen stats.json, sees audited_sha != main HEAD, and lists
+  # the repo as stale (excluded from the estate total, not miscounted).
   # Contract: https://github.com/neckarshore-ai/neckarshore-planning/blob/main/docs/reference/stats-json-contract.md
   emit-stats:
     name: Emit stats.json (estate producer)
@@ -93,11 +104,15 @@ jobs:
     permissions:
       contents: write
     concurrency:
-      # Serialize emits so two rapid pushes cannot race on the git push to main.
+      # Serialize emits so two rapid pushes cannot race on the git push to stats-data.
       group: emit-stats-${{ github.ref }}
       cancel-in-progress: false
 
     steps:
+      # Default persist-credentials (true) — the publish step pushes stats.json to the
+      # UNPROTECTED stats-data branch via the job's contents:write GITHUB_TOKEN. No branch
+      # protection guards stats-data, so this push needs no bypass actor and touches nothing
+      # on main.
       - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v6
@@ -143,20 +158,48 @@ jobs:
             || { echo "::error::stats.json failed contract validation"; cat stats.json; exit 1; }
           echo "stats.json is contract-valid:"; cat stats.json
 
-      # Commit stats.json to main only when the meaningful fields changed (everything EXCEPT the
-      # always-changing updatedAt): a new push has a new audited_sha -> commit (keeps the number
-      # fresh); a re-run on the same sha differs only by timestamp -> no churn commit. The
-      # workflow-level paths-ignore on stats.json stops this commit from re-triggering the e2e run.
-      - name: Commit stats.json to main when it changed
+      # Publish the emitted stats.json to the UNPROTECTED `stats-data` branch (never main —
+      # main's protection stays 100% intact). stats-data is a dedicated single-file data branch
+      # carrying ONLY stats.json, isolated from main's code history.
+      #
+      # Built with git PLUMBING (hash-object → mktree → commit-tree → push), NOT a working-tree
+      # branch switch. A `git checkout` to stats-data would abort: it shares no history with main,
+      # so git treats every main file as "would be overwritten" and refuses. Plumbing never
+      # touches the working tree or switches branches — it writes one blob + one tree + one commit
+      # to the object DB and pushes the ref. The tree is exactly {stats.json}; the commit chains
+      # onto the previous stats-data tip (history preserved) or starts a fresh root (first run).
+      #
+      # Diff-guard on the meaningful fields only (everything EXCEPT the always-changing updatedAt):
+      # a new push has a new audited_sha → publish (keeps the number fresh); a re-run on the same
+      # sha differs only by timestamp → no churn commit. The concurrency group serializes the push.
+      - name: Publish stats.json to the stats-data branch when it changed
+        env:
+          GIT_AUTHOR_NAME: "github-actions[bot]"
+          GIT_AUTHOR_EMAIL: "github-actions[bot]@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "github-actions[bot]"
+          GIT_COMMITTER_EMAIL: "github-actions[bot]@users.noreply.github.com"
         run: |
+          set -euo pipefail
           norm() { jq -S 'del(.updatedAt)' "$1" 2>/dev/null; }
-          if git show HEAD:stats.json > /tmp/prev-stats.json 2>/dev/null \
+          # Reliably materialize refs/remotes/origin/stats-data (a bare `fetch <branch>` only sets
+          # FETCH_HEAD). Fails harmlessly on the first run (the branch does not exist yet).
+          git fetch origin +refs/heads/stats-data:refs/remotes/origin/stats-data 2>/dev/null || true
+          if git show origin/stats-data:stats.json > /tmp/prev-stats.json 2>/dev/null \
              && [ "$(norm /tmp/prev-stats.json)" = "$(norm stats.json)" ]; then
-            echo "stats.json unchanged (ignoring timestamp) — nothing to commit."
+            echo "stats.json unchanged (ignoring timestamp) — nothing to publish."
             exit 0
           fi
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add stats.json
-          git commit -m "chore(stats): emit stats.json @ ${GITHUB_SHA:0:7}"
-          git push origin HEAD:main
+          BLOB=$(git hash-object -w stats.json)
+          TREE=$(printf '100644 blob %s\tstats.json\n' "$BLOB" | git mktree)
+          MSG="chore(stats): emit stats.json @ ${GITHUB_SHA:0:7}"
+          if git rev-parse --verify origin/stats-data >/dev/null 2>&1; then
+            COMMIT=$(git commit-tree "$TREE" -p origin/stats-data -m "$MSG")
+          else
+            COMMIT=$(git commit-tree "$TREE" -m "$MSG")
+          fi
+          # Belt: a git push with an EMPTY source refspec (":refs/heads/stats-data") is a DELETE
+          # command — an empty $COMMIT would delete stats-data instead of updating it. `set -e`
+          # already aborts on a failed commit-tree substitution; this is the explicit guard so a
+          # branch deletion can never depend on implicit -e.
+          [ -n "$COMMIT" ] || { echo "::error::commit-tree produced no commit — refusing to push (would delete stats-data)"; exit 1; }
+          git push origin "${COMMIT}:refs/heads/stats-data"
