@@ -153,8 +153,9 @@ export default function DatenschutzPage() {
           </p>
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO.{" "}
-            <strong>Drittlandtransfer:</strong> EU-Standardvertragsklauseln.
-            Datenschutz:{" "}
+            <strong>Drittlandtransfer:</strong> Cloudflare ist unter dem EU-US
+            Data Privacy Framework zertifiziert (Art. 45 DSGVO); ergänzend
+            EU-Standardvertragsklauseln. Datenschutz:{" "}
             <a
               href="https://www.cloudflare.com/privacypolicy/"
               target="_blank"
