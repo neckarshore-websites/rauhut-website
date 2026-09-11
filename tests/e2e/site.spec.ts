@@ -8,7 +8,7 @@ test("German homepage renders the primary profile content", async ({ page }) => 
   ).toBeVisible();
   await expect(page.locator("main")).not.toHaveAttribute("lang", "en");
   await expect(
-    page.getByText("Technical Product Owner & AI Product Builder").first()
+    page.getByText("Freelance Technical Product Owner").first()
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { level: 2, name: "Zusammenfassung" })
@@ -142,6 +142,16 @@ test("the privacy policy covers the Calendly link it is written for", async ({
  *
  * Scoped to the section on purpose — "Auftrag" and friends are legitimate
  * words elsewhere on a CV page.
+ *
+ * SUPERSEDED FOR THE HERO 2026-09-11 (M5, Founder brief, verbatim strings
+ * "nicht verhandeln, nicht 'verbessern'"): the hero now states "ab sofort
+ * buchbar" and a "Mandat besprechen (20 Min)" CTA outside this guard's
+ * scope. That is exactly the vocabulary line 137-138 above calls out as
+ * forbidden — the brief is a deliberate, explicit reversal of that stance
+ * for the hero, not drift. It reads: "rauhut.com verkauft German Rauhut
+ * als PERSON für ein Freelance-Mandat." The KI-Beratung section itself is
+ * untouched and this guard still protects it — do not widen the regex to
+ * cover the hero without a fresh Founder instruction to do so.
  *
  * KNOWN LIMITATION, written down before it bites: this matches strings, not
  * meaning. `beauftrag` would also fire on a harmless past-tense sentence

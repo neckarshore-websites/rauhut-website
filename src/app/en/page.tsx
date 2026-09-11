@@ -8,15 +8,16 @@ import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
+import { AVAILABILITY } from "@/lib/availability";
 
 export const metadata: Metadata = {
-  title: "German Rauhut — Technical Product Owner & AI Product Builder",
+  title: "German Rauhut — Freelance Technical Product Owner",
   description:
-    "Technical Product Owner and AI Product Builder based in Stuttgart, Germany. 10+ years at Mercedes-Benz, now freelance and building AI products (Neckarshore AI, OMNOPSIS Documentor, Obsidian Vault Autopilot).",
+    "Freelance Technical Product Owner based in Stuttgart. 10 years in the Mercedes-Benz ecosystem. Available for mandates in requirements, test and release.",
   openGraph: {
-    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    title: "German Rauhut — Freelance Technical Product Owner",
     description:
-      "Bridge-builder between business and technology. Mercedes-Benz alum, now AI Product Builder at Neckarshore AI.",
+      "Freelance Technical Product Owner based in Stuttgart. 10 years in the Mercedes-Benz ecosystem. Available for mandates in requirements, test and release.",
     url: "https://rauhut.com/en",
     siteName: "rauhut.com",
     locale: "en_US",
@@ -32,16 +33,16 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "German Rauhut — Technical Product Owner & AI Product Builder",
+        alt: "German Rauhut — Freelance Technical Product Owner",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    title: "German Rauhut — Freelance Technical Product Owner",
     description:
-      "Bridge-builder between business and technology. Mercedes-Benz alum, now AI Product Builder at Neckarshore AI.",
+      "Freelance Technical Product Owner based in Stuttgart. 10 years in the Mercedes-Benz ecosystem. Available for mandates in requirements, test and release.",
   },
   robots: { index: true, follow: true },
   alternates: {
@@ -77,13 +78,40 @@ export default function HomePageEN() {
             <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
               German Rauhut
             </h1>
-            <p className="mt-3 text-lg text-text-muted sm:text-xl">
-              Technical Product Owner &amp; AI Product Builder
+            <p className="mt-3 text-lg font-medium text-text sm:text-xl">
+              Freelance Technical Product Owner
             </p>
-            <p className="mt-1 text-sm text-text-subtle">
-              Diplom-Betriebswirt · Business Information Systems, DHBW
-              Stuttgart
+            <p className="mt-2 text-base text-text-muted sm:text-lg">
+              Getting enterprise programmes live — requirements, test,
+              release, distributed teams.
             </p>
+            <p className="mt-2 text-sm text-text-subtle">
+              AI delivery from shipping my own products — not slide-deck
+              consulting.
+            </p>
+            <p className="mt-4 text-sm text-text-subtle">
+              Stuttgart · remote DACH · 10 years Mercedes-Benz ecosystem ·
+              independent since Oct 2025
+            </p>
+            <p className="mt-1 text-sm font-medium text-brand-teal">
+              {AVAILABILITY.en}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg bg-text px-5 py-2.5 text-sm font-medium text-bg no-underline transition-colors duration-150 hover:bg-accent-hover hover:text-bg hover:no-underline"
+              >
+                Discuss a mandate (20 min)
+              </a>
+              <a
+                href="mailto:german@rauhut.com"
+                className="inline-flex items-center justify-center rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text no-underline transition-colors duration-150 hover:border-accent hover:text-accent-hover hover:no-underline"
+              >
+                Email
+              </a>
+            </div>
           </div>
           <FounderPhoto />
         </div>
