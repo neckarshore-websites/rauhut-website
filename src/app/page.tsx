@@ -217,8 +217,8 @@ export default function HomePage() {
               gehen müssen: Backlog, verteilte Teams, Delivery bis Abnahme.
             </p>
             <p className="mt-4 leading-relaxed text-text-muted">
-              Fundament: zehn Jahre Mercedes-Benz-Ökosystem — PLUS NextGen
-              (Stammdaten/ACL, Team Südafrika), SFMd (50.000+ KPI,
+              Fundament: 10 Jahre Mercedes-Benz-Ökosystem — PLUS NextGen
+              (Stammdatenprodukt MData, Team Südafrika), SFMd (50.000+ KPI,
               2-Wochen-Release), Test und Abnahme. Dieselbe Arbeit, ohne
               Folienberatung; die Praxis hängt an den eigenen Produkten
               darunter.
