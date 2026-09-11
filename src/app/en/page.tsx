@@ -272,8 +272,8 @@ export default function HomePageEN() {
               acceptance.
             </p>
             <p className="mt-4 leading-relaxed text-text-muted">
-              Foundation: ten years in the Mercedes-Benz ecosystem — PLUS
-              NextGen (master data/ACL, team in South Africa), SFMd (50,000+
+              Foundation: 10 years in the Mercedes-Benz ecosystem — PLUS
+              NextGen (master-data product MData, team in South Africa), SFMd (50,000+
               KPIs, 2-week release), test and acceptance. The same work, not
               slide-deck consulting; the practice sits in the products
               below.
