@@ -1,72 +1,149 @@
 type Lang = "de" | "en";
 
 type Stat = { value: string; label: string };
+type Group = { heading: string; stats: [Stat, Stat, Stat] };
 
 /**
- * PUBLIC FIGURES — every one of these carries a Messweg, 2026-08-15.
+ * PUBLIC FIGURES — two groups, restructured 2026-09-11 P4a (Founder brief).
  *
- * These numbers sat unmeasured since Oct 2025 and every single one was WRONG in
- * the modest direction — the site undersold itself by roughly half on two of
- * four. Re-measured at source before this edit:
+ * Retired the flat four-tile "builder-dashboard" row (10+ Jahre Konzern /
+ * 905 Tests / 23 AI-Agenten / 96 API-Endpunkte) in favour of two labelled
+ * groups that read as a career, not an audited build status: "Mandat" —
+ * what procurement reads first — and "Heute" — pace since the 10/2025 exit.
+ * 905/23/96 are retired FROM THIS ROW specifically, not as false claims:
+ * 905 survives as the Omnopsis flagship-suite figure in the Projekte prose
+ * (src/app/page.tsx, src/app/en/page.tsx), unchanged and out of scope for
+ * this pass; 23 and 96 no longer appear as tiles anywhere on the page.
  *
- *   Tests   905  = omnopsis-backend 588 (unit 302 + integration 27 + e2e 259,
- *                  measured 2026-07-02 @2f8a721)
- *                + omnopsis-contracts 85 (measured 2026-06-30 @b690536)
- *                + omnopsis-frontend 232 (measured 2026-06-30 @725e66f).
- *                Source: neckarshore-planning docs/reference/test-coverage-matrix.yaml
- *                (Lenin estate recount, MASCHIN read-the-code PIR PASS, SHA-pinned).
- *                Cross-check: the public audited estate figure at
- *                neckarshore.ai/estate-test-scope.json lists the same three
- *                Omnopsis rows summing to 905.
- *                AGE OF THIS FIGURE, STATED BECAUSE ITS ABSENCE IS WHAT LET 466
- *                SURVIVE TEN MONTHS: the three rows are six to seven weeks old
- *                and the matrix carries `status: populating` with an explicit
- *                honesty note that its quotable total stays gated. 905 replaces
- *                a badly-measured number with a well-measured one — it is not a
- *                fresh count. Treat it as a floor, and re-measure before quoting
- *                it in anything that matters more than a project blurb.
- *   Agents   23  = count of agent definitions in the estate (`~/.claude/agents/*.md`).
- *   Endpoints 96 = `@Get|@Post|@Put|@Patch|@Delete` decorators across the 23
- *                controllers in omnopsis-backend at origin/main.
- *   Years    10+ = Founder biography, not machine-measurable. Left untouched.
+ * Sources, one per figure:
  *
- * WHEN YOU CHANGE A NUMBER HERE, RE-MEASURE IT AND UPDATE THIS BLOCK. The
- * regression guard in scripts/public-figures.test.mjs only stops the OLD
- * values from creeping back; it cannot tell you whether a NEW one is true.
+ *   Mandat / Mandates
+ *   10 Jahre Mercedes-Benz     = Projekte prose / Timeline.tsx: the
+ *                                Mercedes-Benz AG & Umfeld block runs
+ *                                07/2015 – 10/2025. Cross-checked against
+ *                                the page's own dates, not a fresh claim.
+ *   50.000+ KPI automatisiert  = Timeline.tsx SFMd role ("Automatisierung
+ *                                der Konfiguration (> 50.000 KPI)"),
+ *                                already-documented prose on this page —
+ *                                cross-checked, not a fresh claim.
+ *   3.000+ Jira-Tickets        = Founder-stated career figure. Not
+ *                                machine-measurable from this repo (no
+ *                                Jira access here) — same category as the
+ *                                old "10+ Jahre" biography figure.
+ *
+ *   Heute / Now
+ *   13.000+ GitHub-Contributions (12 Monate) = Founder-stated, snapshot
+ *                                2026-09-11. A rolling 12-month figure —
+ *                                it WILL drift; re-ask before re-quoting
+ *                                it long after this date, don't assume it
+ *                                still holds.
+ *   4.000+ Tests eigene Produkte = Founder-stated aggregate across ALL own
+ *                                products (Omnopsis + Vault Autopilot +
+ *                                TrustScope + Kaze + …) — deliberately a
+ *                                DIFFERENT metric from the 905
+ *                                Omnopsis-flagship figure in Projekte, per
+ *                                the brief. Those other products' suites
+ *                                live outside this repo and were not
+ *                                independently re-counted here.
+ *   100+ API-Endpunkte         = Founder-stated, rounded "plus-band"
+ *                                figure — the brief's rule is Plus-Bänder,
+ *                                keine Dashboard-Nachkommastellen (no
+ *                                precise counts in this row). This
+ *                                supersedes the old exact 96 as a STYLE
+ *                                change for this row, not a correction of
+ *                                it; 96 stays exact in the Projekte prose.
+ *
+ * WHEN YOU CHANGE A NUMBER HERE, RE-MEASURE IT WHERE MEASURABLE AND UPDATE
+ * THIS BLOCK. The regression guard in scripts/public-figures.test.mjs only
+ * stops OLD values from creeping back; it cannot tell you whether a NEW one
+ * is true.
  */
-const STATS: Record<Lang, Stat[]> = {
-  de: [
-    { value: "10+", label: "Jahre Konzern" },
-    { value: "905", label: "Tests shipped" },
-    { value: "23", label: "AI-Agenten" },
-    { value: "96", label: "API-Endpunkte" },
-  ],
-  en: [
-    { value: "10+", label: "years corporate" },
-    { value: "905", label: "tests shipped" },
-    { value: "23", label: "AI agents" },
-    { value: "96", label: "API endpoints" },
-  ],
+const DATA: Record<Lang, { groups: [Group, Group]; origin: string }> = {
+  de: {
+    groups: [
+      {
+        heading: "Mandat",
+        stats: [
+          { value: "10", label: "Jahre Mercedes-Benz" },
+          { value: "50.000+", label: "KPI automatisiert" },
+          { value: "3.000+", label: "Jira-Tickets" },
+        ],
+      },
+      {
+        heading: "Heute",
+        stats: [
+          { value: "13.000+", label: "GitHub-Contributions (12 Monate)" },
+          { value: "4.000+", label: "Tests eigene Produkte" },
+          { value: "100+", label: "API-Endpunkte" },
+        ],
+      },
+    ],
+    origin:
+      "Erstes System mit 16: dBase III — Adressdatenbanken für die IHK. Seit 1993 Beruf, davon 10 Jahre Mercedes-Benz, 10+ Jahre agil, 15+ Mandate in Entwicklung, Einführung, Modernisierung und Auswahl.",
+  },
+  en: {
+    groups: [
+      {
+        heading: "Mandates",
+        stats: [
+          { value: "10", label: "years Mercedes-Benz" },
+          { value: "50,000+", label: "KPIs automated" },
+          { value: "3,000+", label: "Jira tickets" },
+        ],
+      },
+      {
+        heading: "Now",
+        stats: [
+          { value: "13,000+", label: "GitHub contributions (12 months)" },
+          { value: "4,000+", label: "tests, own products" },
+          { value: "100+", label: "API endpoints" },
+        ],
+      },
+    ],
+    origin:
+      "First system at 16: dBase III — address databases for the local chamber of commerce. Professional work since 1993, including 10 years at Mercedes-Benz, 10+ years agile, 15+ mandates across development, rollout, modernization and selection.",
+  },
 };
 
 export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
-  const stats = STATS[lang];
+  const { groups, origin } = DATA[lang];
 
   return (
-    <dl
-      className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 sm:mt-14 sm:grid-cols-4 sm:gap-x-4"
-      aria-label={lang === "de" ? "Kennzahlen" : "Key numbers"}
-    >
-      {stats.map((stat) => (
-        <div key={stat.label} className="flex flex-col">
-          <dt className="order-2 mt-1 text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
-            {stat.label}
-          </dt>
-          <dd className="order-1 text-[2.2rem] font-semibold leading-none tracking-tight text-text sm:text-[2.4rem]">
-            {stat.value}
-          </dd>
+    <div className="mt-12 sm:mt-14">
+      {groups.map((group, i) => (
+        <div
+          key={group.heading}
+          // More space between the two groups than inside one — the gap
+          // above the second group (mt-10/12) is deliberately larger than
+          // the gap between a group's own heading and its figures (mt-4).
+          className={i === 0 ? undefined : "mt-10 sm:mt-12"}
+        >
+          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+            {group.heading}
+          </p>
+          <dl
+            className="mt-4 grid grid-cols-3 gap-x-4 gap-y-6"
+            aria-label={group.heading}
+          >
+            {group.stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col">
+                <dt className="order-2 mt-1 text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+                  {stat.label}
+                </dt>
+                <dd className="order-1 text-[2.2rem] font-semibold leading-none tracking-tight text-text sm:text-[2.4rem]">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       ))}
-    </dl>
+      {/* Origin sentence — running prose, smaller than the figures, not a
+          seventh tile. Not duplicated into the hero or the bio paragraph
+          above this component (brief instruction). */}
+      <p className="mt-8 text-sm leading-relaxed text-text-muted sm:mt-10">
+        {origin}
+      </p>
+    </div>
   );
 }

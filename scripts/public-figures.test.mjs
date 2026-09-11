@@ -45,8 +45,19 @@ const RETIRED = [
 const SURFACES = [
   {
     file: "src/components/StatsRow.tsx",
-    required: ["905", "96", "23"],
-    note: "the stats row — single source for both languages",
+    required: [
+      "10",
+      "50.000+",
+      "50,000+",
+      "3.000+",
+      "3,000+",
+      "13.000+",
+      "13,000+",
+      "4.000+",
+      "4,000+",
+      "100+",
+    ],
+    note: "the stats row — single source for both languages (P4a, 2026-09-11: 905/23/96 retired FROM this row, not falsified — see StatsRow.tsx's own provenance block)",
   },
   {
     file: "src/app/page.tsx",
