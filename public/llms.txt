@@ -22,7 +22,14 @@ Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA S
 
 ## Stack
 
-NestJS, TypeScript, PostgreSQL, Redis/BullMQ, Next.js, Claude Code (Opus), Docker, GitHub Actions, Vercel.
+- Runtime: TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python
+- UI: Tailwind CSS, shadcn/ui
+- Auth: Zitadel, NextAuth
+- Delivery: Vercel, GitHub Actions, Docker
+- Quality: Vitest, Playwright, XCTest, Swift Testing
+- iOS: Swift, Xcode, App Store
+- Agents: Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable), xAI / Grok, OpenAI / Codex
+- Integrations: Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend
 
 ## Career Highlights
 
