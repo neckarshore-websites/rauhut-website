@@ -2,18 +2,53 @@
 
 import { useActionState } from "react";
 import { sendContact } from "@/app/actions/inquiry";
-import { CONTACT_INITIAL_STATE } from "@/app/actions/inquiry-state";
+import { CONTACT_INITIAL_STATE, type Lang } from "@/app/actions/inquiry-state";
 import { Turnstile } from "@/components/Turnstile";
 
 /**
- * Contact form for the rauhut.com landing page (#kontakt section).
+ * Contact form for the rauhut.com landing page (#kontakt / #contact).
  *
  * A direct-message complement to the ContactCards (E-Mail / LinkedIn /
  * GitHub). Wraps the `sendContact` Server Action via useActionState; spam
  * protection = hidden honeypot + Cloudflare Turnstile (dormant until the
  * env vars are set). Styled with the site's design tokens to match the
  * minimal-material look of the rest of the page.
+ *
+ * P6-lead (2026-09-12): now renders on /en too (it was DE-only before —
+ * EN's Contact section had no form at all). The hidden `lang` field tells
+ * the Server Action which CONTACT_COPY record to answer errors in; "Name"
+ * itself needs no translation so it stays a literal, not a COPY entry.
  */
+
+const COPY: Record<
+  Lang,
+  {
+    emailLabel: string;
+    messageLabel: string;
+    honeypotLabel: string;
+    submitLabel: string;
+    pendingLabel: string;
+    successMessage: string;
+  }
+> = {
+  de: {
+    emailLabel: "E-Mail",
+    messageLabel: "Nachricht",
+    honeypotLabel: "Website (bitte leer lassen)",
+    submitLabel: "Nachricht senden",
+    pendingLabel: "Wird gesendet …",
+    successMessage:
+      "Danke für Ihre Nachricht — ich melde mich zeitnah zurück.",
+  },
+  en: {
+    emailLabel: "Email",
+    messageLabel: "Message",
+    honeypotLabel: "Website (please leave blank)",
+    submitLabel: "Send message",
+    pendingLabel: "Sending …",
+    successMessage: "Thank you for your message — I'll get back to you shortly.",
+  },
+};
 
 const labelClass =
   "mb-1.5 block text-xs font-medium uppercase tracking-widest text-text-subtle";
@@ -21,7 +56,8 @@ const fieldClass =
   "w-full rounded-lg border border-border-strong bg-bg-muted px-4 py-3 text-[0.9375rem] text-text placeholder:text-text-subtle";
 const errorClass = "mt-1.5 text-sm text-brand-amber";
 
-export default function ContactForm() {
+export default function ContactForm({ lang = "de" }: { lang?: Lang }) {
+  const copy = COPY[lang];
   const [state, formAction, pending] = useActionState(
     sendContact,
     CONTACT_INITIAL_STATE,
@@ -30,15 +66,15 @@ export default function ContactForm() {
   if (state.status === "success") {
     return (
       <div className="rounded-xl border border-border bg-bg-muted p-6">
-        <p className="text-[0.9375rem] text-text">
-          Danke für Ihre Nachricht — ich melde mich zeitnah zurück.
-        </p>
+        <p className="text-[0.9375rem] text-text">{copy.successMessage}</p>
       </div>
     );
   }
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-5">
+      <input type="hidden" name="lang" value={lang} />
+
       {/* Honeypot — off-screen, bots fill it, humans don't see it. */}
       <div
         aria-hidden="true"
@@ -50,7 +86,7 @@ export default function ContactForm() {
           overflow: "hidden",
         }}
       >
-        <label htmlFor="contact-website">Website (bitte leer lassen)</label>
+        <label htmlFor="contact-website">{copy.honeypotLabel}</label>
         <input
           id="contact-website"
           type="text"
@@ -81,7 +117,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="contact-email" className={labelClass}>
-          E-Mail
+          {copy.emailLabel}
         </label>
         <input
           id="contact-email"
@@ -101,7 +137,7 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="contact-message" className={labelClass}>
-          Nachricht
+          {copy.messageLabel}
         </label>
         <textarea
           id="contact-message"
@@ -130,7 +166,7 @@ export default function ContactForm() {
         disabled={pending}
         className="self-start rounded-lg bg-accent-hover px-6 py-3 text-[0.9375rem] font-medium text-bg transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
       >
-        {pending ? "Wird gesendet …" : "Nachricht senden"}
+        {pending ? copy.pendingLabel : copy.submitLabel}
       </button>
     </form>
   );

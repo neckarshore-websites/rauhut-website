@@ -35,18 +35,21 @@ const PUBLIC_SURFACES = [
   "src/components/ContactCards.tsx",
   "src/components/PersonJsonLd.tsx",
   "src/app/actions/inquiry.ts",
+  "src/app/actions/inquiry-state.ts",
   "src/lib/contact.ts",
   "public/llms.txt",
 ];
 
 /**
  * Of those, the ones that carry the alias as a literal string. The hero CTAs
- * and ContactCards import it from src/lib/contact.ts instead (P6-mail) —
- * checked separately below via the import, not a literal-string search.
+ * and ContactCards import it from src/lib/contact.ts instead (P6-mail); the
+ * Server Action (inquiry.ts) sources its transportFailure copy from
+ * inquiry-state.ts's CONTACT_COPY instead (P6-lead) — both checked
+ * separately below via the import, not a literal-string search.
  */
 const LITERAL_ALIAS_SURFACES = [
   "src/components/PersonJsonLd.tsx",
-  "src/app/actions/inquiry.ts",
+  "src/app/actions/inquiry-state.ts",
   "src/lib/contact.ts",
   "public/llms.txt",
 ];

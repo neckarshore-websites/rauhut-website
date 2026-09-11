@@ -33,5 +33,27 @@ export async function resolve(specifier, context, nextResolve) {
     const mapped = pathToFileURL(target + candidate).href;
     return nextResolve(mapped, context);
   }
+
+  // P6-lead (2026-09-12): inquiry.ts started importing a real runtime value
+  // (CONTACT_COPY) from the extensionless "./inquiry-state" specifier —
+  // previously every import from that path was `import type`, which the
+  // native TS type-stripping erases before Node ever tries to resolve it.
+  // Node's own ESM resolver requires an explicit extension for relative
+  // specifiers (unlike Next's bundler); same gap as the `@/` case above,
+  // just for plain relative paths instead of the alias.
+  if (
+    (specifier.startsWith("./") || specifier.startsWith("../")) &&
+    !/\.(ts|tsx|mts|js|mjs|json)$/.test(specifier)
+  ) {
+    const parentPath = fileURLToPath(context.parentURL);
+    const target = resolvePath(dirname(parentPath), specifier);
+    const candidate = [".ts", ".tsx", ".mts"].find((ext) =>
+      existsSync(target + ext),
+    );
+    if (candidate) {
+      return nextResolve(pathToFileURL(target + candidate).href, context);
+    }
+  }
+
   return nextResolve(specifier, context);
 }
