@@ -671,7 +671,9 @@ export default function HomePageEN() {
             Privacy (German)
           </a>{" "}
           ·{" "}
-          <a href="/designs">Designs</a>
+          <a href="/designs" rel="nofollow">
+            Designs
+          </a>
         </p>
       </footer>
     </main>
