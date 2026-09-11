@@ -149,16 +149,16 @@ export default function HomePage() {
           </thead>
           <tbody>
             <tr>
-              <td>
-                AI Product Development — Multi-Agent-Architekturen,
-                LLM-Integration, Prompt Engineering
-              </td>
+              <td>Technical Product Ownership — Vision, Backlog, Delivery</td>
               <td>
                 Anforderungsmanagement — Grobkonzept bis technische Story
               </td>
             </tr>
             <tr>
-              <td>Technical Product Ownership — Vision, Backlog, Delivery</td>
+              <td>
+                AI Product Development — Multi-Agent-Architekturen,
+                LLM-Integration, Prompt Engineering
+              </td>
               <td>
                 Projektmanagement — klassisch &amp; agil, internationale Teams
               </td>
