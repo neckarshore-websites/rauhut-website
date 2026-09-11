@@ -3,7 +3,12 @@
 import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import { CAPTCHA_FORM_FIELD, verifyCaptchaToken } from "@/lib/captcha/verify";
-import type { ContactFieldValues, ContactState } from "./inquiry-state";
+import {
+  CONTACT_COPY,
+  type ContactFieldValues,
+  type ContactState,
+  type Lang,
+} from "./inquiry-state";
 
 /**
  * Contact Server Action — handles the rauhut.com landing-page contact form.
@@ -33,9 +38,6 @@ import type { ContactFieldValues, ContactState } from "./inquiry-state";
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const MAX_MESSAGE_LEN = 4000;
 const MAX_FIELD_LEN = 200;
-
-const TRANSPORT_FAILURE_MESSAGE =
-  "Die Nachricht konnte gerade nicht übermittelt werden. Bitte schreiben Sie mir direkt an mandat@rauhut.com.";
 
 function clean(formData: FormData, key: string, max = MAX_FIELD_LEN): string {
   return String(formData.get(key) ?? "")
@@ -112,6 +114,12 @@ export async function sendContact(
     return { status: "success" };
   }
 
+  // ----- Language (P6-lead) ------------------------------------------
+  // Not run through cleanLine() — it never reaches a mail header or body,
+  // it only selects which copy record below to answer with.
+  const lang: Lang = formData.get("lang") === "en" ? "en" : "de";
+  const copy = CONTACT_COPY[lang];
+
   // ----- Fields -----------------------------------------------------
   const name = cleanLine(formData, "name");
   const email = cleanLine(formData, "email");
@@ -120,16 +128,15 @@ export async function sendContact(
   const echoValues: ContactFieldValues = { name, email, message };
 
   const fieldErrors: Record<string, string> = {};
-  if (!name) fieldErrors.name = "Bitte Namen angeben.";
-  if (!email) fieldErrors.email = "Bitte E-Mail angeben.";
-  else if (!EMAIL_RE.test(email))
-    fieldErrors.email = "Bitte gültige E-Mail-Adresse angeben.";
-  if (!message) fieldErrors.message = "Bitte Nachricht angeben.";
+  if (!name) fieldErrors.name = copy.nameRequired;
+  if (!email) fieldErrors.email = copy.emailRequired;
+  else if (!EMAIL_RE.test(email)) fieldErrors.email = copy.emailInvalid;
+  if (!message) fieldErrors.message = copy.messageRequired;
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
       status: "error",
-      message: "Bitte Eingaben prüfen.",
+      message: copy.checkEntries,
       fieldErrors,
       values: echoValues,
     };
@@ -146,8 +153,7 @@ export async function sendContact(
   if (!captcha.ok) {
     return {
       status: "error",
-      message:
-        "Spam-Schutz konnte nicht bestätigt werden. Bitte warten Sie einen Moment, bis die Prüfung abgeschlossen ist, und senden Sie dann erneut.",
+      message: copy.captchaFailed,
       values: echoValues,
     };
   }
@@ -172,7 +178,7 @@ export async function sendContact(
       );
       return {
         status: "error",
-        message: TRANSPORT_FAILURE_MESSAGE,
+        message: copy.transportFailure,
         values: echoValues,
       };
     }
@@ -205,7 +211,7 @@ export async function sendContact(
       console.error("[rauhut Contact] SMTP rejected recipient(s)", info.rejected);
       return {
         status: "error",
-        message: TRANSPORT_FAILURE_MESSAGE,
+        message: copy.transportFailure,
         values: echoValues,
       };
     }
@@ -214,7 +220,7 @@ export async function sendContact(
     console.error("[rauhut Contact] SMTP send threw", err);
     return {
       status: "error",
-      message: TRANSPORT_FAILURE_MESSAGE,
+      message: copy.transportFailure,
       values: echoValues,
     };
   }

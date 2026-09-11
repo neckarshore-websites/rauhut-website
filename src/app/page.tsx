@@ -594,13 +594,21 @@ export default function HomePage() {
         >
           Kontakt
         </h2>
+        {/* P6-lead (2026-09-12): closing lead before the channels — no
+            second "Mandat besprechen" button here, that CTA already lives
+            in the hybrid nav rail/bar (P8); this is text only. */}
+        <p className="mb-8 max-w-xl text-[0.9375rem] leading-relaxed text-text-muted">
+          Ab sofort buchbar — Mandate in Anforderung, Test und Release,
+          remote DACH. 20 Minuten über „Mandat besprechen“, sonst kurz per
+          Mail oder Formular.
+        </p>
         <ContactCards lang="de" />
 
         <div className="mt-10 max-w-xl">
           <p className="mb-5 text-[0.9375rem] text-text-subtle">
-            Oder schreiben Sie mir direkt:
+            Ohne Kalender — schreiben Sie mir direkt:
           </p>
-          <ContactForm />
+          <ContactForm lang="de" />
         </div>
       </Reveal>
 

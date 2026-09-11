@@ -691,3 +691,91 @@ test("Impressum and Datenschutz keep the statutory german@ address untouched by 
     page.locator('a[href="mailto:german@rauhut.com"]')
   ).toHaveCount(2);
 });
+
+// P6-lead (2026-09-12): a closing lead paragraph in Kontakt/Contact, before
+// the channels — text only, no second "Mandat besprechen"/"Discuss a
+// mandate" button (that CTA already lives in the hybrid nav, P8). The
+// contact form itself now also renders on /en, which had none before.
+for (const [
+  language,
+  path,
+  sectionName,
+  leadText,
+  formIntro,
+  ctaLabel,
+] of [
+  [
+    "German",
+    "/",
+    "Kontakt",
+    "Ab sofort buchbar — Mandate in Anforderung, Test und Release, remote DACH. 20 Minuten über „Mandat besprechen“, sonst kurz per Mail oder Formular.",
+    "Ohne Kalender — schreiben Sie mir direkt:",
+    "Mandat besprechen (20 Min)",
+  ],
+  [
+    "English",
+    "/en",
+    "Contact",
+    "Available immediately — mandates in requirements, test and release, remote DACH. Twenty minutes via “Discuss a mandate”, or a short note by email or the form.",
+    "No calendar — write to me directly:",
+    "Discuss a mandate (20 min)",
+  ],
+] as const) {
+  test(`${language} Kontakt/Contact carries the P6-lead paragraph, form intro, and no second CTA button`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const section = page.getByRole("region", { name: sectionName });
+    await expect(section.getByText(leadText)).toBeVisible();
+    await expect(section.getByText(formIntro)).toBeVisible();
+
+    // The section may still legitimately contain the CTA *label* somewhere
+    // if it were duplicated as a link, so assert on the actual control: no
+    // <button> and no second <a> reading exactly ctaLabel inside Kontakt/
+    // Contact — the only place that label may appear as an interactive
+    // control is the nav rail/bar (P8), outside this section.
+    await expect(
+      section.getByRole("button", { name: ctaLabel, exact: true })
+    ).toHaveCount(0);
+    await expect(
+      section.getByRole("link", { name: ctaLabel, exact: true })
+    ).toHaveCount(0);
+  });
+}
+
+test("English Contact now renders a working contact form, localized", async ({
+  page,
+}) => {
+  await page.goto("/en");
+  const section = page.getByRole("region", { name: "Contact" });
+
+  await expect(section.getByLabel("Email", { exact: true })).toBeVisible();
+  await expect(section.getByLabel("Message", { exact: true })).toBeVisible();
+  await expect(
+    section.getByRole("button", { name: "Send message" })
+  ).toBeVisible();
+
+  // Submitting empty must come back in English, not the German defaults —
+  // proves the hidden `lang` field actually reaches the Server Action.
+  await section.getByRole("button", { name: "Send message" }).click();
+  await expect(section.getByText("Please enter your name.")).toBeVisible();
+  await expect(
+    section.getByText("Please enter your email address.")
+  ).toBeVisible();
+  await expect(section.getByText("Please enter a message.")).toBeVisible();
+  await expect(section.getByText("Please check your entries.")).toBeVisible();
+});
+
+test("German contact form still answers in German after the P6-lead lang wiring", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const section = page.getByRole("region", { name: "Kontakt" });
+
+  await section.getByRole("button", { name: "Nachricht senden" }).click();
+  await expect(section.getByText("Bitte Namen angeben.")).toBeVisible();
+  await expect(section.getByText("Bitte E-Mail angeben.")).toBeVisible();
+  await expect(section.getByText("Bitte Nachricht angeben.")).toBeVisible();
+  await expect(section.getByText("Bitte Eingaben prüfen.")).toBeVisible();
+});

@@ -6,6 +6,7 @@ import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
+import ContactForm from "@/components/ContactForm";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
 import Offers from "@/components/Offers";
@@ -667,7 +668,27 @@ export default function HomePageEN() {
         >
           Contact
         </h2>
+        {/* P6-lead (2026-09-12): closing lead before the channels — no
+            second "Discuss a mandate" button here, that CTA already lives
+            in the hybrid nav rail/bar (P8); this is text only. */}
+        <p className="mb-8 max-w-xl text-[0.9375rem] leading-relaxed text-text-muted">
+          Available immediately — mandates in requirements, test and
+          release, remote DACH. Twenty minutes via “Discuss a mandate”, or
+          a short note by email or the form.
+        </p>
         <ContactCards lang="en" />
+
+        {/* P6-lead: the contact form previously only rendered on the
+            German page — EN's Contact section had no form at all. Same
+            Server Action, same fields/honeypot, localized via ContactForm's
+            own lang prop (labels + hidden `lang` field for server-side
+            error copy) — see ContactForm.tsx and inquiry-state.ts. */}
+        <div className="mt-10 max-w-xl">
+          <p className="mb-5 text-[0.9375rem] text-text-subtle">
+            No calendar — write to me directly:
+          </p>
+          <ContactForm lang="en" />
+        </div>
       </Reveal>
 
       <hr />
