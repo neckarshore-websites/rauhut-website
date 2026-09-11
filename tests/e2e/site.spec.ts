@@ -618,3 +618,76 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     await expect(drawer).toBeHidden();
   });
 }
+
+// P6-mail (2026-09-12): the public "Folie" mail is the mandat@ alias, not
+// german@ — Hero-CTA, Kontakt-Zeile/ContactCards and mailto links all move.
+// Impressum/Datenschutz keep german@ on purpose (legally mandated contact,
+// same carve-out as the rest of that pass) — a separate test below asserts
+// those are UNCHANGED, so a future edit can't quietly scrub the wrong side.
+const MANDAT_MAILTO = {
+  de: "mailto:mandat@rauhut.com?subject=Mandat-Anfrage%20über%20rauhut.com",
+  en: "mailto:mandat@rauhut.com?subject=Mandate%20enquiry%20via%20rauhut.com",
+} as const;
+
+for (const [language, path, emailCtaLabel] of [
+  ["German", "/", "E-Mail"],
+  ["English", "/en", "Email"],
+] as const) {
+  test(`${language} homepage hero mails the mandat@ alias with the exact brief subject, not german@`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    // Scoped to the hero's own <header class="hero-glow"> — the page has
+    // two further plain <header> elements (chapter intros further down),
+    // and an unscoped "header" locator would match all three.
+    const heroEmailCta = page
+      .locator("header.hero-glow")
+      .getByRole("link", { name: emailCtaLabel, exact: true });
+    await expect(heroEmailCta).toHaveAttribute(
+      "href",
+      MANDAT_MAILTO[language === "German" ? "de" : "en"]
+    );
+
+    await expect(
+      page.locator('a[href*="german@rauhut.com"]'),
+      "the homepage must not link german@rauhut.com anywhere — that address is retired to Impressum/Datenschutz only"
+    ).toHaveCount(0);
+  });
+}
+
+test("German ContactCards shows the mandat@ alias, not german@, with the DE subject", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const emailCard = page.getByRole("link", { name: /E-Mail/ }).filter({
+    has: page.getByText("mandat@rauhut.com"),
+  });
+  await expect(emailCard).toBeVisible();
+  await expect(emailCard).toHaveAttribute("href", MANDAT_MAILTO.de);
+});
+
+test("English ContactCards shows the mandat@ alias, not german@, with the EN subject", async ({
+  page,
+}) => {
+  await page.goto("/en");
+  const emailCard = page.getByRole("link", { name: /Email/ }).filter({
+    has: page.getByText("mandat@rauhut.com"),
+  });
+  await expect(emailCard).toBeVisible();
+  await expect(emailCard).toHaveAttribute("href", MANDAT_MAILTO.en);
+});
+
+test("Impressum and Datenschutz keep the statutory german@ address untouched by P6-mail", async ({
+  page,
+}) => {
+  await page.goto("/impressum");
+  await expect(
+    page.locator('a[href="mailto:german@rauhut.com"]')
+  ).toHaveCount(1);
+
+  await page.goto("/datenschutz");
+  await expect(
+    page.locator('a[href="mailto:german@rauhut.com"]')
+  ).toHaveCount(2);
+});

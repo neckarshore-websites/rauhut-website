@@ -1,4 +1,4 @@
-type Lang = "de" | "en";
+import { CONTACT_EMAIL, CONTACT_MAILTO, type Lang } from "@/lib/contact";
 
 const LABELS: Record<Lang, { email: string }> = {
   de: { email: "E-Mail" },
@@ -64,39 +64,45 @@ type Channel = {
   external: boolean;
 };
 
-const CHANNELS: Channel[] = [
-  {
-    key: "email",
-    labelKey: "email",
-    handle: "german@rauhut.com",
-    href: "mailto:german@rauhut.com",
-    icon: <MailIcon />,
-    external: false,
-  },
-  {
-    key: "linkedin",
-    labelKey: "",
-    rawLabel: "LinkedIn",
-    handle: "in/german-rauhut",
-    href: "https://www.linkedin.com/in/german-rauhut/",
-    icon: <LinkedInIcon />,
-    external: true,
-  },
-  {
-    key: "github",
-    labelKey: "",
-    rawLabel: "GitHub",
-    handle: "GmanFooFoo",
-    href: "https://github.com/GmanFooFoo",
-    icon: <GitHubIcon />,
-    external: true,
-  },
-];
+// Email is the one lang-dependent channel (mailto subject differs DE/EN,
+// P6-mail) — built per-render from the shared @/lib/contact constants
+// rather than hardcoded here, so LinkedIn/GitHub stay untouched flat data.
+function channelsForLang(lang: Lang): Channel[] {
+  return [
+    {
+      key: "email",
+      labelKey: "email",
+      handle: CONTACT_EMAIL,
+      href: CONTACT_MAILTO[lang],
+      icon: <MailIcon />,
+      external: false,
+    },
+    {
+      key: "linkedin",
+      labelKey: "",
+      rawLabel: "LinkedIn",
+      handle: "in/german-rauhut",
+      href: "https://www.linkedin.com/in/german-rauhut/",
+      icon: <LinkedInIcon />,
+      external: true,
+    },
+    {
+      key: "github",
+      labelKey: "",
+      rawLabel: "GitHub",
+      handle: "GmanFooFoo",
+      href: "https://github.com/GmanFooFoo",
+      icon: <GitHubIcon />,
+      external: true,
+    },
+  ];
+}
 
 export default function ContactCards({ lang = "de" }: { lang?: Lang }) {
+  const channels = channelsForLang(lang);
   return (
     <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
-      {CHANNELS.map((c) => {
+      {channels.map((c) => {
         const label =
           c.rawLabel ??
           LABELS[lang][c.labelKey as keyof (typeof LABELS)["de"]];

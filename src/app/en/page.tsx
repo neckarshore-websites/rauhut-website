@@ -12,6 +12,7 @@ import Offers from "@/components/Offers";
 import NavRail from "@/components/NavRail";
 import MobileNav from "@/components/MobileNav";
 import { AVAILABILITY } from "@/lib/availability";
+import { CONTACT_MAILTO } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "German Rauhut — Freelance Technical Product Owner",
@@ -121,7 +122,7 @@ export default function HomePageEN() {
                 Discuss a mandate (20 min)
               </a>
               <a
-                href="mailto:german@rauhut.com"
+                href={CONTACT_MAILTO.en}
                 className="inline-flex items-center justify-center rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text no-underline transition-colors duration-150 hover:border-accent hover:text-accent-hover hover:no-underline"
               >
                 Email
