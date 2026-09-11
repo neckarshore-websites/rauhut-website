@@ -188,7 +188,7 @@ Grosse Zahl: `text-[2.4rem]` weight 600, darunter Label `text-xs uppercase track
 
 ## 6. Kontakt als 3 gleiche Cards
 
-**Was:** Statt der drei-Zeilen-Liste `E-Mail · LinkedIn · GitHub` drei gleichbreite Cards in einem 3-Spalten-Grid (mobile: gestackt). Jede Card: kleines Icon (inline SVG), Kanal-Label (`E-Mail`), Handle (`german@rauhut.com`), subtiler Hover-State mit Border-Tint.
+**Was:** Statt der drei-Zeilen-Liste `E-Mail · LinkedIn · GitHub` drei gleichbreite Cards in einem 3-Spalten-Grid (mobile: gestackt). Jede Card: kleines Icon (inline SVG), Kanal-Label (`E-Mail`), Handle (`mandat@rauhut.com`), subtiler Hover-State mit Border-Tint.
 
 **Warum (Linus):** Kontakt ist die **wichtigste Action-Section** der Seite — dort soll Conversion passieren (Recruiter klickt LinkedIn, User schickt Mail). Aktuelle Liste ist zu zurueckhaltend. Cards geben visuelles Gewicht, ohne pushy zu sein. Gleiche Breite = gleichberechtigt, keine Kanal-Hierarchie aufdraengen.
 
