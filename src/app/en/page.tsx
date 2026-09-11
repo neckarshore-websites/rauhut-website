@@ -245,48 +245,170 @@ export default function HomePageEN() {
           Projects
         </h2>
 
+        {/* Freelance chapter — split into two since P4b (2026-09-11 e): the
+            one "Neckarshore AI — building my own AI products" article is
+            now two chapters under the same overline. Chapter 1 is the
+            mandate (Technical Product Owner), Chapter 2 is the product
+            taxonomy ("What I build") — modelled on
+            neckarshore.ai/products. The later "Own Products" section with
+            the clickable product tiles stays untouched; this chapter is
+            prose, not duplicate navigation. */}
         <article className="mb-14">
           <header className="mb-4">
             <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
               Since 10/2025 · Freelance
             </p>
-            <h3 className="mt-1 text-xl font-semibold tracking-tight">
-              Neckarshore AI — building my own AI products
-            </h3>
           </header>
-          <p className="mb-5 leading-relaxed text-text-muted">
-            Building my own AI products and open-source tools. Hands-on
-            engineering combined with product ownership.
-          </p>
-          <ul className="space-y-3 text-[0.9375rem] leading-relaxed">
-            <li>
-              <strong className="font-semibold">OMNOPSIS Documentor</strong>{" "}
-              — AI-powered documentation engine. Generates compliance,
-              technical, and release documentation from Git, Jira, and
-              Confluence. 905 tests, 96 API endpoints, RBAC, monitoring
-              stack.
-            </li>
-            <li>
-              <strong className="font-semibold">
-                Obsidian Vault Autopilot
-              </strong>{" "}
-              — Open-source plugin for automated knowledge management
-              (Markdown, YAML frontmatter, Obsidian API). Public on GitHub.
-            </li>
-            <li>
-              <strong className="font-semibold">
-                AI-powered multi-agent development process
-              </strong>{" "}
-              — 23 specialized AI agents (architecture, implementation,
-              security, refactoring, marketing) with structured handoff
-              protocol, parallel execution, and automated quality
-              assurance.
-            </li>
-          </ul>
-          <p className="mt-5 text-sm text-text-subtle">
-            Stack: NestJS, TypeScript, PostgreSQL, Redis/BullMQ, Next.js,
-            Claude Code (Opus), Docker, GitHub Actions, Vercel
-          </p>
+
+          {/* Chapter 1 — Technical Product Owner (the mandate) */}
+          <div>
+            <h3 className="text-xl font-semibold tracking-tight">
+              Technical Product Owner
+            </h3>
+            <p className="mt-3 leading-relaxed text-text-muted">
+              Independent since October 2025. Mandates in requirements, test
+              and release — remote DACH, enterprise scale. Programmes that
+              have to go live: backlog, distributed teams, delivery through
+              acceptance.
+            </p>
+            <p className="mt-4 leading-relaxed text-text-muted">
+              Foundation: ten years in the Mercedes-Benz ecosystem — PLUS
+              NextGen (master data/ACL, team in South Africa), SFMd (50,000+
+              KPIs, 2-week release), test and acceptance. The same work, not
+              slide-deck consulting; the practice sits in the products
+              below.
+            </p>
+            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed">
+              <li>
+                <strong className="font-semibold">
+                  Requirements &amp; backlog
+                </strong>{" "}
+                — from rough concept to technical story, prioritization,
+                business/IT alignment.
+              </li>
+              <li>
+                <strong className="font-semibold">
+                  Test, release, acceptance
+                </strong>{" "}
+                — strategy, automation, release cadence. The last mile where
+                programmes stall.
+              </li>
+              <li>
+                <strong className="font-semibold">Distributed teams</strong>{" "}
+                — delivery with on- and offshore teams, clear handoff,
+                ownership through go-live.
+              </li>
+            </ul>
+            {/* Plain text on purpose — no second filled-Primary button,
+                Calendly stays hero + offer card (Founder rule, P4b). */}
+            <p className="mt-4 text-sm text-text-subtle">
+              Book via “Discuss a mandate”.
+            </p>
+          </div>
+
+          {/* Chapter 2 — What I build (product taxonomy) */}
+          <div className="mt-10">
+            <h3 className="text-xl font-semibold tracking-tight">
+              What I build
+            </h3>
+            <p className="mt-3 leading-relaxed text-text-muted">
+              The same way of working as under Neckarshore AI:
+              AI-accelerated, GDPR-by-design. One flagship, MMPs, native
+              iOS, skills — websites on the side.
+            </p>
+            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed">
+              <li>
+                <strong className="font-semibold">
+                  Multi-agent development process
+                </strong>{" "}
+                — 23 specialized agents (architecture, implementation,
+                security, refactoring, marketing), structured handoff,
+                parallel execution, automated quality assurance. The way of
+                working behind everything below.
+              </li>
+              <li>
+                <strong className="font-semibold">
+                  Flagship — Omnopsis Documentor+X
+                </strong>{" "}
+                — documentation engine for engineering teams. Compliance,
+                technical and release documentation from Git, Jira and
+                Confluence. 905 tests, 96 API endpoints.
+              </li>
+              <li>
+                <strong className="font-semibold">MMPs</strong> — Minimum
+                Marketable Products: sharply scoped, market-ready tools. If
+                one breaks through, it becomes a flagship. Live include
+                md-viewer, TrustScope, ClearPath.
+              </li>
+              <li>
+                <strong className="font-semibold">Native iOS</strong> — Kaze
+                and MuscleCat. Native Swift, Xcode and Claude, including
+                test automation. In development, coming to the App Store.
+                Not web wrappers.
+              </li>
+              <li>
+                <strong className="font-semibold">Skills</strong> — a fleet
+                of Claude skills for development, business processes and
+                private use cases. Active lines: Obsidian Vault Autopilot,
+                IMAP Autopilot, Paperless Autopilot, Photo Autopilot and
+                Social Scrapers. Dry-run first — nothing ships unreviewed.
+              </li>
+              <li>
+                <strong className="font-semibold">Websites</strong> — on
+                the side, same build: this site, neckarshore.ai, client
+                sites.
+              </li>
+            </ul>
+            <p className="mt-4 text-sm text-text-subtle">
+              Overview:{" "}
+              <a
+                href="https://neckarshore.ai/products"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                neckarshore.ai/products
+              </a>
+            </p>
+
+            {/* Stack — eight grouped lines, not a comma string. */}
+            <div className="mt-6 space-y-1.5 text-sm text-text-subtle">
+              <p>
+                <span className="font-medium text-text">Runtime</span> ·
+                TypeScript, NestJS, Next.js, React, PostgreSQL, Neon,
+                Redis/BullMQ, Python
+              </p>
+              <p>
+                <span className="font-medium text-text">UI</span> · Tailwind
+                CSS, shadcn/ui
+              </p>
+              <p>
+                <span className="font-medium text-text">Auth</span> ·
+                Zitadel, NextAuth
+              </p>
+              <p>
+                <span className="font-medium text-text">Delivery</span> ·
+                Vercel, GitHub Actions, Docker
+              </p>
+              <p>
+                <span className="font-medium text-text">Quality</span> ·
+                Vitest, Playwright, XCTest, Swift Testing
+              </p>
+              <p>
+                <span className="font-medium text-text">iOS</span> · Swift,
+                Xcode, App Store
+              </p>
+              <p>
+                <span className="font-medium text-text">Agents</span> ·
+                Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI /
+                Grok · OpenAI / Codex
+              </p>
+              <p>
+                <span className="font-medium text-text">Integrations</span>{" "}
+                · Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq,
+                Stripe, Resend
+              </p>
+            </div>
+          </div>
         </article>
 
         <article className="mb-14">
