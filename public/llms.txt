@@ -4,7 +4,7 @@
 
 ## About
 
-German Rauhut is a Freelance Technical Product Owner based in Stuttgart, Germany. Bridge-builder between business and technology — 10+ years at Mercedes-Benz (tester to Business IT Consultant to Technical Product Owner), now freelance since 10/2025 and building own AI products through Neckarshore AI.
+German Rauhut is a Freelance Technical Product Owner based in Stuttgart, Germany. Bridge-builder between business and technology — 10+ years at Mercedes-Benz (Senior Business Analyst, then Agile Coach, Plant Relationship Manager, Change Management Team and Technical Product Owner), now freelance since 10/2025 and building own AI products through Neckarshore AI.
 
 Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA Stuttgart, Fachrichtung Datenverarbeitung). 23 years of career before Mercedes-Benz across Germany, Switzerland, and Thailand — software development, consulting, operational leadership.
 
@@ -33,7 +33,7 @@ Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA S
 
 ## Career Highlights
 
-- 07/2015 – 10/2025: Mercedes-Benz AG & ecosystem — Tester → Business IT Consultant → Technical Product Owner. International, agile projects.
+- 07/2015 – 10/2025: Mercedes-Benz AG & ecosystem — Senior Business Analyst → Agile Coach → Plant Relationship Manager → Change Management Team → Technical Product Owner. International, agile projects.
 - 07/2014 – 06/2015: Senior PM Compliance at Targens, Stuttgart (AML application).
 - 10/2011 – 06/2014: Business IT Consultant at Contargo AG, Basel (freight forwarding software 4ward).
 - 06/2010 – 07/2013: Subproject Lead at Allianz AMOS (AML implementation).

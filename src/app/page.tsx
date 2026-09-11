@@ -367,10 +367,10 @@ export default function HomePage() {
             </h3>
           </header>
           <p className="mb-6 leading-relaxed text-text-muted">
-            10 Jahre im Mercedes-Benz-Ökosystem — vom Tester über den Business
-            IT Consultant zum Technical Product Owner. Durchgehend in agilen,
-            internationalen Projekten mit wachsender Verantwortung für Produkt,
-            Architektur und Prozess.
+            10 Jahre im Mercedes-Benz-Ökosystem — Einstieg als Senior
+            Business Analyst, dann Agile Coach, Plant Relationship Manager,
+            Change Management Team &amp; Technical Product Owner; agil,
+            international, Verantwortung bis live.
           </p>
           <Timeline lang="de" />
           <p className="mt-6 text-sm text-text-subtle">
