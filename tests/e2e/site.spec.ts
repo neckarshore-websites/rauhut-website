@@ -3,13 +3,28 @@ import { test, expect } from "@playwright/test";
 test("German homepage renders the primary profile content", async ({ page }) => {
   await page.goto("/");
 
+  // P1b/P5a-fix (2026-09-12): the visible H1 is now the role
+  // ("Freelance Technical Product Owner", brand-teal) — "German Rauhut"
+  // is the second line beneath it, not a heading and not teal. Brand-teal
+  // is reserved for role titles estate-wide as of this pass (see also
+  // Timeline.tsx phase.title, the Freelance chapter's own h3).
+  const h1 = page.getByRole("heading", { level: 1 });
+  await expect(h1, "exactly one H1 on the page").toHaveCount(1);
+  await expect(h1).toHaveText("Freelance Technical Product Owner");
+  await expect(h1).toHaveClass(/text-brand-teal/);
+
+  // Scoped to <header> — "German Rauhut" also appears in the (hidden at
+  // this viewport) MobileNav bar and in the footer's copyright line;
+  // .first() alone would resolve to whichever comes first in DOM order,
+  // not necessarily the hero's own second line.
+  const nameLine = page.locator("header").getByText("German Rauhut").first();
+  await expect(nameLine).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 1, name: "German Rauhut" })
-  ).toBeVisible();
+    nameLine,
+    "the name, not a role, must not carry the role-title color"
+  ).not.toHaveClass(/text-brand-teal/);
+
   await expect(page.locator("main")).not.toHaveAttribute("lang", "en");
-  await expect(
-    page.getByText("Freelance Technical Product Owner").first()
-  ).toBeVisible();
   await expect(
     page.getByRole("heading", { level: 2, name: "Zusammenfassung" })
   ).toBeVisible();

@@ -4,9 +4,12 @@ type Phase = {
   year: string;
   period: string;
   title: string;
-  /** One-line subtitle under the role heading (P5a, 2026-09-12). Rendered
-   * with the same className the role heading already used — "visuell wie
-   * jetzt die Rolle" — deliberately a <p>, not a heading element. */
+  /** One-line subtitle under the role heading (P5a, 2026-09-12). Originally
+   * rendered with the role heading's own className ("visuell wie jetzt die
+   * Rolle"); revised same-day (P5a-fix, 2026-09-12) once brand-teal became
+   * a role-title-only color estate-wide — the claim now uses the lead
+   * paragraph's own muted color and normal weight instead, so teal stays
+   * exclusive to `phase.title`. Still deliberately a <p>, not a heading. */
   claim: string;
   /** Intro paragraph. Always present; some phases add `bullets` below it,
    * others (Senior Business Analyst) stand alone as a single paragraph. */
@@ -122,10 +125,10 @@ export default function Timeline({ lang = "de" }: { lang?: Lang }) {
           <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
             {phase.period}
           </p>
-          <p className="mt-0.5 text-[0.9375rem] font-semibold">
+          <p className="mt-0.5 text-[0.9375rem] font-semibold text-brand-teal">
             {phase.title}
           </p>
-          <p className="mt-0.5 text-[0.9375rem] font-semibold">
+          <p className="mt-0.5 text-[0.9375rem] text-text-muted">
             {phase.claim}
           </p>
           <p className="mt-2 text-[0.9375rem] leading-relaxed text-text-muted">

@@ -47,10 +47,10 @@ export default function HomePage() {
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
             <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
-              German Rauhut
+              Freelance Technical Product Owner
             </h1>
             <p className="mt-3 text-lg font-medium text-text sm:text-xl">
-              Freelance Technical Product Owner
+              German Rauhut
             </p>
             <p className="mt-2 text-base text-text-muted sm:text-lg">
               Enterprise-Programme live bringen — Anforderung, Test, Release,
@@ -224,7 +224,7 @@ export default function HomePage() {
 
           {/* Kapitel 1 — Technical Product Owner (Mandat) */}
           <div>
-            <h3 className="text-xl font-semibold tracking-tight">
+            <h3 className="text-xl font-semibold tracking-tight text-brand-teal">
               Technical Product Owner
             </h3>
             <p className="mt-3 leading-relaxed text-text-muted">
