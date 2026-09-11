@@ -141,3 +141,48 @@ test("ShuffleTour queue size matches active filter", async ({ page }) => {
 
   expect(tourSize).toBe(visibleCards);
 });
+
+// ── Test 7: /designs stays crawlable but never indexable (P7, 2026-09-12) ──
+// The gallery is a lab, not a statement (see next.config.ts). It must stay
+// open to humans (no login, no removal from the homepage footer) while
+// carrying an unambiguous noindex signal — header and meta must agree, and
+// the footer link must not pass ranking signal. Regression guard for the
+// index:true/follow:true meta that previously contradicted the
+// X-Robots-Tag header.
+test("/designs is reachable, marked noindex/nofollow, and its footer link carries rel=nofollow", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/designs");
+  await expect(page.locator("h1, h2").first()).toBeVisible();
+
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/
+  );
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /nofollow/
+  );
+
+  const response = await request.get("/designs");
+  expect(response.headers()["x-robots-tag"]).toMatch(/noindex/);
+  expect(response.headers()["x-robots-tag"]).toMatch(/nofollow/);
+
+  await page.goto("/");
+  await expect(
+    page.locator('footer a[href="/designs"]')
+  ).toHaveAttribute("rel", "nofollow");
+});
+
+// ── Test 8: robots.txt disallows /designs but nothing else (P7, 2026-09-12) ──
+test("robots.txt disallows /designs while the rest of the site stays allowed", async ({
+  request,
+}) => {
+  const response = await request.get("/robots.txt");
+  const body = await response.text();
+
+  expect(body).toMatch(/Disallow:\s*\/designs/);
+  expect(body).toMatch(/Allow:\s*\//);
+  expect(body).toMatch(/Sitemap:\s*https:\/\/rauhut\.com\/sitemap\.xml/);
+});

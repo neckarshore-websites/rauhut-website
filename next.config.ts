@@ -99,12 +99,17 @@ const securityHeaders = [
 // edits, and the mockups would drift again the next time a number moves. The
 // class fix is to stop them being read as statements at all.
 //
-// WHY A HEADER AND NOT `Disallow` IN robots.txt — this is the trap in this
-// exact problem: `Disallow` forbids CRAWLING, which means the crawler never
-// fetches the page and therefore never SEES a noindex directive. A URL blocked
-// that way can still be indexed from external links, just without content. To
-// de-index reliably the page must stay crawlable and say noindex. So: no
-// Disallow, an X-Robots-Tag header instead.
+// WHY A HEADER (AND NOT ONLY `Disallow` IN robots.txt) — this is the trap in
+// this exact problem: `Disallow` forbids CRAWLING, which means the crawler
+// never fetches the page and therefore never SEES a noindex directive. A URL
+// blocked that way can still be indexed bare (no snippet) from external
+// links. To de-index reliably the page must stay crawlable and say noindex —
+// so this header is load-bearing and must not be removed even though P7
+// (2026-09-12, src/app/robots.ts) later added `Disallow: /designs` on top of
+// it. That addition was verified safe at the time (nothing indexed yet, per
+// a `site:rauhut.com/designs` search) rather than assumed safe — see the
+// comment in robots.ts for the full reasoning and the caveat if that ever
+// changes.
 //
 // `nofollow` rides along deliberately: the mockups link out to github/linkedin
 // and to each other, and a playground should not be casting ranking signals.
