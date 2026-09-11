@@ -1,23 +1,27 @@
 type Lang = "de" | "en";
 
 /**
- * Variante A, Founder-decided 2026-08-16: ONE lead tile for neckarshore.ai,
- * and under it a compact list of the products that live inside it.
+ * Own-products block — text intro (overline + title + body + link) followed
+ * by the compact product list. Rewritten 2026-09-11 b (P2/IA pass) from the
+ * earlier dark-gradient "lead tile" design: this block moved from directly
+ * under the hero to after Projekte/Projects, so it no longer needs to carry
+ * its own visual weight as a card — the page's existing H2/paragraph
+ * pattern (used by Zusammenfassung/Kernkompetenzen/Projekte) does the job
+ * and keeps the "no new color world" constraint. "My passion" is retired
+ * with the tile it lived on.
  *
- * The shape carries an argument, so do not flatten it back into a grid of
- * equal tiles in a later pass. Every row below points at
- * `neckarshore.ai/products/…` — the five products are not siblings of the
- * tile above them, they are its contents. Six equally sized tiles would
- * claim six equally important things and level a hierarchy that genuinely
- * exists.
+ * The product list itself is unchanged in substance from the prior
+ * Variante A (Founder-decided 2026-08-16): a compact list of the products
+ * that live under Neckarshore AI, not siblings of a headline claim but
+ * evidence for the paragraph above them.
  *
  * The rows deliberately carry NO description. On a person page this block
  * answers "what is he building", not "what does each product do" — that
  * answer lives one click away, on the product page itself.
  *
- * Repository links were removed here on purpose (Founder instruction, same
- * decision): a visitor of a person page belongs on a product page, not in a
- * code repository. `tests/e2e/site.spec.ts` asserts their absence, because
+ * Repository links were removed here on purpose (Founder instruction,
+ * 2026-08-16): a visitor of a person page belongs on a product page, not in
+ * a code repository. `tests/e2e/site.spec.ts` asserts their absence, because
  * a helpful link creeps back exactly one content pass later.
  *
  * Tags are stored in their FINAL casing and are NOT uppercased by CSS.
@@ -77,25 +81,28 @@ const COPY: Record<
   Lang,
   {
     regionLabel: string;
-    passion: string;
-    neckarshoreDesc: string;
+    overline: string;
+    title: string;
+    body: string;
+    linkLabel: string;
     listHead: string;
-    openCta: string;
   }
 > = {
   de: {
     regionLabel: "Projektbereich",
-    passion: "My passion",
-    neckarshoreDesc: "KI-beschleunigte Softwareentwicklung",
+    overline: "Eigene Produkte",
+    title: "Was ich baue, wenn ich nicht im Mandat bin",
+    body: "Unter Neckarshore AI entstehen Produkte, an denen ich Product-Ownership und Engineering eiche. Flagship ist Omnopsis: Compliance-, Technik- und Release-Dokumentation aus Git, Jira und Confluence. Deshalb empfehle ich nur, was im eigenen Betrieb gelaufen ist.",
+    linkLabel: "neckarshore.ai",
     listHead: "Was dort entsteht",
-    openCta: "Öffnen",
   },
   en: {
     regionLabel: "Project overview",
-    passion: "My passion",
-    neckarshoreDesc: "AI-accelerated software development",
+    overline: "Own products",
+    title: "What I build between mandates",
+    body: "At Neckarshore AI I ship products that keep my product-ownership and engineering sharp. Flagship is Omnopsis: compliance, technical and release documentation from Git, Jira and Confluence. I only recommend what has already run in my own operation.",
+    linkLabel: "neckarshore.ai",
     listHead: "What is built there",
-    openCta: "Open",
   },
 };
 
@@ -104,47 +111,23 @@ export default function ProjectTiles({ lang = "de" }: { lang?: Lang }) {
 
   return (
     <section aria-label={copy.regionLabel}>
-      {/* Lead tile — neckarshore.ai. Keeps the established tile language of
-          this page (gradient, eyebrow, arrow); only the height relaxes,
-          because it no longer has to match a neighbour in a two-column grid. */}
-      <a
-        href="https://neckarshore.ai"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A2540] to-[#0F172A] p-6 text-[#F1F5F9] no-underline ring-1 ring-transparent transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:text-[#F1F5F9] hover:no-underline hover:ring-[#22D3EE]/30 hover:shadow-[0_10px_40px_-15px_rgba(34,211,238,0.25)]"
-      >
-        {/* CTA — always visible, absolute so hover causes no layout shift */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-5 top-5 text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE]"
-        >
-          {copy.openCta} ↗
-        </span>
-        <div>
-          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-[#22D3EE]">
-            {copy.passion}
-          </p>
-          <p className="mt-2 text-xl font-semibold tracking-tight">
-            neckarshore<span className="text-[#22D3EE]">.ai</span>
-          </p>
-          <p className="mt-1.5 text-sm text-[#CBD5E1]">
-            {copy.neckarshoreDesc}
-          </p>
-        </div>
-        <span
-          aria-hidden="true"
-          className="text-xl text-[#22D3EE] transition-transform duration-150 group-hover:translate-x-1"
-        >
-          →
-        </span>
-      </a>
+      <p className="text-xs font-medium uppercase tracking-widest text-brand-amber">
+        {copy.overline}
+      </p>
+      <h2 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl">
+        {copy.title}
+      </h2>
+      <p className="mt-4 text-lg leading-relaxed">{copy.body}</p>
+      <p className="mt-4">
+        <span aria-hidden="true">→ </span>
+        <a href="https://neckarshore.ai" target="_blank" rel="noopener noreferrer">
+          {copy.linkLabel}
+        </a>
+      </p>
 
-      {/* Product list. Unlike the tile above, this chrome inherits the page
-          tokens rather than fixed dark values — rauhut.com has a light theme
-          too, and the design artifact this was approved from could only show
-          the dark one. Hardcoding the artifact's hex values here would have
-          produced invisible separators in light mode. */}
-      <p className="mt-8 text-[0.6875rem] font-medium uppercase tracking-widest text-brand-amber">
+      {/* Product list. This chrome inherits the page tokens rather than
+          fixed dark values — rauhut.com has a light theme too. */}
+      <p className="mt-10 text-[0.6875rem] font-medium uppercase tracking-widest text-brand-amber">
         {copy.listHead}
       </p>
       <ul className="mt-3">

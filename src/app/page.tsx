@@ -23,7 +23,9 @@ export default function HomePage() {
         <ThemeToggle />
       </div>
 
-      {/* Header */}
+      {/* Header — Hero. P1 (2026-09-11), live, UNANTASTBAR for this P2 IA
+          pass: copy, buttons, meta and schema jobTitle stay exactly as
+          shipped. Only the sections below this point were reordered. */}
       <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
@@ -69,82 +71,12 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/*
-        KI-Beratung — the bridge from the person page to the Neckarshore offer.
-
-        Copy is Founder-worded (approved 2026-08-16); do not paraphrase it in a
-        refactor. The constraint that shaped it: this page is deliberately NOT
-        an availability or acquisition page, so the register is "this exists,
-        here is the way" and never "I am free, book me". A regression guard
-        enforces that in tests/e2e/site.spec.ts rather than leaving it in prose.
-
-        The `?ref=rauhut` on the link is load-bearing, not decoration — it is
-        how the campaign tells traffic from this page apart from the rest.
-      */}
-      <Reveal className="pb-16 sm:pb-20" aria-labelledby="ki-beratung">
-        <h2
-          id="ki-beratung"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
-          KI-Beratung
-        </h2>
-        <p className="text-lg leading-relaxed">
-          Was in meinen eigenen Produkten funktioniert, gebe ich als Analyse
-          weiter: Bei Neckarshore AI gibt es dafür einen Workshop-Tag, der zeigt,
-          wo KI-Agenten in konkreten Prozessen tragen — und wo nicht. Die Analyse
-          mache ich selbst; empfohlen wird nur, was vorher im eigenen Betrieb
-          gelaufen ist. Ablauf, Umfang und Preise stehen auf der Angebotsseite.
-        </p>
-        <p className="mt-6">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Zur KI-Potenzialanalyse
-          </a>
-        </p>
-        {/*
-          Calendly — Founder instruction 2026-08-16.
-
-          A LINK, never an embed: no script, no iframe, no widget. As long as
-          it stays a link, no visitor data reaches Calendly until the visitor
-          has clicked and left this site. The moment anyone turns this into an
-          embed, § 7 of the Datenschutzerklaerung stops being true and this
-          page acquires a US third-party processor it does not declare.
-
-          The address is verified, not assumed — `calendly.com/rauhut/20min`
-          appears in neckarshore-website's source AND on the live offer page.
-          It is TWENTY minutes; older notes in this estate say fifteen.
-
-          `utm_source` should surface the origin in Calendly's own reporting.
-          NOT verified against the account — if it does not show up there the
-          parameter is inert and costs nothing.
-        */}
-        <p className="mt-3">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Oder ein Erstgespräch bei Neckarshore AI vereinbaren (20 Minuten)
-          </a>
-        </p>
-      </Reveal>
-
-      <hr />
-
-      {/* Project Tiles — Neckarshore + Obsidian Vault Autopilot */}
-      <div className="py-16 sm:py-20">
-        <ProjectTiles />
-      </div>
-
-      <hr />
-
-      {/* Zusammenfassung */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="zusammenfassung">
+      {/* Zusammenfassung — first content block after the hero (P0/IA
+          2026-09-11 b: rauhut.com sells the PERSON for a freelance mandate,
+          so this is neither Neckarshore nor a product list). No leading
+          <hr/> here — matches the original header→first-block rhythm,
+          where the header's own bottom margin provides the gap. */}
+      <Reveal className="pb-16 sm:pb-20" aria-labelledby="zusammenfassung">
         <h2
           id="zusammenfassung"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -241,7 +173,7 @@ export default function HomePage() {
               Seit 10/2025 · Freelance
             </p>
             <h3 className="mt-1 text-xl font-semibold tracking-tight">
-              Neckarshore AI — Technical Product Owner &amp; AI Product Builder
+              Neckarshore AI — Aufbau eigener AI-Produkte
             </h3>
           </header>
           <p className="mb-5 leading-relaxed text-text-muted">
@@ -418,6 +350,74 @@ export default function HomePage() {
             </table>
           </div>
         </details>
+      </Reveal>
+
+      <hr />
+
+      {/* Eigene Produkte — Project Tiles. Moved here from directly under the
+          hero (P2/IA 2026-09-11 b): the products are evidence for the
+          mandate pitch, not the opening pitch itself. */}
+      <div className="py-16 sm:py-20">
+        <ProjectTiles lang="de" />
+      </div>
+
+      <hr />
+
+      {/*
+        KI-Potenzialanalyse — compact bridge to the Neckarshore offer.
+        Moved below Projekte/Eigene Produkte and shortened (P2/IA
+        2026-09-11 b): this block used to sit directly under the hero and
+        competed with "Mandat besprechen" for the visitor's first decision.
+        Now it is visually subordinate — no filled button, smaller/muted
+        second link — and the hero's CTA remains the page's only Primary.
+
+        Copy is Founder-worded; do not paraphrase it in a refactor. The
+        `?ref=rauhut` on the offer-page link is load-bearing, not decoration
+        — it is how the campaign tells traffic from this page apart from the
+        rest. The `id` stays "ki-beratung" across the rename (anchors may
+        move position on the page without changing their address).
+      */}
+      <Reveal className="py-16 sm:py-20" aria-labelledby="ki-beratung">
+        <h2
+          id="ki-beratung"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
+        >
+          KI-Potenzialanalyse
+        </h2>
+        <p className="text-lg leading-relaxed">
+          Was in den eigenen Produkten trägt, gebe ich als Analyse weiter —
+          ein Workshop-Tag, der zeigt, wo KI-Agenten in konkreten Prozessen
+          tragen und wo nicht. Ablauf, Umfang und Preise stehen auf der
+          Angebotsseite bei Neckarshore AI.
+        </p>
+        <p className="mt-6">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Zur KI-Potenzialanalyse
+          </a>
+        </p>
+        {/*
+          Calendly — weaker second link, own UTM (Founder brief 2026-09-11 b).
+          `utm_source=rauhut-com-ki` keeps this entry point distinguishable
+          from the hero's own Calendly CTA (`utm_source=rauhut-com`, which
+          this block never touches). A LINK, never an embed — same § 7
+          Datenschutzerklaerung constraint as the hero CTA.
+        */}
+        <p className="mt-3 text-sm text-text-subtle">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-ki"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-subtle hover:text-text-muted"
+          >
+            20 Min klären, ob sich die Analyse lohnt
+          </a>
+        </p>
       </Reveal>
 
       <hr />
