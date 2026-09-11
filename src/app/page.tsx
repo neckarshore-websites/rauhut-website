@@ -9,22 +9,38 @@ import ContactForm from "@/components/ContactForm";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
 import Offers from "@/components/Offers";
+import NavRail from "@/components/NavRail";
+import MobileNav from "@/components/MobileNav";
 import { AVAILABILITY } from "@/lib/availability";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
-      {/* Schema.org Person — emitted as raw JSON-LD in the HTML source
-          (native <script> tag, not next/script — see AD-19). */}
-      <PersonJsonLd lang="de" />
+    <>
+      {/* P8 (2026-09-12, Founder brief, artifact-approved): hybrid chrome.
+          Mobile gets a sticky top bar (Name + CTA, jumps behind a burger).
+          Desktop (lg+) gets no sticky topbar at all — instead a sticky rail
+          to the right of the (unchanged, still narrow) content column. */}
+      <MobileNav lang="de" />
 
-      {/* Top bar — language toggle + theme toggle */}
-      <div className="mb-10 flex items-center justify-between">
-        <LangToggle current="de" />
-        <ThemeToggle />
-      </div>
+      <div className="lg:mx-auto lg:grid lg:max-w-[70rem] lg:grid-cols-[42rem_1fr] lg:items-start lg:gap-16 lg:px-6">
+        <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24 lg:px-0">
+          {/* Schema.org Person — emitted as raw JSON-LD in the HTML source
+              (native <script> tag, not next/script — see AD-19). */}
+          <PersonJsonLd lang="de" />
 
-      {/* Header — Hero. P1 (2026-09-11), live, UNANTASTBAR for this P2 IA
+          {/* Top bar — language toggle + theme toggle. LangToggle hides at
+              lg+ (P8): the sticky rail carries DE/EN there instead, since
+              this row is not sticky and would otherwise scroll out of
+              reach — see NavRail.tsx. justify-end keeps ThemeToggle at the
+              right edge once LangToggle's wrapper leaves the flex row. */}
+          <div className="mb-10 flex items-center justify-between lg:justify-end">
+            <div className="lg:hidden">
+              <LangToggle current="de" />
+            </div>
+            <ThemeToggle />
+          </div>
+
+          {/* Header — Hero. P1 (2026-09-11), live, UNANTASTBAR for this P2 IA
           pass: copy, buttons, meta and schema jobTitle stay exactly as
           shipped. Only the sections below this point were reordered. */}
       <header className="hero-glow mb-12 sm:mb-16">
@@ -600,6 +616,10 @@ export default function HomePage() {
           </a>
         </p>
       </footer>
-    </main>
+        </main>
+
+        <NavRail lang="de" />
+      </div>
+    </>
   );
 }
