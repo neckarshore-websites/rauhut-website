@@ -421,10 +421,10 @@ export default function HomePageEN() {
             </h3>
           </header>
           <p className="mb-6 leading-relaxed text-text-muted">
-            10 years in the Mercedes-Benz ecosystem — from tester to
-            Business IT Consultant to Technical Product Owner.
-            Throughout: agile, international projects with growing
-            responsibility for product, architecture, and process.
+            10 years in the Mercedes-Benz ecosystem — joined as Senior
+            Business Analyst, then Agile Coach, Plant Relationship Manager,
+            Change Management Team &amp; Technical Product Owner; agile,
+            international, ownership through go-live.
           </p>
           <Timeline lang="en" />
           <p className="mt-6 text-sm text-text-subtle">
