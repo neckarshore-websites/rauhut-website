@@ -12,14 +12,14 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "German Rauhut — Technical Product Owner & AI Product Builder",
+  title: "German Rauhut — Freelance Technical Product Owner",
   description:
-    "Technical Product Owner & AI Product Builder aus Stuttgart. 10+ Jahre Mercedes-Benz, heute Freelance und Aufbau eigener AI-Produkte (Neckarshore AI, OMNOPSIS Documentor, Obsidian Vault Autopilot).",
+    "Freelance Technical Product Owner aus Stuttgart. 10 Jahre Mercedes-Benz-Ökosystem, Mandate in Anforderung, Test und Release. Ab sofort buchbar.",
   metadataBase: new URL("https://rauhut.com"),
   openGraph: {
-    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    title: "German Rauhut — Freelance Technical Product Owner",
     description:
-      "Brueckenbauer zwischen Business und Technologie. Mercedes-Benz Alumni, heute AI Product Builder bei Neckarshore AI.",
+      "Freelance Technical Product Owner aus Stuttgart. 10 Jahre Mercedes-Benz-Ökosystem, Mandate in Anforderung, Test und Release. Ab sofort buchbar.",
     url: "https://rauhut.com",
     siteName: "rauhut.com",
     locale: "de_DE",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "German Rauhut — Technical Product Owner & AI Product Builder",
+    title: "German Rauhut — Freelance Technical Product Owner",
     description:
-      "Brueckenbauer zwischen Business und Technologie. Mercedes-Benz Alumni, heute AI Product Builder bei Neckarshore AI.",
+      "Freelance Technical Product Owner aus Stuttgart. 10 Jahre Mercedes-Benz-Ökosystem, Mandate in Anforderung, Test und Release. Ab sofort buchbar.",
     // twitter:image is emitted automatically from twitter-image.tsx
   },
   alternates: {

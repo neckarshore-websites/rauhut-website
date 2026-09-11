@@ -12,8 +12,7 @@ import { join } from "node:path";
 //   muted   #A3A3A3
 //   teal    #22D3EE
 
-export const alt =
-  "German Rauhut — Technical Product Owner & AI Product Builder";
+export const alt = "German Rauhut — Freelance Technical Product Owner";
 
 export const size = {
   width: 1200,
@@ -82,7 +81,7 @@ export default async function Image() {
               maxWidth: 1000,
             }}
           >
-            Technical Product Owner &amp; AI Product Builder
+            Freelance Technical Product Owner
           </div>
         </div>
 

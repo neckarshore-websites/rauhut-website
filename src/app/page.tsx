@@ -8,6 +8,7 @@ import ContactCards from "@/components/ContactCards";
 import ContactForm from "@/components/ContactForm";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
+import { AVAILABILITY } from "@/lib/availability";
 
 export default function HomePage() {
   return (
@@ -29,12 +30,40 @@ export default function HomePage() {
             <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
               German Rauhut
             </h1>
-            <p className="mt-3 text-lg text-text-muted sm:text-xl">
-              Technical Product Owner &amp; AI Product Builder
+            <p className="mt-3 text-lg font-medium text-text sm:text-xl">
+              Freelance Technical Product Owner
             </p>
-            <p className="mt-1 text-sm text-text-subtle">
-              Diplom-Betriebswirt (BA Stuttgart, Fachrichtung Datenverarbeitung)
+            <p className="mt-2 text-base text-text-muted sm:text-lg">
+              Enterprise-Programme live bringen — Anforderung, Test, Release,
+              verteilte Teams.
             </p>
+            <p className="mt-2 text-sm text-text-subtle">
+              KI-Delivery aus eigener Produktsicht, nicht als
+              Folien-Beratung.
+            </p>
+            <p className="mt-4 text-sm text-text-subtle">
+              Stuttgart · remote DACH · 10 Jahre Mercedes-Benz-Ökosystem ·
+              selbstständig seit 10/2025
+            </p>
+            <p className="mt-1 text-sm font-medium text-brand-teal">
+              {AVAILABILITY.de}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg bg-text px-5 py-2.5 text-sm font-medium text-bg no-underline transition-colors duration-150 hover:bg-accent-hover hover:text-bg hover:no-underline"
+              >
+                Mandat besprechen (20 Min)
+              </a>
+              <a
+                href="mailto:german@rauhut.com"
+                className="inline-flex items-center justify-center rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text no-underline transition-colors duration-150 hover:border-accent hover:text-accent-hover hover:no-underline"
+              >
+                E-Mail
+              </a>
+            </div>
           </div>
           <FounderPhoto />
         </div>

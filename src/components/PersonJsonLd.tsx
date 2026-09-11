@@ -20,8 +20,8 @@
 type Lang = "de" | "en";
 
 const DESCRIPTIONS: Record<Lang, string> = {
-  de: "Brückenbauer zwischen Business und Technologie. 10+ Jahre Mercedes-Benz, heute Freelance AI Product Builder bei Neckarshore AI. Eigene Produkte (OMNOPSIS Documentor, Obsidian Vault Autopilot) und Multi-Agent-Entwicklungsprozesse.",
-  en: "Bridge-builder between business and technology. 10+ years at Mercedes-Benz, now freelance AI product builder at Neckarshore AI. Own products (OMNOPSIS Documentor, Obsidian Vault Autopilot) and multi-agent development processes.",
+  de: "Freelance Technical Product Owner aus Stuttgart. 10 Jahre Mercedes-Benz-Ökosystem, Mandate in Anforderung, Test und Release. Ab sofort buchbar.",
+  en: "Freelance Technical Product Owner based in Stuttgart. 10 years in the Mercedes-Benz ecosystem. Available for mandates in requirements, test and release.",
 };
 
 export default function PersonJsonLd({ lang = "de" }: { lang?: Lang }) {
@@ -31,7 +31,7 @@ export default function PersonJsonLd({ lang = "de" }: { lang?: Lang }) {
     name: "German Rauhut",
     url: "https://rauhut.com",
     image: "https://rauhut.com/opengraph-image",
-    jobTitle: "Technical Product Owner & AI Product Builder",
+    jobTitle: "Freelance Technical Product Owner",
     description: DESCRIPTIONS[lang],
     worksFor: {
       "@type": "Organization",
