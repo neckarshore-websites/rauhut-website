@@ -8,6 +8,7 @@ import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
+import Offers from "@/components/Offers";
 import { AVAILABILITY } from "@/lib/availability";
 
 export const metadata: Metadata = {
@@ -148,6 +149,29 @@ export default function HomePageEN() {
             Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
           </p>
         </div>
+      </Reveal>
+
+      <hr />
+
+      {/* Offers — P3 (2026-09-11 d, Founder brief): purchasing sees in 10
+          seconds what it can book, directly after About/StatsRow/origin
+          sentence/"Worked for" and before Core Competencies. One lead
+          offer with the page's second filled-Primary CTA (same Calendly
+          as the hero, same utm_source=rauhut-com, on purpose); the other
+          two are visually weaker (outline / plain text link). The fuller
+          AI potential analysis section further down is untouched — Card 3
+          here is a teaser for it, not a replacement. */}
+      <Reveal className="py-16 sm:py-20" aria-labelledby="offers">
+        <p className="text-xs font-medium uppercase tracking-widest text-brand-amber">
+          Offers
+        </p>
+        <h2
+          id="offers"
+          className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl"
+        >
+          What you can book
+        </h2>
+        <Offers lang="en" />
       </Reveal>
 
       <hr />

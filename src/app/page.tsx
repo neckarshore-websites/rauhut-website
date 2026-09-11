@@ -8,6 +8,7 @@ import ContactCards from "@/components/ContactCards";
 import ContactForm from "@/components/ContactForm";
 import Timeline from "@/components/Timeline";
 import PersonJsonLd from "@/components/PersonJsonLd";
+import Offers from "@/components/Offers";
 import { AVAILABILITY } from "@/lib/availability";
 
 export default function HomePage() {
@@ -100,6 +101,29 @@ export default function HomePage() {
             Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
           </p>
         </div>
+      </Reveal>
+
+      <hr />
+
+      {/* Angebote — P3 (2026-09-11 d, Founder brief): purchasing sees in 10
+          seconds what it can book, directly after Zusammenfassung/
+          Kennzahlen/Herkunftssatz/Kundenzeile and before Kernkompetenzen.
+          One lead offer with the page's second filled-Primary CTA (same
+          Calendly as the hero, same utm_source=rauhut-com, on purpose);
+          the other two are visually weaker (outline / plain text link).
+          The fuller KI-Potenzialanalyse section further down is untouched
+          — Card 3 here is a teaser for it, not a replacement. */}
+      <Reveal className="py-16 sm:py-20" aria-labelledby="angebote">
+        <p className="text-xs font-medium uppercase tracking-widest text-brand-amber">
+          Angebote
+        </p>
+        <h2
+          id="angebote"
+          className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl"
+        >
+          Was Sie buchen können
+        </h2>
+        <Offers lang="de" />
       </Reveal>
 
       <hr />
