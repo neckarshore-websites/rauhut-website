@@ -63,22 +63,29 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
 });
 
 /**
- * Calendly CTAs — Founder instruction 2026-08-16, split into two entry
- * points 2026-09-11 b (P2/IA pass):
+ * Calendly CTAs — Founder instruction 2026-08-16, three entry points as of
+ * 2026-09-11 d (P3 offers pass):
  *
  * 1. The hero's own CTA ("Mandat besprechen" / "Discuss a mandate"),
- *    `utm_source=rauhut-com`, unscoped to any region because the hero
- *    <header> is not one — and untouched by this pass on purpose (P1,
- *    UNANTASTBAR).
- * 2. The KI-Potenzialanalyse block's weaker second link,
- *    `utm_source=rauhut-com-ki` — a distinct UTM so the two entry points
- *    stay distinguishable in Calendly's own reporting, matching the
- *    Founder brief's explicit instruction not to reuse the hero's value
- *    here.
+ *    `utm_source=rauhut-com`, scoped to the <header> — untouched by this
+ *    pass on purpose (P1, UNANTASTBAR).
+ * 2. The Angebote/Offers lead card's own CTA — the SAME href/UTM as the
+ *    hero, deliberately (Founder brief, P3): a visitor who scrolled past
+ *    the hero without booking gets the identical offer again, as the
+ *    section's only filled-Primary button. This is why the total
+ *    page-wide count for this href is 2 from this pass onward, not 1 —
+ *    asserted per-region below rather than as one page-wide count so a
+ *    failure names WHICH occurrence went missing.
+ * 3. The Angebote/Offers second card's own CTA,
+ *    `utm_source=rauhut-com-test` — a distinct UTM so Test/Release
+ *    enquiries stay distinguishable from the general mandate CTA in
+ *    Calendly's own reporting.
+ * 4. The KI-Potenzialanalyse block's weaker link, `utm_source=rauhut-com-ki`
+ *    (P2/IA pass, 2026-09-11 b) — unchanged by this pass.
  *
- * Three things are asserted, and the second is the one that matters most:
+ * Two things are asserted, and the second is the one that matters most:
  *
- * 1. Both CTAs exist and point at the verified address
+ * 1. Every CTA exists and points at the verified address
  *    (`calendly.com/rauhut/20min` — found in neckarshore-website's source
  *    AND on the live offer page, not assumed).
  *
@@ -88,41 +95,99 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
  *    from calendly.com would make a published legal document false — which
  *    is a defect of a different order than a layout regression, and exactly
  *    the kind that ships unnoticed because nothing looks broken.
- *
- * 3. The privacy section that covers it still exists. Link and disclosure
- *    have to travel together; removing the section while keeping the link is
- *    the silent half of the same failure.
  */
 const CALENDLY = "https://calendly.com/rauhut/20min?utm_source=rauhut-com";
+const CALENDLY_TEST =
+  "https://calendly.com/rauhut/20min?utm_source=rauhut-com-test";
 const CALENDLY_KI =
   "https://calendly.com/rauhut/20min?utm_source=rauhut-com-ki";
 
-for (const [language, path, regionName] of [
-  ["German", "/", "KI-Potenzialanalyse"],
-  ["English", "/en", "AI potential analysis"],
+for (const [language, path, offersRegionName, kiRegionName] of [
+  ["German", "/", "Was Sie buchen können", "KI-Potenzialanalyse"],
+  ["English", "/en", "What you can book", "AI potential analysis"],
 ] as const) {
-  test(`${language} homepage offers the Calendly calls as links, never an embed`, async ({
+  test(`${language} homepage offers all three Calendly calls as links, never an embed`, async ({
     page,
   }) => {
     await page.goto(path);
 
     await expect(
-      page.locator(`a[href="${CALENDLY}"]`),
+      page.locator("header").locator(`a[href="${CALENDLY}"]`),
       "the hero's Mandat CTA must survive a content pass"
     ).toHaveCount(1);
 
-    const section = page.getByRole("region", { name: regionName });
+    const offers = page.getByRole("region", { name: offersRegionName });
     await expect(
-      section.locator(`a[href="${CALENDLY_KI}"]`),
+      offers.locator(`a[href="${CALENDLY}"]`),
+      "the Angebote/Offers lead card repeats the hero's exact CTA on purpose"
+    ).toHaveCount(1);
+    await expect(
+      offers.locator(`a[href="${CALENDLY_TEST}"]`),
+      "the Angebote/Offers Test-&-Release card's own CTA must survive a content pass"
+    ).toHaveCount(1);
+
+    const ki = page.getByRole("region", { name: kiRegionName });
+    await expect(
+      ki.locator(`a[href="${CALENDLY_KI}"]`),
       "the KI-Potenzialanalyse block's own, weaker CTA must survive a content pass"
     ).toHaveCount(1);
 
     // Positive assertions first (above), so the absence check below cannot
-    // go vacuously green on a page where both CTAs vanished entirely.
+    // go vacuously green on a page where every CTA vanished entirely.
     await expect(
       page.locator('script[src*="calendly"], iframe[src*="calendly"]'),
       "an embed would make § 7 of the Datenschutzerklaerung false"
     ).toHaveCount(0);
+  });
+}
+
+/**
+ * Angebote/Offers section — P3 (2026-09-11 d): one lead offer carrying the
+ * page's only other filled-Primary button, two visually weaker ones.
+ * "Weaker" is a CSS-class claim with no other guard in this suite — a
+ * refactor that made Card 2 or 3 filled, or dropped Card 1's fill, would
+ * look fine everywhere else and still violate the brief's core rule
+ * ("nur das Leitangebot hat den gefüllten Primary-Button").
+ */
+for (const [language, path, regionName, titles] of [
+  [
+    "German",
+    "/",
+    "Was Sie buchen können",
+    [
+      "Technical Product Ownership",
+      "Test, Release, Abnahme",
+      "KI-Potenzialanalyse",
+    ],
+  ],
+  [
+    "English",
+    "/en",
+    "What you can book",
+    [
+      "Technical Product Ownership",
+      "Test, release, acceptance",
+      "AI potential analysis",
+    ],
+  ],
+] as const) {
+  test(`${language} homepage lists three offers with exactly one filled-Primary CTA`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const section = page.getByRole("region", { name: regionName });
+    await expect(section).toBeVisible();
+
+    for (const title of titles) {
+      await expect(
+        section.getByRole("heading", { level: 3, name: title })
+      ).toBeVisible();
+    }
+
+    // Exactly one CTA in the section carries the filled-Primary class
+    // (`bg-text`) — the same class the hero's own button uses.
+    await expect(section.locator("a.bg-text")).toHaveCount(1);
   });
 }
 
@@ -177,6 +242,14 @@ test("the privacy policy covers the Calendly link it is written for", async ({
  * that rename. The guard itself, and what it protects, are untouched — do
  * not widen the regex to cover the hero without a fresh Founder instruction
  * to do so.
+ *
+ * SAME EXCEPTION EXTENDS TO THE NEW ANGEBOTE/OFFERS SECTION 2026-09-11 d
+ * (P3, Founder brief): its H2 ("Was Sie buchen können" / "What you can
+ * book") and its lead card's CTA ("Mandat besprechen (20 Min)" — the same
+ * label as the hero's own button, by design) both use vocabulary this
+ * guard would flag. Not scoped by this guard for the identical reason the
+ * hero isn't: it is the page's second filled-Primary CTA, not the
+ * KI-Potenzialanalyse offer this guard protects.
  *
  * KNOWN LIMITATION, written down before it bites: this matches strings, not
  * meaning. `beauftrag` would also fire on a harmless past-tense sentence
