@@ -61,6 +61,17 @@
 
 html {
   scroll-behavior: smooth;
+  /* P8 (2026-09-12): the mobile sticky top bar (MobileNav.tsx, ~64px tall)
+     would otherwise cover a heading right after a hash-link jump. Desktop
+     has no sticky topbar (the rail lives beside the content, not above
+     it), so lg+ only needs a small breathing-room buffer, not the full
+     bar height. */
+  scroll-padding-top: 76px;
+}
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 24px;
+  }
 }
 
 body {

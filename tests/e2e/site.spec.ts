@@ -413,10 +413,20 @@ test("language toggle links German and English pages without self-links", async 
 }) => {
   await page.goto("/");
 
-  const langNav = page.locator('nav[aria-label="Language"]');
+  // P8 (2026-09-12) put a second LangToggle in the desktop NavRail sticky
+  // rail — the header's own copy hides at lg+ via CSS (`lg:hidden`), the
+  // rail's hides below lg (`hidden lg:flex`), so both exist in the DOM but
+  // exactly one is ever visible per viewport. This suite runs at Playwright's
+  // default desktop viewport, where the rail's copy is the visible one —
+  // `:visible` scopes to whichever is actually shown rather than assuming
+  // which one that is, so the test keeps working if that viewport changes.
+  const langNav = page.locator('nav[aria-label="Language"]:visible');
+  await expect(langNav).toHaveCount(1);
   await expect(langNav.locator('span[aria-current="page"]')).toHaveText("DE");
   await langNav.getByRole("link", { name: "EN", exact: true }).click();
   await expect(page).toHaveURL("/en");
+  // langNav is a live locator (re-evaluated against the current page on
+  // each use), so it still resolves correctly on /en without redeclaring it.
   await expect(langNav.locator('span[aria-current="page"]')).toHaveText("EN");
 
   await langNav.getByRole("link", { name: "DE", exact: true }).click();
@@ -459,3 +469,137 @@ test("imprint page is reachable and marked noindex", async ({ page }) => {
     "/"
   );
 });
+
+/**
+ * P8 (2026-09-12, Founder brief, artifact-approved before any code): hybrid
+ * chrome. Desktop (lg+) gets a sticky rail beside the content column — no
+ * sticky topbar. Mobile gets a sticky topbar (Name + CTA) with the same
+ * three jumps behind a burger. Both surfaces share one source of truth
+ * (src/lib/pageNav.ts) so they cannot drift from each other; NAV_CTA below
+ * is that module's href, duplicated here as a literal on purpose — this
+ * suite verifies the shipped markup, not the module that generated it.
+ */
+const NAV_CTA = "https://calendly.com/rauhut/20min?utm_source=rauhut-com-nav";
+
+for (const [language, path, railName, tocName, items] of [
+  [
+    "German",
+    "/",
+    "Seitennavigation",
+    "Sprungnavigation",
+    [
+      { label: "Angebote", id: "angebote" },
+      { label: "Projekte", id: "projekte" },
+      { label: "Kontakt", id: "kontakt" },
+    ],
+  ],
+  [
+    "English",
+    "/en",
+    "Page navigation",
+    "Jump navigation",
+    [
+      { label: "Offers", id: "offers" },
+      { label: "Projects", id: "projects" },
+      { label: "Contact", id: "contact" },
+    ],
+  ],
+] as const) {
+  test(`${language} homepage desktop rail lists the same three jump targets plus the nav CTA`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+
+    const rail = page.getByRole("complementary", { name: railName });
+    await expect(rail).toBeVisible();
+
+    const toc = rail.getByRole("navigation", { name: tocName });
+    for (const item of items) {
+      await expect(toc.getByRole("link", { name: item.label })).toHaveAttribute(
+        "href",
+        `#${item.id}`
+      );
+    }
+
+    await expect(
+      rail.locator(`a[href="${NAV_CTA}"]`),
+      "the rail's CTA must carry its own nav UTM, distinct from the hero/Angebote/KI CTAs"
+    ).toHaveCount(1);
+
+    // MobileNav exists in the DOM at every viewport (CSS hides it, not a
+    // conditional render) — it must not be the visible one here.
+    await expect(
+      page.getByRole("button", { name: language === "German" ? "Menü" : "Menu" })
+    ).toBeHidden();
+  });
+}
+
+for (const [language, path, homeLabel, railName, ctaLabel, items] of [
+  [
+    "German",
+    "/",
+    "Menü",
+    "Seitennavigation",
+    "Mandat besprechen (20 Min)",
+    [
+      { label: "Angebote", id: "angebote" },
+      { label: "Projekte", id: "projekte" },
+      { label: "Kontakt", id: "kontakt" },
+    ],
+  ],
+  [
+    "English",
+    "/en",
+    "Menu",
+    "Page navigation",
+    "Discuss a mandate (20 min)",
+    [
+      { label: "Offers", id: "offers" },
+      { label: "Projects", id: "projects" },
+      { label: "Contact", id: "contact" },
+    ],
+  ],
+] as const) {
+  test(`${language} homepage mobile sticky bar shows Name + CTA, burger reveals the same three jumps plus the language switch`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(path);
+
+    // Desktop rail exists in the DOM at every viewport (CSS hides it) — it
+    // must not be the visible one at phone width.
+    await expect(
+      page.getByRole("complementary", { name: railName })
+    ).toBeHidden();
+
+    await expect(page.getByText("German Rauhut").first()).toBeVisible();
+    const mobileCta = page.locator(`a[href="${NAV_CTA}"]`).first();
+    await expect(mobileCta).toBeVisible();
+    await expect(
+      mobileCta,
+      "the mobile bar's CTA must carry the exact label dictated, not a shortened stand-in"
+    ).toHaveText(ctaLabel);
+
+    const burger = page.getByRole("button", { name: homeLabel });
+    await expect(burger).toBeVisible();
+    await burger.click();
+
+    const drawer = page.locator("#mobile-nav-drawer");
+    await expect(drawer).toBeVisible();
+    await expect(
+      drawer.locator('nav[aria-label="Language"]'),
+      "DE/EN must be reachable inside the burger on mobile"
+    ).toBeVisible();
+
+    for (const item of items) {
+      await expect(
+        drawer.getByRole("link", { name: item.label })
+      ).toHaveAttribute("href", `#${item.id}`);
+    }
+
+    // Tapping a jump target closes the drawer instead of leaving it open
+    // behind the anchor scroll.
+    await drawer.getByRole("link", { name: items[0].label }).click();
+    await expect(drawer).toBeHidden();
+  });
+}
