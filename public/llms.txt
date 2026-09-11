@@ -8,6 +8,12 @@ German Rauhut is a Freelance Technical Product Owner based in Stuttgart, Germany
 
 Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA Stuttgart, Fachrichtung Datenverarbeitung). 23 years of career before Mercedes-Benz across Germany, Switzerland, and Thailand — software development, consulting, operational leadership.
 
+## Offers
+
+- **Technical Product Ownership** (lead offer) — mandates in enterprise programmes: requirements, backlog, distributed teams, delivery. Automotive, master data, programmes that have to go live.
+- **Test, release, acceptance** — test strategy, automation, release cadence.
+- **AI potential analysis** — a workshop day assessing where AI agents carry in real processes, via Neckarshore AI (https://neckarshore.ai/ki-beratung).
+
 ## Current Focus
 
 - **Neckarshore AI** — own AI-product company. Flagship: OMNOPSIS Documentor (AI-powered documentation engine; 905 tests, 96 API endpoints, RBAC, monitoring stack).
@@ -32,8 +38,8 @@ Worked for: Mercedes-Benz, IBM, Deutsche Bank, Allianz, Gothaer, Contargo, Rhenu
 
 ## Core Competencies
 
-- AI Product Development — multi-agent architectures, LLM integration, prompt engineering
 - Technical Product Ownership — vision, backlog, delivery
+- AI Product Development — multi-agent architectures, LLM integration, prompt engineering
 - Full-Stack Engineering — NestJS, TypeScript, PostgreSQL, Redis, Docker
 - DevOps & CI/CD — GitHub Actions, Vercel, monitoring
 - Requirements Management — concept to technical story
