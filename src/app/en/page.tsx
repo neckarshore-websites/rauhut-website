@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import FounderPhoto from "@/components/FounderPhoto";
-import ProjectTiles from "@/components/ProjectTiles";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
@@ -584,80 +583,17 @@ export default function HomePageEN() {
         </details>
       </Reveal>
 
-      <hr />
-
-      {/* Own Products — Project Tiles. Moved here from directly under the
-          hero (P2/IA 2026-09-11 b): the products are evidence for the
-          mandate pitch, not the opening pitch itself. */}
-      <div className="py-16 sm:py-20">
-        <ProjectTiles lang="en" />
-      </div>
-
-      <hr />
-
-      {/*
-        AI potential analysis — compact bridge to the Neckarshore offer.
-        Moved below Projects/Own Products and shortened (P2/IA 2026-09-11 b):
-        this block used to sit directly under the hero and competed with
-        "Discuss a mandate" for the visitor's first decision. Now it is
-        visually subordinate — no filled button, smaller/muted second link —
-        and the hero's CTA remains the page's only Primary.
-
-        The offer page itself is German-only (`/en/ki-beratung` returns 404,
-        verified 2026-08-16), so the link carries the "(German)" marker this
-        page already uses for the imprint.
-
-        This copy is a translation by Linus, not Founder-worded — unlike the
-        German original it may be reworded without asking. Same `?ref=rauhut`
-        marker on purpose: one value keeps the campaign measurement simple.
-        The `id` stays "ai-consulting" across the rename (anchors may move
-        position on the page without changing their address).
-      */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="ai-consulting">
-        <h2
-          id="ai-consulting"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
-          AI potential analysis
-        </h2>
-        <p className="text-lg leading-relaxed">
-          What works in my own products, I pass on as an analysis — a
-          workshop day that shows where AI agents carry in real processes,
-          and where they do not. Scope, format and pricing are on the
-          Neckarshore AI offer page.
-        </p>
-        <p className="mt-6">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            AI potential analysis (German)
-          </a>
-        </p>
-        {/*
-          Calendly — weaker second link, own UTM (Founder brief 2026-09-11 b).
-          `utm_source=rauhut-com-ki` keeps this entry point distinguishable
-          from the hero's own Calendly CTA (`utm_source=rauhut-com`, which
-          this block never touches). A LINK, never an embed — same § 7
-          Datenschutzerklaerung constraint as the hero CTA. No "(German)"
-          marker here, unlike the offer link above — Calendly's booking page
-          follows the visitor's own locale and that has not been verified.
-        */}
-        <p className="mt-3 text-sm text-text-subtle">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-ki"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-text-subtle hover:text-text-muted"
-          >
-            20 min to see if the analysis is worth it
-          </a>
-        </p>
-      </Reveal>
-
+      {/* P5b (2026-09-12, Founder brief): the "Own Products" tile block
+          (ProjectTiles) and the "AI potential analysis" bridge section both
+          removed from here — both were evidence/upsell blocks now fully
+          redundant with content that already exists elsewhere: the product
+          list in the Freelance chapter's "What I build" above (incl. the
+          neckarshore.ai/products link), and the AI potential analysis OFFER
+          CARD in Offers (unchanged, stays as Card 3 there). Earlier roles
+          now goes directly into Contact — single <hr/>, no empty shell, no
+          new subheading. See ProjectTiles.tsx (component deleted, it had no
+          other caller) and tests/e2e/site.spec.ts for the removed
+          coverage. */}
       <hr />
 
       {/* Contact */}

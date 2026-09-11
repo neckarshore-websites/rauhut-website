@@ -1,5 +1,4 @@
 import FounderPhoto from "@/components/FounderPhoto";
-import ProjectTiles from "@/components/ProjectTiles";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
@@ -516,74 +515,17 @@ export default function HomePage() {
         </details>
       </Reveal>
 
-      <hr />
-
-      {/* Eigene Produkte — Project Tiles. Moved here from directly under the
-          hero (P2/IA 2026-09-11 b): the products are evidence for the
-          mandate pitch, not the opening pitch itself. */}
-      <div className="py-16 sm:py-20">
-        <ProjectTiles lang="de" />
-      </div>
-
-      <hr />
-
-      {/*
-        KI-Potenzialanalyse — compact bridge to the Neckarshore offer.
-        Moved below Projekte/Eigene Produkte and shortened (P2/IA
-        2026-09-11 b): this block used to sit directly under the hero and
-        competed with "Mandat besprechen" for the visitor's first decision.
-        Now it is visually subordinate — no filled button, smaller/muted
-        second link — and the hero's CTA remains the page's only Primary.
-
-        Copy is Founder-worded; do not paraphrase it in a refactor. The
-        `?ref=rauhut` on the offer-page link is load-bearing, not decoration
-        — it is how the campaign tells traffic from this page apart from the
-        rest. The `id` stays "ki-beratung" across the rename (anchors may
-        move position on the page without changing their address).
-      */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="ki-beratung">
-        <h2
-          id="ki-beratung"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
-          KI-Potenzialanalyse
-        </h2>
-        <p className="text-lg leading-relaxed">
-          Was in den eigenen Produkten trägt, gebe ich als Analyse weiter —
-          ein Workshop-Tag, der zeigt, wo KI-Agenten in konkreten Prozessen
-          tragen und wo nicht. Ablauf, Umfang und Preise stehen auf der
-          Angebotsseite bei Neckarshore AI.
-        </p>
-        <p className="mt-6">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Zur KI-Potenzialanalyse
-          </a>
-        </p>
-        {/*
-          Calendly — weaker second link, own UTM (Founder brief 2026-09-11 b).
-          `utm_source=rauhut-com-ki` keeps this entry point distinguishable
-          from the hero's own Calendly CTA (`utm_source=rauhut-com`, which
-          this block never touches). A LINK, never an embed — same § 7
-          Datenschutzerklaerung constraint as the hero CTA.
-        */}
-        <p className="mt-3 text-sm text-text-subtle">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-ki"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-text-subtle hover:text-text-muted"
-          >
-            20 Min klären, ob sich die Analyse lohnt
-          </a>
-        </p>
-      </Reveal>
-
+      {/* P5b (2026-09-12, Founder brief): the "Eigene Produkte" tile block
+          (ProjectTiles) and the "KI-Potenzialanalyse" bridge section both
+          removed from here — both were evidence/upsell blocks now fully
+          redundant with content that already exists elsewhere: the product
+          list in the Freelance-Kapitel's "Was ich baue" above (incl. the
+          neckarshore.ai/products link), and the KI-Potenzialanalyse OFFER
+          CARD in Angebote (unchanged, stays as Card 3 there). Frühere
+          Stationen now goes directly into Kontakt — single <hr/>, no empty
+          shell, no new subheading. See ProjectTiles.tsx (component deleted,
+          it had no other caller) and tests/e2e/site.spec.ts for the removed
+          coverage. */}
       <hr />
 
       {/* Kontakt */}
