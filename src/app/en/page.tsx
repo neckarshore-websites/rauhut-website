@@ -198,8 +198,7 @@ export default function HomePageEN() {
           <tbody>
             <tr>
               <td>
-                AI Product Development — multi-agent architectures, LLM
-                integration, prompt engineering
+                Technical Product Ownership — vision, backlog, delivery
               </td>
               <td>
                 Requirements Management — from rough concept to technical
@@ -208,7 +207,8 @@ export default function HomePageEN() {
             </tr>
             <tr>
               <td>
-                Technical Product Ownership — vision, backlog, delivery
+                AI Product Development — multi-agent architectures, LLM
+                integration, prompt engineering
               </td>
               <td>
                 Project Management — classic &amp; agile, international
