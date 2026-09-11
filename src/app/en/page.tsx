@@ -71,7 +71,9 @@ export default function HomePageEN() {
         <ThemeToggle />
       </div>
 
-      {/* Header */}
+      {/* Header — Hero. P1 (2026-09-11), live, UNTOUCHABLE for this P2 IA
+          pass: copy, buttons, meta and schema jobTitle stay exactly as
+          shipped. Only the sections below this point were reordered. */}
       <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
@@ -117,77 +119,12 @@ export default function HomePageEN() {
         </div>
       </header>
 
-      {/*
-        AI Consulting — English counterpart of the KI-Beratung bridge.
-
-        The offer page itself is German-only (`/en/ki-beratung` returns 404,
-        verified 2026-08-16), so the link carries the "(German)" marker this
-        page already uses for the imprint. Leaving the section out entirely
-        would make the two language versions structurally different, which is
-        the worse of the two honest options.
-
-        This copy is a translation by Linus, not Founder-worded — unlike the
-        German original it may be reworded without asking. Same `?ref=rauhut`
-        marker on purpose: one value keeps the campaign measurement simple.
-      */}
-      <Reveal className="pb-16 sm:pb-20" aria-labelledby="ai-consulting">
-        <h2
-          id="ai-consulting"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
-          AI Consulting
-        </h2>
-        <p className="text-lg leading-relaxed">
-          What works in my own products, I pass on as an analysis: Neckarshore
-          AI offers a workshop day that shows where AI agents carry real
-          processes — and where they do not. I run the analysis myself; nothing
-          is recommended that has not run in our own operation first. Scope,
-          format and pricing are on the offer page.
-        </p>
-        <p className="mt-6">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            AI potential analysis (German)
-          </a>
-        </p>
-        {/*
-          Calendly — Founder instruction 2026-08-16. Full note on the German
-          page. Short version: a LINK, never an embed, or § 7 of the
-          Datenschutzerklaerung stops being true.
-
-          No "(German)" marker here, unlike the offer link above. That marker
-          is used where WE established the destination is German-only.
-          Calendly's booking page follows the visitor's own locale and I have
-          not verified how it renders — claiming a language would be inventing
-          a fact instead of stating one.
-        */}
-        <p className="mt-3">
-          <span aria-hidden="true">→ </span>
-          <a
-            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Or arrange an introductory call with Neckarshore AI (20 minutes)
-          </a>
-        </p>
-      </Reveal>
-
-      <hr />
-
-      {/* Project Tiles — Neckarshore + Obsidian Vault Autopilot */}
-      <div className="py-16 sm:py-20">
-        <ProjectTiles lang="en" />
-      </div>
-
-      <hr />
-
-      {/* About */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="about">
+      {/* About — first content block after the hero (P0/IA 2026-09-11 b:
+          rauhut.com sells the PERSON for a freelance mandate, so this is
+          neither Neckarshore nor a product list). No leading <hr/> here —
+          matches the original header→first-block rhythm, where the header's
+          own bottom margin provides the gap. */}
+      <Reveal className="pb-16 sm:pb-20" aria-labelledby="about">
         <h2
           id="about"
           className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
@@ -290,8 +227,7 @@ export default function HomePageEN() {
               Since 10/2025 · Freelance
             </p>
             <h3 className="mt-1 text-xl font-semibold tracking-tight">
-              Neckarshore AI — Technical Product Owner &amp; AI Product
-              Builder
+              Neckarshore AI — building my own AI products
             </h3>
           </header>
           <p className="mb-5 leading-relaxed text-text-muted">
@@ -486,6 +422,80 @@ export default function HomePageEN() {
             </table>
           </div>
         </details>
+      </Reveal>
+
+      <hr />
+
+      {/* Own Products — Project Tiles. Moved here from directly under the
+          hero (P2/IA 2026-09-11 b): the products are evidence for the
+          mandate pitch, not the opening pitch itself. */}
+      <div className="py-16 sm:py-20">
+        <ProjectTiles lang="en" />
+      </div>
+
+      <hr />
+
+      {/*
+        AI potential analysis — compact bridge to the Neckarshore offer.
+        Moved below Projects/Own Products and shortened (P2/IA 2026-09-11 b):
+        this block used to sit directly under the hero and competed with
+        "Discuss a mandate" for the visitor's first decision. Now it is
+        visually subordinate — no filled button, smaller/muted second link —
+        and the hero's CTA remains the page's only Primary.
+
+        The offer page itself is German-only (`/en/ki-beratung` returns 404,
+        verified 2026-08-16), so the link carries the "(German)" marker this
+        page already uses for the imprint.
+
+        This copy is a translation by Linus, not Founder-worded — unlike the
+        German original it may be reworded without asking. Same `?ref=rauhut`
+        marker on purpose: one value keeps the campaign measurement simple.
+        The `id` stays "ai-consulting" across the rename (anchors may move
+        position on the page without changing their address).
+      */}
+      <Reveal className="py-16 sm:py-20" aria-labelledby="ai-consulting">
+        <h2
+          id="ai-consulting"
+          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
+        >
+          AI potential analysis
+        </h2>
+        <p className="text-lg leading-relaxed">
+          What works in my own products, I pass on as an analysis — a
+          workshop day that shows where AI agents carry in real processes,
+          and where they do not. Scope, format and pricing are on the
+          Neckarshore AI offer page.
+        </p>
+        <p className="mt-6">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://neckarshore.ai/ki-beratung?ref=rauhut"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            AI potential analysis (German)
+          </a>
+        </p>
+        {/*
+          Calendly — weaker second link, own UTM (Founder brief 2026-09-11 b).
+          `utm_source=rauhut-com-ki` keeps this entry point distinguishable
+          from the hero's own Calendly CTA (`utm_source=rauhut-com`, which
+          this block never touches). A LINK, never an embed — same § 7
+          Datenschutzerklaerung constraint as the hero CTA. No "(German)"
+          marker here, unlike the offer link above — Calendly's booking page
+          follows the visitor's own locale and that has not been verified.
+        */}
+        <p className="mt-3 text-sm text-text-subtle">
+          <span aria-hidden="true">→ </span>
+          <a
+            href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-ki"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-subtle hover:text-text-muted"
+          >
+            20 min to see if the analysis is worth it
+          </a>
+        </p>
       </Reveal>
 
       <hr />

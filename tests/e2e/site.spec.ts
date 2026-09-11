@@ -36,7 +36,10 @@ test("English homepage renders localized content and language metadata", async (
 });
 
 /**
- * Block 4 — the KI-Beratung bridge.
+ * Block 6 — the KI-Potenzialanalyse bridge (renamed + moved + shortened
+ * 2026-09-11 b, P2/IA pass: it used to sit directly under the hero as
+ * "KI-Beratung" and competed with "Mandat besprechen"; now it is a compact
+ * block after Projekte/Eigene Produkte).
  *
  * The copy is Founder-worded and it leads to a paid offer. Without an
  * assertion it can fall out silently on the next rework — which is very
@@ -49,10 +52,10 @@ test("English homepage renders localized content and language metadata", async (
 test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
   await page.goto("/");
 
-  const section = page.getByRole("region", { name: "KI-Beratung" });
+  const section = page.getByRole("region", { name: "KI-Potenzialanalyse" });
   await expect(section).toBeVisible();
   await expect(section).toContainText(
-    "empfohlen wird nur, was vorher im eigenen Betrieb gelaufen ist"
+    "Ablauf, Umfang und Preise stehen auf der Angebotsseite bei Neckarshore AI"
   );
   await expect(
     section.getByRole("link", { name: "Zur KI-Potenzialanalyse" })
@@ -60,13 +63,24 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
 });
 
 /**
- * Calendly CTA — Founder instruction 2026-08-16.
+ * Calendly CTAs — Founder instruction 2026-08-16, split into two entry
+ * points 2026-09-11 b (P2/IA pass):
+ *
+ * 1. The hero's own CTA ("Mandat besprechen" / "Discuss a mandate"),
+ *    `utm_source=rauhut-com`, unscoped to any region because the hero
+ *    <header> is not one — and untouched by this pass on purpose (P1,
+ *    UNANTASTBAR).
+ * 2. The KI-Potenzialanalyse block's weaker second link,
+ *    `utm_source=rauhut-com-ki` — a distinct UTM so the two entry points
+ *    stay distinguishable in Calendly's own reporting, matching the
+ *    Founder brief's explicit instruction not to reuse the hero's value
+ *    here.
  *
  * Three things are asserted, and the second is the one that matters most:
  *
- * 1. The CTA exists in both language versions and points at the verified
- *    address (`calendly.com/rauhut/20min` — found in neckarshore-website's
- *    source AND on the live offer page, not assumed).
+ * 1. Both CTAs exist and point at the verified address
+ *    (`calendly.com/rauhut/20min` — found in neckarshore-website's source
+ *    AND on the live offer page, not assumed).
  *
  * 2. IT IS A LINK, NOT AN EMBED. § 7 of the Datenschutzerklaerung states
  *    that no data reaches Calendly until the visitor clicks. That sentence
@@ -80,24 +94,31 @@ test("German homepage bridges to the KI-Potenzialanalyse", async ({ page }) => {
  *    the silent half of the same failure.
  */
 const CALENDLY = "https://calendly.com/rauhut/20min?utm_source=rauhut-com";
+const CALENDLY_KI =
+  "https://calendly.com/rauhut/20min?utm_source=rauhut-com-ki";
 
 for (const [language, path, regionName] of [
-  ["German", "/", "KI-Beratung"],
-  ["English", "/en", "AI Consulting"],
+  ["German", "/", "KI-Potenzialanalyse"],
+  ["English", "/en", "AI potential analysis"],
 ] as const) {
-  test(`${language} homepage offers the Calendly call as a link, never an embed`, async ({
+  test(`${language} homepage offers the Calendly calls as links, never an embed`, async ({
     page,
   }) => {
     await page.goto(path);
 
-    const section = page.getByRole("region", { name: regionName });
     await expect(
-      section.locator(`a[href="${CALENDLY}"]`),
-      "the Calendly CTA must survive a content pass"
+      page.locator(`a[href="${CALENDLY}"]`),
+      "the hero's Mandat CTA must survive a content pass"
     ).toHaveCount(1);
 
-    // Positive assertion first (above), so the absence check below cannot go
-    // vacuously green on a page where the section vanished entirely.
+    const section = page.getByRole("region", { name: regionName });
+    await expect(
+      section.locator(`a[href="${CALENDLY_KI}"]`),
+      "the KI-Potenzialanalyse block's own, weaker CTA must survive a content pass"
+    ).toHaveCount(1);
+
+    // Positive assertions first (above), so the absence check below cannot
+    // go vacuously green on a page where both CTAs vanished entirely.
     await expect(
       page.locator('script[src*="calendly"], iframe[src*="calendly"]'),
       "an embed would make § 7 of the Datenschutzerklaerung false"
@@ -135,10 +156,11 @@ test("the privacy policy covers the Calendly link it is written for", async ({
  * statement about this person's availability, and it is the same register
  * as the offer link beside it. What stays forbidden is unchanged — wording
  * that makes HIM the bookable resource ("freie Slots", "Kapazität",
- * "buchbar"). The guard below is untouched by this narrowing because the
- * CTA's own wording ("Erstgespräch bei Neckarshore AI vereinbaren") does
- * not use that vocabulary; if the CTA is ever reworded into it, the guard
- * fires and that is correct behaviour, not a false alarm.
+ * "buchbar"). The guard below is untouched by this narrowing: the section's
+ * links ("Zur KI-Potenzialanalyse", "20 Min klären, ob sich die Analyse
+ * lohnt" as of 2026-09-11 b) don't use that vocabulary; if a future CTA is
+ * ever reworded into it, the guard fires and that is correct behaviour, not
+ * a false alarm.
  *
  * Scoped to the section on purpose — "Auftrag" and friends are legitimate
  * words elsewhere on a CV page.
@@ -149,9 +171,12 @@ test("the privacy policy covers the Calendly link it is written for", async ({
  * scope. That is exactly the vocabulary line 137-138 above calls out as
  * forbidden — the brief is a deliberate, explicit reversal of that stance
  * for the hero, not drift. It reads: "rauhut.com verkauft German Rauhut
- * als PERSON für ein Freelance-Mandat." The KI-Beratung section itself is
- * untouched and this guard still protects it — do not widen the regex to
- * cover the hero without a fresh Founder instruction to do so.
+ * als PERSON für ein Freelance-Mandat." The section this guard scopes to
+ * was renamed "KI-Beratung" → "KI-Potenzialanalyse" and moved further down
+ * the page 2026-09-11 b (P2/IA pass); the `getByRole` selector below tracks
+ * that rename. The guard itself, and what it protects, are untouched — do
+ * not widen the regex to cover the hero without a fresh Founder instruction
+ * to do so.
  *
  * KNOWN LIMITATION, written down before it bites: this matches strings, not
  * meaning. `beauftrag` would also fire on a harmless past-tense sentence
@@ -165,13 +190,13 @@ test("the privacy policy covers the Calendly link it is written for", async ({
 const AVAILABILITY_VOCAB =
   /buchbar|verf[üu]gbar|Verf[üu]gbarkeit|Kapazit[äa]t|freie? Slots?|Mandat|beauftrag/i;
 
-test("the KI-Beratung section stays offer language, not availability language", async ({
+test("the KI-Potenzialanalyse section stays offer language, not availability language", async ({
   page,
 }) => {
   await page.goto("/");
 
   const copy = await page
-    .getByRole("region", { name: "KI-Beratung" })
+    .getByRole("region", { name: "KI-Potenzialanalyse" })
     .innerText();
 
   expect(copy.length).toBeGreaterThan(0);
@@ -192,7 +217,7 @@ test("English homepage bridges to the offer page and marks it as German", async 
 }) => {
   await page.goto("/en");
 
-  const section = page.getByRole("region", { name: "AI Consulting" });
+  const section = page.getByRole("region", { name: "AI potential analysis" });
   await expect(section).toBeVisible();
   await expect(
     section.getByRole("link", { name: "(German)" })
