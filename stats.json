@@ -1,6 +1,6 @@
 {
   "repo": "neckarshore-websites/rauhut-website",
-  "audited_sha": "34f75a09540f872f15d45665e6735314661d2ded",
+  "audited_sha": "a73250a93d29fd83711ad9371087b4be9084558f",
   "red": false,
   "red_detail": null,
   "tests": {
@@ -11,5 +11,5 @@
     "declared": {},
     "lenses": {}
   },
-  "updatedAt": "2026-09-11T22:26:37Z"
+  "updatedAt": "2026-09-11T22:28:32Z"
 }
