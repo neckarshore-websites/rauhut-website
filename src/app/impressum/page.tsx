@@ -23,7 +23,7 @@ export default function ImpressumPage() {
       <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
         Rechtliches
       </p>
-      <h1 className="mt-3 text-[1.6rem] font-semibold tracking-tight text-text sm:text-[2rem]">
+      <h1 className="mt-3 text-[1.6rem] font-semibold tracking-[-0.03em] text-text sm:text-[2rem]">
         Impressum
       </h1>
       <p className="mt-4 text-sm text-text-subtle">
@@ -32,7 +32,7 @@ export default function ImpressumPage() {
 
       <hr className="my-12" />
 
-      <section className="space-y-10 text-[0.9375rem] leading-relaxed">
+      <section className="space-y-10 text-base leading-relaxed">
         <div>
           <h2 className="mb-3 text-xs font-medium uppercase tracking-widest text-text-muted">
             Betreiber

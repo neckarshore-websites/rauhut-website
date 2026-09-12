@@ -32,10 +32,10 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 /**
- * The homepage (DE + EN) and every component they render. /designs and the
- * legal pages (Impressum/Datenschutz/not-found) are deliberately excluded —
- * P10's Fertig-wenn scopes to `/` and `/en` only; those other routes were
- * never measured for this pass and may still carry the retired values.
+ * The homepage (DE + EN) and every component they render. /designs (the
+ * archived design-gallery mockups) stays excluded — a separate, frozen
+ * artifact, never in scope for either the original P10 pass or this
+ * follow-up extension.
  */
 const HOMEPAGE_SURFACES = [
   "src/app/page.tsx",
@@ -46,6 +46,23 @@ const HOMEPAGE_SURFACES = [
   "src/components/ContactCards.tsx",
   "src/components/ContactForm.tsx",
   "src/components/NavRail.tsx",
+];
+
+/**
+ * Follow-up extension (2026-09-12, Founder instruction after PR #73's
+ * initial merge): Impressum, Datenschutz and the 404 page were originally
+ * left out of P10 — their H1 sizes (32px/36px) were never named in the
+ * brief's "keep" list of 38.4/24/20/18. The Founder overrode that scope
+ * decision explicitly: these three routes get the same H1 tracking fix
+ * (tracking-tight → tracking-[-0.03em]) and the same 15px→16px body-size
+ * merge as the homepage. They do NOT get their own tracking-tight ban
+ * below — this list only feeds the size-pattern test, since these pages
+ * legitimately have no OTHER heading levels/sizes P10 touched.
+ */
+const LEGAL_SURFACES = [
+  "src/app/impressum/page.tsx",
+  "src/app/datenschutz/page.tsx",
+  "src/app/not-found.tsx",
 ];
 
 const RETIRED_SIZE_PATTERNS = [
@@ -64,8 +81,8 @@ function readSurface(relPath) {
   }
 }
 
-test("the homepage and its components never reach for the two retired font sizes", () => {
-  for (const file of HOMEPAGE_SURFACES) {
+test("the homepage, its components, and the legal/404 pages never reach for the two retired font sizes", () => {
+  for (const file of [...HOMEPAGE_SURFACES, ...LEGAL_SURFACES]) {
     const content = readSurface(file);
     for (const { pattern, label } of RETIRED_SIZE_PATTERNS) {
       assert.ok(
@@ -76,8 +93,8 @@ test("the homepage and its components never reach for the two retired font sizes
   }
 });
 
-test("the homepage and its components carry no bare tracking-tight (only H1/Kennzahlen keep tight tracking, via tracking-[-0.03em])", () => {
-  for (const file of HOMEPAGE_SURFACES) {
+test("the homepage, its components, and the legal/404 pages carry no bare tracking-tight (only H1/Kennzahlen keep tight tracking, via tracking-[-0.03em])", () => {
+  for (const file of [...HOMEPAGE_SURFACES, ...LEGAL_SURFACES]) {
     const content = readSurface(file);
     assert.ok(
       !/\btracking-tight\b/.test(content),
