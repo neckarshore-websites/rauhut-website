@@ -70,7 +70,7 @@ export default function NavRail({ lang = "de" }: { lang?: Lang }) {
               key={item.id}
               href={`#${item.id}`}
               aria-current={isActive ? "true" : undefined}
-              className={`border-l-2 pl-4 text-[0.9375rem] leading-snug no-underline transition-colors duration-150 ${
+              className={`border-l-2 pl-4 text-base leading-snug no-underline transition-colors duration-150 ${
                 isActive
                   ? "border-brand-teal font-semibold text-text"
                   : "border-transparent text-text-muted hover:text-text"

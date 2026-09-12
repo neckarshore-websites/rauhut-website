@@ -91,7 +91,7 @@ export default function HomePageEN() {
       <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
-            <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
+            <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-brand-teal sm:text-[2.4rem]">
               Freelance Technical Product Owner
             </h1>
             <p className="mt-3 text-lg font-medium text-text sm:text-xl">
@@ -155,7 +155,7 @@ export default function HomePageEN() {
         </p>
         <StatsRow lang="en" />
         <div className="mt-10 sm:mt-12">
-          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+          <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
             Worked for
           </p>
           <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
@@ -180,7 +180,7 @@ export default function HomePageEN() {
         </p>
         <h2
           id="offers"
-          className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl"
+          className="mt-2 text-xl font-semibold sm:text-2xl"
         >
           What you can book
         </h2>
@@ -275,7 +275,7 @@ export default function HomePageEN() {
 
           {/* Chapter 1 — Technical Product Owner (the mandate) */}
           <div>
-            <h3 className="text-xl font-semibold tracking-tight text-brand-teal">
+            <h3 className="text-xl font-semibold text-brand-teal">
               Technical Product Owner
             </h3>
             <p className="mt-3 leading-relaxed text-text-muted">
@@ -291,7 +291,7 @@ export default function HomePageEN() {
               slide-deck consulting; the practice sits in the products
               below.
             </p>
-            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed">
+            <ul className="mt-4 space-y-3 text-base leading-relaxed">
               <li>
                 <strong className="font-semibold">
                   Requirements &amp; backlog
@@ -321,7 +321,7 @@ export default function HomePageEN() {
 
           {/* Chapter 2 — What I build (product taxonomy) */}
           <div className="mt-10">
-            <h3 className="text-xl font-semibold tracking-tight">
+            <h3 className="text-xl font-semibold">
               What I build
             </h3>
             <p className="mt-3 leading-relaxed text-text-muted">
@@ -329,7 +329,7 @@ export default function HomePageEN() {
               AI-accelerated, GDPR-by-design. One flagship, MMPs, native
               iOS, skills — websites on the side.
             </p>
-            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed">
+            <ul className="mt-4 space-y-3 text-base leading-relaxed">
               <li>
                 <strong className="font-semibold">
                   Multi-agent development process
@@ -429,7 +429,7 @@ export default function HomePageEN() {
             <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
               07/2015 – 10/2025 · Employed &amp; external
             </p>
-            <h3 className="mt-1 text-xl font-semibold tracking-tight">
+            <h3 className="mt-1 text-xl font-semibold">
               Mercedes-Benz AG &amp; ecosystem
             </h3>
           </header>
@@ -449,7 +449,7 @@ export default function HomePageEN() {
         <details>
           <summary>Earlier roles (1992 – 2015)</summary>
 
-          <div className="space-y-6 text-[0.9375rem] leading-relaxed text-text-muted">
+          <div className="space-y-6 text-base leading-relaxed text-text-muted">
             <p>
               Before Mercedes-Benz: 23 years of career — mandatory
               military service with the German Air Force in 1992, then
@@ -607,7 +607,7 @@ export default function HomePageEN() {
         {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Discuss a mandate" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
-        <p className="mb-8 max-w-xl text-[0.9375rem] leading-relaxed text-text-muted">
+        <p className="mb-8 max-w-xl text-base leading-relaxed text-text-muted">
           Available immediately — mandates in requirements, test and
           release, remote DACH. Twenty minutes via “Discuss a mandate”, or
           a short note by email or the form.
@@ -620,7 +620,7 @@ export default function HomePageEN() {
             own lang prop (labels + hidden `lang` field for server-side
             error copy) — see ContactForm.tsx and inquiry-state.ts. */}
         <div className="mt-10 max-w-xl">
-          <p className="mb-5 text-[0.9375rem] text-text-subtle">
+          <p className="mb-5 text-base text-text-subtle">
             No calendar — write to me directly:
           </p>
           <ContactForm lang="en" />

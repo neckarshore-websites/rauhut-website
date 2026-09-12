@@ -122,20 +122,20 @@ export default function Timeline({ lang = "de" }: { lang?: Lang }) {
             aria-hidden="true"
             className="absolute top-[0.45rem] -left-[1.7rem] h-2.5 w-2.5 rounded-full border-[1.5px] border-text-muted bg-bg"
           />
-          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+          <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
             {phase.period}
           </p>
-          <p className="mt-0.5 text-[0.9375rem] font-semibold text-brand-teal">
+          <p className="mt-0.5 text-base font-semibold text-brand-teal">
             {phase.title}
           </p>
-          <p className="mt-0.5 text-[0.9375rem] text-text-muted">
+          <p className="mt-0.5 text-base text-text-muted">
             {phase.claim}
           </p>
-          <p className="mt-2 text-[0.9375rem] leading-relaxed text-text-muted">
+          <p className="mt-2 text-base leading-relaxed text-text-muted">
             {phase.lead}
           </p>
           {phase.bullets && (
-            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed text-text-muted">
+            <ul className="mt-4 space-y-3 text-base leading-relaxed text-text-muted">
               {phase.bullets.map((bullet) => (
                 <li key={bullet}>{bullet}</li>
               ))}

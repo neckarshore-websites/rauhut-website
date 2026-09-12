@@ -11,15 +11,21 @@
   /* Default = DARK (matches SSR <html data-theme="dark">) */
   --color-text: #F5F5F5;
   --color-text-muted: #A3A3A3;
-  --color-text-subtle: #9CA3AF;
+  /* P10 (2026-09-12): one mute gray for Claims/Meta/Labels, not two —
+     text-subtle now equals text-muted's own value rather than a distinct
+     #9CA3AF. Kept as its own token (not deleted) so the 12 files already
+     using `text-text-subtle` — including the /designs gallery chrome,
+     deliberately not touched by this pass — don't need editing; they
+     simply resolve to the same gray from here on. */
+  --color-text-subtle: #A3A3A3;
   --color-border: #262626;
   --color-border-strong: #404040;
   --color-bg: #0A0A0A;
   --color-bg-muted: #171717;
-  --color-accent: #A5B9D1;        /* Focus-Ring, Selection */
-  --color-accent-hover: #A5B9D1;  /* Text-Links on dark (AAA contrast) */
-  --color-brand-teal: #22D3EE;    /* H1 on dark — Neckarshore accent-bright */
-  --color-brand-amber: #F59E0B;   /* H2 second accent on dark */
+  --color-accent: #A5B9D1;        /* Focus-Ring, Selection — NOT text links (P10) */
+  --color-accent-hover: #A5B9D1;  /* Button hover-tints (P10: no longer the text-link color) */
+  --color-brand-teal: #22D3EE;    /* Role titles + text links (P10) on dark */
+  --color-brand-amber: #F59E0B;   /* Overline accent on dark — unchanged */
 
   /* Typography */
   --font-sans: var(--font-inter);
@@ -40,7 +46,7 @@
 :root[data-theme="light"] {
   --color-text: #0A0A0A;
   --color-text-muted: #525252;
-  --color-text-subtle: #737373;
+  --color-text-subtle: #525252; /* P10: merged with text-muted, see @theme above */
   --color-border: #E5E5E5;
   --color-border-strong: #D4D4D4;
   --color-bg: #FFFFFF;
@@ -102,12 +108,22 @@ body {
 }
 
 /* Links — in @layer base so Tailwind utilities (in @layer utilities)
-   always win. Prevents underline-leak into ProjectTiles etc.
+   always win: an <a> carrying its own Tailwind color class (every button
+   CTA on the site) is untouched by this rule; only a plain, unstyled <a>
+   (footer links, the Offers "text"-kind CTA, legal-page prose links)
+   picks up this default.
    Default: always-on underline so links are distinguishable without color
-   alone (WCAG link-in-text-block). */
+   alone (WCAG link-in-text-block).
+
+   P10 (2026-09-12): base color moved from --color-accent-hover to
+   --color-brand-teal — "Variante 2a", one fewer accent in the palette.
+   Teal is now Role-Titles + Textlinks, never body text. --color-accent /
+   --color-accent-hover are unchanged and still used elsewhere (focus
+   ring, ::selection, button hover-tints) — this rule is the ONLY thing
+   that moved. */
 @layer base {
   a {
-    color: var(--color-accent-hover);
+    color: var(--color-brand-teal);
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
@@ -132,7 +148,9 @@ hr {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9375rem;
+  /* P10 (2026-09-12): 15px merged into the 16px body size — see globals.css
+     token comment at the top of this file for the full typography pass. */
+  font-size: 1rem;
   line-height: 1.6;
 }
 
@@ -148,7 +166,10 @@ th {
   font-weight: 500;
   color: var(--color-text-muted);
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  /* P10: 0.08em was a fourth, off-scale tracking value alongside the
+     Overline standard (0.1em, Tailwind's tracking-widest) — this label is
+     an overline in substance, so it now uses the same value. */
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding-top: 0;
 }
@@ -165,7 +186,8 @@ details {
 
 details summary {
   cursor: pointer;
-  font-size: 0.9375rem;
+  /* P10: 15px merged into the 16px body size. */
+  font-size: 1rem;
   color: var(--color-text-muted);
   list-style: none;
   display: inline-flex;
@@ -204,12 +226,22 @@ details[open] summary {
   margin-bottom: 1.5rem;
 }
 
-/* Headings tight tracking */
-h1,
-h2,
-h3 {
-  letter-spacing: -0.015em;
-}
+/* P10 (2026-09-12): the old global heading-tracking rule (h1/h2/h3
+   selectors, letter-spacing -0.015em) is REMOVED here, not merely
+   narrowed — it was itself one of the
+   nine stray tracking values the pass eliminates (-0.015em = -0.24px at
+   the 16px body size, one of the exact offenders named in the brief).
+   It was already shadowed everywhere by an explicit Tailwind tracking-*
+   utility (higher specificity, class beats element selector) — but ONLY
+   because every h1/h2/h3 in this codebase carried one. Deleting the class
+   utilities below without also deleting this rule would have made
+   affected headings fall back to -0.015em instead of normal; deleting
+   this rule without stripping the utilities would have left stale
+   tracking-tight (-0.025em) in place. Both changed together, verified via
+   computed style in the browser, not by reading the diff.
+   Three trackings now: Overlines 0.1em (tracking-widest, unchanged), H1 +
+   Kennzahlen-Ziffern -0.03em (tracking-[-0.03em], explicit below), every
+   other heading normal (no tracking utility at all). */
 
 /* Selection */
 ::selection {

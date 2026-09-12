@@ -121,7 +121,7 @@ export default function ContactCards({ lang = "de" }: { lang?: Lang }) {
                   {label}
                 </span>
               </div>
-              <span className="text-[0.9375rem] font-medium text-text">
+              <span className="text-base font-medium text-text">
                 {c.handle}
               </span>
             </a>

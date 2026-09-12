@@ -46,7 +46,7 @@ export default function HomePage() {
       <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
-            <h1 className="text-[1.8rem] font-semibold tracking-tight text-brand-teal sm:text-[2.4rem]">
+            <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-brand-teal sm:text-[2.4rem]">
               Freelance Technical Product Owner
             </h1>
             <p className="mt-3 text-lg font-medium text-text sm:text-xl">
@@ -110,7 +110,7 @@ export default function HomePage() {
         </p>
         <StatsRow lang="de" />
         <div className="mt-10 sm:mt-12">
-          <p className="text-[0.6875rem] font-medium uppercase tracking-widest text-text-subtle">
+          <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
             Tätig bei / für
           </p>
           <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
@@ -135,7 +135,7 @@ export default function HomePage() {
         </p>
         <h2
           id="angebote"
-          className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl"
+          className="mt-2 text-xl font-semibold sm:text-2xl"
         >
           Was Sie buchen können
         </h2>
@@ -224,7 +224,7 @@ export default function HomePage() {
 
           {/* Kapitel 1 — Technical Product Owner (Mandat) */}
           <div>
-            <h3 className="text-xl font-semibold tracking-tight text-brand-teal">
+            <h3 className="text-xl font-semibold text-brand-teal">
               Technical Product Owner
             </h3>
             <p className="mt-3 leading-relaxed text-text-muted">
@@ -239,7 +239,7 @@ export default function HomePage() {
               Folienberatung; die Praxis hängt an den eigenen Produkten
               darunter.
             </p>
-            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed">
+            <ul className="mt-4 space-y-3 text-base leading-relaxed">
               <li>
                 <strong className="font-semibold">
                   Anforderung &amp; Backlog
@@ -269,7 +269,7 @@ export default function HomePage() {
 
           {/* Kapitel 2 — Was ich baue (Produkt-Taxonomie) */}
           <div className="mt-10">
-            <h3 className="text-xl font-semibold tracking-tight">
+            <h3 className="text-xl font-semibold">
               Was ich baue
             </h3>
             <p className="mt-3 leading-relaxed text-text-muted">
@@ -277,7 +277,7 @@ export default function HomePage() {
               DSGVO-by-Design. Ein Flagship, MMPs, native iOS, Skills —
               Websites entstehen nebenbei.
             </p>
-            <ul className="mt-4 space-y-3 text-[0.9375rem] leading-relaxed">
+            <ul className="mt-4 space-y-3 text-base leading-relaxed">
               <li>
                 <strong className="font-semibold">
                   Multi-Agent-Entwicklungsprozess
@@ -378,7 +378,7 @@ export default function HomePage() {
             <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
               07/2015 – 10/2025 · Angestellt &amp; extern
             </p>
-            <h3 className="mt-1 text-xl font-semibold tracking-tight">
+            <h3 className="mt-1 text-xl font-semibold">
               Mercedes-Benz AG &amp; Umfeld
             </h3>
           </header>
@@ -398,7 +398,7 @@ export default function HomePage() {
         <details>
           <summary>Frühere Stationen (1993 – 2015)</summary>
 
-          <div className="space-y-6 text-[0.9375rem] leading-relaxed text-text-muted">
+          <div className="space-y-6 text-base leading-relaxed text-text-muted">
             <p>
               Vor Mercedes-Benz: 23 Jahre Laufbahn — Wehrdienst bei der Luftwaffe 1992,
               dann Consulting, Softwareentwicklung und operative Führungsrollen in
@@ -539,7 +539,7 @@ export default function HomePage() {
         {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Mandat besprechen" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
-        <p className="mb-8 max-w-xl text-[0.9375rem] leading-relaxed text-text-muted">
+        <p className="mb-8 max-w-xl text-base leading-relaxed text-text-muted">
           Ab sofort buchbar — Mandate in Anforderung, Test und Release,
           remote DACH. 20 Minuten über „Mandat besprechen“, sonst kurz per
           Mail oder Formular.
@@ -547,7 +547,7 @@ export default function HomePage() {
         <ContactCards lang="de" />
 
         <div className="mt-10 max-w-xl">
-          <p className="mb-5 text-[0.9375rem] text-text-subtle">
+          <p className="mb-5 text-base text-text-subtle">
             Ohne Kalender — schreiben Sie mir direkt:
           </p>
           <ContactForm lang="de" />

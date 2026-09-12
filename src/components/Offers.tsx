@@ -108,8 +108,8 @@ export default function Offers({ lang = "de" }: { lang?: Lang }) {
       {/* Lead offer — full width, the only other filled-Primary CTA on the
           page besides the hero. */}
       <div className={`${CARD} p-6`}>
-        <h3 className="text-lg font-semibold tracking-tight">{lead.title}</h3>
-        <p className="mt-2 text-[0.9375rem] leading-relaxed text-text-muted">
+        <h3 className="text-lg font-semibold">{lead.title}</h3>
+        <p className="mt-2 text-base leading-relaxed text-text-muted">
           {lead.body}
         </p>
         <a
@@ -128,7 +128,7 @@ export default function Offers({ lang = "de" }: { lang?: Lang }) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {rest.map((offer) => (
           <div key={offer.title} className={`${CARD} p-5`}>
-            <h3 className="text-base font-semibold tracking-tight">
+            <h3 className="text-base font-semibold">
               {offer.title}
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-text-muted">
