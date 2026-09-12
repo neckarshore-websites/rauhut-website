@@ -125,17 +125,17 @@ export default function Timeline({ lang = "de" }: { lang?: Lang }) {
           <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
             {phase.period}
           </p>
-          <p className="mt-0.5 text-base font-semibold text-brand-teal">
+          <p className="mt-0.5 text-base font-semibold text-text">
             {phase.title}
           </p>
           <p className="mt-0.5 text-base text-text-muted">
             {phase.claim}
           </p>
-          <p className="mt-2 text-base leading-relaxed text-text-muted">
+          <p className="mt-2 text-base leading-relaxed text-text">
             {phase.lead}
           </p>
           {phase.bullets && (
-            <ul className="mt-4 space-y-3 text-base leading-relaxed text-text-muted">
+            <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed text-text marker:text-text-muted">
               {phase.bullets.map((bullet) => (
                 <li key={bullet}>{bullet}</li>
               ))}

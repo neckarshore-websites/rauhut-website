@@ -18,6 +18,9 @@ Visuelle Polish-Ideen fuer die naechste Session. Einzeln durchzugehen, **User en
 | 8 | ~~Project-Tiles CTA-Label (top-right, always visible)~~ | P3 | S | Linus | — | ✅ Done (2026-04-17, `143c7b5` + `7e79643`) | Clickable-Feel staerker |
 | 9 | GSC Domain-Property fuer `rauhut.com` | P3 | S | Linus | IONOS Domain-Connect blockiert manuelle TXT-Eingabe | 🔲 Geparkt | Deckt alle Subdomains + HTTP in einer Property ab; heute via URL-Prefix-Property geloest |
 | 10 | ~~WordPress-Decommission IONOS (L4)~~ | — | — | — | superseded | ❌ Won't-Do (2026-05-13 b) | IONOS-Vertrag bleibt (Decision 3, CLAUDE.md). WordPress-Installation idle, kostet nichts extra, DNS zeigt auf Vercel. Nichts zu decommissionieren |
+| 11 | Projekte kürzen (Kritik 2026-09-12, Punkt 5): „Was ich baue" auf 5 Einzeiler + Link, Timeline-Bullets max. 3/Rolle, Stack in `<details>`, Ziel ≤ 600 Wörter Homepage | P2 | M | Linus + User (Copy) | Content-Signoff | 🔲 Offen | Seitenlänge −35 %, Scanbarkeit |
+| 12 | Impressum / Datenschutz / 404 auf P11-Typo nachziehen (H2-Hierarchie, Body in `text`, Hairline) | P3 | S | Linus | — | 🔲 Offen | Konsistenz mit Homepage |
+| 13 | `/stylesheet` wieder entfernen, sobald nicht mehr gebraucht (Route, Header in `next.config.ts`, Footer-Links, e2e-Test) | P3 | XS | Linus | User-Entscheid | 🔲 Offen | Kein interner Link auf der Public-Site |
 
 ---
 

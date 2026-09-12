@@ -136,6 +136,15 @@ const nextConfig: NextConfig = {
         source: "/designs/:path*",
         headers: designsNoIndexHeaders,
       },
+      // /stylesheet (P11, 2026-09-12): internal style reference, footer-
+      // linked only. Same noindex,nofollow header as /designs; the page's
+      // own metadata sets the matching meta tag. Not in the sitemap, and
+      // deliberately NOT in robots.txt Disallow — the crawler must be able
+      // to fetch it to see the noindex (see the designs comment above).
+      {
+        source: "/stylesheet",
+        headers: designsNoIndexHeaders,
+      },
     ];
   },
   // Canonical host enforcement: www → apex (308 permanent).

@@ -118,7 +118,7 @@ export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
           // the gap between a group's own heading and its figures (mt-4).
           className={i === 0 ? undefined : "mt-10 sm:mt-12"}
         >
-          <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
+          <p className="text-sm font-semibold text-text">
             {group.heading}
           </p>
           <dl
@@ -127,7 +127,7 @@ export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
           >
             {group.stats.map((stat) => (
               <div key={stat.label} className="flex flex-col">
-                <dt className="order-2 mt-1 text-xs font-medium uppercase tracking-widest text-text-subtle">
+                <dt className="order-2 mt-1.5 text-sm leading-snug text-text-muted">
                   {stat.label}
                 </dt>
                 <dd className="order-1 text-[2.2rem] font-semibold leading-none tracking-[-0.03em] text-text sm:text-[2.4rem]">

@@ -3,15 +3,19 @@ import { test, expect } from "@playwright/test";
 test("German homepage renders the primary profile content", async ({ page }) => {
   await page.goto("/");
 
-  // P1b/P5a-fix (2026-09-12): the visible H1 is now the role
-  // ("Freelance Technical Product Owner", brand-teal) — "German Rauhut"
-  // is the second line beneath it, not a heading and not teal. Brand-teal
-  // is reserved for role titles estate-wide as of this pass (see also
-  // Timeline.tsx phase.title, the Freelance chapter's own h3).
+  // P1b/P5a-fix (2026-09-12): the visible H1 is the role ("Freelance
+  // Technical Product Owner") — "German Rauhut" is the second line beneath
+  // it, not a heading. P11 (2026-09-12): the H1 is white (text-text), not
+  // teal — teal is text-links only now; no heading on the page carries it.
   const h1 = page.getByRole("heading", { level: 1 });
   await expect(h1, "exactly one H1 on the page").toHaveCount(1);
   await expect(h1).toHaveText("Freelance Technical Product Owner");
-  await expect(h1).toHaveClass(/text-brand-teal/);
+  await expect(h1).toHaveClass(/text-text/);
+  await expect(h1).not.toHaveClass(/text-brand-teal/);
+  await expect(
+    page.locator("main :is(h1, h2, h3)[class*='text-brand-teal']"),
+    "P11: no heading carries brand-teal"
+  ).toHaveCount(0);
 
   // Scoped to <header> — "German Rauhut" also appears in the (hidden at
   // this viewport) MobileNav bar and in the footer's copyright line;
@@ -25,9 +29,11 @@ test("German homepage renders the primary profile content", async ({ page }) => 
   ).not.toHaveClass(/text-brand-teal/);
 
   await expect(page.locator("main")).not.toHaveAttribute("lang", "en");
+  // P11: the amber section label is a <p>; the real h2 is the headline.
   await expect(
-    page.getByRole("heading", { level: 2, name: "Zusammenfassung" })
+    page.getByRole("heading", { level: 2, name: "Konzern-Erfahrung, hands-on KI" })
   ).toBeVisible();
+  await expect(page.locator("main p#zusammenfassung-label")).toHaveText("Zusammenfassung");
   await expect(
     page.getByRole("link", { name: "Impressum" })
   ).toBeVisible();
@@ -40,10 +46,10 @@ test("English homepage renders localized content and language metadata", async (
 
   await expect(page.locator("main")).toHaveAttribute("lang", "en");
   await expect(
-    page.getByRole("heading", { level: 2, name: "About" })
+    page.getByRole("heading", { level: 2, name: "Enterprise experience, hands-on AI" })
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 2, name: "Core Competencies" })
+    page.getByRole("heading", { level: 2, name: "What I bring" })
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Imprint (German)" })
@@ -281,7 +287,9 @@ for (const [language, path, railName, tocName, items] of [
     "Seitennavigation",
     "Sprungnavigation",
     [
+      { label: "Zusammenfassung", id: "zusammenfassung" },
       { label: "Angebote", id: "angebote" },
+      { label: "Kernkompetenzen", id: "kernkompetenzen" },
       { label: "Projekte", id: "projekte" },
       { label: "Kontakt", id: "kontakt" },
     ],
@@ -292,13 +300,15 @@ for (const [language, path, railName, tocName, items] of [
     "Page navigation",
     "Jump navigation",
     [
+      { label: "About", id: "about" },
       { label: "Offers", id: "offers" },
+      { label: "Core Competencies", id: "competencies" },
       { label: "Projects", id: "projects" },
       { label: "Contact", id: "contact" },
     ],
   ],
 ] as const) {
-  test(`${language} homepage desktop rail lists the same three jump targets plus the nav CTA`, async ({
+  test(`${language} homepage desktop rail lists the same five jump targets plus the nav CTA`, async ({
     page,
   }) => {
     await page.goto(path);
@@ -335,7 +345,9 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     "Seitennavigation",
     "Mandat besprechen (20 Min)",
     [
+      { label: "Zusammenfassung", id: "zusammenfassung" },
       { label: "Angebote", id: "angebote" },
+      { label: "Kernkompetenzen", id: "kernkompetenzen" },
       { label: "Projekte", id: "projekte" },
       { label: "Kontakt", id: "kontakt" },
     ],
@@ -347,13 +359,15 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     "Page navigation",
     "Discuss a mandate (20 min)",
     [
+      { label: "About", id: "about" },
       { label: "Offers", id: "offers" },
+      { label: "Core Competencies", id: "competencies" },
       { label: "Projects", id: "projects" },
       { label: "Contact", id: "contact" },
     ],
   ],
 ] as const) {
-  test(`${language} homepage mobile sticky bar shows Name + CTA, burger reveals the same three jumps plus the language switch`, async ({
+  test(`${language} homepage mobile sticky bar shows Name + CTA, burger reveals the same five jumps plus the language switch`, async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -556,4 +570,22 @@ test("German contact form still answers in German after the P6-lead lang wiring"
   await expect(section.getByText("Bitte E-Mail angeben.")).toBeVisible();
   await expect(section.getByText("Bitte Nachricht angeben.")).toBeVisible();
   await expect(section.getByText("Bitte Eingaben prüfen.")).toBeVisible();
+});
+
+// P11 (2026-09-12): /stylesheet is the internal style reference — footer-
+// linked with rel="nofollow", noindex via meta + X-Robots-Tag, not in the
+// sitemap. Same shape as the /designs guard.
+test("stylesheet page is reachable, footer-linked nofollow, and marked noindex", async ({
+  page,
+}) => {
+  const response = await page.goto("/stylesheet");
+  expect(response?.status()).toBe(200);
+  expect(response?.headers()["x-robots-tag"]).toContain("noindex");
+  await expect(page.getByRole("heading", { level: 1, name: "Stylesheet" })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+
+  await page.goto("/");
+  await expect(page.locator('footer a[href="/stylesheet"]')).toHaveAttribute("rel", "nofollow");
+  const sitemap = await page.goto("/sitemap.xml");
+  expect(await sitemap?.text()).not.toContain("/stylesheet");
 });

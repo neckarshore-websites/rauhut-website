@@ -109,7 +109,7 @@ export default function Offers({ lang = "de" }: { lang?: Lang }) {
           page besides the hero. */}
       <div className={`${CARD} p-6`}>
         <h3 className="text-lg font-semibold">{lead.title}</h3>
-        <p className="mt-2 text-base leading-relaxed text-text-muted">
+        <p className="mt-2 text-base leading-relaxed text-text">
           {lead.body}
         </p>
         <a
@@ -131,7 +131,7 @@ export default function Offers({ lang = "de" }: { lang?: Lang }) {
             <h3 className="text-base font-semibold">
               {offer.title}
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-text-muted">
+            <p className="mt-2 text-sm leading-relaxed text-text">
               {offer.body}
             </p>
             {offer.cta.kind === "outline" ? (

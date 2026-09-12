@@ -51,7 +51,7 @@ const COPY: Record<
 };
 
 const labelClass =
-  "mb-1.5 block text-xs font-medium uppercase tracking-widest text-text-subtle";
+  "mb-1.5 block text-sm font-medium text-text";
 const fieldClass =
   "w-full rounded-lg border border-border-strong bg-bg-muted px-4 py-3 text-base text-text placeholder:text-text-subtle";
 const errorClass = "mt-1.5 text-sm text-brand-amber";
