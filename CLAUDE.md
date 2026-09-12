@@ -3,7 +3,7 @@
 ## Repo Context
 
 - **Owner:** Linus (Frontend Artist)
-- **GitHub home:** `GmanFooFoo/rauhut-website` (User's personal GitHub — NOT the `neckarshore-ai` Org)
+- **GitHub home:** `neckarshore-websites/rauhut-website` — a real GitHub Organization ("Websites of the neckarshore.ai portfolio"), distinct from the `neckarshore-ai` Org. Corrected 2026-09-12: verified via `git remote -v` + `gh api orgs/neckarshore-websites` after CI/PR work — the repo is org-owned, not a personal-account repo as previously documented.
 - **Domain:** `rauhut.com` — registered at IONOS, live on Vercel. DNS-Cutover IONOS → Vercel done 2026-04-17. MX bleibt IONOS (Mail-Empfang separat geregelt).
 - **Brand:** The person, not the firm. `neckarshore.ai` is the company (warm, Bordeaux); `rauhut.com` is the person (clean, minimal Material, Schwarz/Weiss/Grau + Pastell-Akzent `#8DA5C4`).
 
@@ -17,7 +17,7 @@ cd ~/Developer/projects/neckarshore-websites/rauhut-website && ...
 
 The Claude Code harness resets `cwd` after every Bash call. Unscoped commands risk writing to the wrong repo. Same discipline as `neckarshore-website`.
 
-> **Path-note:** The repo's GitHub home is `GmanFooFoo/rauhut-website` (personal), but the local checkout lives inside the `neckarshore-ai` folder for ecosystem-grouping convenience. Local path ≠ GitHub org. Captured as Path-Drift Klasse B in `omnopsis-planning/docs/process/session-state.md` (2026-05-12 c).
+> **Path-note:** The repo's GitHub home is the `neckarshore-websites` Org, but the local checkout lives inside the `neckarshore-ai` folder for ecosystem-grouping convenience. Local path ≠ GitHub org. Captured as Path-Drift Klasse B in `omnopsis-planning/docs/process/session-state.md` (2026-05-12 c).
 
 ## Rules
 
