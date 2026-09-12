@@ -91,26 +91,21 @@ export default function HomePageEN() {
       <header className="hero-glow mb-12 sm:mb-16">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
-            <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-brand-teal sm:text-[2.4rem]">
+            <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">
               Freelance Technical Product Owner
             </h1>
             <p className="mt-3 text-lg font-medium text-text sm:text-xl">
               German Rauhut
             </p>
-            <p className="mt-2 text-base text-text-muted sm:text-lg">
+            <p className="mt-3 text-base text-text-muted sm:text-lg">
               Getting enterprise programmes live — requirements, test,
-              release, distributed teams.
+              release, distributed teams. AI delivery from shipping my own
+              products — not slide-deck consulting.
             </p>
-            <p className="mt-2 text-sm text-text-subtle">
-              AI delivery from shipping my own products — not slide-deck
-              consulting.
-            </p>
-            <p className="mt-4 text-sm text-text-subtle">
+            <p className="mt-4 text-sm text-text-muted">
               Stuttgart · remote DACH · 10 years Mercedes-Benz ecosystem ·
-              independent since Oct 2025
-            </p>
-            <p className="mt-1 text-sm font-medium text-brand-teal">
-              {AVAILABILITY.en}
+              independent since Oct 2025 ·{" "}
+              <span className="font-medium text-text">{AVAILABILITY.en}</span>
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
@@ -138,12 +133,12 @@ export default function HomePageEN() {
           neither Neckarshore nor a product list). No leading <hr/> here —
           matches the original header→first-block rhythm, where the header's
           own bottom margin provides the gap. */}
-      <Reveal className="pb-16 sm:pb-20" aria-labelledby="about">
-        <h2
-          id="about"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
+      <Reveal className="pb-20 sm:pb-24" aria-labelledby="about-label">
+        <p id="about-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
           About
+        </p>
+        <h2 id="about" className="mt-2 mb-6 text-2xl font-semibold">
+          Enterprise experience, hands-on AI
         </h2>
         <p className="text-lg leading-relaxed">
           Bridge-builder between business and technology — with 10+ years
@@ -155,7 +150,7 @@ export default function HomePageEN() {
         </p>
         <StatsRow lang="en" />
         <div className="mt-10 sm:mt-12">
-          <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
+          <p className="text-sm font-semibold text-text">
             Worked for
           </p>
           <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
@@ -174,13 +169,13 @@ export default function HomePageEN() {
           two are visually weaker (outline / plain text link). The fuller
           AI potential analysis section further down is untouched — Card 3
           here is a teaser for it, not a replacement. */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="offers">
+      <Reveal className="py-20 sm:py-24" aria-labelledby="offers">
         <p className="text-xs font-medium uppercase tracking-widest text-brand-amber">
           Offers
         </p>
         <h2
           id="offers"
-          className="mt-2 text-xl font-semibold sm:text-2xl"
+          className="mt-2 text-2xl font-semibold"
         >
           What you can book
         </h2>
@@ -190,12 +185,12 @@ export default function HomePageEN() {
       <hr />
 
       {/* Core Competencies */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="competencies">
-        <h2
-          id="competencies"
-          className="mb-8 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
+      <Reveal className="py-20 sm:py-24" aria-labelledby="competencies-label">
+        <p id="competencies-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
           Core Competencies
+        </p>
+        <h2 id="competencies" className="mt-2 mb-8 text-2xl font-semibold">
+          What I bring
         </h2>
         <table>
           <thead>
@@ -250,12 +245,12 @@ export default function HomePageEN() {
       <hr />
 
       {/* Projects */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="projects">
-        <h2
-          id="projects"
-          className="mb-10 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
+      <Reveal className="py-20 sm:py-24" aria-labelledby="projects-label">
+        <p id="projects-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
           Projects
+        </p>
+        <h2 id="projects" className="mt-2 mb-10 text-2xl font-semibold">
+          Freelance, Mercedes-Benz, earlier roles
         </h2>
 
         {/* Freelance chapter — split into two since P4b (2026-09-11 e): the
@@ -275,23 +270,23 @@ export default function HomePageEN() {
 
           {/* Chapter 1 — Technical Product Owner (the mandate) */}
           <div>
-            <h3 className="text-xl font-semibold text-brand-teal">
+            <h3 className="text-lg font-semibold">
               Technical Product Owner
             </h3>
-            <p className="mt-3 leading-relaxed text-text-muted">
+            <p className="mt-3 leading-relaxed text-text">
               Independent since October 2025. Mandates in requirements, test
               and release — remote DACH, enterprise scale. Programmes that
               have to go live: backlog, distributed teams, delivery through
               acceptance.
             </p>
-            <p className="mt-4 leading-relaxed text-text-muted">
+            <p className="mt-4 leading-relaxed text-text">
               Foundation: 10 years in the Mercedes-Benz ecosystem — PLUS
               NextGen (master-data product MData, team in South Africa), SFMd (50,000+
               KPIs, 2-week release), test and acceptance. The same work, not
               slide-deck consulting; the practice sits in the products
               below.
             </p>
-            <ul className="mt-4 space-y-3 text-base leading-relaxed">
+            <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
               <li>
                 <strong className="font-semibold">
                   Requirements &amp; backlog
@@ -321,15 +316,15 @@ export default function HomePageEN() {
 
           {/* Chapter 2 — What I build (product taxonomy) */}
           <div className="mt-10">
-            <h3 className="text-xl font-semibold">
+            <h3 className="text-lg font-semibold">
               What I build
             </h3>
-            <p className="mt-3 leading-relaxed text-text-muted">
+            <p className="mt-3 leading-relaxed text-text">
               The same way of working as under Neckarshore AI:
               AI-accelerated, GDPR-by-design. One flagship, MMPs, native
               iOS, skills — websites on the side.
             </p>
-            <ul className="mt-4 space-y-3 text-base leading-relaxed">
+            <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
               <li>
                 <strong className="font-semibold">
                   Multi-agent development process
@@ -384,43 +379,24 @@ export default function HomePageEN() {
             </p>
 
             {/* Stack — eight grouped lines, not a comma string. */}
-            <div className="mt-6 space-y-1.5 text-sm text-text-subtle">
-              <p>
-                <span className="font-medium text-text">Runtime</span> ·
-                TypeScript, NestJS, Next.js, React, PostgreSQL, Neon,
-                Redis/BullMQ, Python
-              </p>
-              <p>
-                <span className="font-medium text-text">UI</span> · Tailwind
-                CSS, shadcn/ui
-              </p>
-              <p>
-                <span className="font-medium text-text">Auth</span> ·
-                Zitadel, NextAuth
-              </p>
-              <p>
-                <span className="font-medium text-text">Delivery</span> ·
-                Vercel, GitHub Actions, Docker
-              </p>
-              <p>
-                <span className="font-medium text-text">Quality</span> ·
-                Vitest, Playwright, XCTest, Swift Testing
-              </p>
-              <p>
-                <span className="font-medium text-text">iOS</span> · Swift,
-                Xcode, App Store
-              </p>
-              <p>
-                <span className="font-medium text-text">Agents</span> ·
-                Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI /
-                Grok · OpenAI / Codex
-              </p>
-              <p>
-                <span className="font-medium text-text">Integrations</span>{" "}
-                · Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq,
-                Stripe, Resend
-              </p>
-            </div>
+            <dl className="mt-6 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
+              <dt className="font-medium text-text">Runtime</dt>
+              <dd>TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python</dd>
+              <dt className="font-medium text-text">UI</dt>
+              <dd>Tailwind CSS, shadcn/ui</dd>
+              <dt className="font-medium text-text">Auth</dt>
+              <dd>Zitadel, NextAuth</dd>
+              <dt className="font-medium text-text">Delivery</dt>
+              <dd>Vercel, GitHub Actions, Docker</dd>
+              <dt className="font-medium text-text">Quality</dt>
+              <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
+              <dt className="font-medium text-text">iOS</dt>
+              <dd>Swift, Xcode, App Store</dd>
+              <dt className="font-medium text-text">Agents</dt>
+              <dd>Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI / Grok · OpenAI / Codex</dd>
+              <dt className="font-medium text-text">Integrations</dt>
+              <dd>Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend</dd>
+            </dl>
           </div>
         </article>
 
@@ -429,11 +405,11 @@ export default function HomePageEN() {
             <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
               07/2015 – 10/2025 · Employed &amp; external
             </p>
-            <h3 className="mt-1 text-xl font-semibold">
+            <h3 className="mt-1 text-lg font-semibold">
               Mercedes-Benz AG &amp; ecosystem
             </h3>
           </header>
-          <p className="mb-6 leading-relaxed text-text-muted">
+          <p className="mb-6 leading-relaxed text-text">
             10 years in the Mercedes-Benz ecosystem — joined as Senior
             Business Analyst, then Agile Coach, Plant Relationship Manager,
             Change Management Team &amp; Technical Product Owner; agile,
@@ -449,7 +425,7 @@ export default function HomePageEN() {
         <details>
           <summary>Earlier roles (1992 – 2015)</summary>
 
-          <div className="space-y-6 text-base leading-relaxed text-text-muted">
+          <div className="space-y-6 text-base leading-relaxed text-text">
             <p>
               Before Mercedes-Benz: 23 years of career — mandatory
               military service with the German Air Force in 1992, then
@@ -597,17 +573,17 @@ export default function HomePageEN() {
       <hr />
 
       {/* Contact */}
-      <Reveal className="py-16 sm:py-20" aria-labelledby="contact">
-        <h2
-          id="contact"
-          className="mb-6 text-xs font-medium uppercase tracking-widest text-brand-amber"
-        >
+      <Reveal className="py-20 sm:py-24" aria-labelledby="contact-label">
+        <p id="contact-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
           Contact
+        </p>
+        <h2 id="contact" className="mt-2 mb-6 text-2xl font-semibold">
+          Let&rsquo;s talk
         </h2>
         {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Discuss a mandate" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
-        <p className="mb-8 max-w-xl text-base leading-relaxed text-text-muted">
+        <p className="mb-8 max-w-xl text-base leading-relaxed text-text">
           Available immediately — mandates in requirements, test and
           release, remote DACH. Twenty minutes via “Discuss a mandate”, or
           a short note by email or the form.
@@ -643,6 +619,10 @@ export default function HomePageEN() {
           ·{" "}
           <a href="/designs" rel="nofollow">
             Designs
+          </a>{" "}
+          ·{" "}
+          <a href="/stylesheet" rel="nofollow">
+            Stylesheet
           </a>
         </p>
       </footer>

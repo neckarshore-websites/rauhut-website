@@ -18,13 +18,13 @@
      deliberately not touched by this pass — don't need editing; they
      simply resolve to the same gray from here on. */
   --color-text-subtle: #A3A3A3;
-  --color-border: #262626;
+  --color-border: #333333;      /* P11: hairlines visible on #0A0A0A (was #262626) */
   --color-border-strong: #404040;
   --color-bg: #0A0A0A;
   --color-bg-muted: #171717;
   --color-accent: #A5B9D1;        /* Focus-Ring, Selection — NOT text links (P10) */
   --color-accent-hover: #A5B9D1;  /* Button hover-tints (P10: no longer the text-link color) */
-  --color-brand-teal: #22D3EE;    /* Role titles + text links (P10) on dark */
+  --color-brand-teal: #22D3EE;    /* Text links ONLY (P11; P10 had role titles too) on dark */
   --color-brand-amber: #F59E0B;   /* Overline accent on dark — unchanged */
 
   /* Typography */
@@ -47,7 +47,7 @@
   --color-text: #0A0A0A;
   --color-text-muted: #525252;
   --color-text-subtle: #525252; /* P10: merged with text-muted, see @theme above */
-  --color-border: #E5E5E5;
+  --color-border: #D9D9D9;
   --color-border-strong: #D4D4D4;
   --color-bg: #FFFFFF;
   --color-bg-muted: #FAFAFA;

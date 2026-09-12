@@ -117,7 +117,7 @@ export default function ContactCards({ lang = "de" }: { lang?: Lang }) {
             >
               <div className="flex items-center gap-2 text-text-subtle transition-colors group-hover:text-accent-hover">
                 {c.icon}
-                <span className="text-xs font-medium uppercase tracking-widest">
+                <span className="text-sm font-medium">
                   {label}
                 </span>
               </div>

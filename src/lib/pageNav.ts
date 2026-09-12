@@ -5,7 +5,8 @@ export type NavItem = { id: string; label: string };
 /**
  * Shared between NavRail (desktop) and MobileNav (mobile) — one source of
  * truth for the P8 jump targets (Founder brief, 2026-09-12) so the two
- * chrome surfaces can never drift from each other. Same three destinations,
+ * chrome surfaces can never drift from each other. P11 (2026-09-12): all
+ * five homepage sections, not three. Same destinations,
  * same granularity, both sides: "Dieselben Ziele wie rechts am Desktop —
  * nicht weniger, nicht gröber."
  *
@@ -15,12 +16,16 @@ export type NavItem = { id: string; label: string };
  */
 export const NAV_ITEMS: Record<Lang, NavItem[]> = {
   de: [
+    { id: "zusammenfassung", label: "Zusammenfassung" },
     { id: "angebote", label: "Angebote" },
+    { id: "kernkompetenzen", label: "Kernkompetenzen" },
     { id: "projekte", label: "Projekte" },
     { id: "kontakt", label: "Kontakt" },
   ],
   en: [
+    { id: "about", label: "About" },
     { id: "offers", label: "Offers" },
+    { id: "competencies", label: "Core Competencies" },
     { id: "projects", label: "Projects" },
     { id: "contact", label: "Contact" },
   ],
