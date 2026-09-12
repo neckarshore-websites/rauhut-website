@@ -52,14 +52,48 @@ test("/designs loads without console errors and no failed network requests", asy
   const DEV_ONLY_ANALYTICS_CSP =
     "https://va.vercel-scripts.com/v1/script.debug.js";
 
+  // SECOND known-benign, local-only pattern (2026-09-12, distinct from the
+  // dev-mode CSP block above — this one fires against a locally-run
+  // *production* build, `next build && next start`).
+  //
+  // @vercel/analytics requests a same-origin path, `/_vercel/insights/script.js`,
+  // that only resolves on Vercel's own edge network — Vercel rewrites it to
+  // the real analytics script at request time on their infrastructure. A
+  // plain local `next start` has no such rewrite, so the path 404s, and the
+  // browser's attempt to execute the 404 HTML page as a script logs a
+  // MIME-type console error on top of the failed request.
+  //
+  // PRODUCTION IS NOT AFFECTED, verified rather than assumed: on
+  // rauhut.com (real Vercel infra) the same path resolves HTTP 200 with a
+  // real script body — this is exhaustively a local-server artifact, not a
+  // deployed-site defect. `git stash` against unmodified `main` reproduces
+  // the identical two-line failure, confirming it predates every P6/P5b/P10
+  // change and is not caused by this repo's own code.
+  //
+  // The match is the exact path, so any OTHER 404 or MIME failure — a real
+  // regression included — still fails the test.
+  //
+  // Chrome's "Failed to load resource: ... 404" message carries the failing
+  // URL only in the console message's LOCATION, not in its text (confirmed
+  // by probing this exact page: msg.text() is the bare status line, no URL —
+  // msg.location().url is 'http://localhost:3001/_vercel/insights/script.js').
+  // The companion "Refused to execute script from '<url>' ..." MIME message
+  // DOES carry the URL in its text. Both forms are checked so the filter
+  // catches this one script's two distinct console messages without relying
+  // on text alone.
+  const LOCAL_ONLY_VERCEL_INSIGHTS = "/_vercel/insights/script.js";
+
   page.on("console", (msg) => {
     if (msg.type() !== "error") return;
     if (msg.text().includes(DEV_ONLY_ANALYTICS_CSP)) return;
+    if (msg.text().includes(LOCAL_ONLY_VERCEL_INSIGHTS)) return;
+    if (msg.location().url.includes(LOCAL_ONLY_VERCEL_INSIGHTS)) return;
     consoleErrors.push(msg.text());
   });
 
   page.on("requestfailed", (req) => {
     if (req.url().includes(DEV_ONLY_ANALYTICS_CSP)) return;
+    if (req.url().includes(LOCAL_ONLY_VERCEL_INSIGHTS)) return;
     failedRequests.push(req.url());
   });
 
