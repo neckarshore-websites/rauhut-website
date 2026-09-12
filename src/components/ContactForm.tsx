@@ -53,7 +53,7 @@ const COPY: Record<
 const labelClass =
   "mb-1.5 block text-xs font-medium uppercase tracking-widest text-text-subtle";
 const fieldClass =
-  "w-full rounded-lg border border-border-strong bg-bg-muted px-4 py-3 text-[0.9375rem] text-text placeholder:text-text-subtle";
+  "w-full rounded-lg border border-border-strong bg-bg-muted px-4 py-3 text-base text-text placeholder:text-text-subtle";
 const errorClass = "mt-1.5 text-sm text-brand-amber";
 
 export default function ContactForm({ lang = "de" }: { lang?: Lang }) {
@@ -66,7 +66,7 @@ export default function ContactForm({ lang = "de" }: { lang?: Lang }) {
   if (state.status === "success") {
     return (
       <div className="rounded-xl border border-border bg-bg-muted p-6">
-        <p className="text-[0.9375rem] text-text">{copy.successMessage}</p>
+        <p className="text-base text-text">{copy.successMessage}</p>
       </div>
     );
   }
@@ -164,7 +164,7 @@ export default function ContactForm({ lang = "de" }: { lang?: Lang }) {
       <button
         type="submit"
         disabled={pending}
-        className="self-start rounded-lg bg-accent-hover px-6 py-3 text-[0.9375rem] font-medium text-bg transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
+        className="self-start rounded-lg bg-accent-hover px-6 py-3 text-base font-medium text-bg transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
       >
         {pending ? copy.pendingLabel : copy.submitLabel}
       </button>
