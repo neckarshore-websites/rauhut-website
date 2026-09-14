@@ -253,10 +253,20 @@ export default function HomePage() {
                 Verantwortung bis live.
               </li>
             </ul>
-            {/* Plain text on purpose — kein zweiter Primary-Button, Calendly
-                bleibt Hero + Angebotskarte (Founder-Regel P4b). */}
+            {/* Textlink, kein Button — die Founder-Regel P4b verbietet einen
+                ZWEITEN gefuellten Primary-Button, nicht einen Verweis. Eigene
+                utm-Quelle, damit Calendly diesen Einstieg von Hero und
+                Angebotskarte unterscheiden kann (2026-09-14). */}
             <p className="mt-4 text-sm text-text-subtle">
-              Buchbar über „Mandat besprechen“.
+              Buchbar über{" "}
+              <a
+                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-projekte"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                „Mandat besprechen“
+              </a>
+              .
             </p>
           </div>
 
@@ -306,7 +316,7 @@ export default function HomePage() {
                 Termin, ein Techniker will sie DANACH. Inhalt unveraendert,
                 nur nicht mehr im Lesefluss. Gleiches Muster wie "Fruehere
                 Stationen" weiter unten. */}
-            <details className="mt-6">
+            <details open className="mt-6">
               <summary>Technologien, mit denen ich arbeite</summary>
               <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
                 <dt className="font-medium text-text">Runtime</dt>
@@ -346,7 +356,7 @@ export default function HomePage() {
             international, Verantwortung bis live.
           </p>
           <Timeline lang="de" />
-          <details className="mt-6">
+          <details open className="mt-6">
             <summary>Werkzeuge und Verfahren dieser Jahre</summary>
             <p className="mt-3 text-sm text-text-subtle">
               SCRUM, JIRA, Confluence, REST-APIs, Postman, JSON, ServiceNow,

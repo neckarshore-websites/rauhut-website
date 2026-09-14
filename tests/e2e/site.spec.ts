@@ -423,21 +423,29 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
   });
 }
 
-// P6-mail (2026-09-12): the public "Folie" mail is the mandat@ alias, not
-// german@ — Hero-CTA, Kontakt-Zeile/ContactCards and mailto links all move.
-// Impressum/Datenschutz keep german@ on purpose (legally mandated contact,
-// same carve-out as the rest of that pass) — a separate test below asserts
-// those are UNCHANGED, so a future edit can't quietly scrub the wrong side.
-const MANDAT_MAILTO = {
-  de: "mailto:mandat@rauhut.com?subject=Mandat-Anfrage%20über%20rauhut.com",
-  en: "mailto:mandat@rauhut.com?subject=Mandate%20enquiry%20via%20rauhut.com",
+// P6-mail REVERSED 2026-09-14 (Founder decision): one address on every
+// surface again, `german@rauhut.com`. The `mandat@` alias of 2026-09-12
+// existed as spam protection; the Founder retired that reasoning himself
+// because the Impressum carries german@ by law anyway, so hiding it
+// elsewhere bought nothing.
+//
+// The retired alias is asserted ABSENT rather than the new address merely
+// present — same shape as the RETIRED list in public-figures.test.mjs. A
+// test that only checks what IS there cannot notice an old value creeping
+// back alongside it.
+const PUBLIC_MAILTO = {
+  de: "mailto:german@rauhut.com?subject=Mandat-Anfrage%20über%20rauhut.com",
+  en: "mailto:german@rauhut.com?subject=Mandate%20enquiry%20via%20rauhut.com",
 } as const;
+
+/** Retired 2026-09-14. Must not return to any public surface. */
+const RETIRED_ALIAS = "mandat@rauhut.com";
 
 for (const [language, path, emailCtaLabel] of [
   ["German", "/", "E-Mail"],
   ["English", "/en", "Email"],
 ] as const) {
-  test(`${language} homepage hero mails the mandat@ alias with the exact brief subject, not german@`, async ({
+  test(`${language} homepage hero mails german@ with the exact subject, and the retired mandat@ alias is gone`, async ({
     page,
   }) => {
     await page.goto(path);
@@ -450,39 +458,43 @@ for (const [language, path, emailCtaLabel] of [
       .getByRole("link", { name: emailCtaLabel, exact: true });
     await expect(heroEmailCta).toHaveAttribute(
       "href",
-      MANDAT_MAILTO[language === "German" ? "de" : "en"]
+      PUBLIC_MAILTO[language === "German" ? "de" : "en"]
     );
 
     await expect(
-      page.locator('a[href*="german@rauhut.com"]'),
-      "the homepage must not link german@rauhut.com anywhere — that address is retired to Impressum/Datenschutz only"
+      page.locator(`a[href*="${RETIRED_ALIAS}"]`),
+      "the retired mandat@ alias must not link from anywhere on the homepage"
+    ).toHaveCount(0);
+    await expect(
+      page.getByText(RETIRED_ALIAS),
+      "the retired mandat@ alias must not appear as visible text either"
     ).toHaveCount(0);
   });
 }
 
-test("German ContactCards shows the mandat@ alias, not german@, with the DE subject", async ({
+test("German ContactCards shows german@ with the DE subject", async ({
   page,
 }) => {
   await page.goto("/");
   const emailCard = page.getByRole("link", { name: /E-Mail/ }).filter({
-    has: page.getByText("mandat@rauhut.com"),
+    has: page.getByText("german@rauhut.com"),
   });
   await expect(emailCard).toBeVisible();
-  await expect(emailCard).toHaveAttribute("href", MANDAT_MAILTO.de);
+  await expect(emailCard).toHaveAttribute("href", PUBLIC_MAILTO.de);
 });
 
-test("English ContactCards shows the mandat@ alias, not german@, with the EN subject", async ({
+test("English ContactCards shows german@ with the EN subject", async ({
   page,
 }) => {
   await page.goto("/en");
   const emailCard = page.getByRole("link", { name: /Email/ }).filter({
-    has: page.getByText("mandat@rauhut.com"),
+    has: page.getByText("german@rauhut.com"),
   });
   await expect(emailCard).toBeVisible();
-  await expect(emailCard).toHaveAttribute("href", MANDAT_MAILTO.en);
+  await expect(emailCard).toHaveAttribute("href", PUBLIC_MAILTO.en);
 });
 
-test("Impressum and Datenschutz keep the statutory german@ address untouched by P6-mail", async ({
+test("Impressum and Datenschutz carry the same german@ address as the rest of the site", async ({
   page,
 }) => {
   await page.goto("/impressum");

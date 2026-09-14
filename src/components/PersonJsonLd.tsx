@@ -61,7 +61,7 @@ export default function PersonJsonLd({ lang = "de" }: { lang?: Lang }) {
     },
     // P6-mail (2026-09-12): public contact alias, not the person's own
     // inbox — see src/lib/contact.ts.
-    email: "mandat@rauhut.com",
+    email: "german@rauhut.com",
     knowsAbout: [
       "AI Product Development",
       "Multi-Agent Systems",

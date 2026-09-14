@@ -308,7 +308,15 @@ export default function HomePageEN() {
             {/* Plain text on purpose — no second filled-Primary button,
                 Calendly stays hero + offer card (Founder rule, P4b). */}
             <p className="mt-4 text-sm text-text-subtle">
-              Book via “Discuss a mandate”.
+              Book via{" "}
+              <a
+                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-projekte"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                “Discuss a mandate”
+              </a>
+              .
             </p>
           </div>
 
@@ -356,7 +364,7 @@ export default function HomePageEN() {
 
             {/* Stack — eight grouped lines, collapsed since the
                 concentration pass (2026-09-14). Mirrors the German page. */}
-            <details className="mt-6">
+            <details open className="mt-6">
               <summary>Technologies I work with</summary>
               <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
                 <dt className="font-medium text-text">Runtime</dt>
@@ -396,7 +404,7 @@ export default function HomePageEN() {
             international, ownership through go-live.
           </p>
           <Timeline lang="en" />
-          <details className="mt-6">
+          <details open className="mt-6">
             <summary>Tools and methods of those years</summary>
             <p className="mt-3 text-sm text-text-subtle">
               SCRUM, JIRA, Confluence, REST APIs, Postman, JSON, ServiceNow,

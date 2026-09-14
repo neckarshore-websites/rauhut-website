@@ -69,7 +69,7 @@ export const CONTACT_COPY: Record<Lang, ContactCopy> = {
     captchaFailed:
       "Spam-Schutz konnte nicht bestätigt werden. Bitte warten Sie einen Moment, bis die Prüfung abgeschlossen ist, und senden Sie dann erneut.",
     transportFailure:
-      "Die Nachricht konnte gerade nicht übermittelt werden. Bitte schreiben Sie mir direkt an mandat@rauhut.com.",
+      "Die Nachricht konnte gerade nicht übermittelt werden. Bitte schreiben Sie mir direkt an german@rauhut.com.",
   },
   en: {
     nameRequired: "Please enter your name.",
@@ -80,6 +80,6 @@ export const CONTACT_COPY: Record<Lang, ContactCopy> = {
     captchaFailed:
       "Spam protection could not be confirmed. Please wait a moment for the check to complete, then send again.",
     transportFailure:
-      "The message could not be sent right now. Please write to me directly at mandat@rauhut.com.",
+      "The message could not be sent right now. Please write to me directly at german@rauhut.com.",
   },
 };
