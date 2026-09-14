@@ -38,7 +38,7 @@ const COPY: Record<Lang, { offers: [Offer, Offer, Offer] }> = {
       },
       {
         title: "Test, Release, Abnahme",
-        body: "Teststrategie, Automatisierung, Release-Takt. Damit die letzte Meile nicht das Programm hält — einschließlich Konfigurationsautomatisierung in Konzernprozessen.",
+        body: "Teststrategie, Automatisierung, Release-Takt. Damit die letzte Meile nicht das Programm hält.",
         cta: {
           label: "Gespräch zu Test & Release",
           href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com-test",
@@ -69,7 +69,7 @@ const COPY: Record<Lang, { offers: [Offer, Offer, Offer] }> = {
       },
       {
         title: "Test, release, acceptance",
-        body: "Test strategy, automation, release cadence. So the last mile does not stall the programme — including configuration automation in enterprise processes.",
+        body: "Test strategy, automation, release cadence. So the last mile does not stall the programme.",
         cta: {
           label: "Talk about test & release",
           href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com-test",

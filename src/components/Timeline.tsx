@@ -37,7 +37,6 @@ const PHASES: Record<Lang, Phase[]> = {
         "MData zieht Stammdaten aus Systemen, die das nicht leisten, und stellt sie hochverfügbar bereit (Anti-Corruption Layer).",
         "Ab Ende 2023 Classic auf Maintain, Energie in NextGen: 30 Jahre Software modernisieren, in die Cloud, Standards statt Sonderlocken.",
         "Entwicklungsorganisation in Deutschland und Südafrika auf agil umgestellt.",
-        "Change-Management im Vorhaben mitgestaltet.",
       ],
     },
     {
@@ -47,12 +46,9 @@ const PHASES: Record<Lang, Phase[]> = {
       claim: "Stammdaten-Systeme über API angebunden; 50.000+ KPI automatisiert konfiguriert",
       lead: "SFMd — Digitalisierung der Shopfloor-Management-Prozesse (SFM). Erstes agiles Vorhaben in einem Bereich, der bis dahin klassisch entwickelt hat. Speerspitze, weltweiter Rollout, Entwickler-Teams in Deutschland und Südafrika.",
       bullets: [
-        "Agile Coaching der fachlichen Product Owner und der Entwicklungsteams.",
-        "20 stammdatengebende Systeme, teilweise zu jedem Schichtwechsel aktualisiert.",
-        "Liefernde Systeme über API auf schichtaktuelle Lieferung gebracht.",
+        "20 stammdatengebende Systeme über API auf schichtaktuelle Lieferung gebracht — teilweise zu jedem Schichtwechsel.",
         "System-Konfiguration automatisiert, Testautomation aufgebaut, Release im 2-Wochen-Takt.",
-        "Planwände mit 40–50 Reports ersetzt durch eine moderne Weboberfläche auf 85-Zoll-Touchscreens.",
-        "REST zwischen Backend und Frontend, webbasiert, schon in der Cloud.",
+        "Planwände mit 40–50 Reports ersetzt durch eine Weboberfläche auf 85-Zoll-Touchscreens.",
       ],
     },
     {
@@ -74,7 +70,6 @@ const PHASES: Record<Lang, Phase[]> = {
         "MData pulls master data from systems that cannot provide it and serves it highly available (anti-corruption layer).",
         "From late 2023 Classic on maintain, energy into NextGen: modernize 30 years of software, to the cloud, standards instead of one-offs.",
         "Development organization in Germany and South Africa moved to agile.",
-        "Helped shape change management in the programme.",
       ],
     },
     {
@@ -84,12 +79,9 @@ const PHASES: Record<Lang, Phase[]> = {
       claim: "Master-data systems connected via API; 50,000+ KPIs configured automatically",
       lead: "SFMd — digitalization of shop-floor management processes (SFM). First agile initiative in an area that had been developing classically. Spearhead, worldwide rollout, development teams in Germany and South Africa.",
       bullets: [
-        "Agile coaching of the business product owners and the development teams.",
-        "20 master-data source systems, some updated at every shift change.",
-        "Supplying systems brought to shift-current delivery via API.",
+        "20 master-data source systems brought to shift-current delivery via API — some updated at every shift change.",
         "System configuration automated, test automation in place, 2-week release cadence.",
-        "Planning boards with 40–50 reports replaced by a modern web UI on 85-inch touchscreens.",
-        "REST between backend and frontend, web-based, already in the cloud.",
+        "Planning boards with 40–50 reports replaced by a web UI on 85-inch touchscreens.",
       ],
     },
     {

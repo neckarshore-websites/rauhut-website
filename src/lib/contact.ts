@@ -1,19 +1,19 @@
 export type Lang = "de" | "en";
 
 /**
- * Public contact mailbox (P6-mail, Founder brief 2026-09-12): the visible
- * "Folie" address is an alias, not the person's own inbox — `german@` stays
- * reachable but is retired from every public surface (Hero-CTA, Kontakt-
- * Zeile, mailto links, the visible contact block, the contact form's own
- * fallback error text).
+ * Public contact mailbox.
  *
- * Deliberately NOT touched (legally-mandated contact, same treatment as the
- * Impressum carve-out the brief names): Impressum § Kontakt, Datenschutz
- * § 1 Verantwortlicher, Datenschutz § 9 Ihre Rechte. Those identify the
- * responsible natural person for statutory purposes and must not silently
- * become an alias.
+ * REVERSED 2026-09-14 on Founder decision, back to `german@rauhut.com`.
+ * The alias `mandat@` was introduced on 2026-09-12 (P6-mail) to keep the
+ * personal address off public surfaces as spam protection. The Founder
+ * retired that reasoning himself: the Impressum carries `german@` anyway
+ * by law (§ 5 TMG), so hiding it elsewhere bought nothing and cost the
+ * page a second identity. One address on every surface again.
+ *
+ * The Impressum and Datenschutz carve-outs from the 09-12 brief are now
+ * moot — they name the same address the rest of the page does.
  */
-export const CONTACT_EMAIL = "mandat@rauhut.com";
+export const CONTACT_EMAIL = "german@rauhut.com";
 
 // Subject lines verbatim from the Founder brief, percent-encoded exactly as
 // given (including the literal ü, not %C3%BC) — the brief itself already

@@ -11,6 +11,7 @@ import Offers from "@/components/Offers";
 import NavRail from "@/components/NavRail";
 import MobileNav from "@/components/MobileNav";
 import { AVAILABILITY } from "@/lib/availability";
+import { ORIGIN } from "@/lib/origin";
 import { CONTACT_MAILTO } from "@/lib/contact";
 
 export default function HomePage() {
@@ -93,15 +94,14 @@ export default function HomePage() {
           Zusammenfassung
         </p>
         <h2 id="zusammenfassung" className="mt-2 mb-6 text-2xl font-semibold">
-          Konzern-Erfahrung, hands-on KI
+          Was ich übernehme
         </h2>
         <p className="text-lg leading-relaxed">
-          Brückenbauer zwischen Business und Technologie — mit 10+ Jahren
-          Erfahrung in internationalen Automotive-Projekten (Mercedes-Benz) und
-          einer zweiten Karriere als AI-Produktentwickler. Heute verbinde ich
-          Anforderungs- und Testmanagement aus der Konzernwelt mit hands-on AI
-          Engineering: eigene Produkte, Multi-Agent-Entwicklungsprozesse,
-          Full-Stack-Umsetzung.
+          Zehn Jahre Mercedes-Benz-Ökosystem: Anforderung, Test und Release in
+          Programmen, die 24/7 laufen müssen. Seit Oktober 2025 dieselbe Arbeit
+          freiberuflich — mit dem Unterschied, dass ich die Werkzeuge inzwischen
+          selbst baue und deshalb beurteilen kann, was KI in einem
+          Konzernprozess trägt und was nicht.
         </p>
         <StatsRow lang="de" />
         <div className="mt-10 sm:mt-12">
@@ -151,10 +151,10 @@ export default function HomePage() {
           <thead>
             <tr>
               <th scope="col" className="w-1/2">
-                Heute
+                Das Mandat
               </th>
               <th scope="col" className="w-1/2">
-                Fundament
+                Worauf es steht
               </th>
             </tr>
           </thead>
@@ -162,30 +162,29 @@ export default function HomePage() {
             <tr>
               <td>Technical Product Ownership — Vision, Backlog, Delivery</td>
               <td>
+                KI-Delivery — Multi-Agent-Architekturen, LLM-Integration,
+                Prompt Engineering
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Anforderungsmanagement — Grobkonzept bis technische Story
               </td>
-            </tr>
-            <tr>
               <td>
-                AI Product Development — Multi-Agent-Architekturen,
-                LLM-Integration, Prompt Engineering
-              </td>
-              <td>
-                Projektmanagement — klassisch &amp; agil, internationale Teams
+                Full-Stack — NestJS, TypeScript, PostgreSQL, Redis, Docker
               </td>
             </tr>
             <tr>
               <td>
-                Full-Stack Engineering — NestJS, TypeScript, PostgreSQL, Redis,
-                Docker
+                Test- und Releasemanagement — Strategie, Automatisierung, Takt
               </td>
-              <td>
-                Testmanagement — E2E, API, Automatisierung, Teststrategie
-              </td>
-            </tr>
-            <tr>
               <td>DevOps &amp; CI/CD — GitHub Actions, Vercel, Monitoring</td>
-              <td>Enterprise-Beratung — ITSM, Release Mgmt, Change Mgmt</td>
+            </tr>
+            <tr>
+              <td>
+                Verteilte Teams — on- und offshore, Abnahme bis live
+              </td>
+              <td>Enterprise-Prozesse — ITSM, Release Mgmt, Change Mgmt</td>
             </tr>
           </tbody>
         </table>
@@ -231,8 +230,7 @@ export default function HomePage() {
               Fundament: 10 Jahre Mercedes-Benz-Ökosystem — PLUS NextGen
               (Stammdatenprodukt MData, Team Südafrika), SFMd (50.000+ KPI,
               2-Wochen-Release), Test und Abnahme. Dieselbe Arbeit, ohne
-              Folienberatung; die Praxis hängt an den eigenen Produkten
-              darunter.
+              Folienberatung.
             </p>
             <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
               <li>
@@ -255,10 +253,20 @@ export default function HomePage() {
                 Verantwortung bis live.
               </li>
             </ul>
-            {/* Plain text on purpose — kein zweiter Primary-Button, Calendly
-                bleibt Hero + Angebotskarte (Founder-Regel P4b). */}
+            {/* Textlink, kein Button — die Founder-Regel P4b verbietet einen
+                ZWEITEN gefuellten Primary-Button, nicht einen Verweis. Eigene
+                utm-Quelle, damit Calendly diesen Einstieg von Hero und
+                Angebotskarte unterscheiden kann (2026-09-14). */}
             <p className="mt-4 text-sm text-text-subtle">
-              Buchbar über „Mandat besprechen“.
+              Buchbar über{" "}
+              <a
+                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-projekte"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                „Mandat besprechen“
+              </a>
+              .
             </p>
           </div>
 
@@ -268,9 +276,8 @@ export default function HomePage() {
               Was ich baue
             </h3>
             <p className="mt-3 leading-relaxed text-text">
-              Dieselbe Arbeitsweise wie unter Neckarshore AI: KI-beschleunigt,
-              DSGVO-by-Design. Ein Flagship, MMPs, native iOS, Skills —
-              Websites entstehen nebenbei.
+              Dieselbe Arbeitsweise, die ich ins Mandat mitbringe:
+              KI-beschleunigt, DSGVO-by-Design, alles getestet.
             </p>
             <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
               <li>
@@ -279,41 +286,18 @@ export default function HomePage() {
                 </strong>{" "}
                 — 23 spezialisierte Agenten (Architektur, Implementation,
                 Security, Refactoring, Marketing), strukturierter Handoff,
-                parallele Ausführung, automatisierte Qualitätssicherung. Die
-                Bauweise hinter allem darunter.
+                automatisierte Qualitätssicherung. Die Bauweise hinter allem.
               </li>
               <li>
-                <strong className="font-semibold">
-                  Flagship — Omnopsis Documentor+X
-                </strong>{" "}
-                — Dokumentations-Engine für Engineering-Teams. Compliance-,
+                <strong className="font-semibold">Omnopsis Documentor+X</strong>{" "}
+                — Dokumentations-Engine für Engineering-Teams: Compliance-,
                 Technik- und Release-Dokumentation aus Git, Jira und
                 Confluence. 905 Tests, 96 API-Endpoints.
               </li>
               <li>
-                <strong className="font-semibold">MMPs</strong> — Minimum
-                Marketable Products: scharf geschnittene, marktreife
-                Werkzeuge. Schlägt eines durch, wird es zum Hauptprodukt.
-                Live unter anderem md-viewer, TrustScope, ClearPath.
-              </li>
-              <li>
-                <strong className="font-semibold">Native iOS</strong> — Kaze
-                und MuscleCat. Nativ mit Swift, Xcode und Claude, inklusive
-                Testautomation. In Entwicklung, demnächst im App Store. Nicht
-                Web-Wrapper.
-              </li>
-              <li>
-                <strong className="font-semibold">Skills</strong> — eine
-                Flotte Claude-Skills für Entwicklung, Businessprozesse und
-                private Anwendungsfälle. Aktive Linien: Obsidian Vault
-                Autopilot, IMAP Autopilot, Paperless Autopilot, Photo
-                Autopilot und Social Scrapers. Trockenlauf zuerst — nichts
-                fliegt ungeprüft.
-              </li>
-              <li>
-                <strong className="font-semibold">Websites</strong> —
-                nebenbei, dieselbe Bauweise: diese Seite, neckarshore.ai,
-                Kundenauftritte.
+                <strong className="font-semibold">Dazu</strong> MMPs, native
+                iOS-Apps und eine Flotte Claude-Skills — schmal geschnitten,
+                alle mit Testautomation.
               </li>
             </ul>
             <p className="mt-4 text-sm text-text-subtle">
@@ -327,25 +311,32 @@ export default function HomePage() {
               </a>
             </p>
 
-            {/* Stack — acht gruppierte Zeilen, keine Komma-Wurst. */}
-            <dl className="mt-6 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
-              <dt className="font-medium text-text">Runtime</dt>
-              <dd>TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python</dd>
-              <dt className="font-medium text-text">UI</dt>
-              <dd>Tailwind CSS, shadcn/ui</dd>
-              <dt className="font-medium text-text">Auth</dt>
-              <dd>Zitadel, NextAuth</dd>
-              <dt className="font-medium text-text">Delivery</dt>
-              <dd>Vercel, GitHub Actions, Docker</dd>
-              <dt className="font-medium text-text">Qualität</dt>
-              <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
-              <dt className="font-medium text-text">iOS</dt>
-              <dd>Swift, Xcode, App Store</dd>
-              <dt className="font-medium text-text">Agenten</dt>
-              <dd>Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI / Grok · OpenAI / Codex</dd>
-              <dt className="font-medium text-text">Integrationen</dt>
-              <dd>Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend</dd>
-            </dl>
+            {/* Stack — acht gruppierte Zeilen, seit dem Konzentrations-Pass
+                (14.09.2026) eingeklappt: kein Einkaeufer liest sie VOR dem
+                Termin, ein Techniker will sie DANACH. Inhalt unveraendert,
+                nur nicht mehr im Lesefluss. Gleiches Muster wie "Fruehere
+                Stationen" weiter unten. */}
+            <details open className="mt-6">
+              <summary>Technologien, mit denen ich arbeite</summary>
+              <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
+                <dt className="font-medium text-text">Runtime</dt>
+                <dd>TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python</dd>
+                <dt className="font-medium text-text">UI</dt>
+                <dd>Tailwind CSS, shadcn/ui</dd>
+                <dt className="font-medium text-text">Auth</dt>
+                <dd>Zitadel, NextAuth</dd>
+                <dt className="font-medium text-text">Delivery</dt>
+                <dd>Vercel, GitHub Actions, Docker</dd>
+                <dt className="font-medium text-text">Qualität</dt>
+                <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
+                <dt className="font-medium text-text">iOS</dt>
+                <dd>Swift, Xcode, App Store</dd>
+                <dt className="font-medium text-text">Agenten</dt>
+                <dd>Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI / Grok · OpenAI / Codex</dd>
+                <dt className="font-medium text-text">Integrationen</dt>
+                <dd>Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend</dd>
+              </dl>
+            </details>
           </div>
         </article>
 
@@ -365,10 +356,13 @@ export default function HomePage() {
             international, Verantwortung bis live.
           </p>
           <Timeline lang="de" />
-          <p className="mt-6 text-sm text-text-subtle">
-            Übergreifend: SCRUM, JIRA, Confluence, REST-APIs, Postman, JSON,
-            ServiceNow, Katalon (Selenium), MS SQL Server, Adobe AEM
-          </p>
+          <details open className="mt-6">
+            <summary>Werkzeuge und Verfahren dieser Jahre</summary>
+            <p className="mt-3 text-sm text-text-subtle">
+              SCRUM, JIRA, Confluence, REST-APIs, Postman, JSON, ServiceNow,
+              Katalon (Selenium), MS SQL Server, Adobe AEM
+            </p>
+          </details>
         </article>
 
         <details>
@@ -515,6 +509,12 @@ export default function HomePage() {
         {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Mandat besprechen" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
+        {/* Herkunftssatz — seit 14.09.2026 hier statt zwischen Kennzahlen
+            und Angeboten: die Person steht neben dem Kontaktweg, nicht im
+            Entscheidungsweg. */}
+        <p className="mb-6 max-w-xl text-sm leading-relaxed text-text-muted">
+          {ORIGIN.de}
+        </p>
         <p className="mb-8 max-w-xl text-base leading-relaxed text-text">
           Ab sofort buchbar — Mandate in Anforderung, Test und Release,
           remote DACH. 20 Minuten über „Mandat besprechen“, sonst kurz per

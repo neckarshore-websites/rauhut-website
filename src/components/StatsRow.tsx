@@ -58,7 +58,7 @@ type Group = { heading: string; stats: [Stat, Stat, Stat] };
  * stops OLD values from creeping back; it cannot tell you whether a NEW one
  * is true.
  */
-const DATA: Record<Lang, { groups: [Group, Group]; origin: string }> = {
+const DATA: Record<Lang, { groups: [Group, Group] }> = {
   de: {
     groups: [
       {
@@ -78,8 +78,6 @@ const DATA: Record<Lang, { groups: [Group, Group]; origin: string }> = {
         ],
       },
     ],
-    origin:
-      "Erstes System mit 16: dBase III — Adressdatenbanken für die IHK. Seit 1993 Beruf, davon 10 Jahre Mercedes-Benz, 10+ Jahre agil, 15+ Mandate in Entwicklung, Einführung, Modernisierung und Auswahl.",
   },
   en: {
     groups: [
@@ -100,13 +98,11 @@ const DATA: Record<Lang, { groups: [Group, Group]; origin: string }> = {
         ],
       },
     ],
-    origin:
-      "First system at 16: dBase III — address databases for the local chamber of commerce. Professional work since 1993, including 10 years at Mercedes-Benz, 10+ years agile, 15+ mandates across development, rollout, modernization and selection.",
   },
 };
 
 export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
-  const { groups, origin } = DATA[lang];
+  const { groups } = DATA[lang];
 
   return (
     <div className="mt-12 sm:mt-14">
@@ -138,12 +134,6 @@ export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
           </dl>
         </div>
       ))}
-      {/* Origin sentence — running prose, smaller than the figures, not a
-          seventh tile. Not duplicated into the hero or the bio paragraph
-          above this component (brief instruction). */}
-      <p className="mt-8 text-sm leading-relaxed text-text-muted sm:mt-10">
-        {origin}
-      </p>
     </div>
   );
 }
