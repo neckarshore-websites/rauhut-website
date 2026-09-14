@@ -30,9 +30,19 @@ test("German homepage renders the primary profile content", async ({ page }) => 
 
   await expect(page.locator("main")).not.toHaveAttribute("lang", "en");
   // P11: the amber section label is a <p>; the real h2 is the headline.
-  await expect(
-    page.getByRole("heading", { level: 2, name: "Konzern-Erfahrung, hands-on KI" })
-  ).toBeVisible();
+  //
+  // ASSERTS THE STRUCTURE, NOT THE WORDING (2026-09-14, concentration pass).
+  // This line used to pin the literal headline "Konzern-Erfahrung, hands-on
+  // KI" and therefore went red on a purely editorial rewrite — the same
+  // confusion of EXAMPLE with GUARANTEE that broke the goldoni search test
+  // on a correct wine-list change. What this test is actually for is that
+  // the summary section has exactly one real h2 carrying the section's
+  // anchor id, under the amber overline. The wording is content and belongs
+  // to the Founder; the structure is the contract.
+  const summaryHeading = page.locator("main h2#zusammenfassung");
+  await expect(summaryHeading).toHaveCount(1);
+  await expect(summaryHeading).toBeVisible();
+  await expect(summaryHeading).not.toBeEmpty();
   await expect(page.locator("main p#zusammenfassung-label")).toHaveText("Zusammenfassung");
   await expect(
     page.getByRole("link", { name: "Impressum" })
@@ -46,8 +56,10 @@ test("English homepage renders localized content and language metadata", async (
 
   await expect(page.locator("main")).toHaveAttribute("lang", "en");
   await expect(
-    page.getByRole("heading", { level: 2, name: "Enterprise experience, hands-on AI" })
-  ).toBeVisible();
+    page.locator("main h2#about")
+  ).toHaveCount(1);
+  await expect(page.locator("main h2#about")).toBeVisible();
+  await expect(page.locator("main h2#about")).not.toBeEmpty();
   await expect(
     page.getByRole("heading", { level: 2, name: "What I bring" })
   ).toBeVisible();

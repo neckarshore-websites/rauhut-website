@@ -12,6 +12,7 @@ import Offers from "@/components/Offers";
 import NavRail from "@/components/NavRail";
 import MobileNav from "@/components/MobileNav";
 import { AVAILABILITY } from "@/lib/availability";
+import { ORIGIN } from "@/lib/origin";
 import { CONTACT_MAILTO } from "@/lib/contact";
 
 export const metadata: Metadata = {
@@ -138,15 +139,14 @@ export default function HomePageEN() {
           About
         </p>
         <h2 id="about" className="mt-2 mb-6 text-2xl font-semibold">
-          Enterprise experience, hands-on AI
+          What I take on
         </h2>
         <p className="text-lg leading-relaxed">
-          Bridge-builder between business and technology — with 10+ years
-          of experience in international automotive projects
-          (Mercedes-Benz) and a second career as an AI product builder.
-          Today I combine requirements and test management from the
-          corporate world with hands-on AI engineering: own products,
-          multi-agent development processes, full-stack delivery.
+          Ten years in the Mercedes-Benz ecosystem: requirements, test and
+          release in programmes that have to run 24/7. The same work
+          freelance since October 2025 — with the difference that I now
+          build the tools myself, and can therefore judge what AI carries
+          in an enterprise process and what it does not.
         </p>
         <StatsRow lang="en" />
         <div className="mt-10 sm:mt-12">
@@ -196,10 +196,10 @@ export default function HomePageEN() {
           <thead>
             <tr>
               <th scope="col" className="w-1/2">
-                Today
+                The mandate
               </th>
               <th scope="col" className="w-1/2">
-                Foundation
+                What it stands on
               </th>
             </tr>
           </thead>
@@ -209,33 +209,32 @@ export default function HomePageEN() {
                 Technical Product Ownership — vision, backlog, delivery
               </td>
               <td>
+                AI delivery — multi-agent architectures, LLM integration,
+                prompt engineering
+              </td>
+            </tr>
+            <tr>
+              <td>
                 Requirements Management — from rough concept to technical
                 story
               </td>
-            </tr>
-            <tr>
               <td>
-                AI Product Development — multi-agent architectures, LLM
-                integration, prompt engineering
-              </td>
-              <td>
-                Project Management — classic &amp; agile, international
-                teams
+                Full-stack — NestJS, TypeScript, PostgreSQL, Redis, Docker
               </td>
             </tr>
             <tr>
               <td>
-                Full-Stack Engineering — NestJS, TypeScript, PostgreSQL,
-                Redis, Docker
+                Test and Release Management — strategy, automation, cadence
               </td>
-              <td>
-                Test Management — E2E, API, automation, test strategy
-              </td>
-            </tr>
-            <tr>
               <td>DevOps &amp; CI/CD — GitHub Actions, Vercel, monitoring</td>
+            </tr>
+            <tr>
               <td>
-                Enterprise Consulting — ITSM, Release Mgmt, Change Mgmt
+                Distributed teams — on- and offshore, acceptance through
+                go-live
+              </td>
+              <td>
+                Enterprise processes — ITSM, Release Mgmt, Change Mgmt
               </td>
             </tr>
           </tbody>
@@ -283,8 +282,7 @@ export default function HomePageEN() {
               Foundation: 10 years in the Mercedes-Benz ecosystem — PLUS
               NextGen (master-data product MData, team in South Africa), SFMd (50,000+
               KPIs, 2-week release), test and acceptance. The same work, not
-              slide-deck consulting; the practice sits in the products
-              below.
+              slide-deck consulting.
             </p>
             <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
               <li>
@@ -320,9 +318,8 @@ export default function HomePageEN() {
               What I build
             </h3>
             <p className="mt-3 leading-relaxed text-text">
-              The same way of working as under Neckarshore AI:
-              AI-accelerated, GDPR-by-design. One flagship, MMPs, native
-              iOS, skills — websites on the side.
+              The same way of working I bring into the mandate:
+              AI-accelerated, GDPR-by-design, everything tested.
             </p>
             <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
               <li>
@@ -331,40 +328,19 @@ export default function HomePageEN() {
                 </strong>{" "}
                 — 23 specialized agents (architecture, implementation,
                 security, refactoring, marketing), structured handoff,
-                parallel execution, automated quality assurance. The way of
-                working behind everything below.
+                automated quality assurance. The way of working behind
+                everything.
               </li>
               <li>
-                <strong className="font-semibold">
-                  Flagship — Omnopsis Documentor+X
-                </strong>{" "}
-                — documentation engine for engineering teams. Compliance,
+                <strong className="font-semibold">Omnopsis Documentor+X</strong>{" "}
+                — documentation engine for engineering teams: compliance,
                 technical and release documentation from Git, Jira and
                 Confluence. 905 tests, 96 API endpoints.
               </li>
               <li>
-                <strong className="font-semibold">MMPs</strong> — Minimum
-                Marketable Products: sharply scoped, market-ready tools. If
-                one breaks through, it becomes a flagship. Live include
-                md-viewer, TrustScope, ClearPath.
-              </li>
-              <li>
-                <strong className="font-semibold">Native iOS</strong> — Kaze
-                and MuscleCat. Native Swift, Xcode and Claude, including
-                test automation. In development, coming to the App Store.
-                Not web wrappers.
-              </li>
-              <li>
-                <strong className="font-semibold">Skills</strong> — a fleet
-                of Claude skills for development, business processes and
-                private use cases. Active lines: Obsidian Vault Autopilot,
-                IMAP Autopilot, Paperless Autopilot, Photo Autopilot and
-                Social Scrapers. Dry-run first — nothing ships unreviewed.
-              </li>
-              <li>
-                <strong className="font-semibold">Websites</strong> — on
-                the side, same build: this site, neckarshore.ai, client
-                sites.
+                <strong className="font-semibold">Alongside</strong> that:
+                MMPs, native iOS apps and a fleet of Claude skills — sharply
+                scoped, all with test automation.
               </li>
             </ul>
             <p className="mt-4 text-sm text-text-subtle">
@@ -378,25 +354,29 @@ export default function HomePageEN() {
               </a>
             </p>
 
-            {/* Stack — eight grouped lines, not a comma string. */}
-            <dl className="mt-6 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
-              <dt className="font-medium text-text">Runtime</dt>
-              <dd>TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python</dd>
-              <dt className="font-medium text-text">UI</dt>
-              <dd>Tailwind CSS, shadcn/ui</dd>
-              <dt className="font-medium text-text">Auth</dt>
-              <dd>Zitadel, NextAuth</dd>
-              <dt className="font-medium text-text">Delivery</dt>
-              <dd>Vercel, GitHub Actions, Docker</dd>
-              <dt className="font-medium text-text">Quality</dt>
-              <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
-              <dt className="font-medium text-text">iOS</dt>
-              <dd>Swift, Xcode, App Store</dd>
-              <dt className="font-medium text-text">Agents</dt>
-              <dd>Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI / Grok · OpenAI / Codex</dd>
-              <dt className="font-medium text-text">Integrations</dt>
-              <dd>Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend</dd>
-            </dl>
+            {/* Stack — eight grouped lines, collapsed since the
+                concentration pass (2026-09-14). Mirrors the German page. */}
+            <details className="mt-6">
+              <summary>Technologies I work with</summary>
+              <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
+                <dt className="font-medium text-text">Runtime</dt>
+                <dd>TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python</dd>
+                <dt className="font-medium text-text">UI</dt>
+                <dd>Tailwind CSS, shadcn/ui</dd>
+                <dt className="font-medium text-text">Auth</dt>
+                <dd>Zitadel, NextAuth</dd>
+                <dt className="font-medium text-text">Delivery</dt>
+                <dd>Vercel, GitHub Actions, Docker</dd>
+                <dt className="font-medium text-text">Quality</dt>
+                <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
+                <dt className="font-medium text-text">iOS</dt>
+                <dd>Swift, Xcode, App Store</dd>
+                <dt className="font-medium text-text">Agents</dt>
+                <dd>Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI / Grok · OpenAI / Codex</dd>
+                <dt className="font-medium text-text">Integrations</dt>
+                <dd>Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend</dd>
+              </dl>
+            </details>
           </div>
         </article>
 
@@ -416,10 +396,13 @@ export default function HomePageEN() {
             international, ownership through go-live.
           </p>
           <Timeline lang="en" />
-          <p className="mt-6 text-sm text-text-subtle">
-            Overall: SCRUM, JIRA, Confluence, REST APIs, Postman, JSON,
-            ServiceNow, Katalon (Selenium), MS SQL Server, Adobe AEM
-          </p>
+          <details className="mt-6">
+            <summary>Tools and methods of those years</summary>
+            <p className="mt-3 text-sm text-text-subtle">
+              SCRUM, JIRA, Confluence, REST APIs, Postman, JSON, ServiceNow,
+              Katalon (Selenium), MS SQL Server, Adobe AEM
+            </p>
+          </details>
         </article>
 
         <details>
@@ -583,6 +566,12 @@ export default function HomePageEN() {
         {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Discuss a mandate" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
+        {/* Origin sentence — here since 2026-09-14 instead of between the
+            figures and the offers: the person sits next to the contact
+            channels, not in the decision path. Mirrors the German page. */}
+        <p className="mb-6 max-w-xl text-sm leading-relaxed text-text-muted">
+          {ORIGIN.en}
+        </p>
         <p className="mb-8 max-w-xl text-base leading-relaxed text-text">
           Available immediately — mandates in requirements, test and
           release, remote DACH. Twenty minutes via “Discuss a mandate”, or
