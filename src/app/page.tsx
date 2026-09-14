@@ -253,10 +253,10 @@ export default function HomePage() {
                 Verantwortung bis live.
               </li>
             </ul>
-            {/* Textlink, kein Button — die Founder-Regel P4b verbietet einen
-                ZWEITEN gefuellten Primary-Button, nicht einen Verweis. Eigene
-                utm-Quelle, damit Calendly diesen Einstieg von Hero und
-                Angebotskarte unterscheiden kann (2026-09-14). */}
+            {/* Text link, not a button — the P4b rule forbids a SECOND
+                filled primary button, not a reference. Its own utm source so
+                Calendly can tell this entry point apart from the hero and the
+                offer card (2026-09-14). */}
             <p className="mt-4 text-sm text-text-subtle">
               Buchbar über{" "}
               <a
@@ -311,11 +311,12 @@ export default function HomePage() {
               </a>
             </p>
 
-            {/* Stack — acht gruppierte Zeilen, seit dem Konzentrations-Pass
-                (14.09.2026) eingeklappt: kein Einkaeufer liest sie VOR dem
-                Termin, ein Techniker will sie DANACH. Inhalt unveraendert,
-                nur nicht mehr im Lesefluss. Gleiches Muster wie "Fruehere
-                Stationen" weiter unten. */}
+            {/* Stack — eight grouped lines, moved into a <details> by the
+                concentration pass (2026-09-14): no buyer reads them BEFORE
+                the call, every engineer wants them AFTER it. Content
+                unchanged, just out of the reading flow. Same pattern as
+                "Frühere Stationen" below. Kept `open` by Founder decision —
+                heading and collapsibility yes, hidden by default no. */}
             <details open className="mt-6">
               <summary>Technologien, mit denen ich arbeite</summary>
               <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
@@ -509,9 +510,9 @@ export default function HomePage() {
         {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Mandat besprechen" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
-        {/* Herkunftssatz — seit 14.09.2026 hier statt zwischen Kennzahlen
-            und Angeboten: die Person steht neben dem Kontaktweg, nicht im
-            Entscheidungsweg. */}
+        {/* Origin sentence — here since 2026-09-14 instead of between the
+            figures and the offers: the person sits next to the contact
+            channels, not in the decision path. Mirrors the English page. */}
         <p className="mb-6 max-w-xl text-sm leading-relaxed text-text-muted">
           {ORIGIN.de}
         </p>
