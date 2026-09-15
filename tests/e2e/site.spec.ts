@@ -69,8 +69,8 @@ test("English homepage renders localized content and language metadata", async (
 });
 
 /**
- * Calendly CTAs — Founder instruction 2026-08-16, three entry points as of
- * 2026-09-11 d (P3 offers pass):
+ * Calendly CTAs — Founder instruction 2026-08-16, two entry points as of
+ * 2026-09-15 (the Test/Release card was folded into the lead offer):
  *
  * 1. The hero's own CTA ("Mandat besprechen" / "Discuss a mandate"),
  *    `utm_source=rauhut-com`, scoped to the <header> — untouched by this
@@ -82,10 +82,12 @@ test("English homepage renders localized content and language metadata", async (
  *    page-wide count for this href is 2 from this pass onward, not 1 —
  *    asserted per-region below rather than as one page-wide count so a
  *    failure names WHICH occurrence went missing.
- * 3. The Angebote/Offers second card's own CTA,
- *    `utm_source=rauhut-com-test` — a distinct UTM so Test/Release
- *    enquiries stay distinguishable from the general mandate CTA in
- *    Calendly's own reporting.
+ * A third entry point lived here until 2026-09-15: the Test/Release
+ * card's own CTA, `utm_source=rauhut-com-test`. Founder decision — that
+ * card pointed at the SAME Calendly address as the lead offer and differed
+ * only by its UTM tag, so it read as two doors into one room. It is now a
+ * sentence inside the lead offer. If `rauhut-com-test` reappears in
+ * Calendly reporting, it is an old link, not a live one.
  *
  * P5b (2026-09-12) removed a 4th entry point that used to live here: the
  * KI-Potenzialanalyse bridge SECTION's own weaker link
@@ -108,8 +110,6 @@ test("English homepage renders localized content and language metadata", async (
  *    the kind that ships unnoticed because nothing looks broken.
  */
 const CALENDLY = "https://calendly.com/rauhut/20min?utm_source=rauhut-com";
-const CALENDLY_TEST =
-  "https://calendly.com/rauhut/20min?utm_source=rauhut-com-test";
 
 for (const [language, path, offersRegionName] of [
   ["German", "/", "Was Sie buchen können"],
@@ -130,10 +130,6 @@ for (const [language, path, offersRegionName] of [
       offers.locator(`a[href="${CALENDLY}"]`),
       "the Angebote/Offers lead card repeats the hero's exact CTA on purpose"
     ).toHaveCount(1);
-    await expect(
-      offers.locator(`a[href="${CALENDLY_TEST}"]`),
-      "the Angebote/Offers Test-&-Release card's own CTA must survive a content pass"
-    ).toHaveCount(1);
 
     // Positive assertions first (above), so the absence check below cannot
     // go vacuously green on a page where every CTA vanished entirely.
@@ -145,23 +141,24 @@ for (const [language, path, offersRegionName] of [
 }
 
 /**
- * Angebote/Offers section — P3 (2026-09-11 d): one lead offer carrying the
- * page's only other filled-Primary button, two visually weaker ones.
- * "Weaker" is a CSS-class claim with no other guard in this suite — a
- * refactor that made Card 2 or 3 filled, or dropped Card 1's fill, would
- * look fine everywhere else and still violate the brief's core rule
- * ("nur das Leitangebot hat den gefüllten Primary-Button").
+ * Angebote/Offers section — P3 (2026-09-11 d), two offers since
+ * 2026-09-15: one lead offer carrying the page's only other filled-Primary
+ * button, one visually weaker one beneath it. "Weaker" is a CSS-class
+ * claim with no other guard in this suite — a refactor that made Card 2
+ * filled, or dropped Card 1's fill, would look fine everywhere else and
+ * still violate the brief's core rule ("nur das Leitangebot hat den
+ * gefüllten Primary-Button").
  */
-for (const [language, path, regionName, titles] of [
+for (const [language, path, regionName, titles, leadMentions] of [
   [
     "German",
     "/",
     "Was Sie buchen können",
     [
       "Technical Product Ownership",
-      "Test, Release, Abnahme",
       "KI-Potenzialanalyse",
     ],
+    /Teststrategie[\s\S]*Release-Takt/,
   ],
   [
     "English",
@@ -169,12 +166,12 @@ for (const [language, path, regionName, titles] of [
     "What you can book",
     [
       "Technical Product Ownership",
-      "Test, release, acceptance",
       "AI potential analysis",
     ],
+    /Test strategy[\s\S]*release cadence/,
   ],
 ] as const) {
-  test(`${language} homepage lists three offers with exactly one filled-Primary CTA`, async ({
+  test(`${language} homepage lists two offers with exactly one filled-Primary CTA`, async ({
     page,
   }) => {
     await page.goto(path);
@@ -191,6 +188,28 @@ for (const [language, path, regionName, titles] of [
     // Exactly one CTA in the section carries the filled-Primary class
     // (`bg-text`) — the same class the hero's own button uses.
     await expect(section.locator("a.bg-text")).toHaveCount(1);
+
+    // Exactly two offers — asserted as a COUNT, not only as "both titles
+    // are visible". Measured 2026-09-15: the visible-titles loop alone went
+    // green against the un-folded three-card page, because both surviving
+    // titles were still present there. A guard that cannot fail on the
+    // state it was written to detect is not a guard.
+    await expect(
+      section.getByRole("heading", { level: 3 }),
+      "a third offer card would mean the 2026-09-15 fold was undone"
+    ).toHaveCount(2);
+
+    // The Test/Release wording was folded INTO the lead offer's body rather
+    // than deleted, so it is asserted against the LEAD CARD, not against the
+    // section. Scoped to the section it also passed on the un-folded page —
+    // the old Card 2 carried the same words, so the assertion could not tell
+    // "folded into the lead" from "still its own card".
+    const leadCard = section.locator("div.rounded-xl:has(a.bg-text)");
+    await expect(leadCard).toHaveCount(1);
+    await expect(
+      leadCard,
+      "the folded Test/Release sentence must survive a copy pass"
+    ).toContainText(leadMentions);
   });
 }
 
