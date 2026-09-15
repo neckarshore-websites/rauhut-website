@@ -24,25 +24,16 @@ type Offer = {
  * or removed, this card just repeats its own link with different, shorter
  * copy, the same relationship the hero already has with it.
  */
-const COPY: Record<Lang, { offers: [Offer, Offer, Offer] }> = {
+const COPY: Record<Lang, { offers: [Offer, Offer] }> = {
   de: {
     offers: [
       {
         title: "Technical Product Ownership",
-        body: "Mandate in Konzernprogrammen — Anforderung, Backlog, verteilte Teams, Delivery. Automotive, Stammdaten, Programme, die live gehen müssen.",
+        body: "Mandate in Konzernprogrammen — Anforderung, Backlog, verteilte Teams, Delivery. Teststrategie, Automatisierung und Release-Takt gehören dazu, damit die letzte Meile nicht das Programm hält. Automotive, Stammdaten, Programme, die live gehen müssen.",
         cta: {
           label: "Mandat besprechen (20 Min)",
           href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com",
           kind: "primary",
-        },
-      },
-      {
-        title: "Test, Release, Abnahme",
-        body: "Teststrategie, Automatisierung, Release-Takt. Damit die letzte Meile nicht das Programm hält.",
-        cta: {
-          label: "Gespräch zu Test & Release",
-          href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com-test",
-          kind: "outline",
         },
       },
       {
@@ -60,20 +51,11 @@ const COPY: Record<Lang, { offers: [Offer, Offer, Offer] }> = {
     offers: [
       {
         title: "Technical Product Ownership",
-        body: "Mandates in enterprise programmes — requirements, backlog, distributed teams, delivery. Automotive, master data, programmes that have to go live.",
+        body: "Mandates in enterprise programmes — requirements, backlog, distributed teams, delivery. Test strategy, automation and release cadence are part of the mandate, so the last mile does not stall the programme. Automotive, master data, programmes that have to go live.",
         cta: {
           label: "Discuss a mandate (20 min)",
           href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com",
           kind: "primary",
-        },
-      },
-      {
-        title: "Test, release, acceptance",
-        body: "Test strategy, automation, release cadence. So the last mile does not stall the programme.",
-        cta: {
-          label: "Talk about test & release",
-          href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com-test",
-          kind: "outline",
         },
       },
       {
@@ -122,11 +104,10 @@ export default function Offers({ lang = "de" }: { lang?: Lang }) {
         </a>
       </div>
 
-      {/* Two weaker offers — smaller heading, outline or plain-text CTA,
-          never filled. Card 3 (kind: "text") must never look like a
-          button — that is the rule the brief is protecting. */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {rest.map((offer) => (
+      {/* The weaker offer — stacked beneath the lead rather than beside it,
+          since the 2026-09-15 fold left only one: smaller heading, plain-text
+          CTA, never filled. That is the rule the brief is protecting. */}
+      {rest.map((offer) => (
           <div key={offer.title} className={`${CARD} p-5`}>
             <h3 className="text-base font-semibold">
               {offer.title}
@@ -153,7 +134,6 @@ export default function Offers({ lang = "de" }: { lang?: Lang }) {
             )}
           </div>
         ))}
-      </div>
     </div>
   );
 }

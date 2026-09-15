@@ -121,7 +121,8 @@ export default function HomePage() {
           Kennzahlen/Herkunftssatz/Kundenzeile and before Kernkompetenzen.
           One lead offer with the page's second filled-Primary CTA (same
           Calendly as the hero, same utm_source=rauhut-com, on purpose);
-          the other two are visually weaker (outline / plain text link).
+          the second is visually weaker (plain text link). Two offers since
+          2026-09-15 — the Test/Release card was folded into the lead.
           The fuller KI-Potenzialanalyse section further down is untouched
           — Card 3 here is a teaser for it, not a replacement. */}
       <Reveal className="py-20 sm:py-24" aria-labelledby="angebote">

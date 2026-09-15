@@ -10,8 +10,7 @@ Diplom-Betriebswirt, Business Information Systems, DHBW Stuttgart (formerly BA S
 
 ## Offers
 
-- **Technical Product Ownership** (lead offer) — mandates in enterprise programmes: requirements, backlog, distributed teams, delivery. Automotive, master data, programmes that have to go live.
-- **Test, release, acceptance** — test strategy, automation, release cadence.
+- **Technical Product Ownership** (lead offer) — mandates in enterprise programmes: requirements, backlog, distributed teams, delivery. Test strategy, automation and release cadence are part of the mandate. Automotive, master data, programmes that have to go live.
 - **AI potential analysis** — a workshop day assessing where AI agents carry in real processes, via Neckarshore AI (https://neckarshore.ai/ki-beratung).
 
 ## Current Mandate
