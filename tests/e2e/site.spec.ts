@@ -632,3 +632,90 @@ test("stylesheet page is reachable, footer-linked nofollow, and marked noindex",
   const sitemap = await page.goto("/sitemap.xml");
   expect(await sitemap?.text()).not.toContain("/stylesheet");
 });
+
+// Stats row, phone widths. On 2026-09-16 the three-across grid let the
+// figures run into each other on a real iPhone ("13.000+4.000+"): at 390 px
+// the ink of "13.000+" ended at 157 px while "4.000+" began at 143 px. The
+// assertion measures the glyph extent (a Range over the text), not the box —
+// the box stayed within its column the whole time, which is why nothing saw
+// it. Below `sm` the two groups sit side by side, three rows each, and the
+// rows line up across both columns.
+for (const [path, groups] of [
+  ["/", ["Mandat", "Heute"]],
+  ["/en", ["Mandates", "Now"]],
+] as const) {
+  test(`stats figures never overlap or clip (${path})`, async ({ page }) => {
+    for (const width of [320, 360, 390, 414, 768, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+
+      const figures = await page.evaluate((names) => {
+        return names.flatMap((name) =>
+          [...document.querySelectorAll(`dl[aria-label="${name}"] dd`)].map(
+            (dd) => {
+              const range = document.createRange();
+              range.selectNodeContents(dd);
+              const ink = range.getBoundingClientRect();
+              const box = dd.getBoundingClientRect();
+              return {
+                group: name,
+                text: dd.textContent?.trim() ?? "",
+                inkLeft: ink.left,
+                inkRight: ink.right,
+                inkTop: ink.top,
+                inkBottom: ink.bottom,
+                boxRight: box.right,
+                top: box.top,
+              };
+            },
+          ),
+        );
+      }, [...groups]);
+
+      expect(figures, `six figures at ${width}px`).toHaveLength(6);
+
+      for (const f of figures) {
+        expect(
+          f.inkRight,
+          `"${f.text}" overflows its column at ${width}px`,
+        ).toBeLessThanOrEqual(f.boxRight + 0.5);
+        expect(
+          f.inkRight,
+          `"${f.text}" is clipped by the viewport at ${width}px`,
+        ).toBeLessThanOrEqual(width);
+      }
+
+      for (let i = 0; i < figures.length; i++) {
+        for (let j = i + 1; j < figures.length; j++) {
+          const a = figures[i];
+          const b = figures[j];
+          const overlap =
+            a.inkLeft < b.inkRight - 0.5 &&
+            b.inkLeft < a.inkRight - 0.5 &&
+            a.inkTop < b.inkBottom - 0.5 &&
+            b.inkTop < a.inkBottom - 0.5;
+          expect(
+            overlap,
+            `"${a.text}" and "${b.text}" overlap at ${width}px`,
+          ).toBe(false);
+        }
+      }
+
+      if (width < 640) {
+        const [first, second] = groups;
+        const left = figures.filter((f) => f.group === first);
+        const right = figures.filter((f) => f.group === second);
+        for (let row = 0; row < 3; row++) {
+          expect(
+            right[row].inkLeft,
+            `"${second}" sits beside "${first}" at ${width}px`,
+          ).toBeGreaterThan(left[row].inkRight);
+          expect(
+            Math.abs(right[row].top - left[row].top),
+            `row ${row + 1} lines up across both columns at ${width}px`,
+          ).toBeLessThanOrEqual(1);
+        }
+      }
+    }
+  });
+}

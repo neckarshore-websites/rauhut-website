@@ -104,21 +104,32 @@ const DATA: Record<Lang, { groups: [Group, Group] }> = {
 export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
   const { groups } = DATA[lang];
 
+  // Phone (below `sm`): the two groups become two columns — "Mandat" left,
+  // "Heute" right — each stacking its three figures, so the page still reads
+  // then/now. Nested subgrids share the four row tracks (heading + three
+  // figures) across both columns, so a label that wraps to three lines in
+  // one column cannot push its row out of line with the other.
+  // From `sm` up: the original layout — groups stacked, three figures across.
+  // The figure size scales with the viewport below `sm` (clamp): at 320 px a
+  // fixed 2.2rem "50.000+" is wider than its half-width column. Founder
+  // report 2026-09-16, iPhone: "13.000+4.000+" ran together in the old grid.
   return (
-    <div className="mt-12 sm:mt-14">
+    <div className="mt-12 grid grid-cols-2 grid-rows-[auto_repeat(3,auto)] gap-x-4 gap-y-6 sm:mt-14 sm:block">
       {groups.map((group, i) => (
         <div
           key={group.heading}
-          // More space between the two groups than inside one — the gap
-          // above the second group (mt-10/12) is deliberately larger than
-          // the gap between a group's own heading and its figures (mt-4).
-          className={i === 0 ? undefined : "mt-10 sm:mt-12"}
+          // More space between the two stacked groups than inside one — the
+          // gap above the second group (sm:mt-12) is deliberately larger than
+          // the gap between a group's own heading and its figures (sm:mt-4).
+          className={`row-span-4 grid grid-rows-subgrid sm:block${
+            i === 0 ? "" : " sm:mt-12"
+          }`}
         >
           <p className="text-sm font-semibold text-text">
             {group.heading}
           </p>
           <dl
-            className="mt-4 grid grid-cols-3 gap-x-4 gap-y-6"
+            className="row-span-3 grid grid-rows-subgrid sm:mt-4 sm:grid-cols-3 sm:grid-rows-none sm:gap-x-4 sm:gap-y-6"
             aria-label={group.heading}
           >
             {group.stats.map((stat) => (
@@ -126,7 +137,7 @@ export default function StatsRow({ lang = "de" }: { lang?: Lang }) {
                 <dt className="order-2 mt-1.5 text-sm leading-snug text-text-muted">
                   {stat.label}
                 </dt>
-                <dd className="order-1 text-[2.2rem] font-semibold leading-none tracking-[-0.03em] text-text sm:text-[2.4rem]">
+                <dd className="order-1 text-[clamp(1.75rem,9vw,2.2rem)] font-semibold leading-none tracking-[-0.03em] text-text sm:text-[2.4rem]">
                   {stat.value}
                 </dd>
               </div>
