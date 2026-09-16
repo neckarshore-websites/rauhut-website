@@ -648,6 +648,8 @@ for (const [path, groups] of [
     for (const width of [320, 360, 390, 414, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(path);
+      // Measure the self-hosted font, not the fallback it replaces.
+      await page.evaluate(() => document.fonts.ready);
 
       const figures = await page.evaluate((names) => {
         return names.flatMap((name) =>
