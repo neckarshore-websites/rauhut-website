@@ -4,6 +4,10 @@ import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import { CAPTCHA_FORM_FIELD, verifyCaptchaToken } from "@/lib/captcha/verify";
 import {
+  CONFIRMATION_SUBJECT,
+  buildConfirmationText,
+} from "@/lib/contact-confirmation";
+import {
   CONTACT_COPY,
   type ContactFieldValues,
   type ContactState,
@@ -215,6 +219,24 @@ export async function sendContact(
         values: echoValues,
       };
     }
+
+    // ----- Eingangsbestaetigung an den Absender ----------------------
+    // BEST-EFFORT: an dieser Stelle ist die Anfrage bereits zugestellt.
+    // Scheitert die Kopie an den Absender, darf das NIEMALS aus einer
+    // erfolgreich zugestellten Anfrage einen Fehler machen — sonst schickt
+    // er sie ein zweites Mal ab. replyTo zeigt auf mein Postfach.
+    try {
+      await transporter.sendMail({
+        from: config.from,
+        to: email,
+        replyTo: config.to,
+        subject: CONFIRMATION_SUBJECT[lang],
+        text: buildConfirmationText(lang, name, message),
+      });
+    } catch (err) {
+      console.error("[rauhut Contact] confirmation copy failed", err);
+    }
+
     return { status: "success" };
   } catch (err) {
     console.error("[rauhut Contact] SMTP send threw", err);
