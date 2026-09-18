@@ -39,9 +39,14 @@ test("beide Betreffzeilen nennen den Empfaenger der Anfrage", () => {
 });
 
 test("beide Sprachen tragen einen Weg zurueck", () => {
+  // Zeilenweise und auf Gleichheit, nicht per includes() auf den Gesamttext:
+  // eine Teilstring-Pruefung auf eine URL waere schwaecher (der Treffer
+  // duerfte irgendwo stehen, auch als Teil einer fremden Adresse). CodeQL
+  // meldet genau das als js/incomplete-url-substring-sanitization — in
+  // neckarshore-website #258 an derselben Stelle aufgeschlagen.
   for (const lang of ["de", "en"]) {
-    const text = buildConfirmationText(lang, "X", "Y");
-    assert.ok(text.includes("https://rauhut.com"));
-    assert.ok(text.includes("calendly.com/rauhut/20min"));
+    const lines = buildConfirmationText(lang, "X", "Y").split("\n");
+    assert.ok(lines.includes("https://rauhut.com"));
+    assert.ok(lines.includes("https://calendly.com/rauhut/20min"));
   }
 });
