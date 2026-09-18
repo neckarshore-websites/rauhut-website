@@ -46,7 +46,8 @@ test("beide Sprachen tragen einen Weg zurueck", () => {
   // neckarshore-website #258 an derselben Stelle aufgeschlagen.
   for (const lang of ["de", "en"]) {
     const lines = buildConfirmationText(lang, "X", "Y").split("\n");
-    assert.ok(lines.includes("https://rauhut.com"));
-    assert.ok(lines.includes("https://calendly.com/rauhut/20min"));
+    const countExact = (url) => lines.filter((l) => l === url).length;
+    assert.equal(countExact("https://rauhut.com"), 1);
+    assert.equal(countExact("https://calendly.com/rauhut/20min"), 1);
   }
 });
