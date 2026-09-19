@@ -1,0 +1,72 @@
+name: CodeQL
+
+# Static analysis (SAST) for the site's own TypeScript/JavaScript source.
+# Public-repo supply-chain hardening — #270 estate standard, §3 control 4.
+# Retrofitted 2026-09-19 on Founder decision: three of five website repos ran
+# no code scanner at all.
+#
+# THE ARGUMENT IS NOT THEORETICAL. The weak URL assertion that CodeQL flagged
+# in neckarshore-website #258 stood WORD-FOR-WORD in rauhut-website too, and
+# would have stayed there. It was found only because the same test happened to
+# exist in a neighbouring repo — a coincidence, not a mechanism.
+#
+# Language: javascript-typescript ONLY. The single Python file (scripts/subset-fonts.py) is a standalone build-time tooling script, not analyzable application source — so `python` is intentionally NOT added (dispatch §2c / §2a "owner's build-time call").
+#
+# `languages:` is PLURAL on codeql-action/init — the singular `language:` is
+# silently ignored and analyzes nothing (#270 §1.3, pilot-caught).
+#
+# build-mode: none — js/ts is interpreted, no compilation step to trace.
+#
+# ACTIONS ARE SHA-PINNED HERE, unlike this repo's other workflows, which use
+# floating tags. Deliberate and deliberately narrow: this is the one workflow
+# holding `security-events: write`, and a security gate that resolves a mutable
+# tag is the weakest link in the thing it exists to protect. The wider
+# tag-versus-SHA divergence across the website repos is reported, not swept in
+# here.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly Monday, staggered against this repo's other crons and against the
+    # sibling repos' CodeQL slots, off top-of-hour free-tier congestion.
+    - cron: "31 3 * * 1"
+
+# Least-privilege default; the analyze job re-declares what it needs.
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # Job-scoped write — the SARIF upload needs security-events:write; nothing
+    # else does. Job-level permissions REPLACE the workflow default, so
+    # contents:read is restated here (#270 §1.3).
+    permissions:
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript]
+
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          category: "/language:${{ matrix.language }}"
