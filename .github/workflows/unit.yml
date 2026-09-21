@@ -41,3 +41,13 @@ jobs:
 
       - name: Run contact-action + lighthouse-url unit tests
         run: npm run test:unit
+
+      # Agent-file drift gate (#2360). The suite above now includes the gate's PURE
+      # tests (scripts/check-agent-files.test.mjs, appended to test:unit) — but those
+      # run against fixtures and would stay green in a repo whose AGENTS.md had been
+      # deleted. This step is the half that opens the SHIPPED file: it compares the
+      # foreign nextjs-agent-rules block against scripts/nextjs-agent-rules.expected.md
+      # and fails when it changes, vanishes, or turns up in CLAUDE.md. No `next dev`
+      # runs in this job, so the generator cannot repair the deviation being measured.
+      - name: Check agent files for foreign-block drift
+        run: npm run check:agent-files
