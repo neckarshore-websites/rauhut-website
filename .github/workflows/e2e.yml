@@ -130,11 +130,25 @@ jobs:
       - name: Capture e2e reporter (playwright --list)
         run: npx playwright test --grep-invert @external --list > /tmp/e2e-list.out 2>&1 || true
 
+      # Die GEGATETEN Unit-Suiten. `needs:` greift NICHT workflow-uebergreifend, dieser Job kann
+      # das Ergebnis von unit.yml also nicht abholen — er muss die Suiten selbst fahren. Das ist
+      # keine zweite Absicherung, sondern die einzige Art, an ihre Zahl zu kommen.
+      # `|| true`: ein roter Lauf soll trotzdem eine stats.json schreiben; die Rotfaerbung traegt
+      # sich selbst, weil emit-test-stats.sh red=true setzt, sobald ein Reporter fail>0 meldet.
+      # Beide Suiten sind `node --test` und schreiben je eine eigene Datei; gleichnamige Typen
+      # addiert der Emitter.
+      - name: Capture node-test reporters (gated unit suites)
+        run: |
+          npm run test:unit > /tmp/unit.out 2>&1 || true
+          npm run test:lighthouse:unit > /tmp/lighthouse-unit.out 2>&1 || true
+
       # Pinned to the full commit SHA of test-stats-action (third-party actions are SHA-pinned,
-      # never tag-floated). 54ae407 is the PIR-passed pin — the same pin md-viewer + trustscope
-      # run. declared left empty: no executed-but-ungated suite is counted.
+      # never tag-floated). Bumped 54ae407 -> 893875d on 2026-09-22: 54ae407 (2026-07-08) predates
+      # the node-test/tsx adapters (6130f0f, 2026-07-18) and would have ignored both unit reporters
+      # above — a runners: line alone changes nothing without this bump (#47).
+      # declared left empty: no executed-but-ungated suite is counted.
       - name: Emit stats.json
-        uses: neckarshore-ai/test-stats-action@54ae407769bdfea6b8fed2672f0ceefa5ef2588a
+        uses: neckarshore-ai/test-stats-action@893875deeeaed23438bb02fbb988dfa143a53fd7
         with:
           repo: ${{ github.repository }}
           out: stats.json
@@ -142,6 +156,8 @@ jobs:
           test_result: ${{ needs.e2e.result }}
           runners: |
             e2e:playwright:/tmp/e2e-list.out
+            unit:node-test:/tmp/unit.out
+            unit:node-test:/tmp/lighthouse-unit.out
 
       # Structural contract gate — invariants that hold on BOTH green and red runs. Deliberately
       # does NOT assert a golden total (a red run legitimately undercounts and must still emit).
