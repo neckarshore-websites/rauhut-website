@@ -26,16 +26,26 @@ let t = site;
 // The motif: a release path of five stations. `lit` is the station that
 // glows — the last one on the banner ("live"), the first one on the
 // booking card ("this is where it starts").
-function releasePath({ x0, x1, y, r, stroke, lit }) {
-  const n = 5;
+function releasePath({ x0, x1, y, r, stroke, lit, n = 5, allLit = false, gates = false }) {
   const step = (x1 - x0) / (n - 1);
   const segFrom = lit === 0 ? x0 : x0 + step * (n - 2);
   const segTo = lit === 0 ? x0 + step : x1;
   let s = `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${t.line}" stroke-width="${stroke}"/>`;
-  s += `<line x1="${segFrom}" y1="${y}" x2="${segTo}" y2="${y}" stroke="${t.live}" stroke-width="${stroke}"/>`;
+  s += allLit
+    ? `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="${t.live}" stroke-width="${stroke}"/>`
+    : `<line x1="${segFrom}" y1="${y}" x2="${segTo}" y2="${y}" stroke="${t.live}" stroke-width="${stroke}"/>`;
   for (let i = 0; i < n; i++) {
     const x = x0 + step * i;
-    s += i === lit
+    const on = allLit || i === lit;
+    if (gates) {
+      // A gate is a square check point instead of a round station.
+      const a = r * 1.1;
+      s += on
+        ? `<rect x="${x - a * 2.4}" y="${y - a * 2.4}" width="${a * 4.8}" height="${a * 4.8}" rx="${a}" fill="${t.live}" opacity="${t.glow}"/><rect x="${x - a}" y="${y - a}" width="${a * 2}" height="${a * 2}" rx="3" fill="${t.live}"/>`
+        : `<rect x="${x - a}" y="${y - a}" width="${a * 2}" height="${a * 2}" rx="3" fill="${t.bg}" stroke="${t.node}" stroke-width="${stroke}"/>`;
+      continue;
+    }
+    s += on
       ? `<circle cx="${x}" cy="${y}" r="${r * 2.6}" fill="${t.live}" opacity="${t.glow}"/><circle cx="${x}" cy="${y}" r="${r}" fill="${t.live}"/>`
       : `<circle cx="${x}" cy="${y}" r="${r}" fill="${t.bg}" stroke="${t.node}" stroke-width="${stroke}"/>`;
   }
@@ -50,6 +60,24 @@ background-image:radial-gradient(${t.grid} 1.5px,transparent 1.5px);background-s
 .w{position:relative;width:${w}px;height:${h}px;overflow:hidden}
 svg{position:absolute;left:0;top:0}${css}</style></head><body><div class="w">
 <svg width="${w}" height="${h}">${svg}</svg>${body}</div></body></html>`;
+
+// Case study "SFMD": text is Founder-approved and FINAL — do not edit
+// wording or numbers. Customer stays neutral (no brand names).
+const caseKicker = "Fallbeispiel · Shopfloor-IT · Automobilhersteller";
+const caseTitle = "Pünktliche Daten für drei Schichtstarts am Tag";
+const caseBody = `
+<p class="lead"><b>Ausgangslage:</b> Ein Automobilhersteller steuert seine Produktion über <span class="nw">Shopfloor-Management</span>. In kurzen Schichtmeetings besprechen Teams Kennzahlen, Vorkommnisse und Eskalationen, in einer Kaskade vom Meister bis zur Werkleitung. Die Daten dafür wurden von Hand aus Systemen gezogen, in Excel aufbereitet und an Pinnwände gehängt. Sie veralteten schneller, als die Meetings sie brauchten.</p>
+<p><b>Meine Rolle:</b> Technical Product Owner, Integrations-Lead und Testverantwortlicher im Programm zur Digitalisierung dieses Prozesses, 2017 bis 2022.</p>
+<p><b>Was ich getan habe:</b></p>
+<ul>
+<li>rund 80 % der zuliefernden Quellsysteme angebunden, darunter das <span class="nw">HR-System</span>, und die Lieferung von CSV-Dateien auf APIs umgestellt</li>
+<li>Datenmodelle und Mappings mit den Systemverantwortlichen abgestimmt, damit jede Quelle vor jedem Schichtstart liefert</li>
+<li>Konfiguration und Pflege von über 50.000 Kennzahlen automatisiert: Vorlagen, Massenimport und Self-Service für die Teams, statt jede Kennzahl einzeln von Hand anzulegen</li>
+<li>Tests automatisiert, damit alle zwei Wochen ein Release live gehen konnte</li>
+<li>den Rollout in die Bereiche Antrieb und Transporter begleitet und das externe Team dafür befähigt</li>
+</ul>
+<p><b>Ergebnis:</b> ein einheitliches Dashboard auf Touchscreens, dessen Daten vor jedem der drei Schichtstarts bereitstehen, an Standorten weltweit.</p>
+<p class="take"><b>Was ich daraus mitnehme:</b> Live ist ein Projekt erst, wenn die Daten pünktlich da sind. Jeden Tag, dreimal.</p>`;
 
 const images = [
   {
@@ -79,6 +107,49 @@ const images = [
       releasePath({ x0: 110, x1: 1090, y: 520, r: 11, stroke: 3, lit: 0 }),
       `<div class="tx"><div class="o"></div><h1>Erst zuhören.</h1><p>Dann entscheiden Sie.</p></div>`),
   },
+  {
+    // Case-study card, same frame as the intro-call card. Three stations,
+    // all lit: the three shift starts the data has to beat every day.
+    file: "linkedin-fokus-fallbeispiel-sfmd-dark.png", w: 1200, h: 627, scale: 2, palette: card, maxTextBottom: 470,
+    html: () => page(1200, 627,
+      `.tx{position:absolute;left:110px;top:96px;right:110px}
+       .k{font-size:30px;color:${t.muted};font-weight:500;margin-bottom:26px}
+       .o{width:64px;height:5px;background:${t.amber};margin-bottom:26px}
+       h1{font-size:80px;font-weight:700;letter-spacing:-0.025em;line-height:1.06}`,
+      releasePath({ x0: 110, x1: 1090, y: 530, r: 11, stroke: 3, n: 3, allLit: true }),
+      `<div class="tx"><div class="o"></div><div class="k">${caseKicker}</div><h1>Pünktliche Daten für<br>drei Schichtstarts am Tag</h1></div>`),
+  },
+  {
+    // Case-study card "KI-Betrieb". Four GATES instead of stations — write
+    // protection, four-eyes review, audit log, tests — the last one lit:
+    // agents reach production only through all of them.
+    file: "linkedin-fokus-fallbeispiel-ki-betrieb-dark.png", w: 1200, h: 627, scale: 2, palette: card, maxTextBottom: 470,
+    html: () => page(1200, 627,
+      `.tx{position:absolute;left:110px;top:96px;right:110px}
+       .k{font-size:30px;color:${t.muted};font-weight:500;margin-bottom:26px}
+       .o{width:64px;height:5px;background:${t.amber};margin-bottom:26px}
+       h1{font-size:80px;font-weight:700;letter-spacing:-0.025em;line-height:1.06}`,
+      releasePath({ x0: 110, x1: 1090, y: 530, r: 11, stroke: 3, n: 4, lit: 3, gates: true }),
+      `<div class="tx"><div class="o"></div><div class="k">Fallbeispiel · KI-Betrieb · Neckarshore AI</div><h1>KI-Agenten in Produktion<br>– mit Regeln</h1></div>`),
+  },
+  {
+    // The full case study as one portrait page (4:5, LinkedIn's mobile
+    // feed format), also written as a one-page PDF for the "Medien" upload.
+    file: "linkedin-fallbeispiel-sfmd-dark.png", pdf: "linkedin-fallbeispiel-sfmd-dark.pdf",
+    w: 1080, h: 1350, scale: 2, palette: card, maxTextBottom: 1240,
+    html: () => page(1080, 1350,
+      `.tx{position:absolute;left:80px;right:80px;top:72px}
+       .o{width:56px;height:5px;background:${t.amber};margin-bottom:20px}
+       .k{font-size:22px;color:${t.muted};font-weight:500;margin-bottom:14px}
+       h1{font-size:50px;font-weight:700;letter-spacing:-0.02em;line-height:1.08;margin-bottom:28px}
+       p,li{font-size:24px;line-height:1.38;color:#D4D4D4}
+       p{margin-bottom:15px} b{color:${t.text};font-weight:700}
+       ul{margin:-4px 0 15px 0;padding-left:28px} li{margin-bottom:6px}
+       li::marker{color:${t.live}} .nw{white-space:nowrap}
+       .take{margin-top:6px;color:${t.text}} .take b{color:${t.live}}`,
+      releasePath({ x0: 80, x1: 1000, y: 1286, r: 9, stroke: 3, n: 3, allLit: true }),
+      `<div class="tx"><div class="o"></div><div class="k">${caseKicker}</div><h1>${caseTitle}</h1>${caseBody}</div>`),
+  },
 ];
 
 const browser = await chromium.launch();
@@ -89,7 +160,14 @@ for (const img of images) {
   const p = await browser.newPage({ viewport: { width: img.w, height: img.h }, deviceScaleFactor: img.scale });
   await p.goto(pathToFileURL(tmp).href);
   await p.evaluate(() => document.fonts.ready);
+  if (img.maxTextBottom) {
+    const bottom = await p.evaluate(() => document.querySelector(".tx").getBoundingClientRect().bottom);
+    if (bottom > img.maxTextBottom) throw new Error(`${img.file}: text ends at ${Math.round(bottom)}px, limit ${img.maxTextBottom}px`);
+  }
   await p.screenshot({ path: path.join(dir, img.file) });
+  if (img.pdf) {
+    await p.pdf({ path: path.join(dir, img.pdf), width: `${img.w}px`, height: `${img.h}px`, printBackground: true, pageRanges: "1" });
+  }
   await p.close();
   fs.unlinkSync(tmp);
   console.log(`${img.file}  ${img.w * img.scale}x${img.h * img.scale}`);
