@@ -32,8 +32,8 @@ export const NAV_ITEMS: Record<Lang, NavItem[]> = {
 };
 
 export const NAV_CTA_LABEL: Record<Lang, string> = {
-  de: "Mandat besprechen (20 Min)",
-  en: "Discuss a mandate (20 min)",
+  de: "Mandat besprechen (30 Min)",
+  en: "Discuss a mandate (30 min)",
 };
 
 // Same Calendly slot as the hero, own UTM so Calendly's own reporting can
@@ -47,4 +47,4 @@ export const NAV_CTA_LABEL: Record<Lang, string> = {
 // disclosure comment needed there, but noting it here since it's the same
 // vocabulary the guard exists to police elsewhere.
 export const NAV_CTA_HREF =
-  "https://calendly.com/rauhut/20min?utm_source=rauhut-com-nav";
+  "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-nav";

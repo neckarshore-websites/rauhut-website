@@ -31,8 +31,8 @@ const COPY: Record<Lang, { offers: [Offer, Offer] }> = {
         title: "Technical Product Ownership",
         body: "Mandate in Konzernprogrammen — Anforderung, Backlog, verteilte Teams, Delivery. Teststrategie, Automatisierung und Release-Takt gehören dazu, damit die letzte Meile nicht das Programm hält. Automotive, Stammdaten, Programme, die live gehen müssen.",
         cta: {
-          label: "Mandat besprechen (20 Min)",
-          href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com",
+          label: "Mandat besprechen (30 Min)",
+          href: "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com",
           kind: "primary",
         },
       },
@@ -53,8 +53,8 @@ const COPY: Record<Lang, { offers: [Offer, Offer] }> = {
         title: "Technical Product Ownership",
         body: "Mandates in enterprise programmes — requirements, backlog, distributed teams, delivery. Test strategy, automation and release cadence are part of the mandate, so the last mile does not stall the programme. Automotive, master data, programmes that have to go live.",
         cta: {
-          label: "Discuss a mandate (20 min)",
-          href: "https://calendly.com/rauhut/20min?utm_source=rauhut-com",
+          label: "Discuss a mandate (30 min)",
+          href: "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com",
           kind: "primary",
         },
       },

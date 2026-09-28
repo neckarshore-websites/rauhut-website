@@ -99,8 +99,9 @@ test("English homepage renders localized content and language metadata", async (
  * Two things are asserted, and the second is the one that matters most:
  *
  * 1. Every CTA exists and points at the verified address
- *    (`calendly.com/rauhut/20min` — found in neckarshore-website's source
- *    AND on the live offer page, not assumed).
+ *    (`calendly.com/german-rauhut/30min` — the Founder's account slug since
+ *    2026-09-28, confirmed via the Calendly API, not assumed; the earlier
+ *    `calendly.com/rauhut/20min` does NOT belong to his current account).
  *
  * 2. IT IS A LINK, NOT AN EMBED. § 7 of the Datenschutzerklaerung states
  *    that no data reaches Calendly until the visitor clicks. That sentence
@@ -109,7 +110,7 @@ test("English homepage renders localized content and language metadata", async (
  *    is a defect of a different order than a layout regression, and exactly
  *    the kind that ships unnoticed because nothing looks broken.
  */
-const CALENDLY = "https://calendly.com/rauhut/20min?utm_source=rauhut-com";
+const CALENDLY = "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com";
 
 for (const [language, path, offersRegionName] of [
   ["German", "/", "Was Sie buchen können"],
@@ -309,7 +310,7 @@ test("imprint page is reachable and marked noindex", async ({ page }) => {
  * is that module's href, duplicated here as a literal on purpose — this
  * suite verifies the shipped markup, not the module that generated it.
  */
-const NAV_CTA = "https://calendly.com/rauhut/20min?utm_source=rauhut-com-nav";
+const NAV_CTA = "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-nav";
 
 for (const [language, path, railName, tocName, items] of [
   [
@@ -374,7 +375,7 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     "/",
     "Menü",
     "Seitennavigation",
-    "Mandat besprechen (20 Min)",
+    "Mandat besprechen (30 Min)",
     [
       { label: "Zusammenfassung", id: "zusammenfassung" },
       { label: "Angebote", id: "angebote" },
@@ -388,7 +389,7 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     "/en",
     "Menu",
     "Page navigation",
-    "Discuss a mandate (20 min)",
+    "Discuss a mandate (30 min)",
     [
       { label: "About", id: "about" },
       { label: "Offers", id: "offers" },
@@ -543,9 +544,9 @@ for (const [
     "German",
     "/",
     "Kontakt",
-    "Ab sofort buchbar — Mandate in Anforderung, Test und Release, remote DACH. 20 Minuten über „Mandat besprechen“, sonst kurz per Mail oder Formular.",
+    "Ab sofort buchbar — Mandate in Anforderung, Test und Release, remote DACH. 30 Minuten über „Mandat besprechen“, sonst kurz per Mail oder Formular.",
     "Ohne Kalender — schreiben Sie mir direkt:",
-    "Mandat besprechen (20 Min)",
+    "Mandat besprechen (30 Min)",
   ],
   [
     "English",
@@ -553,7 +554,7 @@ for (const [
     "Contact",
     "Available immediately — mandates in requirements, test and release, remote DACH. Twenty minutes via “Discuss a mandate”, or a short note by email or the form.",
     "No calendar — write to me directly:",
-    "Discuss a mandate (20 min)",
+    "Discuss a mandate (30 min)",
   ],
 ] as const) {
   test(`${language} Kontakt/Contact carries the P6-lead paragraph, form intro, and no second CTA button`, async ({

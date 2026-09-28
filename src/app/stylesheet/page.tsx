@@ -174,7 +174,7 @@ export default function StylesheetPage() {
             Teams, Delivery.
           </p>
           <a href="#" className={`mt-5 ${PRIMARY_CTA}`}>
-            Mandat besprechen (20 Min)
+            Mandat besprechen (30 Min)
           </a>
         </div>
 

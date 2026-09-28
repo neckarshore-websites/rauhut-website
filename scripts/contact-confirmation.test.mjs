@@ -48,6 +48,6 @@ test("beide Sprachen tragen einen Weg zurueck", () => {
     const lines = buildConfirmationText(lang, "X", "Y").split("\n");
     const countExact = (url) => lines.filter((l) => l === url).length;
     assert.equal(countExact("https://rauhut.com"), 1);
-    assert.equal(countExact("https://calendly.com/rauhut/20min"), 1);
+    assert.equal(countExact("https://calendly.com/german-rauhut/30min"), 1);
   }
 });
