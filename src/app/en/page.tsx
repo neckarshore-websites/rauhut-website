@@ -110,12 +110,12 @@ export default function HomePageEN() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+                href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-lg bg-text px-5 py-2.5 text-sm font-medium text-bg no-underline transition-colors duration-150 hover:bg-accent-hover hover:text-bg hover:no-underline"
               >
-                Discuss a mandate (20 min)
+                Discuss a mandate (30 min)
               </a>
               <a
                 href={CONTACT_MAILTO.en}
@@ -310,7 +310,7 @@ export default function HomePageEN() {
             <p className="mt-4 text-sm text-text-subtle">
               Book via{" "}
               <a
-                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-projekte"
+                href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-projekte"
                 target="_blank"
                 rel="noopener noreferrer"
               >

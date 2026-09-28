@@ -65,12 +65,12 @@ export default function HomePage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com"
+                href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-lg bg-text px-5 py-2.5 text-sm font-medium text-bg no-underline transition-colors duration-150 hover:bg-accent-hover hover:text-bg hover:no-underline"
               >
-                Mandat besprechen (20 Min)
+                Mandat besprechen (30 Min)
               </a>
               <a
                 href={CONTACT_MAILTO.de}
@@ -261,7 +261,7 @@ export default function HomePage() {
             <p className="mt-4 text-sm text-text-subtle">
               Buchbar über{" "}
               <a
-                href="https://calendly.com/rauhut/20min?utm_source=rauhut-com-projekte"
+                href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-projekte"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -519,7 +519,7 @@ export default function HomePage() {
         </p>
         <p className="mb-8 max-w-xl text-base leading-relaxed text-text">
           Ab sofort buchbar — Mandate in Anforderung, Test und Release,
-          remote DACH. 20 Minuten über „Mandat besprechen“, sonst kurz per
+          remote DACH. 30 Minuten über „Mandat besprechen“, sonst kurz per
           Mail oder Formular.
         </p>
         <ContactCards lang="de" />
