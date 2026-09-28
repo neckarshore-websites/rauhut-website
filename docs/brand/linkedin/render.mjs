@@ -1,17 +1,18 @@
 // Renders the LinkedIn brand images from HTML at exact pixel sizes.
 // Run from the repo root: node docs/brand/linkedin/render.mjs
-// Output lands next to this file. Font and colors come from the site
-// itself (src/fonts, src/app/globals.css dark tokens), so a token change
-// there is one re-run away from updated images.
+// Output lands next to this file. The font is read from src/fonts; the
+// colors are a MANUAL COPY of the dark tokens in src/app/globals.css —
+// the script does not read that file, so a token change there must be
+// copied into `site` below by hand before re-rendering.
 import { chromium } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const font = path.resolve(dir, "../../../src/fonts/Inter-Variable-subset.woff2");
 
-// Dark tokens from globals.css (the banner uses them as they are).
+// Dark tokens copied from globals.css on 2026-09-28 (banner uses them as-is).
 const site = {
   bg: "#0A0A0A", text: "#F5F5F5", muted: "#A3A3A3", line: "#333333",
   node: "#404040", live: "#22D3EE", amber: "#F59E0B", glow: 0.14,
@@ -42,7 +43,7 @@ function releasePath({ x0, x1, y, r, stroke, lit }) {
 }
 
 const page = (w, h, css, svg, body) => `<html><head><style>
-@font-face{font-family:I;src:url("file://${font}") format("woff2");font-weight:400 700}
+@font-face{font-family:I;src:url("${pathToFileURL(font).href}") format("woff2");font-weight:400 700}
 *{margin:0;box-sizing:border-box}
 body{background:${t.bg};font-family:I,sans-serif;color:${t.text};
 background-image:radial-gradient(${t.grid} 1.5px,transparent 1.5px);background-size:24px 24px}
@@ -86,7 +87,7 @@ for (const img of images) {
   const tmp = path.join(dir, `.${img.file}.html`);
   fs.writeFileSync(tmp, img.html());
   const p = await browser.newPage({ viewport: { width: img.w, height: img.h }, deviceScaleFactor: img.scale });
-  await p.goto(`file://${tmp}`);
+  await p.goto(pathToFileURL(tmp).href);
   await p.evaluate(() => document.fonts.ready);
   await p.screenshot({ path: path.join(dir, img.file) });
   await p.close();
