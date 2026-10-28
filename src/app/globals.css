@@ -311,3 +311,22 @@ details[open] summary {
   0%, 100% { background: #CC1A00; color: #FFFFFF; }
   50%       { background: #FFFFFF; color: #CC1A00; }
 }
+
+/* 404 — the footprints (src/app/not-found.tsx) appear one after another, once, and stay.
+   Under reduced motion they are simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .spur-schritt {
+    opacity: 0;
+    animation: spur-erscheinen 0.35s ease-out forwards;
+  }
+}
+@keyframes spur-erscheinen {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
