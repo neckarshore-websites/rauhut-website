@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { sendContact } from "@/app/actions/inquiry";
 import { CONTACT_INITIAL_STATE, type Lang } from "@/app/actions/inquiry-state";
 import { Turnstile } from "@/components/Turnstile";
+import { HONEYPOT_FELD } from "@/lib/honeypot";
 
 /**
  * Contact form for the rauhut.com landing page (#kontakt / #contact).
@@ -33,7 +34,7 @@ const COPY: Record<
   de: {
     emailLabel: "E-Mail",
     messageLabel: "Nachricht",
-    honeypotLabel: "Website (bitte leer lassen)",
+    honeypotLabel: "Bitte leer lassen",
     submitLabel: "Nachricht senden",
     pendingLabel: "Wird gesendet …",
     successMessage:
@@ -42,7 +43,7 @@ const COPY: Record<
   en: {
     emailLabel: "Email",
     messageLabel: "Message",
-    honeypotLabel: "Website (please leave blank)",
+    honeypotLabel: "Please leave blank",
     submitLabel: "Send message",
     pendingLabel: "Sending …",
     successMessage: "Thank you for your message — I'll get back to you shortly.",
@@ -92,13 +93,17 @@ export default function ContactForm({
           overflow: "hidden",
         }}
       >
-        <label htmlFor="contact-website">{copy.honeypotLabel}</label>
+        <label htmlFor="contact-nicht-ausfuellen">{copy.honeypotLabel}</label>
         <input
-          id="contact-website"
+          id="contact-nicht-ausfuellen"
           type="text"
-          name="website"
+          name={HONEYPOT_FELD}
           tabIndex={-1}
           autoComplete="off"
+          data-1p-ignore
+          data-lpignore="true"
+          data-bwignore
+          data-form-type="other"
         />
       </div>
 
