@@ -30,7 +30,7 @@ export default function DatenschutzPage() {
       <h1 className="mt-3 text-[1.6rem] font-semibold tracking-[-0.03em] text-text sm:text-[2rem]">
         Datenschutzerklärung
       </h1>
-      <p className="mt-4 text-sm text-text-subtle">Stand: Juni 2026</p>
+      <p className="mt-4 text-sm text-text-subtle">Stand: November 2026</p>
 
       <hr className="my-12" />
 
@@ -98,8 +98,8 @@ export default function DatenschutzPage() {
           <p>
             Die Hauptsite (rauhut.com, alle Seiten außer /designs) verwendet
             ausschließlich lokal gehostete Schriften (Inter, via{" "}
-            <code>next/font/local</code>). Es wird keine Verbindung zu Google
-            Fonts oder anderen Drittanbieter-CDNs aufgebaut.
+            <code>next/font/local</code>). Für Schriften wird keine Verbindung zu
+            Google Fonts oder anderen Drittanbieter-CDNs aufgebaut.
           </p>
         </div>
 
@@ -141,18 +141,43 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 6 · Spam-Schutz (Cloudflare Turnstile) — dormant</h2>
+          <h2 className={labelClass}>§ 6 · Spam-Schutz (Cloudflare Turnstile)</h2>
           <p>
-            Das Kontaktformular ist mit Cloudflare Turnstile (Spam-Schutz)
-            ausgestattet. Dieser Dienst ist aktuell deaktiviert (Feature-Flag{" "}
-            <code>NEXT_PUBLIC_CAPTCHA_ENABLED</code>). Sobald aktiviert:
-            Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, USA
-            verarbeitet technische Browser-Daten (IP-Adresse,
-            Browser-Eigenschaften) sowie das Challenge-Ergebnis (Token).
-            Turnstile arbeitet ohne Cookies.
+            Das Kontaktformular ist mit Cloudflare Turnstile geschützt, einem
+            Dienst der Cloudflare, Inc., 101 Townsend Street, San Francisco, CA
+            94107, USA. Das Formular steht auf der Startseite (deutsch und
+            englisch). Beim Aufruf dieser Seiten lädt Ihr Browser Skripte von
+            Cloudflare, auch wenn Sie das Formular nicht nutzen. Cloudflare
+            verarbeitet dabei Ihre IP-Adresse, technische Merkmale von Browser
+            und Verbindung (u. a. User-Agent, TLS-Fingerabdruck) sowie die
+            aufgerufene Website und erzeugt ein Prüf-Ergebnis (Token). Turnstile
+            setzt keine Cookies, legt aber im lokalen Speicher Ihres Browsers
+            einen Eintrag von Cloudflare an (cf.turnstile.u). Ihre Eingaben im
+            Formular erhält Cloudflare nicht.
           </p>
           <p className="mt-3">
-            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO.{" "}
+            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
+            (berechtigtes Interesse an der Abwehr von Spam und missbräuchlichen
+            Formular-Einsendungen).
+          </p>
+          <p className="mt-3">
+            <strong>Rollen und Speicherdauer:</strong> Nach Angaben von
+            Cloudflare erfolgt die Prüfung im Auftrag des Websitebetreibers. Zur
+            Verbesserung seiner Bot-Erkennung verarbeitet Cloudflare diese Daten
+            außerdem in eigener Verantwortung und stützt sich dafür auf sein
+            berechtigtes Interesse. Eine feste Speicherfrist nennt Cloudflare
+            nicht. Näheres: Turnstile Privacy Addendum (
+            <a
+              href="https://www.cloudflare.com/turnstile-privacy-policy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass}
+            >
+              cloudflare.com/turnstile-privacy-policy
+            </a>
+            ).
+          </p>
+          <p className="mt-3">
             <strong>Drittlandtransfer:</strong> Cloudflare ist unter dem EU-US
             Data Privacy Framework zertifiziert (Art. 45 DSGVO); ergänzend
             EU-Standardvertragsklauseln. Datenschutz:{" "}
@@ -164,8 +189,7 @@ export default function DatenschutzPage() {
             >
               cloudflare.com/privacypolicy
             </a>
-            . Dieser Abschnitt ist bei Aktivierung des Feature-Flags
-            entsprechend anzupassen.
+            .
           </p>
         </div>
 
@@ -211,7 +235,7 @@ export default function DatenschutzPage() {
             Für die von Ihnen gewählte Designvariante (hell/dunkel) speichert die
             Website Ihre Auswahl im lokalen Speicher Ihres Browsers
             (»localStorage«). Diese Information verbleibt auf Ihrem Gerät und
-            wird nicht übertragen.
+            wird nicht übertragen. Den Eintrag von Cloudflare beschreibt § 6.
           </p>
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG.
