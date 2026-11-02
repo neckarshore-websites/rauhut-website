@@ -145,9 +145,9 @@ export default function DatenschutzPage() {
           <p>
             Das Kontaktformular ist mit Cloudflare Turnstile geschützt, einem
             Dienst der Cloudflare, Inc., 101 Townsend Street, San Francisco, CA
-            94107, USA. Das Formular steht auf der Startseite (deutsch und
-            englisch). Beim Aufruf dieser Seiten lädt Ihr Browser Skripte von
-            Cloudflare, auch wenn Sie das Formular nicht nutzen. Cloudflare
+            94107, USA. Sobald Sie das Formular nutzen (erstes Klicken oder
+            Tippen), lädt Ihr Browser Skripte von Cloudflare. Ohne Nutzung des
+            Formulars besteht keine Verbindung zu Cloudflare. Cloudflare
             verarbeitet dabei Ihre IP-Adresse, technische Merkmale von Browser
             und Verbindung (u. a. User-Agent, TLS-Fingerabdruck) sowie die
             aufgerufene Website und erzeugt ein Prüf-Ergebnis (Token). Turnstile
@@ -158,15 +158,28 @@ export default function DatenschutzPage() {
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
             (berechtigtes Interesse an der Abwehr von Spam und missbräuchlichen
-            Formular-Einsendungen).
+            Formular-Einsendungen). Das Speichern im und das Auslesen aus
+            dem Browser beruhen auf § 25 Abs. 2 Nr. 2 TDDDG.
           </p>
           <p className="mt-3">
             <strong>Rollen und Speicherdauer:</strong> Nach Angaben von
             Cloudflare erfolgt die Prüfung im Auftrag des Websitebetreibers. Zur
             Verbesserung seiner Bot-Erkennung verarbeitet Cloudflare diese Daten
             außerdem in eigener Verantwortung und stützt sich dafür auf sein
-            berechtigtes Interesse. Eine feste Speicherfrist nennt Cloudflare
-            nicht. Näheres: Turnstile Privacy Addendum (
+            berechtigtes Interesse. Eine feste Speicherfrist nennt
+            Cloudflare nicht. Für die Prüfung im Auftrag sehen die
+            Bedingungen von Cloudflare vor, dass die Daten
+            gespeichert werden, bis der Vertrag mit dem
+            Websitebetreiber endet oder sie zur Vertragserfüllung
+            nicht mehr nötig sind, je nachdem, was früher eintritt.
+            Für die Verarbeitung in eigener Verantwortung richtet
+            sich die Dauer nach den Zwecken und nach gesetzlichen
+            Pflichten. Cloudflare berücksichtigt dabei den
+            Erhebungszweck, Umfang, Art und Sensibilität der Daten,
+            das Risiko bei unbefugter Nutzung, ob der Zweck auch mit
+            weniger Daten erreichbar ist, und rechtliche Vorgaben
+            wie Verjährungsfristen. Näheres: Turnstile Privacy
+            Addendum (
             <a
               href="https://www.cloudflare.com/turnstile-privacy-policy/"
               target="_blank"
