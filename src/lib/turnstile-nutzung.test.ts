@@ -95,9 +95,12 @@ test("without a token it lets go after the limit, so the server can answer", asy
     maxWarteMs: 10,
     schrittMs: 5,
   });
-  form.dispatchEvent(submitEreignis());
-  await new Promise((r) => setTimeout(r, 30));
-  assert.ok(zweiter, "resubmitted");
-  assert.equal((zweiter as unknown as Event).defaultPrevented, false);
-  aus();
+  try {
+    form.dispatchEvent(submitEreignis());
+    await new Promise((r) => setTimeout(r, 30));
+    assert.ok(zweiter, "resubmitted");
+    assert.equal((zweiter as unknown as Event).defaultPrevented, false);
+  } finally {
+    aus();
+  }
 });
