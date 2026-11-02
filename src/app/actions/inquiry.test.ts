@@ -14,8 +14,8 @@
  * `sendContact()` prints in place of actually sending mail.
  *
  * No network I/O: with no SMTP_* env vars set and NODE_ENV !== "production",
- * `sendContact()` takes its dev/preview dry-run fallback. With
- * CAPTCHA_ENABLED unset, `verifyCaptchaToken()` short-circuits to
+ * `sendContact()` takes its dev/preview dry-run fallback. Without
+ * its secret outside production, `verifyCaptchaToken()` short-circuits to
  * `{ ok: true, skipped: true }` without calling out to Cloudflare.
  *
  * Run: npm run test:unit  (gated in CI by .github/workflows/unit.yml)

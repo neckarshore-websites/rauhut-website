@@ -10,8 +10,7 @@ import { Turnstile } from "@/components/Turnstile";
  *
  * A direct-message complement to the ContactCards (E-Mail / LinkedIn /
  * GitHub). Wraps the `sendContact` Server Action via useActionState; spam
- * protection = hidden honeypot + Cloudflare Turnstile (dormant until the
- * env vars are set). Styled with the site's design tokens to match the
+ * protection = hidden honeypot + Cloudflare Turnstile (only where its secret exists). Styled with the site's design tokens to match the
  * minimal-material look of the rest of the page.
  *
  * P6-lead (2026-09-12): now renders on /en too (it was DE-only before —
@@ -56,7 +55,14 @@ const fieldClass =
   "w-full rounded-lg border border-border-strong bg-bg-muted px-4 py-3 text-base text-text placeholder:text-text-subtle";
 const errorClass = "mt-1.5 text-sm text-brand-amber";
 
-export default function ContactForm({ lang = "de" }: { lang?: Lang }) {
+export default function ContactForm({
+  lang = "de",
+  turnstileSitekey,
+}: {
+  lang?: Lang;
+  /** From the server page (`captchaSitekey()`); null = no widget. */
+  turnstileSitekey: string | null;
+}) {
   const copy = COPY[lang];
   const [state, formAction, pending] = useActionState(
     sendContact,
@@ -153,7 +159,7 @@ export default function ContactForm({ lang = "de" }: { lang?: Lang }) {
         ) : null}
       </div>
 
-      <Turnstile />
+      <Turnstile sitekey={turnstileSitekey} />
 
       {state.status === "error" && state.message ? (
         <p role="alert" className="text-sm text-brand-amber">
