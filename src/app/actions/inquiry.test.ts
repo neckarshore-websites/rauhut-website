@@ -132,7 +132,7 @@ test("multi-line message body is preserved (only single-line fields collapse new
 test("honeypot still triggers on real spam content after the clean()->cleanLine() swap", async () => {
   const state = await sendContact(
     { status: "idle" },
-    formData({ ...VALID, website: "http://spam.example" }),
+    formData({ ...VALID, nicht_ausfuellen: "http://spam.example" }),
   );
   assert.deepEqual(state, { status: "success" });
 });
