@@ -30,7 +30,7 @@ export default function DatenschutzPage() {
       <h1 className="mt-3 text-[1.6rem] font-semibold tracking-[-0.03em] text-text sm:text-[2rem]">
         Datenschutzerklärung
       </h1>
-      <p className="mt-4 text-sm text-text-subtle">Stand: Juni 2026</p>
+      <p className="mt-4 text-sm text-text-subtle">Stand: November 2026</p>
 
       <hr className="my-12" />
 
@@ -141,14 +141,13 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 6 · Spam-Schutz (Cloudflare Turnstile) — dormant</h2>
+          <h2 className={labelClass}>§ 6 · Spam-Schutz (Cloudflare Turnstile)</h2>
           <p>
             Das Kontaktformular ist mit Cloudflare Turnstile (Spam-Schutz)
-            ausgestattet. Dieser Dienst ist aktuell deaktiviert (Feature-Flag{" "}
-            <code>NEXT_PUBLIC_CAPTCHA_ENABLED</code>). Sobald aktiviert:
-            Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, USA
-            verarbeitet technische Browser-Daten (IP-Adresse,
-            Browser-Eigenschaften) sowie das Challenge-Ergebnis (Token).
+            ausgestattet. Beim Aufruf einer Seite mit dem Formular lädt ein
+            Skript von Cloudflare. Cloudflare, Inc., 101 Townsend Street, San
+            Francisco, CA 94107, USA verarbeitet dabei technische Browser-Daten
+            (IP-Adresse, Browser-Eigenschaften) sowie das Prüf-Ergebnis (Token).
             Turnstile arbeitet ohne Cookies.
           </p>
           <p className="mt-3">
@@ -164,8 +163,7 @@ export default function DatenschutzPage() {
             >
               cloudflare.com/privacypolicy
             </a>
-            . Dieser Abschnitt ist bei Aktivierung des Feature-Flags
-            entsprechend anzupassen.
+            .
           </p>
         </div>
 
