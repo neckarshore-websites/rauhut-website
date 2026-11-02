@@ -145,9 +145,9 @@ export default function DatenschutzPage() {
           <p>
             Das Kontaktformular ist mit Cloudflare Turnstile geschützt, einem
             Dienst der Cloudflare, Inc., 101 Townsend Street, San Francisco, CA
-            94107, USA. Das Formular steht auf der Startseite (deutsch und
-            englisch). Beim Aufruf dieser Seiten lädt Ihr Browser Skripte von
-            Cloudflare, auch wenn Sie das Formular nicht nutzen. Cloudflare
+            94107, USA. Sobald Sie das Formular nutzen (erstes Klicken oder
+            Tippen), lädt Ihr Browser Skripte von Cloudflare. Ohne Nutzung des
+            Formulars besteht keine Verbindung zu Cloudflare. Cloudflare
             verarbeitet dabei Ihre IP-Adresse, technische Merkmale von Browser
             und Verbindung (u. a. User-Agent, TLS-Fingerabdruck) sowie die
             aufgerufene Website und erzeugt ein Prüf-Ergebnis (Token). Turnstile
@@ -158,7 +158,8 @@ export default function DatenschutzPage() {
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
             (berechtigtes Interesse an der Abwehr von Spam und missbräuchlichen
-            Formular-Einsendungen).
+            Formular-Einsendungen). Das Speichern im und das Auslesen aus
+            dem Browser beruhen auf § 25 Abs. 2 Nr. 2 TDDDG.
           </p>
           <p className="mt-3">
             <strong>Rollen und Speicherdauer:</strong> Nach Angaben von
