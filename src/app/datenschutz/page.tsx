@@ -166,8 +166,20 @@ export default function DatenschutzPage() {
             Cloudflare erfolgt die Prüfung im Auftrag des Websitebetreibers. Zur
             Verbesserung seiner Bot-Erkennung verarbeitet Cloudflare diese Daten
             außerdem in eigener Verantwortung und stützt sich dafür auf sein
-            berechtigtes Interesse. Eine feste Speicherfrist nennt Cloudflare
-            nicht. Näheres: Turnstile Privacy Addendum (
+            berechtigtes Interesse. Eine feste Speicherfrist nennt
+            Cloudflare nicht. Für die Prüfung im Auftrag sehen die
+            Bedingungen von Cloudflare vor, dass die Daten
+            gespeichert werden, bis der Vertrag mit dem
+            Websitebetreiber endet oder sie zur Vertragserfüllung
+            nicht mehr nötig sind, je nachdem, was früher eintritt.
+            Für die Verarbeitung in eigener Verantwortung richtet
+            sich die Dauer nach den Zwecken und nach gesetzlichen
+            Pflichten. Cloudflare berücksichtigt dabei den
+            Erhebungszweck, Umfang, Art und Sensibilität der Daten,
+            das Risiko bei unbefugter Nutzung, ob der Zweck auch mit
+            weniger Daten erreichbar ist, und rechtliche Vorgaben
+            wie Verjährungsfristen. Näheres: Turnstile Privacy
+            Addendum (
             <a
               href="https://www.cloudflare.com/turnstile-privacy-policy/"
               target="_blank"
