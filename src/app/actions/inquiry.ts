@@ -1,5 +1,6 @@
 "use server";
 
+import { KONTAKT } from "@/lib/kontakt-config";
 import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
 import { CAPTCHA_FORM_FIELD, verifyCaptchaToken } from "@/lib/captcha/verify";
@@ -91,21 +92,19 @@ interface SmtpConfig {
   to: string;
 }
 
-/** Read SMTP config from env. Returns null if any required value is missing. */
+/** Settings from src/lib/kontakt-config.ts, password from env. Null without a password. */
 function readSmtpConfig(): SmtpConfig | null {
-  const host = process.env.SMTP_HOST;
-  const portRaw = process.env.SMTP_PORT;
-  const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM;
-  const to = process.env.CONTACT_EMAIL_TO;
+  if (!pass) return null;
 
-  if (!host || !portRaw || !user || !pass || !from || !to) return null;
-
-  const port = Number(portRaw);
-  if (!Number.isFinite(port) || port <= 0 || port > 65535) return null;
-
-  return { host, port, user, pass, from, to };
+  return {
+    host: KONTAKT.smtpHost,
+    port: KONTAKT.smtpPort,
+    user: KONTAKT.smtpUser,
+    pass,
+    from: KONTAKT.absender,
+    to: KONTAKT.empfaenger,
+  };
 }
 
 export async function sendContact(
@@ -199,6 +198,8 @@ export async function sendContact(
     host: config.host,
     port: config.port,
     secure: config.port === 465,
+    // Port 587 starts unencrypted; never log in if the upgrade to TLS is missing.
+    requireTLS: true,
     auth: { user: config.user, pass: config.pass },
   };
   const transporter = nodemailer.createTransport(transportOptions);

@@ -1,3 +1,4 @@
+import { captchaSitekey } from "@/lib/captcha/verify";
 import FounderPhoto from "@/components/FounderPhoto";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
@@ -528,7 +529,7 @@ export default function HomePage() {
           <p className="mb-5 text-base text-text-subtle">
             Ohne Kalender — schreiben Sie mir direkt:
           </p>
-          <ContactForm lang="de" />
+          <ContactForm lang="de" turnstileSitekey={captchaSitekey()} />
         </div>
       </Reveal>
 

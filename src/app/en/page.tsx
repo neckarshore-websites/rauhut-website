@@ -1,3 +1,4 @@
+import { captchaSitekey } from "@/lib/captcha/verify";
 import type { Metadata } from "next";
 import FounderPhoto from "@/components/FounderPhoto";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -596,7 +597,7 @@ export default function HomePageEN() {
           <p className="mb-5 text-base text-text-subtle">
             No calendar — write to me directly:
           </p>
-          <ContactForm lang="en" />
+          <ContactForm lang="en" turnstileSitekey={captchaSitekey()} />
         </div>
       </Reveal>
 

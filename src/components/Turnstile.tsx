@@ -15,16 +15,10 @@ import { useEffect, useRef } from "react";
  * (kein Cookie, kein Cross-Site-Tracking), unsichtbar/non-interactive im
  * Normalfall. Server-Verifikation: lib/captcha/verify.ts (siteverify).
  *
- * Feature-Flag (dormant bis zur Aktivierung):
- *   - `NEXT_PUBLIC_CAPTCHA_ENABLED !== "true"` → Widget rendert null, kein
- *     Script-Load, kein Bundle-Impact. Spam-Schutz kommt dann allein aus dem
- *     Honeypot-Feld in der Server Action (src/app/actions/inquiry.ts).
- *   - Aktivierung = BEIDE Envs auf "true" (client `NEXT_PUBLIC_CAPTCHA_
- *     ENABLED` + server `CAPTCHA_ENABLED`) plus die beiden Keys
- *     (`NEXT_PUBLIC_TURNSTILE_SITEKEY` + `TURNSTILE_SECRET_KEY`).
- *
- * Graceful degradation: Flag an, aber Sitekey fehlt → nichts rendern, Form
- * bleibt submit-fähig (Spiegelbild der Server-Seite in verify.ts).
+ * Schalter und Sitekey stehen in src/lib/kontakt-config.ts (#2879). `sitekey` kommt
+ * von der Server-Seite (`captchaSitekey()` in lib/captcha/verify.ts) und ist null,
+ * wo das Secret fehlt: dann rendert das Widget nichts, kein Script-Load, und der
+ * Spam-Schutz kommt allein aus dem Honeypot-Feld der Server Action.
  *
  * CSP: das Script + der Challenge-iframe + die Challenge-Fetches laufen alle
  * gegen https://challenges.cloudflare.com — entsprechend in next.config.ts
@@ -83,13 +77,11 @@ function loadTurnstileScript(): Promise<void> {
   });
 }
 
-export function Turnstile() {
-  const captchaEnabled = process.env.NEXT_PUBLIC_CAPTCHA_ENABLED === "true";
-  const sitekey = process.env.NEXT_PUBLIC_TURNSTILE_SITEKEY;
+export function Turnstile({ sitekey }: { sitekey: string | null }) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!captchaEnabled || !sitekey || !mountRef.current) return;
+    if (!sitekey || !mountRef.current) return;
 
     let cancelled = false;
     let widgetId: string | null = null;
@@ -124,11 +116,11 @@ export function Turnstile() {
         }
       }
     };
-  }, [captchaEnabled, sitekey]);
+  }, [sitekey]);
 
   // Feature-Flag aus ODER kein Sitekey → Widget komplett unsichtbar.
   // Form bleibt funktional; die Server-Seite respektiert das gleiche Flag.
-  if (!captchaEnabled || !sitekey) return null;
+  if (!sitekey) return null;
 
   return (
     <div
