@@ -141,7 +141,26 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 6 · Spam-Schutz (Cloudflare Turnstile)</h2>
+          <h2 className={labelClass}>§ 6 · Kontaktformular</h2>
+          <p>
+            Wenn Sie das Kontaktformular nutzen, verarbeiten wir Ihren Namen,
+            Ihre E-Mail-Adresse und Ihre Nachricht, um Ihre Anfrage zu
+            beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, wenn
+            Ihre Anfrage auf einen Vertrag zielt, sonst Art. 6 Abs. 1 lit. f
+            DSGVO (berechtigtes Interesse, Anfragen zu beantworten).
+          </p>
+          <p className="mt-3">
+            Die Nachricht wird über den Hosting-Anbieter (§ 2) als E-Mail an
+            unser Postfach bei der IONOS SE, Elgendorfer Straße 57, 56410
+            Montabaur, Deutschland, übermittelt und dort gespeichert. Sie
+            erhalten eine Eingangsbestätigung an die angegebene Adresse. Wir
+            löschen die Nachricht zwölf Monate nach Eingang, soweit keine
+            gesetzliche Aufbewahrungspflicht besteht.
+          </p>
+        </div>
+
+        <div>
+          <h2 className={labelClass}>§ 7 · Spam-Schutz (Cloudflare Turnstile)</h2>
           <p>
             Das Kontaktformular ist mit Cloudflare Turnstile geschützt, einem
             Dienst der Cloudflare, Inc., 101 Townsend Street, San Francisco, CA
@@ -207,7 +226,7 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 7 · Terminbuchung (Calendly)</h2>
+          <h2 className={labelClass}>§ 8 · Terminbuchung (Calendly)</h2>
           <p>
             Auf der Startseite befindet sich ein <strong>Link</strong> zu einer
             Terminbuchungsseite bei Calendly LLC, 3423 Piedmont Rd NE, Suite
@@ -243,12 +262,12 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 8 · Speicherung im Browser</h2>
+          <h2 className={labelClass}>§ 9 · Speicherung im Browser</h2>
           <p>
             Für die von Ihnen gewählte Designvariante (hell/dunkel) speichert die
             Website Ihre Auswahl im lokalen Speicher Ihres Browsers
             (»localStorage«). Diese Information verbleibt auf Ihrem Gerät und
-            wird nicht übertragen. Den Eintrag von Cloudflare beschreibt § 6.
+            wird nicht übertragen. Den Eintrag von Cloudflare beschreibt § 7.
           </p>
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG.
@@ -256,7 +275,7 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 9 · Ihre Rechte</h2>
+          <h2 className={labelClass}>§ 10 · Ihre Rechte</h2>
           <p>
             Sie haben folgende Rechte: Auskunft (Art. 15), Berichtigung (Art.
             16), Löschung (Art. 17), Einschränkung (Art. 18),
@@ -270,7 +289,7 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 10 · Beschwerderecht</h2>
+          <h2 className={labelClass}>§ 11 · Beschwerderecht</h2>
           <p>
             Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu
             beschweren. Zuständig: Der Landesbeauftragte für den Datenschutz und
