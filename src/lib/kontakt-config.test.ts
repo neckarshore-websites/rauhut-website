@@ -85,6 +85,21 @@ test("no source file reads the old non-secret variables", () => {
   }
 });
 
+/**
+ * The old variables were deleted from Vercel Production on 2026-11-05 (Founder's word,
+ * planning #2879). Until then inquiry.ts still told an operator, in its header comment and
+ * in the production error log, to "set SMTP_HOST/.../CONTACT_EMAIL_TO" — six variables of
+ * which five no longer exist anywhere. The test above only looks for process.env reads,
+ * so a stale instruction in a comment or a log line passed it.
+ */
+test("inquiry.ts no longer tells anyone to set the retired variables", () => {
+  const text = readFileSync(join(hier, "../app/actions/inquiry.ts"), "utf8");
+  for (const name of ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_FROM", "CONTACT_EMAIL_TO"]) {
+    assert.ok(!text.includes(name), `inquiry.ts still names ${name}`);
+  }
+  assert.match(text, /SMTP_PASS/, "inquiry.ts must still name the one variable it needs");
+});
+
 test("the mail transport refuses to log in without TLS", () => {
   const text = readFileSync(join(hier, "../app/actions/inquiry.ts"), "utf8");
   assert.match(text, /requireTLS: true/, "inquiry.ts sends without requireTLS");
