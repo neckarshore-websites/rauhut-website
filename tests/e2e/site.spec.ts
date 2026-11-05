@@ -103,7 +103,7 @@ test("English homepage renders localized content and language metadata", async (
  *    2026-09-28, confirmed via the Calendly API, not assumed; the earlier
  *    `calendly.com/rauhut/20min` does NOT belong to his current account).
  *
- * 2. IT IS A LINK, NOT AN EMBED. § 7 of the Datenschutzerklaerung states
+ * 2. IT IS A LINK, NOT AN EMBED. § 8 of the Datenschutzerklaerung states
  *    that no data reaches Calendly until the visitor clicks. That sentence
  *    is only true while this stays an outbound link. A script tag or iframe
  *    from calendly.com would make a published legal document false — which
@@ -136,7 +136,7 @@ for (const [language, path, offersRegionName] of [
     // go vacuously green on a page where every CTA vanished entirely.
     await expect(
       page.locator('script[src*="calendly"], iframe[src*="calendly"]'),
-      "an embed would make § 7 of the Datenschutzerklaerung false"
+      "an embed would make § 8 of the Datenschutzerklaerung false"
     ).toHaveCount(0);
   });
 }
@@ -225,6 +225,47 @@ test("the privacy policy covers the Calendly link it is written for", async ({
     policy,
     "the section's load-bearing claim is that nothing is embedded"
   ).toContainText("nicht in diese Website eingebunden");
+});
+
+// Art. 13 for the contact form (Dr. Sommer, register 4.4 row 2; wording
+// texts.rauhut_form_section of report 2026-11-02-dr-sommer-25tinx-turnstile;
+// retention twelve months, Founder 2026-11-02 on planning #3801). Until
+// 2026-11-05 the page described Turnstile, which guards the form, but not
+// the form itself. The section went in as § 6 and everything after it moved
+// up one number, so the test also checks that the numbering has no gap.
+test("the privacy policy covers the contact form and numbers its sections without a gap", async ({
+  page,
+}) => {
+  await page.goto("/datenschutz");
+
+  const policy = page.locator("main");
+  const text = (await policy.innerText()).replace(/\s+/g, " ");
+  for (const phrase of [
+    "verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht",
+    "an unser Postfach bei der IONOS SE",
+    "Sie erhalten eine Eingangsbestätigung an die angegebene Adresse.",
+    "Wir löschen die Nachricht zwölf Monate nach Eingang",
+  ]) {
+    expect(text, `must say: ${phrase}`).toContain(phrase);
+  }
+
+  // textContent, not innerText: the headings are uppercased by CSS, and
+  // innerText returns what is displayed ("KONTAKTFORMULAR").
+  const headings = (await policy.locator("h2").allTextContents()).map((h) =>
+    h.replace(/\s+/g, " ").trim()
+  );
+  expect(headings, "the contact form has its own section").toContain(
+    "§ 6 · Kontaktformular"
+  );
+
+  const numbers = headings
+    .map((heading) => heading.match(/^§\s*(\d+)/)?.[1])
+    .filter((n): n is string => n !== undefined)
+    .map(Number);
+  expect(numbers, "section numbers must run 1, 2, 3 … without a gap").toEqual(
+    numbers.map((_, i) => i + 1)
+  );
+  expect(numbers.length, "eleven sections since the contact form").toBe(11);
 });
 
 // P5b (2026-09-12, Founder brief) removed both the KI-Potenzialanalyse

@@ -144,7 +144,7 @@ test("legal-notice pages keep the statutory german@ address", () => {
     assert.ok(
       content.includes(PUBLIC_ADDRESS),
       `${file} no longer contains "${PUBLIC_ADDRESS}" — this is a legally mandated ` +
-        `contact address (Impressum § 5 TMG, Datenschutz § 1 and § 9) and must not be ` +
+        `contact address (Impressum § 5 TMG, Datenschutz § 1 and § 10) and must not be ` +
         `removed or replaced, not even during an address cleanup.`,
     );
   }
