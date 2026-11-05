@@ -28,9 +28,10 @@ import {
  *      validation, before send. Graceful when unconfigured (dormant),
  *      fail-closed in production once activated.
  *
- * Mail transport: SMTP via nodemailer. Env vars (all required in production;
- * missing in production → honest error asking the user to email directly):
- *   SMTP_HOST  SMTP_PORT  SMTP_USER  SMTP_PASS  SMTP_FROM  CONTACT_EMAIL_TO
+ * Mail transport: SMTP via nodemailer. Host, port, user, sender and recipient
+ * live in src/lib/kontakt-config.ts (planning #2879). The only env var is the
+ * secret SMTP_PASS; missing in production → honest error asking the user to
+ * email directly.
  *
  * In development (`NODE_ENV !== "production"`) a missing config falls back to
  * a dry-run that logs the would-be mail and returns success — useful for
@@ -178,7 +179,7 @@ export async function sendContact(
     if (isProd) {
       console.error(
         "[rauhut Contact] SMTP not configured in production — " +
-          "set SMTP_HOST/SMTP_PORT/SMTP_USER/SMTP_PASS/SMTP_FROM/CONTACT_EMAIL_TO",
+          "set SMTP_PASS (all other mail settings live in src/lib/kontakt-config.ts)",
       );
       return {
         status: "error",
