@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import { ThemeColorSync } from "@/components/ThemeColorSync";
 import "./globals.css";
 
 const inter = localFont({
@@ -46,6 +47,14 @@ export const metadata: Metadata = {
   },
 };
 
+// Browser chrome tint: the server value is the default (dark) --color-bg in
+// globals.css. The system setting is not asked (theme-init.js reads only a
+// stored choice), so no media query; ThemeColorSync follows the switch.
+// tests/e2e/theme-color.spec.ts holds the tag against the painted background.
+export const viewport: Viewport = {
+  themeColor: "#0A0A0A",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,6 +83,7 @@ export default function RootLayout({
             Inject once, at the end of body. No tracking, no cookies,
             no cross-site IDs. Data stays inside Vercel. */}
         <Analytics />
+        <ThemeColorSync />
       </body>
     </html>
   );
