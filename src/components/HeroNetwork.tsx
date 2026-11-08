@@ -18,11 +18,14 @@ import {
 } from "@/lib/hero-network";
 
 /**
- * HeroNetwork — animated network behind the homepage hero (rauhut-website #111).
+ * HeroNetwork — animated network across the top of the homepage (rauhut-website #111).
  *
  * Ported from the Founder's study rauhut-111-study.html at the "medium" level; the
- * study's controls and offer cards are not part of it. Design contract:
- * - Decorative: aria-hidden, pointer-events none, painted below the hero content.
+ * study's controls and offer cards are not part of it. After go-live the Founder asked
+ * for a large surface ("großflächig ... zumindest die obere Hälfte", 2026-11-08), so the
+ * layer spans the full window width from the page top to below the hero. Design contract:
+ * - Decorative: aria-hidden, pointer-events none, painted behind all page content.
+ * - Readability: a soft ellipse over the hero text block dims the network there.
  * - Colors are read from the theme tokens (--color-text-muted, --color-brand-amber,
  *   --color-brand-teal) and re-read when the theme switch flips data-theme.
  * - The canvas is transparent: the page ground shows through, so no surface is painted.
@@ -95,15 +98,19 @@ function subscribePaused(listener: () => void) {
   };
 }
 
-export default function HeroNetwork({ labels }: { labels: Labels }) {
+/** How far the layer reaches below the hero, in CSS px, before its bottom fade ends. */
+const BELOW_HERO = 96;
+/** Erase alpha at the centre of the text ellipse: the network stays faintly visible there. */
+const TEXT_DIM = 0.6;
+
+export default function HeroNetwork() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const paused = useSyncExternalStore(subscribePaused, getPaused, () => false);
 
   useEffect(() => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
-    const host = wrap?.parentElement;
+    const host = document.querySelector<HTMLElement>("header.hero-glow");
     const ctx = canvas?.getContext("2d");
     if (!wrap || !canvas || !host || !ctx) return;
 
@@ -125,7 +132,7 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
       wrap.dataset.palette = palette.name;
       let w = 0;
       let h = 0;
-      let fadeEnd = 0;
+      let dimBoxes: { cx: number; cy: number; rx: number; ry: number }[] = [];
       let nodes: NetworkNode[] = [];
       let pulses: { a: number; b: number; t: number; speed: number }[] = [];
       let raf = 0;
@@ -138,6 +145,7 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
 
       const setState = (state: State) => {
         wrap.dataset.state = state;
+        document.documentElement.dataset.heroNetworkState = state; // shows the pause control
       };
       const countFrame = () => {
         frameCount++;
@@ -234,16 +242,24 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
           }
         }
 
-        // Study: fade the network under the headline for readability. Erasing instead of
-        // painting the dark ground keeps the canvas transparent on both themes. The study's
-        // copy spans 60% of its hero; here the text block reaches further right on desktop,
-        // so the fade ends at the measured text edge there (fadeEnd). Phones keep 60%.
+        // Readability: dim the network under the hero text and the side navigation with
+        // soft ellipses. Erasing instead of painting the ground keeps the canvas transparent
+        // on both themes.
         ctx.globalCompositeOperation = "destination-out";
-        const fade = ctx.createLinearGradient(0, 0, fadeEnd, 0);
-        fade.addColorStop(0, "rgba(0,0,0,0.85)");
-        fade.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = fade;
-        ctx.fillRect(0, 0, w, h);
+        for (const box of dimBoxes) {
+          ctx.save();
+          ctx.translate(box.cx, box.cy);
+          ctx.scale(box.rx, box.ry);
+          const dim = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+          dim.addColorStop(0, `rgba(0,0,0,${TEXT_DIM})`);
+          dim.addColorStop(0.7, `rgba(0,0,0,${TEXT_DIM * 0.85})`);
+          dim.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = dim;
+          ctx.beginPath();
+          ctx.arc(0, 0, 1, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
         ctx.globalCompositeOperation = "source-over";
         countFrame();
       };
@@ -279,13 +295,40 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
       };
       const unsubscribePause = subscribePaused(sync);
 
+      // Text the network must not compete with: the hero's text block and, on desktop, the
+      // sticky side navigation. Measured relative to the layer; the navigation moves with
+      // scrolling, so this also runs on scroll.
+      const dimTargets = [host.querySelector("h1")?.parentElement, document.querySelector("aside")].filter(
+        (el): el is HTMLElement => !!el,
+      );
+      const measureDims = () => {
+        const r = wrap.getBoundingClientRect();
+        dimBoxes = dimTargets
+          .map((el) => el.getBoundingClientRect())
+          .filter((b) => b.width > 0 && b.height > 0)
+          .map((b) => ({
+            cx: b.left - r.left + b.width / 2,
+            cy: b.top - r.top + b.height / 2,
+            rx: b.width / 2 + 56,
+            ry: b.height / 2 + 48,
+          }));
+      };
+      // A running loop picks the new boxes up on its next frame; the static frame is redrawn.
+      // A paused frame stays as it is, so pausing really holds the picture.
+      const onScroll = () => {
+        measureDims();
+        if (!animate) draw(0);
+      };
+
       const resize = () => {
+        // The layer reaches from the page top to BELOW_HERO under the hero's bottom edge.
+        const heroRect = host.getBoundingClientRect();
+        wrap.style.height = `${Math.round(heroRect.bottom + window.scrollY + BELOW_HERO)}px`;
         const r = wrap.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, variant.maxDpr);
         w = r.width;
         h = r.height;
-        const text = host.querySelector("h1")?.parentElement?.getBoundingClientRect();
-        fadeEnd = w < 640 || !text ? w * 0.6 : Math.min(w, Math.max(w * 0.6, text.right - r.left));
+        measureDims();
         canvas.width = Math.round(w * dpr);
         canvas.height = Math.round(h * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -294,18 +337,23 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
         if (!animate || !raf) draw(0);
       };
 
+      // The layer itself takes no pointer events, so the pointer is read on the window and
+      // counts only while it is over the layer.
       const onMove = (ev: PointerEvent) => {
         const r = wrap.getBoundingClientRect();
-        mouse.px = ev.clientX - r.left;
-        mouse.py = ev.clientY - r.top;
-        mouse.tx = (mouse.px / r.width - 0.5) * 2;
-        mouse.ty = (mouse.py / r.height - 0.5) * 2;
+        const px = ev.clientX - r.left;
+        const py = ev.clientY - r.top;
+        if (px < 0 || py < 0 || px > r.width || py > r.height) {
+          mouse.tx = 0;
+          mouse.ty = 0;
+          mouse.inside = false;
+          return;
+        }
+        mouse.px = px;
+        mouse.py = py;
+        mouse.tx = (px / r.width - 0.5) * 2;
+        mouse.ty = (py / r.height - 0.5) * 2;
         mouse.inside = true;
-      };
-      const onLeave = () => {
-        mouse.tx = 0;
-        mouse.ty = 0;
-        mouse.inside = false;
       };
 
       const themeObserver = new MutationObserver(() => {
@@ -315,16 +363,23 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
       });
       themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
+      // Observe the hero, not the layer: resize() sets the layer's height, and observing the
+      // layer would feed that change back into the observer.
       const ro = new ResizeObserver(resize);
-      ro.observe(wrap);
+      ro.observe(host);
+      window.addEventListener("resize", resize);
+      window.addEventListener("scroll", onScroll, { passive: true });
       resize();
 
       if (!animate) {
         setState("static");
         teardown = () => {
           unsubscribePause();
+          window.removeEventListener("resize", resize);
+          window.removeEventListener("scroll", onScroll);
           ro.disconnect();
           themeObserver.disconnect();
+          delete document.documentElement.dataset.heroNetworkState;
         };
         return;
       }
@@ -333,12 +388,9 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
         inView = entries.some((e) => e.isIntersecting);
         sync();
       });
-      io.observe(host);
+      io.observe(wrap);
       document.addEventListener("visibilitychange", sync);
-      if (variant.pointer) {
-        host.addEventListener("pointermove", onMove, { passive: true });
-        host.addEventListener("pointerleave", onLeave);
-      }
+      if (variant.pointer) window.addEventListener("pointermove", onMove, { passive: true });
 
       setState("idle");
       let idleHandle = 0;
@@ -363,12 +415,14 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
         window.clearTimeout(idleHandle);
         window.removeEventListener("load", scheduleStart);
         document.removeEventListener("visibilitychange", sync);
-        host.removeEventListener("pointermove", onMove);
-        host.removeEventListener("pointerleave", onLeave);
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("resize", resize);
+        window.removeEventListener("scroll", onScroll);
         unsubscribePause();
         io.disconnect();
         ro.disconnect();
         themeObserver.disconnect();
+        delete document.documentElement.dataset.heroNetworkState;
       };
     };
 
@@ -384,32 +438,39 @@ export default function HeroNetwork({ labels }: { labels: Labels }) {
     };
   }, []);
 
-  const togglePause = () => setPaused(!getPaused());
-
   return (
-    <>
-      <div ref={wrapRef} className="hero-network" aria-hidden="true" data-hero-network="" data-state="idle">
-        <canvas ref={canvasRef} />
-      </div>
-      <button
-        type="button"
-        data-hero-network-toggle=""
-        className="hero-network-toggle"
-        aria-label={labels.pause}
-        aria-pressed={paused}
-        title={labels.pause}
-        onClick={togglePause}
-      >
-        {paused ? (
-          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
-            <path d="M4 2.5v11l9-5.5z" fill="currentColor" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
-            <path d="M4 2.5h2.75v11H4zM9.25 2.5H12v11H9.25z" fill="currentColor" />
-          </svg>
-        )}
-      </button>
-    </>
+    <div ref={wrapRef} className="hero-network" aria-hidden="true" data-hero-network="" data-state="idle">
+      <canvas ref={canvasRef} />
+    </div>
+  );
+}
+
+/**
+ * Pause control for the network, placed inside the hero. It shares the pause choice with
+ * HeroNetwork through the store above and is shown by CSS only while the network moves
+ * (:root[data-hero-network-state]), never in the static reduced-motion frame or without JavaScript.
+ */
+export function HeroNetworkToggle({ labels }: { labels: Labels }) {
+  const paused = useSyncExternalStore(subscribePaused, getPaused, () => false);
+  return (
+    <button
+      type="button"
+      data-hero-network-toggle=""
+      className="hero-network-toggle"
+      aria-label={labels.pause}
+      aria-pressed={paused}
+      title={labels.pause}
+      onClick={() => setPaused(!getPaused())}
+    >
+      {paused ? (
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+          <path d="M4 2.5v11l9-5.5z" fill="currentColor" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+          <path d="M4 2.5h2.75v11H4zM9.25 2.5H12v11H9.25z" fill="currentColor" />
+        </svg>
+      )}
+    </button>
   );
 }

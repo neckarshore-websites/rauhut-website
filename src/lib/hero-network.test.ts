@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 
 import {
   LEVEL,
+  MAX_AREA_FACTOR,
   SETTINGS,
   accentOf,
   buildNodes,
@@ -39,11 +40,12 @@ test("the seeded generator repeats itself, so screenshots are stable", () => {
   for (const n of seqA) assert.ok(n >= 0 && n < 1, `${n} is outside [0, 1)`);
 });
 
-test("node count and link distance scale with width as in the study", () => {
+test("node count scales with the layer's area, bounded both ways; link distance with width", () => {
   const cfg = SETTINGS.medium;
-  assert.equal(nodeCount(cfg, 1100), 90);
-  assert.equal(nodeCount(cfg, 2000), 90);
-  assert.equal(nodeCount(cfg, 390), Math.round(90 * 0.45));
+  assert.equal(nodeCount(cfg, 1100, 520), 90, "the study's hero size keeps the study's count");
+  assert.equal(nodeCount(cfg, 3000, 2000), Math.round(90 * MAX_AREA_FACTOR), "upper bound");
+  assert.equal(nodeCount(cfg, 300, 300), Math.round(90 * 0.45), "lower bound");
+  assert.ok(nodeCount(cfg, 1440, 760) > 90, "a wide band gets more nodes than the study's box");
   assert.equal(linkDistance(cfg, 1000), 162);
   assert.equal(linkDistance(cfg, 300), 162 * 0.7);
 });
@@ -76,14 +78,14 @@ test("a link never blends amber into teal: such a link is drawn gray", () => {
   assert.deepEqual(linkColors("amber", "amber"), ["amber", "amber"]);
 });
 
-test("nodes start inside the box; on desktop they lean right, away from the headline", () => {
+test("nodes cover the whole layer, not only its right side", () => {
   const cfg = SETTINGS.medium;
-  const desktop = buildNodes(720, 480, cfg, seeded(42));
-  assert.equal(desktop.length, nodeCount(cfg, 720));
-  for (const n of desktop) {
-    assert.ok(n.x >= 0.25 * 720 - 1e-9 && n.x <= 720 && n.y >= 0 && n.y <= 480, "node outside the box");
+  const nodes = buildNodes(1440, 760, cfg, seeded(42));
+  assert.equal(nodes.length, nodeCount(cfg, 1440, 760));
+  for (const n of nodes) {
+    assert.ok(n.x >= 0 && n.x <= 1440 && n.y >= 0 && n.y <= 760, "node outside the layer");
     assert.ok(n.z >= 0.3 && n.z <= 1, "depth outside [0.3, 1]");
   }
-  const mobile = buildNodes(390, 600, cfg, seeded(42));
-  assert.ok(mobile.some((n) => n.x < 0.25 * 390), "on mobile nodes cover the full width");
+  assert.ok(nodes.some((n) => n.x < 0.25 * 1440), "nodes reach the left quarter");
+  assert.ok(nodes.some((n) => n.x > 0.75 * 1440), "nodes reach the right quarter");
 });

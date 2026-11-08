@@ -1,6 +1,6 @@
 import { captchaSitekey } from "@/lib/captcha/verify";
 import FounderPhoto from "@/components/FounderPhoto";
-import HeroNetwork from "@/components/HeroNetwork";
+import HeroNetwork, { HeroNetworkToggle } from "@/components/HeroNetwork";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
@@ -23,6 +23,7 @@ export default function HomePage() {
           Mobile gets a sticky top bar (Name + CTA, jumps behind a burger).
           Desktop (lg+) gets no sticky topbar at all — instead a sticky rail
           to the right of the (unchanged, still narrow) content column. */}
+      <HeroNetwork />
       <MobileNav lang="de" />
 
       <div className="lg:mx-auto lg:grid lg:max-w-[70rem] lg:grid-cols-[42rem_1fr] lg:items-start lg:gap-16 lg:px-6">
@@ -47,7 +48,7 @@ export default function HomePage() {
           pass: copy, buttons, meta and schema jobTitle stay exactly as
           shipped. Only the sections below this point were reordered. */}
       <header className="hero-glow mb-12 sm:mb-16">
-        <HeroNetwork labels={{ pause: "Hintergrundanimation anhalten" }} />
+        <HeroNetworkToggle labels={{ pause: "Hintergrundanimation anhalten" }} />
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
             <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">

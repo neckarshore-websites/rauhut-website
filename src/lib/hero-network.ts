@@ -64,8 +64,19 @@ export function seeded(seed: number): () => number {
   };
 }
 
-export function nodeCount(cfg: Settings, width: number): number {
-  return Math.round(cfg.nodes * Math.min(1, Math.max(0.45, width / 1100)));
+/** The study's hero box; its node count is cfg.nodes. */
+const STUDY_AREA = 1100 * 520;
+
+/** Upper bound on the area factor: keeps the pair loop bounded on very large screens. */
+export const MAX_AREA_FACTOR = 1.6;
+
+/**
+ * The layer spans the top of the page (Founder 2026-11-08: "großflächig ... zumindest die
+ * obere Hälfte"), so the count follows the area, keeping the study's density, bounded both ways.
+ */
+export function nodeCount(cfg: Settings, width: number, height: number): number {
+  const factor = Math.min(MAX_AREA_FACTOR, Math.max(0.45, (width * height) / STUDY_AREA));
+  return Math.round(cfg.nodes * factor);
 }
 
 export function linkDistance(cfg: Settings, width: number): number {
@@ -97,15 +108,16 @@ export function linkColors(a: Accent, b: Accent): [Accent, Accent] {
 
 export type NetworkNode = { x: number; y: number; vx: number; vy: number; z: number; hue: number };
 
-/** Study layout: on desktop the nodes lean right (x from 25% of the width), on mobile they cover it. */
+/**
+ * Nodes cover the whole layer. The study leaned them right to keep the headline clear; here
+ * the component dims the text block instead, so the network can fill the top of the page.
+ */
 export function buildNodes(width: number, height: number, cfg: Settings, rnd: () => number): NetworkNode[] {
-  const count = nodeCount(cfg, width);
+  const count = nodeCount(cfg, width, height);
   const nodes: NetworkNode[] = [];
   for (let i = 0; i < count; i++) {
-    const bias = rnd();
-    const x = width * (0.25 + 0.75 * Math.pow(bias, 0.7));
     nodes.push({
-      x: width < 640 ? rnd() * width : x,
+      x: rnd() * width,
       y: rnd() * height,
       vx: rnd() - 0.5,
       vy: rnd() - 0.5,
