@@ -45,6 +45,23 @@ for (const { path, pause } of PAGES) {
       expect(hero!.height).toBeLessThan(900);
     });
 
+    // Founder 2026-11-08 after go-live: "großflächig ... zumindest die obere Hälfte".
+    // The layer spans the full window width from the page top to below the hero.
+    test("the layer covers the top of the page: full width, from the top to below the hero", async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height: 900 });
+      await page.goto(path);
+      await expect(net(page)).toHaveAttribute("data-state", "running");
+      const box = await net(page).evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        const hero = document.querySelector("header.hero-glow")!.getBoundingClientRect();
+        return { left: r.left, top: r.top, width: r.width, bottom: r.bottom, heroBottom: hero.bottom, vw: document.documentElement.clientWidth };
+      });
+      expect(box.left).toBe(0);
+      expect(box.top).toBeLessThanOrEqual(0);
+      expect(box.width).toBe(box.vw);
+      expect(box.bottom).toBeGreaterThan(box.heroBottom);
+    });
+
     test("every hero link and button still receives the pointer", async ({ page }) => {
       await page.goto(path);
       await expect(net(page)).toHaveAttribute("data-state", "running");

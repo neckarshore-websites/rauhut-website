@@ -249,9 +249,9 @@ details[open] summary {
   color: var(--color-bg);
 }
 
-/* Hero container — the class name is kept (tests and both pages select it);
-   it now hosts the network background below. isolation keeps the layer's
-   z-index: -1 inside the hero, above the page ground and below its content. */
+/* Hero container — the class name is kept (tests and both pages select it).
+   It positions the network's pause control; the network itself lives at the
+   page top (.hero-network below). */
 .hero-glow {
   position: relative;
   isolation: isolate;
@@ -259,16 +259,22 @@ details[open] summary {
 
 /* Hero network background (rauhut-website #111). Replaces the former teal radial
    glow: #111 rules out broad colored glows, and a tinted surface under the gray
-   network would mix its colors. The layer bleeds 24px to the sides (the column's own
-   padding on phones, so no horizontal scroll) and fades out at its edges. */
+   network would mix its colors. Since 2026-11-08 (Founder: "großflächig ... zumindest
+   die obere Hälfte") the layer spans the full window width from the page top to below
+   the hero; HeroNetwork.tsx sets its height. z-index -1 paints it behind all content
+   and above the page ground (body's background is carried to the canvas, html has
+   none). The bottom fades out so the band has no edge. */
 .hero-network {
   position: absolute;
-  inset: -40px -24px -32px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70svh; /* until JavaScript measures the hero */
   z-index: -1;
+  overflow: hidden;
   pointer-events: none;
-  /* farthest-side reaches zero at the layer's edges, so nothing ends in a hard cut. */
-  -webkit-mask-image: radial-gradient(farthest-side at 50% 50%, #000 62%, transparent 100%);
-  mask-image: radial-gradient(farthest-side at 50% 50%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
 }
 
 .hero-network canvas {
@@ -302,8 +308,8 @@ details[open] summary {
   border-color: var(--color-border-strong);
 }
 
-.hero-network:is([data-state="running"], [data-state="paused"], [data-state="offscreen"], [data-state="hidden"])
-  + .hero-network-toggle {
+:root:is([data-hero-network-state="running"], [data-hero-network-state="paused"], [data-hero-network-state="offscreen"], [data-hero-network-state="hidden"])
+  .hero-network-toggle {
   display: inline-flex;
 }
 
