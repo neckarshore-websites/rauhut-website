@@ -249,40 +249,62 @@ details[open] summary {
   color: var(--color-bg);
 }
 
-/* Hero-Glow — subtle radial gradient behind the H1 in Dark Mode only.
-   Layered via ::before pseudo-element so it doesn't affect layout, does
-   not compete with content for tab/focus order, and is invisible to SR.
-   Light Mode stays flat — the white page is already calm. */
+/* Hero container — the class name is kept (tests and both pages select it);
+   it now hosts the network background below. isolation keeps the layer's
+   z-index: -1 inside the hero, above the page ground and below its content. */
 .hero-glow {
   position: relative;
-  isolation: isolate; /* keep the glow confined to this stacking context */
+  isolation: isolate;
 }
 
-.hero-glow::before {
-  content: "";
+/* Hero network background (rauhut-website #111). Replaces the former teal radial
+   glow: #111 rules out broad colored glows, and a tinted surface under the gray
+   network would mix its colors. The layer bleeds 24px to the sides (the column's own
+   padding on phones, so no horizontal scroll) and fades out at its edges. */
+.hero-network {
   position: absolute;
-  top: 50%;
-  left: 10%;
-  width: 480px;
-  height: 480px;
-  max-width: 80%;
-  transform: translateY(-50%);
-  background: radial-gradient(
-    closest-side,
-    rgba(34, 211, 238, 0.09) 0%,
-    rgba(34, 211, 238, 0.04) 45%,
-    transparent 75%
-  );
-  filter: blur(8px);
-  pointer-events: none;
+  inset: -40px -24px -32px;
   z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  pointer-events: none;
+  /* farthest-side reaches zero at the layer's edges, so nothing ends in a hard cut. */
+  -webkit-mask-image: radial-gradient(farthest-side at 50% 50%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(farthest-side at 50% 50%, #000 62%, transparent 100%);
 }
 
-/* Only render in Dark Mode */
-:root[data-theme="dark"] .hero-glow::before {
-  opacity: 1;
+.hero-network canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Pause control: absolutely placed below the hero's bottom edge (inside its margin),
+   so it adds no layout. Shown only once the animation has started; never in the
+   static reduced-motion frame or without JavaScript. */
+.hero-network-toggle {
+  position: absolute;
+  right: 0;
+  bottom: -2.5rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.hero-network-toggle:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.hero-network:is([data-state="running"], [data-state="paused"], [data-state="offscreen"], [data-state="hidden"])
+  + .hero-network-toggle {
+  display: inline-flex;
 }
 
 /* ThemeToggle icon visibility — driven by :root[data-theme] only,

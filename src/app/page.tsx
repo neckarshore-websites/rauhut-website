@@ -1,5 +1,6 @@
 import { captchaSitekey } from "@/lib/captcha/verify";
 import FounderPhoto from "@/components/FounderPhoto";
+import HeroNetwork from "@/components/HeroNetwork";
 import ThemeToggle from "@/components/ThemeToggle";
 import LangToggle from "@/components/LangToggle";
 import StatsRow from "@/components/StatsRow";
@@ -46,6 +47,7 @@ export default function HomePage() {
           pass: copy, buttons, meta and schema jobTitle stay exactly as
           shipped. Only the sections below this point were reordered. */}
       <header className="hero-glow mb-12 sm:mb-16">
+        <HeroNetwork labels={{ pause: "Hintergrundanimation anhalten" }} />
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
             <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">
