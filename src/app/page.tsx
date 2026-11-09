@@ -1,8 +1,7 @@
 import { captchaSitekey } from "@/lib/captcha/verify";
 import FounderPhoto from "@/components/FounderPhoto";
-import HeroNetwork, { HeroNetworkToggle } from "@/components/HeroNetwork";
-import ThemeToggle from "@/components/ThemeToggle";
-import LangToggle from "@/components/LangToggle";
+import HeroNetwork from "@/components/HeroNetwork";
+import PageControls from "@/components/PageControls";
 import StatsRow from "@/components/StatsRow";
 import Reveal from "@/components/Reveal";
 import ContactCards from "@/components/ContactCards";
@@ -32,23 +31,18 @@ export default function HomePage() {
               (native <script> tag, not next/script — see AD-19). */}
           <PersonJsonLd lang="de" />
 
-          {/* Top bar — language toggle + theme toggle. LangToggle hides at
-              lg+ (P8): the sticky rail carries DE/EN there instead, since
-              this row is not sticky and would otherwise scroll out of
-              reach — see NavRail.tsx. justify-end keeps ThemeToggle at the
-              right edge once LangToggle's wrapper leaves the flex row. */}
-          <div className="mb-10 flex items-center justify-between lg:justify-end">
-            <div className="lg:hidden">
-              <LangToggle current="de" />
-            </div>
-            <ThemeToggle />
+          {/* Top bar, phone: the control cluster (#114) on the right of the
+              row above the hero. On desktop (lg+) the same cluster sits at
+              the top of the sticky NavRail; this row keeps its fixed height
+              there as an empty spacer, so the hero keeps its position. */}
+          <div className="mb-10 flex h-9 items-center justify-end">
+            <PageControls lang="de" className="lg:hidden" />
           </div>
 
           {/* Header — Hero. P1 (2026-09-11), live, UNANTASTBAR for this P2 IA
           pass: copy, buttons, meta and schema jobTitle stay exactly as
           shipped. Only the sections below this point were reordered. */}
       <header className="hero-glow mb-12 sm:mb-16">
-        <HeroNetworkToggle labels={{ pause: "Hintergrundanimation anhalten" }} />
         <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
           <div>
             <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">

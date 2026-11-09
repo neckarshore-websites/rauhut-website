@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import LangToggle from "@/components/LangToggle";
+import PageControls from "@/components/PageControls";
 import { NAV_ITEMS, NAV_CTA_LABEL, NAV_CTA_HREF, type Lang } from "@/lib/pageNav";
 
 /**
@@ -15,11 +15,10 @@ import { NAV_ITEMS, NAV_CTA_LABEL, NAV_CTA_HREF, type Lang } from "@/lib/pageNav
  * rhythm, no card/box around the list, only the current entry bolds and
  * gets the bar. Color is rauhut's own brand-teal, not Kaze's coral.
  *
- * DE/EN switcher lives here too (reusing LangToggle as-is, no new i18n
- * logic) — the brief allows either the slim header or the rail for
- * desktop; the header's own LangToggle is now hidden at lg+ (see
- * page.tsx/en/page.tsx) so this is the one live control while scrolled,
- * matching what the approved mockup showed.
+ * The page's control cluster (DE, EN, light/dark, play/pause; #114) sits at
+ * the top of this rail, so on desktop all four controls are top right and
+ * stay reachable while scrolling. The phone copy of the same cluster, in the
+ * row above the hero, is invisible at lg+ (see page.tsx/en/page.tsx).
  */
 export default function NavRail({ lang = "de" }: { lang?: Lang }) {
   const items = NAV_ITEMS[lang];
@@ -57,7 +56,7 @@ export default function NavRail({ lang = "de" }: { lang?: Lang }) {
       aria-label={lang === "de" ? "Seitennavigation" : "Page navigation"}
       className="hidden lg:sticky lg:top-16 lg:flex lg:w-56 lg:flex-col lg:gap-8 lg:self-start"
     >
-      <LangToggle current={lang} />
+      <PageControls lang={lang} />
 
       <nav
         aria-label={lang === "de" ? "Sprungnavigation" : "Jump navigation"}

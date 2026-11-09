@@ -446,7 +446,7 @@ export default function HeroNetwork() {
 }
 
 /**
- * Pause control for the network, placed inside the hero. It shares the pause choice with
+ * Pause control for the network, rendered in PageControls (#114). It shares the pause choice with
  * HeroNetwork through the store above and is shown by CSS only while the network moves
  * (:root[data-hero-network-state]), never in the static reduced-motion frame or without JavaScript.
  */
