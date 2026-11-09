@@ -283,14 +283,14 @@ details[open] summary {
   height: 100%;
 }
 
-/* Pause control: absolutely placed below the hero's bottom edge (inside its margin),
-   so it adds no layout. Shown only once the animation has started; never in the
-   static reduced-motion frame or without JavaScript. */
+/* Pause control, last slot of PageControls (#114). Its slot is always laid out and
+   the button only becomes visible once the animation has started; never in the
+   static reduced-motion frame or without JavaScript. Reserving the slot keeps DE,
+   EN and the theme switch in place and avoids a layout shift when it appears.
+   visibility: hidden also keeps it out of the accessibility tree and the tab order. */
 .hero-network-toggle {
-  position: absolute;
-  right: 0;
-  bottom: -2.5rem;
-  display: none;
+  display: inline-flex;
+  visibility: hidden;
   align-items: center;
   justify-content: center;
   width: 28px;
@@ -310,7 +310,7 @@ details[open] summary {
 
 :root:is([data-hero-network-state="running"], [data-hero-network-state="paused"], [data-hero-network-state="offscreen"], [data-hero-network-state="hidden"])
   .hero-network-toggle {
-  display: inline-flex;
+  visibility: visible;
 }
 
 /* ThemeToggle icon visibility — driven by :root[data-theme] only,
