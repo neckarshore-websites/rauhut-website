@@ -73,7 +73,10 @@ export default function HomePageEN() {
         {/* lang="en" on <main> signals English subtree to screen readers
             without needing to refactor into [locale]/layout.tsx. Root <html>
             keeps lang="de" as site default. */}
-        <main lang="en" className="mx-auto max-w-2xl px-6 py-16 sm:py-24 lg:px-0">
+        <main
+          lang="en"
+          className="mx-auto max-w-2xl px-6 py-16 sm:py-24 lg:px-0"
+        >
           {/* Schema.org Person — emitted as raw JSON-LD in the HTML source
               (native <script> tag, not next/script — see AD-19). */}
           <PersonJsonLd lang="en" />
@@ -89,79 +92,84 @@ export default function HomePageEN() {
           {/* Header — Hero. P1 (2026-09-11), live, UNTOUCHABLE for this P2 IA
           pass: copy, buttons, meta and schema jobTitle stay exactly as
           shipped. Only the sections below this point were reordered. */}
-      <header className="hero-glow mb-12 sm:mb-16">
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
-          <div>
-            <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">
-              Freelance Technical Product Owner
-            </h1>
-            <p className="mt-3 text-lg font-medium text-text sm:text-xl">
-              German Rauhut
-            </p>
-            <p className="mt-3 text-base text-text-muted sm:text-lg">
-              Getting enterprise programmes live — requirements, test,
-              release, distributed teams. AI delivery from shipping my own
-              products — not slide-deck consulting.
-            </p>
-            <p className="mt-4 text-sm text-text-muted">
-              Stuttgart · remote DACH · 10 years Mercedes-Benz ecosystem ·
-              independent since Oct 2025 ·{" "}
-              <span className="font-medium text-text">{AVAILABILITY.en}</span>
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-text px-5 py-2.5 text-sm font-medium text-bg no-underline transition-colors duration-150 hover:bg-accent-hover hover:text-bg hover:no-underline"
-              >
-                Discuss a mandate (30 min)
-              </a>
-              <a
-                href={CONTACT_MAILTO.en}
-                className="inline-flex items-center justify-center rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text no-underline transition-colors duration-150 hover:border-accent hover:text-accent-hover hover:no-underline"
-              >
-                Email
-              </a>
+          <header className="hero-glow mb-12 sm:mb-16">
+            <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+              <div>
+                <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">
+                  Freelance Technical Product Owner
+                </h1>
+                <p className="mt-3 text-lg font-medium text-text sm:text-xl">
+                  German Rauhut
+                </p>
+                <p className="mt-3 text-base text-text-muted sm:text-lg">
+                  Getting enterprise programmes live — requirements, test,
+                  release, distributed teams. AI delivery from shipping my own
+                  products — not slide-deck consulting.
+                </p>
+                <p className="mt-4 text-sm text-text-muted">
+                  Stuttgart · remote DACH · 10 years Mercedes-Benz ecosystem ·
+                  independent since Oct 2025 ·{" "}
+                  <span className="font-medium text-text">
+                    {AVAILABILITY.en}
+                  </span>
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-lg bg-text px-5 py-2.5 text-sm font-medium text-bg no-underline transition-colors duration-150 hover:bg-accent-hover hover:text-bg hover:no-underline"
+                  >
+                    Discuss a mandate (30 min)
+                  </a>
+                  <a
+                    href={CONTACT_MAILTO.en}
+                    className="inline-flex items-center justify-center rounded-lg border border-border-strong px-5 py-2.5 text-sm font-medium text-text no-underline transition-colors duration-150 hover:border-accent hover:text-accent-hover hover:no-underline"
+                  >
+                    Email
+                  </a>
+                </div>
+              </div>
+              <FounderPhoto />
             </div>
-          </div>
-          <FounderPhoto />
-        </div>
-      </header>
+          </header>
 
-      {/* About — first content block after the hero (P0/IA 2026-09-11 b:
+          {/* About — first content block after the hero (P0/IA 2026-09-11 b:
           rauhut.com sells the PERSON for a freelance mandate, so this is
           neither Neckarshore nor a product list). No leading <hr/> here —
           matches the original header→first-block rhythm, where the header's
           own bottom margin provides the gap. */}
-      <Reveal className="pb-20 sm:pb-24" aria-labelledby="about-label">
-        <p id="about-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
-          About
-        </p>
-        <h2 id="about" className="mt-2 mb-6 text-2xl font-semibold">
-          What I take on
-        </h2>
-        <p className="text-lg leading-relaxed">
-          Ten years in the Mercedes-Benz ecosystem: requirements, test and
-          release in programmes that have to run 24/7. The same work
-          freelance since October 2025 — with the difference that I now
-          build the tools myself, and can therefore judge what AI carries
-          in an enterprise process and what it does not.
-        </p>
-        <StatsRow lang="en" />
-        <div className="mt-10 sm:mt-12">
-          <p className="text-sm font-semibold text-text">
-            Worked for
-          </p>
-          <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
-            Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer · Contargo · Rhenus AG · Regional Container Lines · plenum · Targens · TestGilde
-          </p>
-        </div>
-      </Reveal>
+          <Reveal className="pb-20 sm:pb-24" aria-labelledby="about-label">
+            <p
+              id="about-label"
+              className="text-xs font-medium uppercase tracking-widest text-brand-amber"
+            >
+              About
+            </p>
+            <h2 id="about" className="mt-2 mb-6 text-2xl font-semibold">
+              What I take on
+            </h2>
+            <p className="text-lg leading-relaxed">
+              Ten years in the Mercedes-Benz ecosystem: requirements, test and
+              release in programmes that have to run 24/7. The same work
+              freelance since October 2025 — with the difference that I now
+              build the tools myself, and can therefore judge what AI carries in
+              an enterprise process and what it does not.
+            </p>
+            <StatsRow lang="en" />
+            <div className="mt-10 sm:mt-12">
+              <p className="text-sm font-semibold text-text">Worked for</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-text-muted">
+                Mercedes-Benz · IBM · Deutsche Bank · Allianz · Gothaer ·
+                Contargo · Rhenus AG · Regional Container Lines · plenum ·
+                Targens · TestGilde
+              </p>
+            </div>
+          </Reveal>
 
-      <hr />
+          <hr />
 
-      {/* Offers — P3 (2026-09-11 d, Founder brief): purchasing sees in 10
+          {/* Offers — P3 (2026-09-11 d, Founder brief): purchasing sees in 10
           seconds what it can book, directly after About/StatsRow/origin
           sentence/"Worked for" and before Core Competencies. One lead
           offer with the page's second filled-Primary CTA (same Calendly
@@ -169,90 +177,98 @@ export default function HomePageEN() {
           two are visually weaker (outline / plain text link). The fuller
           AI potential analysis section further down is untouched — Card 3
           here is a teaser for it, not a replacement. */}
-      <Reveal className="py-20 sm:py-24" aria-labelledby="offers">
-        <p className="text-xs font-medium uppercase tracking-widest text-brand-amber">
-          Offers
-        </p>
-        <h2
-          id="offers"
-          className="mt-2 text-2xl font-semibold"
-        >
-          What you can book
-        </h2>
-        <Offers lang="en" />
-      </Reveal>
+          <Reveal className="py-20 sm:py-24" aria-labelledby="offers">
+            <p className="text-xs font-medium uppercase tracking-widest text-brand-amber">
+              Offers
+            </p>
+            <h2 id="offers" className="mt-2 text-2xl font-semibold">
+              What you can book
+            </h2>
+            <Offers lang="en" />
+          </Reveal>
 
-      <hr />
+          <hr />
 
-      {/* Core Competencies */}
-      <Reveal className="py-20 sm:py-24" aria-labelledby="competencies-label">
-        <p id="competencies-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
-          Core Competencies
-        </p>
-        <h2 id="competencies" className="mt-2 mb-8 text-2xl font-semibold">
-          What I bring
-        </h2>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col" className="w-1/2">
-                The mandate
-              </th>
-              <th scope="col" className="w-1/2">
-                What it stands on
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                Technical Product Ownership — vision, backlog, delivery
-              </td>
-              <td>
-                AI delivery — multi-agent architectures, LLM integration,
-                prompt engineering
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Requirements Management — from rough concept to technical
-                story
-              </td>
-              <td>
-                Full-stack — NestJS, TypeScript, PostgreSQL, Redis, Docker
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Test and Release Management — strategy, automation, cadence
-              </td>
-              <td>DevOps &amp; CI/CD — GitHub Actions, Vercel, monitoring</td>
-            </tr>
-            <tr>
-              <td>
-                Distributed teams — on- and offshore, acceptance through
-                go-live
-              </td>
-              <td>
-                Enterprise processes — ITSM, Release Mgmt, Change Mgmt
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </Reveal>
+          {/* Core Competencies */}
+          <Reveal
+            className="py-20 sm:py-24"
+            aria-labelledby="competencies-label"
+          >
+            <p
+              id="competencies-label"
+              className="text-xs font-medium uppercase tracking-widest text-brand-amber"
+            >
+              Core Competencies
+            </p>
+            <h2 id="competencies" className="mt-2 mb-8 text-2xl font-semibold">
+              What I bring
+            </h2>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col" className="w-1/2">
+                    The mandate
+                  </th>
+                  <th scope="col" className="w-1/2">
+                    What it stands on
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Technical Product Ownership — vision, backlog, delivery
+                  </td>
+                  <td>
+                    AI delivery — multi-agent architectures, LLM integration,
+                    prompt engineering
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Requirements Management — from rough concept to technical
+                    story
+                  </td>
+                  <td>
+                    Full-stack — NestJS, TypeScript, PostgreSQL, Redis, Docker
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Test and Release Management — strategy, automation, cadence
+                  </td>
+                  <td>
+                    DevOps &amp; CI/CD — GitHub Actions, Vercel, monitoring
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Distributed teams — on- and offshore, acceptance through
+                    go-live
+                  </td>
+                  <td>
+                    Enterprise processes — ITSM, Release Mgmt, Change Mgmt
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Reveal>
 
-      <hr />
+          <hr />
 
-      {/* Projects */}
-      <Reveal className="py-20 sm:py-24" aria-labelledby="projects-label">
-        <p id="projects-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
-          Projects
-        </p>
-        <h2 id="projects" className="mt-2 mb-10 text-2xl font-semibold">
-          Freelance, Mercedes-Benz, earlier roles
-        </h2>
+          {/* Projects */}
+          <Reveal className="py-20 sm:py-24" aria-labelledby="projects-label">
+            <p
+              id="projects-label"
+              className="text-xs font-medium uppercase tracking-widest text-brand-amber"
+            >
+              Projects
+            </p>
+            <h2 id="projects" className="mt-2 mb-10 text-2xl font-semibold">
+              Freelance, Mercedes-Benz, earlier roles
+            </h2>
 
-        {/* Freelance chapter — split into two since P4b (2026-09-11 e): the
+            {/* Freelance chapter — split into two since P4b (2026-09-11 e): the
             one "Neckarshore AI — building my own AI products" article is
             now two chapters under the same overline. Chapter 1 is the
             mandate (Technical Product Owner), Chapter 2 is the product
@@ -260,297 +276,297 @@ export default function HomePageEN() {
             neckarshore.ai/products. The later "Own Products" section with
             the clickable product tiles stays untouched; this chapter is
             prose, not duplicate navigation. */}
-        <article className="mb-14">
-          <header className="mb-4">
-            <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-              Since 10/2025 · Freelance
-            </p>
-          </header>
+            <article className="mb-14">
+              <header className="mb-4">
+                <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
+                  Since 10/2025 · Freelance
+                </p>
+              </header>
 
-          {/* Chapter 1 — Technical Product Owner (the mandate) */}
-          <div>
-            <h3 className="text-lg font-semibold">
-              Technical Product Owner
-            </h3>
-            <p className="mt-3 leading-relaxed text-text">
-              Independent since October 2025. Mandates in requirements, test
-              and release — remote DACH, enterprise scale. Programmes that
-              have to go live: backlog, distributed teams, delivery through
-              acceptance.
-            </p>
-            <p className="mt-4 leading-relaxed text-text">
-              Foundation: 10 years in the Mercedes-Benz ecosystem — PLUS
-              NextGen (master-data product MData, team in South Africa), SFMd (50,000+
-              KPIs, 2-week release), test and acceptance. The same work, not
-              slide-deck consulting.
-            </p>
-            <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
-              <li>
-                <strong className="font-semibold">
-                  Requirements &amp; backlog
-                </strong>{" "}
-                — from rough concept to technical story, prioritization,
-                business/IT alignment.
-              </li>
-              <li>
-                <strong className="font-semibold">
-                  Test, release, acceptance
-                </strong>{" "}
-                — strategy, automation, release cadence. The last mile where
-                programmes stall.
-              </li>
-              <li>
-                <strong className="font-semibold">Distributed teams</strong>{" "}
-                — delivery with on- and offshore teams, clear handoff,
-                ownership through go-live.
-              </li>
-            </ul>
-            {/* Plain text on purpose — no second filled-Primary button,
+              {/* Chapter 1 — Technical Product Owner (the mandate) */}
+              <div>
+                <h3 className="text-lg font-semibold">
+                  Technical Product Owner
+                </h3>
+                <p className="mt-3 leading-relaxed text-text">
+                  Independent since October 2025. Mandates in requirements, test
+                  and release — remote DACH, enterprise scale. Programmes that
+                  have to go live: backlog, distributed teams, delivery through
+                  acceptance.
+                </p>
+                <p className="mt-4 leading-relaxed text-text">
+                  Foundation: 10 years in the Mercedes-Benz ecosystem — PLUS
+                  NextGen (master-data product MData, team in South Africa),
+                  SFMd (50,000+ KPIs, 2-week release), test and acceptance. The
+                  same work, not slide-deck consulting.
+                </p>
+                <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
+                  <li>
+                    <strong className="font-semibold">
+                      Requirements &amp; backlog
+                    </strong>{" "}
+                    — from rough concept to technical story, prioritization,
+                    business/IT alignment.
+                  </li>
+                  <li>
+                    <strong className="font-semibold">
+                      Test, release, acceptance
+                    </strong>{" "}
+                    — strategy, automation, release cadence. The last mile where
+                    programmes stall.
+                  </li>
+                  <li>
+                    <strong className="font-semibold">Distributed teams</strong>{" "}
+                    — delivery with on- and offshore teams, clear handoff,
+                    ownership through go-live.
+                  </li>
+                </ul>
+                {/* Plain text on purpose — no second filled-Primary button,
                 Calendly stays hero + offer card (Founder rule, P4b). */}
-            <p className="mt-4 text-sm text-text-subtle">
-              Book via{" "}
-              <a
-                href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-projekte"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                “Discuss a mandate”
-              </a>
-              .
-            </p>
-          </div>
+                <p className="mt-4 text-sm text-text-subtle">
+                  Book via{" "}
+                  <a
+                    href="https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-projekte"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    “Discuss a mandate”
+                  </a>
+                  .
+                </p>
+              </div>
 
-          {/* Chapter 2 — What I build (product taxonomy) */}
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold">
-              What I build
-            </h3>
-            <p className="mt-3 leading-relaxed text-text">
-              The same way of working I bring into the mandate:
-              AI-accelerated, GDPR-by-design, everything tested.
-            </p>
-            <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
-              <li>
-                <strong className="font-semibold">
-                  Multi-agent development process
-                </strong>{" "}
-                — 23 specialized agents (architecture, implementation,
-                security, refactoring, marketing), structured handoff,
-                automated quality assurance. The way of working behind
-                everything.
-              </li>
-              <li>
-                <strong className="font-semibold">Omnopsis Documentor+X</strong>{" "}
-                — documentation engine for engineering teams: compliance,
-                technical and release documentation from Git, Jira and
-                Confluence. 905 tests, 96 API endpoints.
-              </li>
-              <li>
-                <strong className="font-semibold">Alongside</strong> that:
-                MMPs, native iOS apps and a fleet of Claude skills — sharply
-                scoped, all with test automation.
-              </li>
-            </ul>
-            <p className="mt-4 text-sm text-text-subtle">
-              Overview:{" "}
-              <a
-                href="https://neckarshore.ai/products"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                neckarshore.ai/products
-              </a>
-            </p>
+              {/* Chapter 2 — What I build (product taxonomy) */}
+              <div className="mt-10">
+                <h3 className="text-lg font-semibold">What I build</h3>
+                <p className="mt-3 leading-relaxed text-text">
+                  The same way of working I bring into the mandate:
+                  AI-accelerated, GDPR-by-design, everything tested.
+                </p>
+                <ul className="mt-4 list-disc space-y-3 pl-5 text-base leading-relaxed marker:text-text-muted">
+                  <li>
+                    <strong className="font-semibold">
+                      Multi-agent development process
+                    </strong>{" "}
+                    — 23 specialized agents (architecture, implementation,
+                    security, refactoring, marketing), structured handoff,
+                    automated quality assurance. The way of working behind
+                    everything.
+                  </li>
+                  <li>
+                    <strong className="font-semibold">
+                      Omnopsis Documentor+X
+                    </strong>{" "}
+                    — documentation engine for engineering teams: compliance,
+                    technical and release documentation from Git, Jira and
+                    Confluence. 905 tests, 96 API endpoints.
+                  </li>
+                  <li>
+                    <strong className="font-semibold">Alongside</strong> that:
+                    MMPs, native iOS apps and a fleet of Claude skills — sharply
+                    scoped, all with test automation.
+                  </li>
+                </ul>
+                <p className="mt-4 text-sm text-text-subtle">
+                  Overview:{" "}
+                  <a
+                    href="https://neckarshore.ai/products"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    neckarshore.ai/products
+                  </a>
+                </p>
 
-            {/* Stack — eight grouped lines, collapsed since the
+                {/* Stack — eight grouped lines, collapsed since the
                 concentration pass (2026-09-14). Mirrors the German page. */}
-            <details open className="mt-6">
-              <summary>Technologies I work with</summary>
-              <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
-                <dt className="font-medium text-text">Runtime</dt>
-                <dd>TypeScript, NestJS, Next.js, React, PostgreSQL, Neon, Redis/BullMQ, Python</dd>
-                <dt className="font-medium text-text">UI</dt>
-                <dd>Tailwind CSS, shadcn/ui</dd>
-                <dt className="font-medium text-text">Auth</dt>
-                <dd>Zitadel, NextAuth</dd>
-                <dt className="font-medium text-text">Delivery</dt>
-                <dd>Vercel, GitHub Actions, Docker</dd>
-                <dt className="font-medium text-text">Quality</dt>
-                <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
-                <dt className="font-medium text-text">iOS</dt>
-                <dd>Swift, Xcode, App Store</dd>
-                <dt className="font-medium text-text">Agents</dt>
-                <dd>Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI / Grok · OpenAI / Codex</dd>
-                <dt className="font-medium text-text">Integrations</dt>
-                <dd>Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq, Stripe, Resend</dd>
-              </dl>
+                <details open className="mt-6">
+                  <summary>Technologies I work with</summary>
+                  <dl className="mt-4 grid grid-cols-[7rem_1fr] gap-x-4 gap-y-1.5 text-sm text-text-muted">
+                    <dt className="font-medium text-text">Runtime</dt>
+                    <dd>
+                      TypeScript, NestJS, Next.js, React, PostgreSQL, Neon,
+                      Redis/BullMQ, Python
+                    </dd>
+                    <dt className="font-medium text-text">UI</dt>
+                    <dd>Tailwind CSS, shadcn/ui</dd>
+                    <dt className="font-medium text-text">Auth</dt>
+                    <dd>Zitadel, NextAuth</dd>
+                    <dt className="font-medium text-text">Delivery</dt>
+                    <dd>Vercel, GitHub Actions, Docker</dd>
+                    <dt className="font-medium text-text">Quality</dt>
+                    <dd>Vitest, Playwright, XCTest, Swift Testing</dd>
+                    <dt className="font-medium text-text">iOS</dt>
+                    <dd>Swift, Xcode, App Store</dd>
+                    <dt className="font-medium text-text">Agents</dt>
+                    <dd>
+                      Anthropic / Claude Code (Haiku, Sonnet, Opus, Fable) · xAI
+                      / Grok · OpenAI / Codex
+                    </dd>
+                    <dt className="font-medium text-text">Integrations</dt>
+                    <dd>
+                      Jira, Confluence, Git, Apify, Slack, ElevenLabs, Groq,
+                      Stripe, Resend
+                    </dd>
+                  </dl>
+                </details>
+              </div>
+            </article>
+
+            <article className="mb-14">
+              <header className="mb-4">
+                <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
+                  07/2015 – 10/2025 · Employed &amp; external
+                </p>
+                <h3 className="mt-1 text-lg font-semibold">
+                  Mercedes-Benz AG &amp; ecosystem
+                </h3>
+              </header>
+              <p className="mb-6 leading-relaxed text-text">
+                10 years in the Mercedes-Benz ecosystem — joined as Senior
+                Business Analyst, then Agile Coach, Plant Relationship Manager,
+                Change Management Team &amp; Technical Product Owner; agile,
+                international, ownership through go-live.
+              </p>
+              <Timeline lang="en" />
+              <details open className="mt-6">
+                <summary>Tools and methods of those years</summary>
+                <p className="mt-3 text-sm text-text-subtle">
+                  SCRUM, JIRA, Confluence, REST APIs, Postman, JSON, ServiceNow,
+                  Katalon (Selenium), MS SQL Server, Adobe AEM
+                </p>
+              </details>
+            </article>
+
+            <details>
+              <summary>Earlier roles (1992 – 2015)</summary>
+
+              <div className="space-y-6 text-base leading-relaxed text-text">
+                <p>
+                  Before Mercedes-Benz: 23 years of career — mandatory military
+                  service with the German Air Force in 1992, then consulting,
+                  software development, and operational leadership roles in
+                  Germany, Switzerland, and Thailand. Professional life started
+                  in 1993 — straight to Bangkok.
+                </p>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Period</th>
+                      <th scope="col">Role</th>
+                      <th scope="col">Context</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>07/2014 – 06/2015</td>
+                      <td>Senior PM Compliance</td>
+                      <td>
+                        Targens (formerly Cellent Finance Solutions), Stuttgart
+                        — specialized AML application
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>10/2011 – 06/2014</td>
+                      <td>Business IT Consultant</td>
+                      <td>
+                        Contargo AG, Basel — freight forwarding software 4ward
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>10/2013 – 12/2013</td>
+                      <td>Business IT Consultant</td>
+                      <td>
+                        Deutsche Bank, Frankfurt — embargo filtering processes
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>06/2010 – 07/2013</td>
+                      <td>Subproject Lead</td>
+                      <td>Allianz AMOS — AML software implementation</td>
+                    </tr>
+                    <tr>
+                      <td>04/2007 – 03/2010</td>
+                      <td>Business IT Consultant</td>
+                      <td>
+                        Regional Container Lines (RCL), Bangkok — ERP
+                        implementation
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>03/2007</td>
+                      <td>Business IT Consultant</td>
+                      <td>Contargo, Ludwigshafen — CRM selection</td>
+                    </tr>
+                    <tr>
+                      <td>08/2006 – 01/2007</td>
+                      <td>Business IT Consultant</td>
+                      <td>BMT AG, Basel — M+R standard software</td>
+                    </tr>
+                    <tr>
+                      <td>03/2004 – 06/2006</td>
+                      <td>Senior eBusiness Consultant</td>
+                      <td>Rhenus AG — ERP &amp; Terminal Management System</td>
+                    </tr>
+                    <tr>
+                      <td>02/2001 – 02/2004</td>
+                      <td>Senior Consultant</td>
+                      <td>plenum Systems — CRM for banking &amp; insurance</td>
+                    </tr>
+                    <tr>
+                      <td>10/2000 – 01/2001</td>
+                      <td>Software Developer</td>
+                      <td>EDM Müller + Partner — reporting system</td>
+                    </tr>
+                    <tr>
+                      <td>07/1996 – 06/2000</td>
+                      <td>Manager Software Development</td>
+                      <td>
+                        SoftControl Co., Ltd, Bangkok — business software &amp;
+                        internet programming, founded and led the development
+                        unit
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>08/1994 – 12/1994</td>
+                      <td>IT Consultant</td>
+                      <td>
+                        SoftControl Co., Ltd, Bangkok — business software
+                        development
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>03/1993 – 06/1996</td>
+                      <td>Factory / Procurement / Production Manager</td>
+                      <td>Operational leadership roles in Thailand</td>
+                    </tr>
+                    <tr>
+                      <td>1992</td>
+                      <td>Mandatory Military Service, German Air Force</td>
+                      <td>
+                        <span lang="de">
+                          Programmierzentrum der Luftwaffe für fliegende
+                          Waffensysteme (ProgrZLwflgWS)
+                        </span>{" "}
+                        —{" "}
+                        <a
+                          href="https://de.wikipedia.org/wiki/Welfen-Kaserne_(Landsberg_am_Lech)"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          lang="de"
+                        >
+                          Welfen-Kaserne, Landsberg am Lech
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </details>
-          </div>
-        </article>
+          </Reveal>
 
-        <article className="mb-14">
-          <header className="mb-4">
-            <p className="text-xs font-medium uppercase tracking-widest text-text-subtle">
-              07/2015 – 10/2025 · Employed &amp; external
-            </p>
-            <h3 className="mt-1 text-lg font-semibold">
-              Mercedes-Benz AG &amp; ecosystem
-            </h3>
-          </header>
-          <p className="mb-6 leading-relaxed text-text">
-            10 years in the Mercedes-Benz ecosystem — joined as Senior
-            Business Analyst, then Agile Coach, Plant Relationship Manager,
-            Change Management Team &amp; Technical Product Owner; agile,
-            international, ownership through go-live.
-          </p>
-          <Timeline lang="en" />
-          <details open className="mt-6">
-            <summary>Tools and methods of those years</summary>
-            <p className="mt-3 text-sm text-text-subtle">
-              SCRUM, JIRA, Confluence, REST APIs, Postman, JSON, ServiceNow,
-              Katalon (Selenium), MS SQL Server, Adobe AEM
-            </p>
-          </details>
-        </article>
-
-        <details>
-          <summary>Earlier roles (1992 – 2015)</summary>
-
-          <div className="space-y-6 text-base leading-relaxed text-text">
-            <p>
-              Before Mercedes-Benz: 23 years of career — mandatory
-              military service with the German Air Force in 1992, then
-              consulting, software development, and operational
-              leadership roles in Germany, Switzerland, and Thailand.
-              Professional life started in 1993 — straight to Bangkok.
-            </p>
-
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Period</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Context</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>07/2014 – 06/2015</td>
-                  <td>Senior PM Compliance</td>
-                  <td>
-                    Targens (formerly Cellent Finance Solutions), Stuttgart —
-                    specialized AML application
-                  </td>
-                </tr>
-                <tr>
-                  <td>10/2011 – 06/2014</td>
-                  <td>Business IT Consultant</td>
-                  <td>
-                    Contargo AG, Basel — freight forwarding software
-                    4ward
-                  </td>
-                </tr>
-                <tr>
-                  <td>10/2013 – 12/2013</td>
-                  <td>Business IT Consultant</td>
-                  <td>
-                    Deutsche Bank, Frankfurt — embargo filtering
-                    processes
-                  </td>
-                </tr>
-                <tr>
-                  <td>06/2010 – 07/2013</td>
-                  <td>Subproject Lead</td>
-                  <td>Allianz AMOS — AML software implementation</td>
-                </tr>
-                <tr>
-                  <td>04/2007 – 03/2010</td>
-                  <td>Business IT Consultant</td>
-                  <td>
-                    Regional Container Lines (RCL), Bangkok — ERP
-                    implementation
-                  </td>
-                </tr>
-                <tr>
-                  <td>03/2007</td>
-                  <td>Business IT Consultant</td>
-                  <td>Contargo, Ludwigshafen — CRM selection</td>
-                </tr>
-                <tr>
-                  <td>08/2006 – 01/2007</td>
-                  <td>Business IT Consultant</td>
-                  <td>BMT AG, Basel — M+R standard software</td>
-                </tr>
-                <tr>
-                  <td>03/2004 – 06/2006</td>
-                  <td>Senior eBusiness Consultant</td>
-                  <td>
-                    Rhenus AG — ERP &amp; Terminal Management System
-                  </td>
-                </tr>
-                <tr>
-                  <td>02/2001 – 02/2004</td>
-                  <td>Senior Consultant</td>
-                  <td>
-                    plenum Systems — CRM for banking &amp; insurance
-                  </td>
-                </tr>
-                <tr>
-                  <td>10/2000 – 01/2001</td>
-                  <td>Software Developer</td>
-                  <td>EDM Müller + Partner — reporting system</td>
-                </tr>
-                <tr>
-                  <td>07/1996 – 06/2000</td>
-                  <td>Manager Software Development</td>
-                  <td>
-                    SoftControl Co., Ltd, Bangkok — business software
-                    &amp; internet programming, founded and led the
-                    development unit
-                  </td>
-                </tr>
-                <tr>
-                  <td>08/1994 – 12/1994</td>
-                  <td>IT Consultant</td>
-                  <td>
-                    SoftControl Co., Ltd, Bangkok — business software
-                    development
-                  </td>
-                </tr>
-                <tr>
-                  <td>03/1993 – 06/1996</td>
-                  <td>
-                    Factory / Procurement / Production Manager
-                  </td>
-                  <td>
-                    Operational leadership roles in Thailand
-                  </td>
-                </tr>
-                <tr>
-                  <td>1992</td>
-                  <td>
-                    Mandatory Military Service, German Air Force
-                  </td>
-                  <td>
-                    Programmierzentrum der Luftwaffe für fliegende
-                    Waffensysteme (ProgrZLwflgWS) —{" "}
-                    <a
-                      href="https://de.wikipedia.org/wiki/Welfen-Kaserne_(Landsberg_am_Lech)"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      lang="de"
-                    >
-                      Welfen-Kaserne, Landsberg am Lech
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </Reveal>
-
-      {/* P5b (2026-09-12, Founder brief): the "Own Products" tile block
+          {/* P5b (2026-09-12, Founder brief): the "Own Products" tile block
           (ProjectTiles) and the "AI potential analysis" bridge section both
           removed from here — both were evidence/upsell blocks now fully
           redundant with content that already exists elsewhere: the product
@@ -561,68 +577,71 @@ export default function HomePageEN() {
           new subheading. See ProjectTiles.tsx (component deleted, it had no
           other caller) and tests/e2e/site.spec.ts for the removed
           coverage. */}
-      <hr />
+          <hr />
 
-      {/* Contact */}
-      <Reveal className="py-20 sm:py-24" aria-labelledby="contact-label">
-        <p id="contact-label" className="text-xs font-medium uppercase tracking-widest text-brand-amber">
-          Contact
-        </p>
-        <h2 id="contact" className="mt-2 mb-6 text-2xl font-semibold">
-          Let&rsquo;s talk
-        </h2>
-        {/* P6-lead (2026-09-12): closing lead before the channels — no
+          {/* Contact */}
+          <Reveal className="py-20 sm:py-24" aria-labelledby="contact-label">
+            <p
+              id="contact-label"
+              className="text-xs font-medium uppercase tracking-widest text-brand-amber"
+            >
+              Contact
+            </p>
+            <h2 id="contact" className="mt-2 mb-6 text-2xl font-semibold">
+              Let&rsquo;s talk
+            </h2>
+            {/* P6-lead (2026-09-12): closing lead before the channels — no
             second "Discuss a mandate" button here, that CTA already lives
             in the hybrid nav rail/bar (P8); this is text only. */}
-        {/* Origin sentence — here since 2026-09-14 instead of between the
+            {/* Origin sentence — here since 2026-09-14 instead of between the
             figures and the offers: the person sits next to the contact
             channels, not in the decision path. Mirrors the German page. */}
-        <p className="mb-6 max-w-xl text-sm leading-relaxed text-text-muted">
-          {ORIGIN.en}
-        </p>
-        <p className="mb-8 max-w-xl text-base leading-relaxed text-text">
-          Available immediately — mandates in requirements, test and
-          release, remote DACH. Twenty minutes via “Discuss a mandate”, or
-          a short note by email or the form.
-        </p>
-        <ContactCards lang="en" />
+            <p className="mb-6 max-w-xl text-sm leading-relaxed text-text-muted">
+              {ORIGIN.en}
+            </p>
+            <p className="mb-8 max-w-xl text-base leading-relaxed text-text">
+              Available immediately — mandates in requirements, test and
+              release, remote DACH. Twenty minutes via “Discuss a mandate”, or a
+              short note by email or the form.
+            </p>
+            <ContactCards lang="en" />
 
-        {/* P6-lead: the contact form previously only rendered on the
+            {/* P6-lead: the contact form previously only rendered on the
             German page — EN's Contact section had no form at all. Same
             Server Action, same fields/honeypot, localized via ContactForm's
             own lang prop (labels + hidden `lang` field for server-side
             error copy) — see ContactForm.tsx and inquiry-state.ts. */}
-        <div className="mt-10 max-w-xl">
-          <p className="mb-5 text-base text-text-subtle">
-            No calendar — write to me directly:
-          </p>
-          <ContactForm lang="en" turnstileSitekey={captchaSitekey()} />
-        </div>
-      </Reveal>
+            <div className="mt-10 max-w-xl">
+              <p className="mb-5 text-base text-text-subtle">
+                No calendar — write to me directly:
+              </p>
+              <ContactForm lang="en" turnstileSitekey={captchaSitekey()} />
+            </div>
+          </Reveal>
 
-      <hr />
+          <hr />
 
-      {/* Footer */}
-      <footer className="pt-10 pb-4 text-sm text-text-subtle">
-        <p>
-          © {new Date().getFullYear()} German Rauhut ·{" "}
-          <a href="/impressum" lang="de">
-            Imprint (German)
-          </a>{" "}
-          ·{" "}
-          <a href="/datenschutz" lang="de">
-            Privacy (German)
-          </a>{" "}
-          ·{" "}
-          <a href="/designs" rel="nofollow">
-            Designs
-          </a>{" "}
-          ·{" "}
-          <a href="/stylesheet" rel="nofollow">
-            Stylesheet
-          </a>
-        </p>
-      </footer>
+          {/* Footer */}
+          <footer className="pt-10 pb-4 text-sm text-text-subtle">
+            <p>
+              © {new Date().getFullYear()} German Rauhut ·{" "}
+              <a href="/impressum" lang="de">
+                Imprint (German)
+              </a>{" "}
+              ·{" "}
+              <a href="/datenschutz" lang="de">
+                Privacy (German)
+              </a>{" "}
+              ·{" "}
+              <a href="/designs" rel="nofollow">
+                Designs
+              </a>{" "}
+              ·{" "}
+              <a href="/stylesheet" rel="nofollow">
+                Stylesheet
+              </a>
+            </p>
+          </footer>
         </main>
 
         <NavRail lang="en" />
