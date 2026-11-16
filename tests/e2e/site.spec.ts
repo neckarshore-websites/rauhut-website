@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-test("German homepage renders the primary profile content", async ({ page }) => {
+test("German homepage renders the primary profile content", async ({
+  page,
+}) => {
   await page.goto("/");
 
   // P1b/P5a-fix (2026-09-12): the visible H1 is the role ("Freelance
@@ -14,7 +16,7 @@ test("German homepage renders the primary profile content", async ({ page }) => 
   await expect(h1).not.toHaveClass(/text-brand-teal/);
   await expect(
     page.locator("main :is(h1, h2, h3)[class*='text-brand-teal']"),
-    "P11: no heading carries brand-teal"
+    "P11: no heading carries brand-teal",
   ).toHaveCount(0);
 
   // Scoped to <header> — "German Rauhut" also appears in the (hidden at
@@ -25,7 +27,7 @@ test("German homepage renders the primary profile content", async ({ page }) => 
   await expect(nameLine).toBeVisible();
   await expect(
     nameLine,
-    "the name, not a role, must not carry the role-title color"
+    "the name, not a role, must not carry the role-title color",
   ).not.toHaveClass(/text-brand-teal/);
 
   await expect(page.locator("main")).not.toHaveAttribute("lang", "en");
@@ -43,10 +45,10 @@ test("German homepage renders the primary profile content", async ({ page }) => 
   await expect(summaryHeading).toHaveCount(1);
   await expect(summaryHeading).toBeVisible();
   await expect(summaryHeading).not.toBeEmpty();
-  await expect(page.locator("main p#zusammenfassung-label")).toHaveText("Zusammenfassung");
-  await expect(
-    page.getByRole("link", { name: "Impressum" })
-  ).toBeVisible();
+  await expect(page.locator("main p#zusammenfassung-label")).toHaveText(
+    "Zusammenfassung",
+  );
+  await expect(page.getByRole("link", { name: "Impressum" })).toBeVisible();
 });
 
 test("English homepage renders localized content and language metadata", async ({
@@ -55,16 +57,14 @@ test("English homepage renders localized content and language metadata", async (
   await page.goto("/en");
 
   await expect(page.locator("main")).toHaveAttribute("lang", "en");
-  await expect(
-    page.locator("main h2#about")
-  ).toHaveCount(1);
+  await expect(page.locator("main h2#about")).toHaveCount(1);
   await expect(page.locator("main h2#about")).toBeVisible();
   await expect(page.locator("main h2#about")).not.toBeEmpty();
   await expect(
-    page.getByRole("heading", { level: 2, name: "What I bring" })
+    page.getByRole("heading", { level: 2, name: "What I bring" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Imprint (German)" })
+    page.getByRole("link", { name: "Imprint (German)" }),
   ).toHaveAttribute("href", "/impressum");
 });
 
@@ -110,7 +110,8 @@ test("English homepage renders localized content and language metadata", async (
  *    is a defect of a different order than a layout regression, and exactly
  *    the kind that ships unnoticed because nothing looks broken.
  */
-const CALENDLY = "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com";
+const CALENDLY =
+  "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com";
 
 for (const [language, path, offersRegionName] of [
   ["German", "/", "Was Sie buchen können"],
@@ -123,20 +124,20 @@ for (const [language, path, offersRegionName] of [
 
     await expect(
       page.locator("header").locator(`a[href="${CALENDLY}"]`),
-      "the hero's Mandat CTA must survive a content pass"
+      "the hero's Mandat CTA must survive a content pass",
     ).toHaveCount(1);
 
     const offers = page.getByRole("region", { name: offersRegionName });
     await expect(
       offers.locator(`a[href="${CALENDLY}"]`),
-      "the Angebote/Offers lead card repeats the hero's exact CTA on purpose"
+      "the Angebote/Offers lead card repeats the hero's exact CTA on purpose",
     ).toHaveCount(1);
 
     // Positive assertions first (above), so the absence check below cannot
     // go vacuously green on a page where every CTA vanished entirely.
     await expect(
       page.locator('script[src*="calendly"], iframe[src*="calendly"]'),
-      "an embed would make § 8 of the Datenschutzerklaerung false"
+      "an embed would make § 8 of the Datenschutzerklaerung false",
     ).toHaveCount(0);
   });
 }
@@ -155,20 +156,14 @@ for (const [language, path, regionName, titles, leadMentions] of [
     "German",
     "/",
     "Was Sie buchen können",
-    [
-      "Technical Product Ownership",
-      "KI-Potenzialanalyse",
-    ],
+    ["Technical Product Ownership", "KI-Potenzialanalyse"],
     /Teststrategie[\s\S]*Release-Takt/,
   ],
   [
     "English",
     "/en",
     "What you can book",
-    [
-      "Technical Product Ownership",
-      "AI potential analysis",
-    ],
+    ["Technical Product Ownership", "AI potential analysis"],
     /Test strategy[\s\S]*release cadence/,
   ],
 ] as const) {
@@ -182,7 +177,7 @@ for (const [language, path, regionName, titles, leadMentions] of [
 
     for (const title of titles) {
       await expect(
-        section.getByRole("heading", { level: 3, name: title })
+        section.getByRole("heading", { level: 3, name: title }),
       ).toBeVisible();
     }
 
@@ -197,7 +192,7 @@ for (const [language, path, regionName, titles, leadMentions] of [
     // state it was written to detect is not a guard.
     await expect(
       section.getByRole("heading", { level: 3 }),
-      "a third offer card would mean the 2026-09-15 fold was undone"
+      "a third offer card would mean the 2026-09-15 fold was undone",
     ).toHaveCount(2);
 
     // The Test/Release wording was folded INTO the lead offer's body rather
@@ -209,7 +204,7 @@ for (const [language, path, regionName, titles, leadMentions] of [
     await expect(leadCard).toHaveCount(1);
     await expect(
       leadCard,
-      "the folded Test/Release sentence must survive a copy pass"
+      "the folded Test/Release sentence must survive a copy pass",
     ).toContainText(leadMentions);
   });
 }
@@ -223,7 +218,7 @@ test("the privacy policy covers the Calendly link it is written for", async ({
   await expect(policy).toContainText("Terminbuchung (Calendly)");
   await expect(
     policy,
-    "the section's load-bearing claim is that nothing is embedded"
+    "the section's load-bearing claim is that nothing is embedded",
   ).toContainText("nicht in diese Website eingebunden");
 });
 
@@ -252,10 +247,10 @@ test("the privacy policy covers the contact form and numbers its sections withou
   // textContent, not innerText: the headings are uppercased by CSS, and
   // innerText returns what is displayed ("KONTAKTFORMULAR").
   const headings = (await policy.locator("h2").allTextContents()).map((h) =>
-    h.replace(/\s+/g, " ").trim()
+    h.replace(/\s+/g, " ").trim(),
   );
   expect(headings, "the contact form has its own section").toContain(
-    "§ 6 · Kontaktformular"
+    "§ 6 · Kontaktformular",
   );
 
   const numbers = headings
@@ -263,7 +258,7 @@ test("the privacy policy covers the contact form and numbers its sections withou
     .filter((n): n is string => n !== undefined)
     .map(Number);
   expect(numbers, "section numbers must run 1, 2, 3 … without a gap").toEqual(
-    numbers.map((_, i) => i + 1)
+    numbers.map((_, i) => i + 1),
   );
   expect(numbers.length, "eleven sections since the contact form").toBe(11);
 });
@@ -315,9 +310,9 @@ test("theme toggle switches theme and persists it across reloads", async ({
 
   await page.getByRole("button", { name: "Theme wechseln" }).click();
   await expect(html).toHaveAttribute("data-theme", "light");
-  await expect(page.evaluate(() => localStorage.getItem("theme"))).resolves.toBe(
-    "light"
-  );
+  await expect(
+    page.evaluate(() => localStorage.getItem("theme")),
+  ).resolves.toBe("light");
 
   await page.reload();
   await expect(html).toHaveAttribute("data-theme", "light");
@@ -330,16 +325,15 @@ test("imprint page is reachable and marked noindex", async ({ page }) => {
   await page.goto("/impressum");
 
   await expect(
-    page.getByRole("heading", { level: 1, name: "Impressum" })
+    page.getByRole("heading", { level: 1, name: "Impressum" }),
   ).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
-    /noindex/
+    /noindex/,
   );
-  await expect(page.getByRole("link", { name: "German Rauhut" })).toHaveAttribute(
-    "href",
-    "/"
-  );
+  await expect(
+    page.getByRole("link", { name: "German Rauhut" }),
+  ).toHaveAttribute("href", "/");
 });
 
 /**
@@ -351,7 +345,8 @@ test("imprint page is reachable and marked noindex", async ({ page }) => {
  * is that module's href, duplicated here as a literal on purpose — this
  * suite verifies the shipped markup, not the module that generated it.
  */
-const NAV_CTA = "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-nav";
+const NAV_CTA =
+  "https://calendly.com/german-rauhut/30min?utm_source=rauhut-com-nav";
 
 for (const [language, path, railName, tocName, items] of [
   [
@@ -393,19 +388,21 @@ for (const [language, path, railName, tocName, items] of [
     for (const item of items) {
       await expect(toc.getByRole("link", { name: item.label })).toHaveAttribute(
         "href",
-        `#${item.id}`
+        `#${item.id}`,
       );
     }
 
     await expect(
       rail.locator(`a[href="${NAV_CTA}"]`),
-      "the rail's CTA must carry its own nav UTM, distinct from the hero/Angebote/KI CTAs"
+      "the rail's CTA must carry its own nav UTM, distinct from the hero/Angebote/KI CTAs",
     ).toHaveCount(1);
 
     // MobileNav exists in the DOM at every viewport (CSS hides it, not a
     // conditional render) — it must not be the visible one here.
     await expect(
-      page.getByRole("button", { name: language === "German" ? "Menü" : "Menu" })
+      page.getByRole("button", {
+        name: language === "German" ? "Menü" : "Menu",
+      }),
     ).toBeHidden();
   });
 }
@@ -449,7 +446,7 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     // Desktop rail exists in the DOM at every viewport (CSS hides it) — it
     // must not be the visible one at phone width.
     await expect(
-      page.getByRole("complementary", { name: railName })
+      page.getByRole("complementary", { name: railName }),
     ).toBeHidden();
 
     await expect(page.getByText("German Rauhut").first()).toBeVisible();
@@ -457,7 +454,7 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     await expect(mobileCta).toBeVisible();
     await expect(
       mobileCta,
-      "the mobile bar's CTA must carry the exact label dictated, not a shortened stand-in"
+      "the mobile bar's CTA must carry the exact label dictated, not a shortened stand-in",
     ).toHaveText(ctaLabel);
 
     const burger = page.getByRole("button", { name: homeLabel });
@@ -468,12 +465,12 @@ for (const [language, path, homeLabel, railName, ctaLabel, items] of [
     await expect(drawer).toBeVisible();
     await expect(
       drawer.locator('nav[aria-label="Language"]'),
-      "DE/EN must be reachable inside the burger on mobile"
+      "DE/EN must be reachable inside the burger on mobile",
     ).toBeVisible();
 
     for (const item of items) {
       await expect(
-        drawer.getByRole("link", { name: item.label })
+        drawer.getByRole("link", { name: item.label }),
       ).toHaveAttribute("href", `#${item.id}`);
     }
 
@@ -519,16 +516,16 @@ for (const [language, path, emailCtaLabel] of [
       .getByRole("link", { name: emailCtaLabel, exact: true });
     await expect(heroEmailCta).toHaveAttribute(
       "href",
-      PUBLIC_MAILTO[language === "German" ? "de" : "en"]
+      PUBLIC_MAILTO[language === "German" ? "de" : "en"],
     );
 
     await expect(
       page.locator(`a[href*="${RETIRED_ALIAS}"]`),
-      "the retired mandat@ alias must not link from anywhere on the homepage"
+      "the retired mandat@ alias must not link from anywhere on the homepage",
     ).toHaveCount(0);
     await expect(
       page.getByText(RETIRED_ALIAS),
-      "the retired mandat@ alias must not appear as visible text either"
+      "the retired mandat@ alias must not appear as visible text either",
     ).toHaveCount(0);
   });
 }
@@ -559,28 +556,21 @@ test("Impressum and Datenschutz carry the same german@ address as the rest of th
   page,
 }) => {
   await page.goto("/impressum");
-  await expect(
-    page.locator('a[href="mailto:german@rauhut.com"]')
-  ).toHaveCount(1);
+  await expect(page.locator('a[href="mailto:german@rauhut.com"]')).toHaveCount(
+    1,
+  );
 
   await page.goto("/datenschutz");
-  await expect(
-    page.locator('a[href="mailto:german@rauhut.com"]')
-  ).toHaveCount(2);
+  await expect(page.locator('a[href="mailto:german@rauhut.com"]')).toHaveCount(
+    2,
+  );
 });
 
 // P6-lead (2026-09-12): a closing lead paragraph in Kontakt/Contact, before
 // the channels — text only, no second "Mandat besprechen"/"Discuss a
 // mandate" button (that CTA already lives in the hybrid nav, P8). The
 // contact form itself now also renders on /en, which had none before.
-for (const [
-  language,
-  path,
-  sectionName,
-  leadText,
-  formIntro,
-  ctaLabel,
-] of [
+for (const [language, path, sectionName, leadText, formIntro, ctaLabel] of [
   [
     "German",
     "/",
@@ -613,10 +603,10 @@ for (const [
     // Contact — the only place that label may appear as an interactive
     // control is the nav rail/bar (P8), outside this section.
     await expect(
-      section.getByRole("button", { name: ctaLabel, exact: true })
+      section.getByRole("button", { name: ctaLabel, exact: true }),
     ).toHaveCount(0);
     await expect(
-      section.getByRole("link", { name: ctaLabel, exact: true })
+      section.getByRole("link", { name: ctaLabel, exact: true }),
     ).toHaveCount(0);
   });
 }
@@ -630,7 +620,7 @@ test("English Contact now renders a working contact form, localized", async ({
   await expect(section.getByLabel("Email", { exact: true })).toBeVisible();
   await expect(section.getByLabel("Message", { exact: true })).toBeVisible();
   await expect(
-    section.getByRole("button", { name: "Send message" })
+    section.getByRole("button", { name: "Send message" }),
   ).toBeVisible();
 
   // Submitting empty must come back in English, not the German defaults —
@@ -638,7 +628,7 @@ test("English Contact now renders a working contact form, localized", async ({
   await section.getByRole("button", { name: "Send message" }).click();
   await expect(section.getByText("Please enter your name.")).toBeVisible();
   await expect(
-    section.getByText("Please enter your email address.")
+    section.getByText("Please enter your email address."),
   ).toBeVisible();
   await expect(section.getByText("Please enter a message.")).toBeVisible();
   await expect(section.getByText("Please check your entries.")).toBeVisible();
@@ -666,11 +656,19 @@ test("stylesheet page is reachable, footer-linked nofollow, and marked noindex",
   const response = await page.goto("/stylesheet");
   expect(response?.status()).toBe(200);
   expect(response?.headers()["x-robots-tag"]).toContain("noindex");
-  await expect(page.getByRole("heading", { level: 1, name: "Stylesheet" })).toBeVisible();
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Stylesheet" }),
+  ).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/,
+  );
 
   await page.goto("/");
-  await expect(page.locator('footer a[href="/stylesheet"]')).toHaveAttribute("rel", "nofollow");
+  await expect(page.locator('footer a[href="/stylesheet"]')).toHaveAttribute(
+    "rel",
+    "nofollow",
+  );
   const sitemap = await page.goto("/sitemap.xml");
   expect(await sitemap?.text()).not.toContain("/stylesheet");
 });
@@ -693,28 +691,31 @@ for (const [path, groups] of [
       // Measure the self-hosted font, not the fallback it replaces.
       await page.evaluate(() => document.fonts.ready);
 
-      const figures = await page.evaluate((names) => {
-        return names.flatMap((name) =>
-          [...document.querySelectorAll(`dl[aria-label="${name}"] dd`)].map(
-            (dd) => {
-              const range = document.createRange();
-              range.selectNodeContents(dd);
-              const ink = range.getBoundingClientRect();
-              const box = dd.getBoundingClientRect();
-              return {
-                group: name,
-                text: dd.textContent?.trim() ?? "",
-                inkLeft: ink.left,
-                inkRight: ink.right,
-                inkTop: ink.top,
-                inkBottom: ink.bottom,
-                boxRight: box.right,
-                top: box.top,
-              };
-            },
-          ),
-        );
-      }, [...groups]);
+      const figures = await page.evaluate(
+        (names) => {
+          return names.flatMap((name) =>
+            [...document.querySelectorAll(`dl[aria-label="${name}"] dd`)].map(
+              (dd) => {
+                const range = document.createRange();
+                range.selectNodeContents(dd);
+                const ink = range.getBoundingClientRect();
+                const box = dd.getBoundingClientRect();
+                return {
+                  group: name,
+                  text: dd.textContent?.trim() ?? "",
+                  inkLeft: ink.left,
+                  inkRight: ink.right,
+                  inkTop: ink.top,
+                  inkBottom: ink.bottom,
+                  boxRight: box.right,
+                  top: box.top,
+                };
+              },
+            ),
+          );
+        },
+        [...groups],
+      );
 
       expect(figures, `six figures at ${width}px`).toHaveLength(6);
 
@@ -760,6 +761,28 @@ for (const [path, groups] of [
           ).toBeLessThanOrEqual(1);
         }
       }
+    }
+  });
+}
+
+// 2026-11-08: at 320px the German "Was ich mitbringe" table pushed the page
+// 37px sideways — "Anforderungsmanagement" and "Releasemanagement" are wider
+// than half a 272px column. Soft hyphens in the copy fix it; this guards the
+// page as a whole, collapsed sections closed as a visitor first sees them.
+for (const path of ["/", "/en"]) {
+  test(`homepage never scrolls sideways on a narrow phone (${path})`, async ({
+    page,
+  }) => {
+    for (const width of [320, 360, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const scrollWidth = await page.evaluate(
+        () => document.documentElement.scrollWidth,
+      );
+      expect(scrollWidth, `page width at ${width}px`).toBeLessThanOrEqual(
+        width,
+      );
     }
   });
 }
