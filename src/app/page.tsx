@@ -400,7 +400,7 @@ export default function HomePage() {
             </article>
 
             <details>
-              <summary>Frühere Stationen (1993 – 2015)</summary>
+              <summary>Frühere Stationen (1992 – 2015)</summary>
 
               <div className="space-y-6 text-base leading-relaxed text-text">
                 <p>
