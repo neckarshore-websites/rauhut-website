@@ -785,4 +785,29 @@ for (const path of ["/", "/en"]) {
       );
     }
   });
+
+  // 2026-11-17: the test above sees collapsed sections closed. Opened, the
+  // three-column CV table ("Frühere Stationen") needed ~374px of a 272px
+  // column (measured 2026-11-16), so a visitor who opened it scrolled sideways.
+  test(`homepage with every section opened never scrolls sideways (${path})`, async ({
+    page,
+  }) => {
+    for (const width of [320, 360, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      const opened = await page.evaluate(() => {
+        const all = Array.from(document.querySelectorAll("details"));
+        all.forEach((d) => (d.open = true));
+        return all.length;
+      });
+      expect(opened, "collapsed sections found").toBeGreaterThan(0);
+      const scrollWidth = await page.evaluate(
+        () => document.documentElement.scrollWidth,
+      );
+      expect(scrollWidth, `page width at ${width}px`).toBeLessThanOrEqual(
+        width,
+      );
+    }
+  });
 }

@@ -400,7 +400,7 @@ export default function HomePage() {
             </article>
 
             <details>
-              <summary>Frühere Stationen (1993 – 2015)</summary>
+              <summary>Frühere Stationen (1992 – 2015)</summary>
 
               <div className="space-y-6 text-base leading-relaxed text-text">
                 <p>
@@ -410,99 +410,99 @@ export default function HomePage() {
                   Zum Start des Berufslebens 1993 gleich nach Bangkok.
                 </p>
 
-                <table>
-                  <thead>
-                    <tr>
-                      <th scope="col">Zeitraum</th>
-                      <th scope="col">Rolle</th>
-                      <th scope="col">Kontext</th>
+                <table role="table" className="cv-table">
+                  <thead role="rowgroup">
+                    <tr role="row">
+                      <th scope="col" role="columnheader">Zeitraum</th>
+                      <th scope="col" role="columnheader">Rolle</th>
+                      <th scope="col" role="columnheader">Kontext</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>07/2014 – 06/2015</td>
-                      <td>Senior PM Compliance</td>
-                      <td>
+                  <tbody role="rowgroup">
+                    <tr role="row">
+                      <td role="cell">07/2014 – 06/2015</td>
+                      <td role="cell">Senior PM Compliance</td>
+                      <td role="cell">
                         Targens (ehemals Cellent Finance Solutions), Stuttgart —
                         spezialisierte AML-Anwendung
                       </td>
                     </tr>
-                    <tr>
-                      <td>10/2011 – 06/2014</td>
-                      <td>Business IT Consultant</td>
-                      <td>Contargo AG, Basel — Speditionssoftware 4ward</td>
+                    <tr role="row">
+                      <td role="cell">10/2011 – 06/2014</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">Contargo AG, Basel — Speditionssoftware 4ward</td>
                     </tr>
-                    <tr>
-                      <td>10/2013 – 12/2013</td>
-                      <td>Business IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">10/2013 – 12/2013</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">
                         Deutsche Bank, Frankfurt — Embargo-Filtering-Prozesse
                       </td>
                     </tr>
-                    <tr>
-                      <td>06/2010 – 07/2013</td>
-                      <td>Teilprojektleiter</td>
-                      <td>Allianz AMOS — AML Softwareimplementierung</td>
+                    <tr role="row">
+                      <td role="cell">06/2010 – 07/2013</td>
+                      <td role="cell">Teilprojektleiter</td>
+                      <td role="cell">Allianz AMOS — AML Softwareimplementierung</td>
                     </tr>
-                    <tr>
-                      <td>04/2007 – 03/2010</td>
-                      <td>Business IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">04/2007 – 03/2010</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">
                         Regional Container Lines (RCL), Bangkok — ERP
                         Implementierung
                       </td>
                     </tr>
-                    <tr>
-                      <td>03/2007</td>
-                      <td>Business IT Consultant</td>
-                      <td>Contargo, Ludwigshafen — CRM-Auswahl</td>
+                    <tr role="row">
+                      <td role="cell">03/2007</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">Contargo, Ludwigshafen — CRM-Auswahl</td>
                     </tr>
-                    <tr>
-                      <td>08/2006 – 01/2007</td>
-                      <td>Business IT Consultant</td>
-                      <td>BMT AG, Basel — Standardsoftware M+R</td>
+                    <tr role="row">
+                      <td role="cell">08/2006 – 01/2007</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">BMT AG, Basel — Standardsoftware M+R</td>
                     </tr>
-                    <tr>
-                      <td>03/2004 – 06/2006</td>
-                      <td>Senior eBusiness Consultant</td>
-                      <td>Rhenus AG — ERP &amp; Terminal Management System</td>
+                    <tr role="row">
+                      <td role="cell">03/2004 – 06/2006</td>
+                      <td role="cell">Senior eBusiness Consultant</td>
+                      <td role="cell">Rhenus AG — ERP &amp; Terminal Management System</td>
                     </tr>
-                    <tr>
-                      <td>02/2001 – 02/2004</td>
-                      <td>Senior Consultant</td>
-                      <td>plenum Systems — CRM Banken &amp; Versicherung</td>
+                    <tr role="row">
+                      <td role="cell">02/2001 – 02/2004</td>
+                      <td role="cell">Senior Consultant</td>
+                      <td role="cell">plenum Systems — CRM Banken &amp; Versicherung</td>
                     </tr>
-                    <tr>
-                      <td>10/2000 – 01/2001</td>
-                      <td>Softwareentwickler</td>
-                      <td>EDM Müller + Partner — Reporting-System</td>
+                    <tr role="row">
+                      <td role="cell">10/2000 – 01/2001</td>
+                      <td role="cell">Softwareentwickler</td>
+                      <td role="cell">EDM Müller + Partner — Reporting-System</td>
                     </tr>
-                    <tr>
-                      <td>07/1996 – 06/2000</td>
-                      <td>Manager Software Development</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">07/1996 – 06/2000</td>
+                      <td role="cell">Manager Software Development</td>
+                      <td role="cell">
                         SoftControl Co., Ltd, Bangkok — Business Software &amp;
                         Internetprogrammierung, Aufbau und Leitung der
                         Entwicklung
                       </td>
                     </tr>
-                    <tr>
-                      <td>08/1994 – 12/1994</td>
-                      <td>IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">08/1994 – 12/1994</td>
+                      <td role="cell">IT Consultant</td>
+                      <td role="cell">
                         SoftControl Co., Ltd, Bangkok — Business
                         Softwareentwicklung
                       </td>
                     </tr>
-                    <tr>
-                      <td>03/1993 – 06/1996</td>
-                      <td>Factory / Procurement / Production Manager</td>
-                      <td>Operative Führungsrollen in Thailand</td>
+                    <tr role="row">
+                      <td role="cell">03/1993 – 06/1996</td>
+                      <td role="cell">Factory / Procurement / Production Manager</td>
+                      <td role="cell">Operative Führungsrollen in Thailand</td>
                     </tr>
-                    <tr>
-                      <td>1992</td>
-                      <td>Wehrdienst, Luftwaffe</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">1992</td>
+                      <td role="cell">Wehrdienst, Luftwaffe</td>
+                      <td role="cell">
                         Programmierzentrum der Luftwaffe für fliegende
                         Waffensysteme (ProgrZLwflgWS) —{" "}
                         <a
