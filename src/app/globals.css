@@ -179,6 +179,54 @@ th + th {
   padding-left: 1.5rem;
 }
 
+/* CV table ("Frühere Stationen" / "Earlier roles") on a phone: three columns
+   of long German words need ~374px, a 320px phone has 272px (measured
+   2026-11-16). Below 640px each row stacks: period as a small label, role,
+   then context. The header row is kept for screen readers only. The JSX sets
+   explicit table roles, because Safari drops table semantics once a table's
+   display changes. */
+@media (max-width: 639px) {
+  .cv-table,
+  .cv-table tbody,
+  .cv-table tr,
+  .cv-table td {
+    display: block;
+  }
+
+  .cv-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .cv-table tr {
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cv-table td {
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .cv-table td + td {
+    padding-left: 0;
+  }
+
+  .cv-table td:first-child {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+
+  .cv-table td:nth-child(2) {
+    font-weight: 500;
+  }
+}
+
 /* Details / Summary — custom marker */
 details {
   padding: 1.5rem 0;

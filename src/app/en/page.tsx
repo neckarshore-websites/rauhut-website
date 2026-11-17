@@ -450,101 +450,101 @@ export default function HomePageEN() {
                   in 1993 — straight to Bangkok.
                 </p>
 
-                <table>
-                  <thead>
-                    <tr>
-                      <th scope="col">Period</th>
-                      <th scope="col">Role</th>
-                      <th scope="col">Context</th>
+                <table role="table" className="cv-table">
+                  <thead role="rowgroup">
+                    <tr role="row">
+                      <th scope="col" role="columnheader">Period</th>
+                      <th scope="col" role="columnheader">Role</th>
+                      <th scope="col" role="columnheader">Context</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>07/2014 – 06/2015</td>
-                      <td>Senior PM Compliance</td>
-                      <td>
+                  <tbody role="rowgroup">
+                    <tr role="row">
+                      <td role="cell">07/2014 – 06/2015</td>
+                      <td role="cell">Senior PM Compliance</td>
+                      <td role="cell">
                         Targens (formerly Cellent Finance Solutions), Stuttgart
                         — specialized AML application
                       </td>
                     </tr>
-                    <tr>
-                      <td>10/2011 – 06/2014</td>
-                      <td>Business IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">10/2011 – 06/2014</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">
                         Contargo AG, Basel — freight forwarding software 4ward
                       </td>
                     </tr>
-                    <tr>
-                      <td>10/2013 – 12/2013</td>
-                      <td>Business IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">10/2013 – 12/2013</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">
                         Deutsche Bank, Frankfurt — embargo filtering processes
                       </td>
                     </tr>
-                    <tr>
-                      <td>06/2010 – 07/2013</td>
-                      <td>Subproject Lead</td>
-                      <td>Allianz AMOS — AML software implementation</td>
+                    <tr role="row">
+                      <td role="cell">06/2010 – 07/2013</td>
+                      <td role="cell">Subproject Lead</td>
+                      <td role="cell">Allianz AMOS — AML software implementation</td>
                     </tr>
-                    <tr>
-                      <td>04/2007 – 03/2010</td>
-                      <td>Business IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">04/2007 – 03/2010</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">
                         Regional Container Lines (RCL), Bangkok — ERP
                         implementation
                       </td>
                     </tr>
-                    <tr>
-                      <td>03/2007</td>
-                      <td>Business IT Consultant</td>
-                      <td>Contargo, Ludwigshafen — CRM selection</td>
+                    <tr role="row">
+                      <td role="cell">03/2007</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">Contargo, Ludwigshafen — CRM selection</td>
                     </tr>
-                    <tr>
-                      <td>08/2006 – 01/2007</td>
-                      <td>Business IT Consultant</td>
-                      <td>BMT AG, Basel — M+R standard software</td>
+                    <tr role="row">
+                      <td role="cell">08/2006 – 01/2007</td>
+                      <td role="cell">Business IT Consultant</td>
+                      <td role="cell">BMT AG, Basel — M+R standard software</td>
                     </tr>
-                    <tr>
-                      <td>03/2004 – 06/2006</td>
-                      <td>Senior eBusiness Consultant</td>
-                      <td>Rhenus AG — ERP &amp; Terminal Management System</td>
+                    <tr role="row">
+                      <td role="cell">03/2004 – 06/2006</td>
+                      <td role="cell">Senior eBusiness Consultant</td>
+                      <td role="cell">Rhenus AG — ERP &amp; Terminal Management System</td>
                     </tr>
-                    <tr>
-                      <td>02/2001 – 02/2004</td>
-                      <td>Senior Consultant</td>
-                      <td>plenum Systems — CRM for banking &amp; insurance</td>
+                    <tr role="row">
+                      <td role="cell">02/2001 – 02/2004</td>
+                      <td role="cell">Senior Consultant</td>
+                      <td role="cell">plenum Systems — CRM for banking &amp; insurance</td>
                     </tr>
-                    <tr>
-                      <td>10/2000 – 01/2001</td>
-                      <td>Software Developer</td>
-                      <td>EDM Müller + Partner — reporting system</td>
+                    <tr role="row">
+                      <td role="cell">10/2000 – 01/2001</td>
+                      <td role="cell">Software Developer</td>
+                      <td role="cell">EDM Müller + Partner — reporting system</td>
                     </tr>
-                    <tr>
-                      <td>07/1996 – 06/2000</td>
-                      <td>Manager Software Development</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">07/1996 – 06/2000</td>
+                      <td role="cell">Manager Software Development</td>
+                      <td role="cell">
                         SoftControl Co., Ltd, Bangkok — business software &amp;
                         internet programming, founded and led the development
                         unit
                       </td>
                     </tr>
-                    <tr>
-                      <td>08/1994 – 12/1994</td>
-                      <td>IT Consultant</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">08/1994 – 12/1994</td>
+                      <td role="cell">IT Consultant</td>
+                      <td role="cell">
                         SoftControl Co., Ltd, Bangkok — business software
                         development
                       </td>
                     </tr>
-                    <tr>
-                      <td>03/1993 – 06/1996</td>
-                      <td>Factory / Procurement / Production Manager</td>
-                      <td>Operational leadership roles in Thailand</td>
+                    <tr role="row">
+                      <td role="cell">03/1993 – 06/1996</td>
+                      <td role="cell">Factory / Procurement / Production Manager</td>
+                      <td role="cell">Operational leadership roles in Thailand</td>
                     </tr>
-                    <tr>
-                      <td>1992</td>
-                      <td>Mandatory Military Service, German Air Force</td>
-                      <td>
+                    <tr role="row">
+                      <td role="cell">1992</td>
+                      <td role="cell">Mandatory Military Service, German Air Force</td>
+                      <td role="cell">
                         <span lang="de">
                           Programmierzentrum der Luftwaffe für fliegende
                           Waffensysteme (ProgrZLwflgWS)
