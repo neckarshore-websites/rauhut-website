@@ -18,7 +18,11 @@ test("the first request already carries no screen size and only the utm keys", a
   page,
 }) => {
   const sends = captureSends(page);
-  await page.goto("/?utm_source=linkedin&gclid=abc&utm_id=7&utm_term=po#kontakt");
+  // Dr. Sommer's read-4 test: url keeps only the utm keys, the referrer
+  // arrives without its query.
+  await page.goto("/?utm_source=linkedin&gclid=abc&utm_id=7&utm_term=po#kontakt", {
+    referer: "https://www.example.org/x?utm_source=a&q=b",
+  });
   await expect.poll(() => sends.length).toBeGreaterThan(0);
 
   const { type, payload } = sends[0].postDataJSON();
@@ -26,6 +30,7 @@ test("the first request already carries no screen size and only the utm keys", a
   expect(payload).not.toHaveProperty("screen");
   expect(new URL(payload.url).search).toBe("?utm_source=linkedin&utm_term=po");
   expect(payload.url).not.toContain("#");
+  expect(payload.referrer).toBe("https://www.example.org/x");
 });
 
 test("the hook loads before the tracker", async ({ page }) => {

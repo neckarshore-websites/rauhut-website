@@ -78,14 +78,18 @@ test("the filter is a list, not a prefix: utm_id and utm_foo are dropped", () =>
   assert.equal(out.url, "https://rauhut.com/");
 });
 
-test("referrer gets the same cleaning, absolute and relative", () => {
+test("referrer loses its whole query, utm keys included", () => {
   const hook = load();
   assert.equal(
     hook("event", {
       ...base,
       referrer: "https://www.google.com/search?q=rauhut&utm_source=g",
     }).referrer,
-    "https://www.google.com/search?utm_source=g",
+    "https://www.google.com/search",
+  );
+  assert.equal(
+    hook("event", { ...base, referrer: "/x?utm_source=a&q=b" }).referrer,
+    "/x",
   );
   assert.equal(
     hook("event", { ...base, referrer: "/en?token=secret#top" }).referrer,

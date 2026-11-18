@@ -78,36 +78,38 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          {/* DRAFT (planning #4006 row 6): wording pending Dr. Sommer's read 4
-              on planning #4003. Do not merge before his final text replaces
-              or confirms this section. */}
-          <h2 className={labelClass}>§ 3 · Reichweitenmessung (Umami)</h2>
+          {/* Wording: Dr. Sommer, read 4 on planning #4003 (comments
+              6983850360 and 6985352394), common paragraph, rauhut row. The two marked
+              placeholders stay until Bob has measured the box (F2 row 8);
+              they are part of the merge hold, and Dr. Sommer fills them. */}
+          <h2 className={labelClass}>§ 3 · Besucherzahlen der Webseite</h2>
           <p>
-            Um zu sehen, wie oft diese Website aufgerufen wird, nutzen wir die
-            Open-Source-Software Umami. Sie läuft auf einem eigenen Server bei
-            der Hostinger International Ltd. [ADRESSE UND STANDORT DES SERVERS
-            FOLGEN], nicht bei einem Analyse-Anbieter. Umami setzt keine Cookies
-            und legt nichts im Speicher Ihres Browsers ab.
-          </p>
-          <p className="mt-3">
-            Erfasst werden die aufgerufene Seite, die verweisende Seite, Sprache
-            und Typ von Browser, Betriebssystem und Gerät sowie das Land. Von
-            Adressen werden nur die Kampagnen-Parameter utm_source, utm_medium,
-            utm_campaign, utm_content und utm_term behalten, alle anderen
-            Parameter und Sprungmarken entfernt Ihr Browser vor dem Senden. Die
-            Bildschirmauflösung wird nicht übertragen. Ihre IP-Adresse wird
-            nicht gespeichert; Umami bildet daraus mit einem täglich wechselnden
-            Zufallswert eine Kennung, die sich nach einem Tag keinem Besuch mehr
-            zuordnen lässt. Die Daten werden nach 13 Monaten gelöscht.
-          </p>
-          <p className="mt-3">
-            Signalisiert Ihr Browser „Do Not Track“ oder „Global Privacy
-            Control“, wird nichts gemessen.
-          </p>
-          <p className="mt-3">
-            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
-            (berechtigtes Interesse an einer Reichweitenmessung ohne
-            Personenbezug). [§ 25 TDDDG: FOLGT MIT DR. SOMMERS FREIGABE]
+            Wir zählen die Besuche dieser Webseite mit Umami, einer Software,
+            die auf unserem eigenen Server bei &lt;Hostinger-Gesellschaft&gt; in
+            &lt;Ort&gt; läuft; Hostinger ist dabei unser Auftragsverarbeiter.
+            Beim Aufruf einer Seite sendet ein kleines Skript an diesen Server:
+            die aufgerufene Adresse, die Seite, von der Sie kamen (ohne deren
+            Suchteil), den Seitentitel und die Sprache Ihres Browsers. Von den
+            Zusätzen einer Adresse behalten wir nur die Kampagnenangaben{" "}
+            <code>utm_source</code>, <code>utm_medium</code>,{" "}
+            <code>utm_campaign</code>, <code>utm_content</code> und{" "}
+            <code>utm_term</code>, mit denen wir sehen, über welchen unserer
+            Links Sie kamen; alles andere entfernt das Skript, bevor es sendet.
+            Aus Ihrer Verbindung (IP-Adresse und Browserkennung) bildet der
+            Server eine Kennung, die jeden Tag wechselt; die IP-Adresse selbst
+            speichert er nicht. Gespeichert werden Browser, Betriebssystem,
+            Geräteart, Land, Region und Stadt. Es werden keine Cookies gesetzt
+            und nichts auf Ihrem Gerät gespeichert. Das Skript prüft lediglich
+            im Speicher Ihres Browsers, ob Sie die Zählung dort abgeschaltet
+            haben (Eintrag „umami.disabled“); diese Abfrage dient allein Ihrem
+            Widerspruch und beruht auf § 25 Abs. 2 Nr. 2 TDDDG.
+            Sendet Ihr Browser „Do Not Track“ oder „Global Privacy Control“,
+            zählen wir Sie nicht. Die Daten löschen wir nach 13 Monaten
+            automatisch. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser
+            Interesse ist zu wissen, welche Seiten gelesen werden und über
+            welche Wege Besucher kommen. Sie können dem jederzeit
+            widersprechen; am einfachsten, indem Sie in Ihrem Browser „Global
+            Privacy Control“ einschalten.
           </p>
         </div>
 

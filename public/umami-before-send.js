@@ -12,11 +12,14 @@
  *      Do Not Track. DNT is also honoured natively (data-do-not-track);
  *      GPC is not, so it lives here.
  *   2. Drops `screen` (screen resolution) from every payload.
- *   3. Keeps exactly five query keys on `url` AND `referrer` (the server
- *      stores the referrer query separately): utm_source, utm_medium,
+ *   3. Keeps exactly five query keys on `url`: utm_source, utm_medium,
  *      utm_campaign, utm_content, utm_term. Every other key goes, including
  *      other utm_* keys such as utm_id: the filter is a list, not a prefix.
- *   4. Drops the #fragment of both (also set natively via data-exclude-hash).
+ *   4. Drops the WHOLE query of `referrer` (the server stores it separately
+ *      as referrerQuery). utm values on a referrer belong to another site's
+ *      links; the privacy text says "ohne deren Suchteil" (Dr. Sommer,
+ *      2026-11-18, Art. 5(1)(c)).
+ *   5. Drops the #fragment of both (also set natively via data-exclude-hash).
  *
  * Plain ES5 on purpose: no build step, served as a static file so
  * script-src 'self' covers it. scripts/umami-before-send.test.mjs is the spec.
@@ -58,6 +61,11 @@
     return noHash.slice(0, qAt) + (kept.length ? "?" + kept.join("&") : "");
   }
 
+  function stripQuery(raw) {
+    if (typeof raw !== "string" || raw === "") return raw;
+    return raw.split(/[?#]/)[0];
+  }
+
   function optedOut() {
     var n = w.navigator || {};
     if (n.globalPrivacyControl === true) return true;
@@ -74,7 +82,7 @@
       }
     }
     if ("url" in out) out.url = clean(out.url);
-    if ("referrer" in out) out.referrer = clean(out.referrer);
+    if ("referrer" in out) out.referrer = stripQuery(out.referrer);
     return out;
   };
 })(window);
