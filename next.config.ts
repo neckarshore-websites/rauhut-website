@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { UMAMI_HOST } from "./src/lib/umami";
+import { UMAMI_HOST } from "./src/lib/umami.ts";
 
 // OWASP-baseline security headers — parity with oakwoodgolfclub-website
 // and neckarshore-website (PR #16, 2026-05-25). Applied globally via
