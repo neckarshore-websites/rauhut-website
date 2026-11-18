@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { UMAMI_HOST } from "./src/lib/umami";
 
 // OWASP-baseline security headers — parity with oakwoodgolfclub-website
 // and neckarshore-website (PR #16, 2026-05-25). Applied globally via
@@ -28,12 +29,11 @@ import type { NextConfig } from "next";
 //     two font hosts the gallery's typefaces are blocked (caught in the
 //     browser console-walk, 28 violations). The github/linkedin URLs in the
 //     mockups are <a href> links (navigation), so CSP does not govern them.
-//   - @vercel/analytics IS used (<Analytics/> in layout), but Vercel v2
-//     edge-proxies it SAME-ORIGIN: the script loads from
-//     /_vercel/insights/script.js (verified HTTP 200 on rauhut.com) and the
-//     beacon posts to /_vercel/insights/* — both same-origin. So
-//     script-src 'self' + connect-src 'self' cover analytics with NO
-//     external va.vercel-scripts.com / vitals.vercel-insights.com host.
+//   - Visitor counting is Umami on the estate's own box (planning #4006
+//     row 6; it replaced Vercel Web Analytics on 2026-11-18). The tracker
+//     loads from UMAMI_HOST/script.js and posts to UMAMI_HOST/api/send, so
+//     that one host is in script-src AND connect-src. Its before-send hook is
+//     a same-origin file (/umami-before-send.js), covered by 'self'.
 //   - script-src 'unsafe-inline' is REQUIRED: Next.js injects inline
 //     hydration/RSC scripts + theme-init bootstrap + inline JSON-LD. A
 //     nonce-based strict CSP would need middleware and force every route OUT
@@ -49,8 +49,8 @@ import type { NextConfig } from "next";
 // script-src + frame-src + connect-src.
 const isDev = process.env.NODE_ENV !== "production";
 const scriptSrc = isDev
-  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com"
-  : "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com";
+  ? `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com ${UMAMI_HOST}`
+  : `script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com ${UMAMI_HOST}`;
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -58,7 +58,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "img-src 'self' data: blob:",
   "font-src 'self' https://fonts.gstatic.com",
-  "connect-src 'self' https://challenges.cloudflare.com",
+  `connect-src 'self' https://challenges.cloudflare.com ${UMAMI_HOST}`,
   // 'self' is REQUIRED: the /designs gallery frames its own same-origin
   // preview HTML files (public/designs/rauhut-*.html) in iframes. Because
   // frame-src is set explicitly it overrides default-src 'self', so without

@@ -78,18 +78,36 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 3 · Webanalyse (Vercel Web Analytics)</h2>
+          {/* DRAFT (planning #4006 row 6): wording pending Dr. Sommer's read 4
+              on planning #4003. Do not merge before his final text replaces
+              or confirms this section. */}
+          <h2 className={labelClass}>§ 3 · Reichweitenmessung (Umami)</h2>
           <p>
-            Diese Website nutzt Vercel Web Analytics — einen cookiefreien
-            Analysedienst. Es werden ausschließlich aggregierte, nicht
-            personenbezogene Kennzahlen erhoben (Seitenaufrufe, Land, Gerätetyp).
-            Eine Identifikation einzelner Besucher ist nicht möglich. Die
-            Analytics-Daten werden ausschließlich bei Vercel verarbeitet (kein
-            Drittanbieter außer Vercel).
+            Um zu sehen, wie oft diese Website aufgerufen wird, nutzen wir die
+            Open-Source-Software Umami. Sie läuft auf einem eigenen Server bei
+            der Hostinger International Ltd. [ADRESSE UND STANDORT DES SERVERS
+            FOLGEN], nicht bei einem Analyse-Anbieter. Umami setzt keine Cookies
+            und legt nichts im Speicher Ihres Browsers ab.
           </p>
           <p className="mt-3">
-            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO.
-            Anbieter: Vercel Inc. (siehe § 2).
+            Erfasst werden die aufgerufene Seite, die verweisende Seite, Sprache
+            und Typ von Browser, Betriebssystem und Gerät sowie das Land. Von
+            Adressen werden nur die Kampagnen-Parameter utm_source, utm_medium,
+            utm_campaign, utm_content und utm_term behalten, alle anderen
+            Parameter und Sprungmarken entfernt Ihr Browser vor dem Senden. Die
+            Bildschirmauflösung wird nicht übertragen. Ihre IP-Adresse wird
+            nicht gespeichert; Umami bildet daraus mit einem täglich wechselnden
+            Zufallswert eine Kennung, die sich nach einem Tag keinem Besuch mehr
+            zuordnen lässt. Die Daten werden nach 13 Monaten gelöscht.
+          </p>
+          <p className="mt-3">
+            Signalisiert Ihr Browser „Do Not Track“ oder „Global Privacy
+            Control“, wird nichts gemessen.
+          </p>
+          <p className="mt-3">
+            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
+            (berechtigtes Interesse an einer Reichweitenmessung ohne
+            Personenbezug). [§ 25 TDDDG: FOLGT MIT DR. SOMMERS FREIGABE]
           </p>
         </div>
 
@@ -164,8 +182,9 @@ export default function DatenschutzPage() {
           <p>
             Das Kontaktformular ist mit Cloudflare Turnstile geschützt, einem
             Dienst der Cloudflare, Inc., 101 Townsend Street, San Francisco, CA
-            94107, USA. Sobald Sie das Formular nutzen (erstes Klicken oder
-            Tippen), lädt Ihr Browser Skripte von Cloudflare. Ohne Nutzung des
+            94107, USA. Sobald Sie das Formular zum ersten Mal anklicken,
+            antippen oder mit der Tastatur ansteuern, lädt Ihr Browser Skripte
+            von Cloudflare. Ohne Nutzung des
             Formulars besteht keine Verbindung zu Cloudflare. Cloudflare
             verarbeitet dabei Ihre IP-Adresse, technische Merkmale von Browser
             und Verbindung (u. a. User-Agent, TLS-Fingerabdruck) sowie die

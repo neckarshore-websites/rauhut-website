@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 /**
  * THE 404 "404 MILES" (src/app/not-found.tsx): status, tab title, the line, the way back, the

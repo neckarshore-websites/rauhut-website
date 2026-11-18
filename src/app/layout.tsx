@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
 import { ThemeColorSync } from "@/components/ThemeColorSync";
+import { UMAMI_HOST, UMAMI_WEBSITE_ID } from "@/lib/umami";
 import "./globals.css";
 
 const inter = localFont({
@@ -76,13 +76,28 @@ export default function RootLayout({
           src="/theme-init.js"
           strategy="beforeInteractive"
         />
+        {/* Umami's before-send hook must exist before the tracker's first
+            request, so it loads beforeInteractive, ahead of the tracker. */}
+        {UMAMI_WEBSITE_ID ? (
+          <Script src="/umami-before-send.js" strategy="beforeInteractive" />
+        ) : null}
       </head>
       <body>
         {children}
-        {/* Vercel Web Analytics — cookieless, DSGVO-compliant.
-            Inject once, at the end of body. No tracking, no cookies,
-            no cross-site IDs. Data stays inside Vercel. */}
-        <Analytics />
+        {/* Umami visitor counting (planning #4006 row 6): cookieless, on our
+            own box. Not rendered while the website id is empty. Query
+            strings, screen size, GPC and DNT are handled by the hook loaded
+            in <head>; DNT and the #fragment also natively. */}
+        {UMAMI_WEBSITE_ID ? (
+          <Script
+            src={`${UMAMI_HOST}/script.js`}
+            strategy="afterInteractive"
+            data-website-id={UMAMI_WEBSITE_ID}
+            data-before-send="umamiBeforeSend"
+            data-do-not-track="true"
+            data-exclude-hash="true"
+          />
+        ) : null}
         <ThemeColorSync />
       </body>
     </html>

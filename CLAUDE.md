@@ -30,7 +30,7 @@ Same quality bar as `neckarshore-website`:
 - Mobile-first responsive design
 - Lighthouse: A11y / Best Practices / SEO **hard @95** (CI-gating); Performance **soft-warn** (advisory, never blocks CI) — see [Lighthouse Device Matrix](#lighthouse-device-matrix) below
 - No JS frameworks beyond React/Next.js
-- No CMS. Analytics: Vercel Web Analytics only (cookieless, DSGVO-friendly, no banner)
+- No CMS. Analytics: Umami on the estate's own box only (cookieless, no banner; hook in public/umami-before-send.js, planning #4006 row 6)
 - Self-hosted fonts (DSGVO)
 - Commit after each section / logical block
 - **`public/llms.txt` moves WITH homepage copy, same pass (Decision 12):** any content change that touches the rendered homepage's identity strings — job title, tagline, positioning, section wording that llms.txt echoes — updates `public/llms.txt` in the same commit/PR, not as a follow-up. It is a machine-reader surface nobody looks at, which is exactly why it drifts silently (see Decision 12). `scripts/public-figures.test.mjs` guards the four measured figures on this file; it does not guard prose like the job title, so a title change here needs eyes, not just green CI.
@@ -100,7 +100,7 @@ Aktualisierungen am Projektprofil → erst Vault-Datei aktualisieren, dann Seite
 ## Out of Scope (post-v1)
 
 - Dark/Light-Mode-Erweiterungen über die zwei Default-Themes hinaus
-- Third-party Analytics (GA, Plausible, Sentry) — nur Vercel Web Analytics
+- Third-party Analytics (GA, Plausible, Sentry) — nur Umami auf eigenem Server
 - Cookie-Banner (nicht nötig, da cookieless)
 - ~~Playwright E2E (klein genug, manuelle Smoke-Tests reichen)~~ — superseded by D6 (2026-05-16); Playwright is in scope and covers `/designs` + bilingual homepages + toggles + impressum
 - ~~Lighthouse CI (Baseline manuell, nicht automatisiert)~~ — superseded 2026-06-18 (#25): Lighthouse CI **is** automated now (`.github/workflows/lighthouse.yml` + 3 profiles). Perf is soft-warn (advisory), a11y/bp/seo hard@95 — see [Lighthouse Device Matrix](#lighthouse-device-matrix)

@@ -1,4 +1,6 @@
-import { expect, test, type Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
+import { UMAMI_HOST } from "../../src/lib/umami";
 
 /**
  * Hero network background (rauhut-website #111): decorative, behind the hero, never in
@@ -147,15 +149,15 @@ test.describe("hero network variants @hero-network", () => {
     expect(box.right).toBeLessThanOrEqual(box.vw);
   });
 
-  // The one foreign origin allowed is the existing Vercel Web Analytics debug script,
-  // which @vercel/analytics loads in development only; production serves it same-origin.
+  // The one foreign origin allowed is our own Umami host (planning #4006 row 6),
+  // answered locally by the stub in ./fixtures.
   test("no request leaves the site's own origin", async ({ page, baseURL }) => {
     const origins = new Set<string>();
     page.on("request", (req) => origins.add(new URL(req.url()).origin));
     await page.goto("/");
     await expect(net(page)).toHaveAttribute("data-state", "running");
     await page.waitForTimeout(500);
-    origins.delete("https://va.vercel-scripts.com");
+    origins.delete(UMAMI_HOST);
     expect([...origins]).toEqual([new URL(baseURL!).origin]);
   });
 

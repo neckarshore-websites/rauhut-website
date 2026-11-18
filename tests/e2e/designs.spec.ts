@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 
 // ── Test 1: Footer nav link exists ──────────────────────────────────────────
 test("footer 'Designs' link exists on homepage and navigates to /designs", async ({
@@ -29,71 +29,18 @@ test("/designs loads without console errors and no failed network requests", asy
   // further on 2026-08-16 — three attempts, and the fix-loop rule says stop
   // and write it down. Production is statically built and cannot have this.
   //
-  // ONE known, explained, dev-only console error is filtered — and the
-  // filter is narrow enough to name exactly what it drops.
-  //
-  // In dev, @vercel/analytics loads `script.debug.js` from
-  // va.vercel-scripts.com. Our CSP allows only 'self' + Turnstile, so the
-  // browser blocks it and logs a violation. Whether that log lands before or
-  // after the assertion is a race, which made this test fail roughly half
-  // the time — five false reds on 2026-08-16 alone, plus a twenty-minute
-  // hunt through an unrelated diff on the same day, twice diagnosed wrongly
-  // (orphan dev server, then cold start) before the message was read.
-  //
-  // PRODUCTION IS NOT AFFECTED, verified rather than assumed: live,
-  // @vercel/analytics is edge-proxied SAME-ORIGIN from
-  // /_vercel/insights/script.js (HTTP 200 on rauhut.com), covered by
-  // `script-src 'self'`. next.config.ts documents the same arrangement.
-  //
-  // WHAT THIS WOULD HIDE, stated so nobody has to reconstruct it: a CSP
-  // violation for THIS EXACT dev-only URL. Any other blocked script — a real
-  // production CSP gap included — still fails, because the match is the full
-  // debug-script URL and not the word "CSP".
-  const DEV_ONLY_ANALYTICS_CSP =
-    "https://va.vercel-scripts.com/v1/script.debug.js";
-
-  // SECOND known-benign, local-only pattern (2026-09-12, distinct from the
-  // dev-mode CSP block above — this one fires against a locally-run
-  // *production* build, `next build && next start`).
-  //
-  // @vercel/analytics requests a same-origin path, `/_vercel/insights/script.js`,
-  // that only resolves on Vercel's own edge network — Vercel rewrites it to
-  // the real analytics script at request time on their infrastructure. A
-  // plain local `next start` has no such rewrite, so the path 404s, and the
-  // browser's attempt to execute the 404 HTML page as a script logs a
-  // MIME-type console error on top of the failed request.
-  //
-  // PRODUCTION IS NOT AFFECTED, verified rather than assumed: on
-  // rauhut.com (real Vercel infra) the same path resolves HTTP 200 with a
-  // real script body — this is exhaustively a local-server artifact, not a
-  // deployed-site defect. `git stash` against unmodified `main` reproduces
-  // the identical two-line failure, confirming it predates every P6/P5b/P10
-  // change and is not caused by this repo's own code.
-  //
-  // The match is the exact path, so any OTHER 404 or MIME failure — a real
-  // regression included — still fails the test.
-  //
-  // Chrome's "Failed to load resource: ... 404" message carries the failing
-  // URL only in the console message's LOCATION, not in its text (confirmed
-  // by probing this exact page: msg.text() is the bare status line, no URL —
-  // msg.location().url is 'http://localhost:3001/_vercel/insights/script.js').
-  // The companion "Refused to execute script from '<url>' ..." MIME message
-  // DOES carry the URL in its text. Both forms are checked so the filter
-  // catches this one script's two distinct console messages without relying
-  // on text alone.
-  const LOCAL_ONLY_VERCEL_INSIGHTS = "/_vercel/insights/script.js";
+  // Until 2026-11-18 two Vercel Web Analytics artefacts were filtered here (a
+  // dev-only CSP block of va.vercel-scripts.com and a local-only 404 of
+  // /_vercel/insights/script.js). Umami replaced Vercel Analytics (planning
+  // #4006 row 6) and its host is answered by the stub in ./fixtures, so both
+  // filters are gone: every console error and failed request now fails.
 
   page.on("console", (msg) => {
     if (msg.type() !== "error") return;
-    if (msg.text().includes(DEV_ONLY_ANALYTICS_CSP)) return;
-    if (msg.text().includes(LOCAL_ONLY_VERCEL_INSIGHTS)) return;
-    if (msg.location().url.includes(LOCAL_ONLY_VERCEL_INSIGHTS)) return;
     consoleErrors.push(msg.text());
   });
 
   page.on("requestfailed", (req) => {
-    if (req.url().includes(DEV_ONLY_ANALYTICS_CSP)) return;
-    if (req.url().includes(LOCAL_ONLY_VERCEL_INSIGHTS)) return;
     failedRequests.push(req.url());
   });
 
