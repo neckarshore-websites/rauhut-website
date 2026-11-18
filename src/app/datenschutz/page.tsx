@@ -289,6 +289,9 @@ export default function DatenschutzPage() {
             Website Ihre Auswahl im lokalen Speicher Ihres Browsers
             (»localStorage«). Diese Information verbleibt auf Ihrem Gerät und
             wird nicht übertragen. Den Eintrag von Cloudflare beschreibt § 7.
+            Außerdem prüft das Zählskript, ob Sie die Zählung im Speicher Ihres
+            Browsers abgeschaltet haben (Eintrag „umami.disabled“); es legt
+            selbst nichts an. Näheres in § 3.
           </p>
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG.
