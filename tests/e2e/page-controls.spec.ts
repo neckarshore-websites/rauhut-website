@@ -1,4 +1,5 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 /**
  * Page controls cluster (rauhut-website #114, Founder 2026-11-08): DE, EN, light/dark and

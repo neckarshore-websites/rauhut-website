@@ -78,18 +78,39 @@ export default function DatenschutzPage() {
         </div>
 
         <div>
-          <h2 className={labelClass}>§ 3 · Webanalyse (Vercel Web Analytics)</h2>
+          {/* Wording: Dr. Sommer, read 4 on planning #4003 (comments
+              6983850360 and 6985352394), common paragraph, rauhut row; location
+              and operator from the Founder's Hostinger read, worded by
+              Dr. Sommer on #120 (2026-11-19). */}
+          <h2 className={labelClass}>§ 3 · Besucherzahlen der Webseite</h2>
           <p>
-            Diese Website nutzt Vercel Web Analytics — einen cookiefreien
-            Analysedienst. Es werden ausschließlich aggregierte, nicht
-            personenbezogene Kennzahlen erhoben (Seitenaufrufe, Land, Gerätetyp).
-            Eine Identifikation einzelner Besucher ist nicht möglich. Die
-            Analytics-Daten werden ausschließlich bei Vercel verarbeitet (kein
-            Drittanbieter außer Vercel).
-          </p>
-          <p className="mt-3">
-            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO.
-            Anbieter: Vercel Inc. (siehe § 2).
+            Wir zählen die Besuche dieser Webseite mit Umami, einer Software,
+            die auf unserem eigenen Server läuft. Der Server steht in einem
+            Rechenzentrum in Düsseldorf und wird von der Hostinger International
+            Ltd., Larnaca (Zypern), betrieben; Hostinger ist dabei unser Auftragsverarbeiter.
+            Beim Aufruf einer Seite sendet ein kleines Skript an diesen Server:
+            die aufgerufene Adresse, die Seite, von der Sie kamen (ohne deren
+            Suchteil), den Seitentitel und die Sprache Ihres Browsers. Von den
+            Zusätzen einer Adresse behalten wir nur die Kampagnenangaben{" "}
+            <code>utm_source</code>, <code>utm_medium</code>,{" "}
+            <code>utm_campaign</code>, <code>utm_content</code> und{" "}
+            <code>utm_term</code>, mit denen wir sehen, über welchen unserer
+            Links Sie kamen; alles andere entfernt das Skript, bevor es sendet.
+            Aus Ihrer Verbindung (IP-Adresse und Browserkennung) bildet der
+            Server eine Kennung, die jeden Tag wechselt; die IP-Adresse selbst
+            speichert er nicht. Gespeichert werden Browser, Betriebssystem,
+            Geräteart, Land, Region und Stadt. Es werden keine Cookies gesetzt
+            und nichts auf Ihrem Gerät gespeichert. Das Skript prüft lediglich
+            im Speicher Ihres Browsers, ob Sie die Zählung dort abgeschaltet
+            haben (Eintrag „umami.disabled“); diese Abfrage dient allein Ihrem
+            Widerspruch und beruht auf § 25 Abs. 2 Nr. 2 TDDDG.
+            Sendet Ihr Browser „Do Not Track“ oder „Global Privacy Control“,
+            zählen wir Sie nicht. Die Daten löschen wir nach 13 Monaten
+            automatisch. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, unser
+            Interesse ist zu wissen, welche Seiten gelesen werden und über
+            welche Wege Besucher kommen. Sie können dem jederzeit
+            widersprechen; am einfachsten, indem Sie in Ihrem Browser „Global
+            Privacy Control“ einschalten.
           </p>
         </div>
 
@@ -164,8 +185,9 @@ export default function DatenschutzPage() {
           <p>
             Das Kontaktformular ist mit Cloudflare Turnstile geschützt, einem
             Dienst der Cloudflare, Inc., 101 Townsend Street, San Francisco, CA
-            94107, USA. Sobald Sie das Formular nutzen (erstes Klicken oder
-            Tippen), lädt Ihr Browser Skripte von Cloudflare. Ohne Nutzung des
+            94107, USA. Sobald Sie das Formular zum ersten Mal anklicken,
+            antippen oder mit der Tastatur ansteuern, lädt Ihr Browser Skripte
+            von Cloudflare. Ohne Nutzung des
             Formulars besteht keine Verbindung zu Cloudflare. Cloudflare
             verarbeitet dabei Ihre IP-Adresse, technische Merkmale von Browser
             und Verbindung (u. a. User-Agent, TLS-Fingerabdruck) sowie die
@@ -268,6 +290,9 @@ export default function DatenschutzPage() {
             Website Ihre Auswahl im lokalen Speicher Ihres Browsers
             (»localStorage«). Diese Information verbleibt auf Ihrem Gerät und
             wird nicht übertragen. Den Eintrag von Cloudflare beschreibt § 7.
+            Außerdem prüft das Zählskript, ob Sie die Zählung im Speicher Ihres
+            Browsers abgeschaltet haben (Eintrag „umami.disabled“); es legt
+            selbst nichts an. Näheres in § 3.
           </p>
           <p className="mt-3">
             <strong>Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG.

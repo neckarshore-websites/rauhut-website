@@ -29,9 +29,12 @@ export default defineConfig({
         // "Next.js package not found" Turbopack panic that briefly pushed this
         // to a prod build was a corrupt local node_modules, not committed code —
         // a clean `npm ci` clears it (CI does a fresh install every run). Dev
-        // mode also keeps @vercel/analytics out of the page, so the /designs
-        // console-cleanliness test stays in the CI gate. (Linus 2026-06-13.)
+        // mode kept @vercel/analytics out of the page; Umami replaced it on
+        // 2026-11-18 (planning #4006 row 6). (Linus 2026-06-13.)
         command: "npm run dev",
+        // A test Umami id makes the layout render the tracker in e2e; the
+        // host is answered by the stub in tests/e2e/fixtures.ts.
+        env: { NEXT_PUBLIC_UMAMI_WEBSITE_ID: "e2e00000-0000-4000-8000-000000000000" },
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
