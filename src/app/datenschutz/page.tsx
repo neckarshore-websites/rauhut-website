@@ -79,14 +79,15 @@ export default function DatenschutzPage() {
 
         <div>
           {/* Wording: Dr. Sommer, read 4 on planning #4003 (comments
-              6983850360 and 6985352394), common paragraph, rauhut row. The two marked
-              placeholders stay until Bob has measured the box (F2 row 8);
-              they are part of the merge hold, and Dr. Sommer fills them. */}
+              6983850360 and 6985352394), common paragraph, rauhut row; location
+              and operator from the Founder's Hostinger read, worded by
+              Dr. Sommer on #120 (2026-11-19). */}
           <h2 className={labelClass}>§ 3 · Besucherzahlen der Webseite</h2>
           <p>
             Wir zählen die Besuche dieser Webseite mit Umami, einer Software,
-            die auf unserem eigenen Server bei &lt;Hostinger-Gesellschaft&gt; in
-            &lt;Ort&gt; läuft; Hostinger ist dabei unser Auftragsverarbeiter.
+            die auf unserem eigenen Server läuft. Der Server steht in einem
+            Rechenzentrum in Düsseldorf und wird von der Hostinger International
+            Ltd., Larnaca (Zypern), betrieben; Hostinger ist dabei unser Auftragsverarbeiter.
             Beim Aufruf einer Seite sendet ein kleines Skript an diesen Server:
             die aufgerufene Adresse, die Seite, von der Sie kamen (ohne deren
             Suchteil), den Seitentitel und die Sprache Ihres Browsers. Von den
