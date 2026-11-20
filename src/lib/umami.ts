@@ -11,5 +11,21 @@ export const UMAMI_HOST = "https://stats.neckarshore.ai";
 // at all. NEXT_PUBLIC_UMAMI_WEBSITE_ID overrides it for the e2e run.
 const UMAMI_WEBSITE_ID_RAUHUT = "07c51819-e442-42cd-9c1a-f95e51e63821";
 
-export const UMAMI_WEBSITE_ID =
-  process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? UMAMI_WEBSITE_ID_RAUHUT;
+// The real id is used on Vercel production builds ONLY (carried over from
+// neckarshore-website #389, 2026-11-20). A local `next build`, a CI run and every
+// Vercel preview get an empty id, so the tracker is not rendered there and none of
+// those visits reach the box. NEXT_PUBLIC_UMAMI_WEBSITE_ID overrides both, for e2e.
+export function resolveUmamiWebsiteId(env: {
+  NEXT_PUBLIC_UMAMI_WEBSITE_ID?: string;
+  VERCEL_ENV?: string;
+}): string {
+  if (env.NEXT_PUBLIC_UMAMI_WEBSITE_ID !== undefined) {
+    return env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+  }
+  return env.VERCEL_ENV === "production" ? UMAMI_WEBSITE_ID_RAUHUT : "";
+}
+
+export const UMAMI_WEBSITE_ID = resolveUmamiWebsiteId({
+  NEXT_PUBLIC_UMAMI_WEBSITE_ID: process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID,
+  VERCEL_ENV: process.env.VERCEL_ENV,
+});
