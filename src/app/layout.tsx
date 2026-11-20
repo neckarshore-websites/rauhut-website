@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { ThemeColorSync } from "@/components/ThemeColorSync";
+import UmamiTracker from "@/components/UmamiTracker";
 import { UMAMI_HOST, UMAMI_WEBSITE_ID } from "@/lib/umami";
 import "./globals.css";
 
@@ -89,14 +90,7 @@ export default function RootLayout({
             strings, screen size, GPC and DNT are handled by the hook loaded
             in <head>; DNT and the #fragment also natively. */}
         {UMAMI_WEBSITE_ID ? (
-          <Script
-            src={`${UMAMI_HOST}/script.js`}
-            strategy="afterInteractive"
-            data-website-id={UMAMI_WEBSITE_ID}
-            data-before-send="umamiBeforeSend"
-            data-do-not-track="true"
-            data-exclude-hash="true"
-          />
+          <UmamiTracker host={UMAMI_HOST} websiteId={UMAMI_WEBSITE_ID} />
         ) : null}
         <ThemeColorSync />
       </body>
