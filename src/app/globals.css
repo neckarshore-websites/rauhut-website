@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /* ===================================================================
-   Design tokens — Dark Mode is default (matches <html data-theme="dark">).
-   Light mode applies via :root[data-theme="light"] override.
+   Design tokens — Dark is the fallback (matches <html data-theme="dark">).
+   theme-init.js follows the device setting unless the visitor chose via the
+   switch. Light mode applies via :root[data-theme="light"] override.
    Theme values are Tailwind theme tokens via @theme (NOT @theme inline),
    so they are emitted as CSS variables and can be overridden at runtime.
    =================================================================== */

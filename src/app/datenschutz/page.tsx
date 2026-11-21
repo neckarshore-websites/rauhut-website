@@ -289,7 +289,9 @@ export default function DatenschutzPage() {
             Für die von Ihnen gewählte Designvariante (hell/dunkel) speichert die
             Website Ihre Auswahl im lokalen Speicher Ihres Browsers
             (»localStorage«). Diese Information verbleibt auf Ihrem Gerät und
-            wird nicht übertragen. Den Eintrag von Cloudflare beschreibt § 7.
+            wird nicht übertragen. Solange Sie nichts wählen, richtet sich die
+            Darstellung nach der Einstellung Ihres Geräts; diese wird nur in
+            Ihrem Browser ausgewertet, weder gespeichert noch übertragen. Den Eintrag von Cloudflare beschreibt § 7.
             Außerdem prüft das Zählskript, ob Sie die Zählung im Speicher Ihres
             Browsers abgeschaltet haben (Eintrag „umami.disabled“); es legt
             selbst nichts an. Näheres in § 3.
