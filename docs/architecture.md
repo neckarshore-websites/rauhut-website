@@ -105,7 +105,7 @@ The visual system is defined in `src/app/globals.css`.
 | 5 | Reduced motion | Global `prefers-reduced-motion: reduce` handling plus explicit `Reveal` guard. |
 | 6 | Focus states | Global `:focus-visible` outline using the accent token. |
 
-The theme is intentionally DOM-driven. `public/theme-init.js` runs before first paint and updates `data-theme` when a stored light-mode preference exists. `ThemeToggle` then mutates the same attribute directly. React state is not used for theme synchronization, which avoids hydration drift and unnecessary rerenders.
+The theme is intentionally DOM-driven. `src/lib/theme-init.ts`, inlined into `<head>`, runs before first paint and sets `data-theme` from a stored choice, otherwise from the device setting (prefers-color-scheme), with dark as the fallback. `ThemeToggle` then mutates the same attribute directly. React state is not used for theme synchronization, which avoids hydration drift and unnecessary rerenders.
 
 ## SEO, Metadata, And Structured Data
 
@@ -184,7 +184,7 @@ Direct production deployment via `vercel --prod` is not part of the normal flow.
 
 **Rationale:** The personal brand intentionally uses a minimal black, white, gray, and pastel accent system. Default dark rendering also avoids a flash when no preference exists.
 
-**Affects:** `src/app/layout.tsx`, `src/app/globals.css`, `public/theme-init.js`, and `ThemeToggle`.
+**Affects:** `src/app/layout.tsx`, `src/app/globals.css`, `src/lib/theme-init.ts`, and `ThemeToggle`.
 
 ### Decision 3: DOM-driven theme state
 

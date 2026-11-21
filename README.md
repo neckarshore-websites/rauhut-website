@@ -40,7 +40,7 @@ Port **3001** (statt Standard 3000), um Kollision mit `neckarshore-website` zu v
 | `src/components/ThemeToggle.tsx` | Dark/Light Toggle (CSS-driven, DOM-only) |
 | `src/components/LangToggle.tsx` | DE/EN Sprach-Nav (SSR-friendly, current = span, other = Link) |
 | `src/fonts/Inter-Variable.woff2` | self-hosted Inter Variable (DSGVO) |
-| `public/theme-init.js` | Anti-Flash Script, laeuft vor Paint |
+| `src/lib/theme-init.ts` | Anti-flash script, inlined into `<head>`, runs before paint; follows the device setting unless a choice is stored |
 
 ## Design-Tokens
 
