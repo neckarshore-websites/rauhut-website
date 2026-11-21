@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { THEME_INIT } from "@/lib/theme-init";
 import { ThemeColorSync } from "@/components/ThemeColorSync";
 import UmamiTracker from "@/components/UmamiTracker";
 import { UMAMI_HOST, UMAMI_WEBSITE_ID } from "@/lib/umami";
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 // Browser chrome tint: the server value is the default (dark) --color-bg in
-// globals.css. theme-init.js follows the device setting unless a choice is
+// globals.css. src/lib/theme-init.ts follows the device setting unless a choice is
 // stored; ThemeColorSync rewrites the tag to the painted ground after
 // hydration, for the device setting and the switch alike.
 // tests/e2e/theme-color.spec.ts holds the tag against the painted background.
@@ -72,12 +73,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Anti-flash: runs before first paint. Trusted static asset
-            from /public — no user input, no XSS vector. */}
-        <Script
-          src="/theme-init.js"
-          strategy="beforeInteractive"
-        />
+        {/* Anti-flash: theme before first paint, see src/lib/theme-init.ts.
+            Fixed text, no user input, no XSS vector. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         {/* Umami's before-send hook must exist before the tracker's first
             request, so it loads beforeInteractive, ahead of the tracker. */}
         {UMAMI_WEBSITE_ID ? (
