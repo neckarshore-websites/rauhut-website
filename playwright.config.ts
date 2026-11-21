@@ -15,6 +15,9 @@ export default defineConfig({
   use: {
     baseURL,
     trace: "retain-on-failure",
+    // The site follows the device setting; the suites were written against the
+    // dark default, so they run on a dark device. system-theme.spec.ts covers light.
+    colorScheme: "dark",
   },
   projects: [
     {
