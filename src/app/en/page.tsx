@@ -95,12 +95,13 @@ export default function HomePageEN() {
           <header className="hero-glow mb-12 sm:mb-16">
             <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
               <div>
+                {/* agent-bridge #28, Founder 2026-11-24: the name is part of the H1 so
+                   search reads "German Rauhut" as the heading; both lines look exactly
+                   as before (role large, name beneath). */}
                 <h1 className="text-[1.8rem] font-semibold tracking-[-0.03em] text-text sm:text-[2.4rem]">
-                  Freelance Technical Product Owner
+                  <span className="block">Freelance Technical Product Owner</span>
+                  <span className="mt-3 block text-lg font-medium tracking-normal text-text sm:text-xl">German Rauhut</span>
                 </h1>
-                <p className="mt-3 text-lg font-medium text-text sm:text-xl">
-                  German Rauhut
-                </p>
                 <p className="mt-3 text-base text-text-muted sm:text-lg">
                   Getting enterprise programmes live — requirements, test,
                   release, distributed teams. AI delivery from shipping my own

@@ -11,7 +11,9 @@ test("German homepage renders the primary profile content", async ({
   // teal — teal is text-links only now; no heading on the page carries it.
   const h1 = page.getByRole("heading", { level: 1 });
   await expect(h1, "exactly one H1 on the page").toHaveCount(1);
-  await expect(h1).toHaveText("Freelance Technical Product Owner");
+  // agent-bridge #28 (Founder 2026-11-24): the name is the H1's second line,
+  // so the heading reads role + name; it still looks like role over name.
+  await expect(h1).toHaveText(/^Freelance Technical Product Owner\s*German Rauhut$/);
   await expect(h1).toHaveClass(/text-text/);
   await expect(h1).not.toHaveClass(/text-brand-teal/);
   await expect(
