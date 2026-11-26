@@ -16,7 +16,9 @@
     "lighthouse:mobile": "node scripts/lighthouse.mjs --quick --profile=mobile-4g",
     "lighthouse:5g": "node scripts/lighthouse.mjs --quick --profile=mobile-5g",
     "test:lighthouse:unit": "node --test scripts/lighthouse-profiles.test.mjs",
-    "test:unit": "node --test src/app/actions/inquiry.test.ts src/lib/kontakt-config.test.ts src/lib/honeypot.test.ts src/lib/turnstile-nutzung.test.ts src/lib/hero-network.test.ts scripts/lighthouse-url.test.mjs scripts/public-figures.test.mjs scripts/contact-mail.test.mjs scripts/contact-confirmation.test.mjs scripts/typography-tokens.test.mjs scripts/check-agent-files.test.mjs src/lib/umami.test.ts scripts/umami-before-send.test.mjs"
+    "test:unit": "node --test src/app/actions/inquiry.test.ts src/lib/kontakt-config.test.ts src/lib/honeypot.test.ts src/lib/turnstile-nutzung.test.ts src/lib/hero-network.test.ts scripts/lighthouse-url.test.mjs scripts/public-figures.test.mjs scripts/contact-mail.test.mjs scripts/contact-confirmation.test.mjs scripts/typography-tokens.test.mjs scripts/check-agent-files.test.mjs src/lib/umami.test.ts scripts/umami-before-send.test.mjs",
+    "check:unit-suites": "node scripts/check-unit-suites.mjs",
+    "test:unit-suites:unit": "node --test scripts/check-unit-suites.test.mjs"
   },
   "dependencies": {
     "next": "16.4.6",
