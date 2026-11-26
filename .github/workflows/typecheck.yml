@@ -1,0 +1,37 @@
+# Why this gate exists: `next build` type-checks only what the app imports, so a
+# type error in tests/ or scripts/ never turned a pull request red here. tsc ran in
+# no workflow of this repository (measured 2026-11-26; kaze-website once carried 47
+# TS5097 errors this way). Same gate as neckarshore-website typecheck.yml.
+name: Typecheck
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck:
+    name: TypeScript (tsc --noEmit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # No continue-on-error, no filter: tsc exits non-zero on any error. The run is
+      # cold, so it is the honest number; a local incremental run can show an older one.
+      - name: Run TypeScript typecheck
+        run: npx tsc --noEmit
