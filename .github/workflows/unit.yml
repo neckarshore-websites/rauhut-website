@@ -49,3 +49,11 @@ jobs:
       # gone, when an AGENTS.md is committed, or when CLAUDE.md carries the generated block.
       - name: Check the agentRules switch and agent files
         run: npm run check:agent-files
+
+      # Completeness guard (Lenin report 2026-10-17-f, row 17; neckarshore-website#401): every
+      # *.test file under tests/, scripts/ and src/ is named by a package.json script (path or
+      # glob), and every test:unit / test:*:unit script runs in a pull_request workflow.
+      - name: Check that every test file runs
+        run: |
+          npm run test:unit-suites:unit
+          npm run check:unit-suites
