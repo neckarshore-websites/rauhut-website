@@ -38,7 +38,7 @@ const COPY: Record<Lang, { offers: [Offer, Offer] }> = {
       },
       {
         title: "KI-Potenzialanalyse",
-        body: "Ein Workshop-Tag: wo KI-Agenten in konkreten Prozessen tragen — und wo nicht. Ablauf, Umfang und Preise bei Neckarshore AI.",
+        body: "Ein Workshop-Tag: wo KI-Agenten in konkreten Prozessen tragen — und wo nicht. Ablauf, Umfang und Preise unter der Marke neckarshore.ai.",
         cta: {
           label: "Zur KI-Potenzialanalyse",
           href: "https://neckarshore.ai/ki-beratung?ref=rauhut",
@@ -60,7 +60,7 @@ const COPY: Record<Lang, { offers: [Offer, Offer] }> = {
       },
       {
         title: "AI potential analysis",
-        body: "A workshop day: where AI agents carry in real processes — and where they do not. Scope, format and pricing at Neckarshore AI.",
+        body: "A workshop day: where AI agents carry in real processes — and where they do not. Scope, format and pricing under the brand neckarshore.ai.",
         cta: {
           label: "AI potential analysis",
           href: "https://neckarshore.ai/ki-beratung?ref=rauhut",

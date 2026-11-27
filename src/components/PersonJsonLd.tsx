@@ -33,11 +33,8 @@ export default function PersonJsonLd({ lang = "de" }: { lang?: Lang }) {
     image: "https://rauhut.com/opengraph-image",
     jobTitle: "Freelance Technical Product Owner",
     description: DESCRIPTIONS[lang],
-    worksFor: {
-      "@type": "Organization",
-      name: "Neckarshore AI",
-      url: "https://neckarshore.ai",
-    },
+    // agent-bridge #41 (2026-11-27): no worksFor. neckarshore.ai is German's own brand, not an
+    // Organization that employs him. The Offers section links to its /ki-beratung page.
     alumniOf: [
       {
         "@type": "Organization",
